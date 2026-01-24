@@ -1,0 +1,39 @@
+2026-01-24 13:47:11 [INFO] Starting Campus Monitor API Server
+2026-01-24 13:47:11 [INFO] Database connected successfully
+2026-01-24 13:47:11 [INFO] Database health check passed
+2026-01-24 13:47:11 [INFO] API server ready (press Ctrl+C to shutdown)
+2026-01-24 13:47:20 [WARN] Shutdown signal received
+2026-01-24 13:47:35 [INFO] Shutdown complete
+2026-01-24 13:54:11 [INFO] Starting Campus Monitor API Server
+2026-01-24 13:54:11 [INFO] Database connected successfully
+2026-01-24 13:54:11 [INFO] Database health check passed
+2026-01-24 13:54:11 [INFO] Connecting to MQTT broker: localhost:1883
+2026-01-24 13:54:11 [INFO] Successfully connected to MQTT broker
+2026-01-24 13:54:11 [INFO] MQTT connection established
+2026-01-24 13:54:11 [INFO] Successfully subscribed to topic: campus/probes/telemetry
+2026-01-24 13:54:11 [INFO] Successfully subscribed to topic: campus/probes/telemetry/offline
+2026-01-24 13:54:11 [INFO] MQTT client ready and subscribed to topics
+2026-01-24 13:54:11 [INFO] API server ready (press Ctrl+C to shutdown)
+2026-01-24 13:59:12 [WARN] Shutdown signal received
+2026-01-24 13:59:27 [INFO] Shutdown complete
+2026-01-24 13:59:27 [INFO] Disconnecting from MQTT broker
+2026-01-24 13:59:27 [INFO] Disconnected from MQTT broker
+2026-01-24 14:00:29 [INFO] Starting Campus Monitor API Server
+2026-01-24 14:00:29 [INFO] Database connected successfully
+2026-01-24 14:00:29 [INFO] Database health check passed
+2026-01-24 14:00:29 [INFO] Connecting to MQTT broker: localhost:1883
+2026-01-24 14:00:29 [INFO] Successfully connected to MQTT broker
+2026-01-24 14:00:29 [INFO] Subscribing to: campus/probes/telemetry
+2026-01-24 14:00:29 [INFO] MQTT connection established
+2026-01-24 14:00:29 [INFO] Successfully subscribed to topic: campus/probes/telemetry
+2026-01-24 14:00:29 [INFO] Subscribing to: campus/probes/telemetry/offline
+2026-01-24 14:00:29 [INFO] Successfully subscribed to topic: campus/probes/telemetry/offline
+2026-01-24 14:00:29 [INFO] MQTT subscriptions active - waiting for messages...
+2026-01-24 14:00:29 [INFO] API server ready (press Ctrl+C to shutdown)
+2026-01-24 14:00:45 [INFO] TELEMETRY RECEIVED on campus/probes/telemetry
+2026-01-24 14:00:45 [INFO] Raw payload: {"pid":"PROBE-SEC-05","type":"light","ts":"2026-01-24 14:00:45","epoch":1769252445,"rssi":-46,"lat":16,"loss":0,"dns":0,"ch":2,"cong":1,"bssid":"A4:C6:4F:83:CD:87","neighbors":5,"overlap":3}
+2026-01-24 14:00:45 [INFO] Parsed telemetry: ProbeID=PROBE-SEC-05, Type=light, RSSI=-46
+2026-01-24 14:00:59 [WARN] Shutdown signal received
+2026-01-24 14:01:14 [INFO] Shutdown complete
+2026-01-24 14:01:14 [INFO] Disconnecting from MQTT broker
+2026-01-24 14:01:14 [INFO] Disconnected from MQTT broker
