@@ -156,3 +156,38 @@
 2026-02-04 23:25:18 [INFO] Shutdown complete
 2026-02-04 23:25:18 [INFO] Disconnecting from MQTT broker
 2026-02-04 23:25:18 [INFO] Disconnected from MQTT broker
+2026-02-04 23:41:04 [INFO] Starting Campus Monitor API Server
+2026-02-04 23:41:04 [INFO] Database connected successfully
+2026-02-04 23:41:04 [INFO] Connecting to MQTT broker: localhost:1883
+2026-02-04 23:41:04 [INFO] MQTT connection established
+2026-02-04 23:41:04 [INFO] Successfully connected to MQTT broker
+2026-02-04 23:41:04 [INFO] Successfully subscribed to topic: campus/probes/telemetry
+2026-02-04 23:41:04 [INFO] Successfully subscribed to topic: campus/probes/telemetry/offline
+2026-02-04 23:41:04 [INFO] MQTT subscriptions active
+2026-02-04 23:41:04 [INFO] All handlers registered
+2026-02-04 23:41:04 [INFO] API server ready on http://0.0.0.0:9080
+2026-02-04 23:41:04 [INFO] Starting HTTP server on 0.0.0.0:9080
+2026-02-04 23:42:18 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc0001a0f68
+2026-02-04 23:42:34 [WARN] Shutdown signal received
+2026-02-04 23:42:34 [INFO] Shutting down HTTP server...
+2026-02-04 23:42:34 [INFO] HTTP server stopped
+2026-02-04 23:42:34 [INFO] Shutdown complete
+2026-02-04 23:42:34 [INFO] Disconnecting from MQTT broker
+2026-02-04 23:42:34 [INFO] Disconnected from MQTT broker
+2026-02-04 23:45:13 [INFO] Starting Campus Monitor API Server
+2026-02-04 23:45:13 [INFO] Database connected successfully
+2026-02-04 23:45:13 [INFO] Connecting to MQTT broker: localhost:1883
+2026-02-04 23:45:13 [INFO] MQTT connection established
+2026-02-04 23:45:13 [INFO] Successfully connected to MQTT broker
+2026-02-04 23:45:13 [INFO] Successfully subscribed to topic: campus/probes/telemetry
+2026-02-04 23:45:13 [INFO] Successfully subscribed to topic: campus/probes/telemetry/offline
+2026-02-04 23:45:13 [INFO] MQTT subscriptions active
+2026-02-04 23:45:13 [INFO] All handlers registered
+2026-02-04 23:45:13 [INFO] Starting HTTP server on 0.0.0.0:9080
+2026-02-04 23:45:13 [INFO] API server ready on http://0.0.0.0:9080
+2026-02-04 23:45:15 [WARN] Shutdown signal received
+2026-02-04 23:45:15 [INFO] Shutting down HTTP server...
+2026-02-04 23:45:15 [INFO] HTTP server stopped
+2026-02-04 23:45:15 [INFO] Shutdown complete
+2026-02-04 23:45:15 [INFO] Disconnecting from MQTT broker
+2026-02-04 23:45:15 [INFO] Disconnected from MQTT broker

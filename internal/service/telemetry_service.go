@@ -61,14 +61,17 @@ func (s *TelemetryService) ProcessMessage(ctx context.Context, payload []byte) e
 	}
 
 	telemetry.ReceivedAt = time.Now()
-
+	if err := s.probeRepo.AutoDiscover(ctx, telemetry.ProbeID); err != nil {
+		s.log.Error("Failed to auto-discover probe %s: %v", telemetry.ProbeID, err)
+		return err
+	}
 	if err := s.telemetryRepo.Insert(ctx, telemetry); err != nil {
 		s.log.Error("Failed to insert telemetry: %v", err)
 		return err
 	}
 
 	s.log.Info("Telemetry stored: probe=%s, type=%s, rssi=%v",
-		telemetry.ProbeID, telemetry.Type, telemetry.RSSI)
+		telemetry.ProbeID, telemetry.Type, *telemetry.RSSI)
 
 	if err := s.probeRepo.UpdateLastSeen(ctx, telemetry.ProbeID, telemetry.Timestamp); err != nil {
 		s.log.Warn("Failed to update probe last_seen: %v", err)

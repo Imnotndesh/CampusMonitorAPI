@@ -346,3 +346,23 @@ func (r *ProbeRepository) GetStale(ctx context.Context, threshold time.Duration)
 
 	return probes, nil
 }
+
+func (r *ProbeRepository) AutoDiscover(ctx context.Context, probeID string) error {
+	query := `
+		INSERT INTO probes (
+			probe_id, status, location, building, floor, department, 
+			firmware_version, last_seen, created_at, updated_at
+		) VALUES (
+			$1, 'pending', 'unknown', 'unknown', 'unknown', 'unknown', 
+			'unknown', NOW(), NOW(), NOW()
+		)
+		ON CONFLICT (probe_id) DO NOTHING
+	`
+
+	_, err := r.db.ExecContext(ctx, query, probeID)
+	if err != nil {
+		return fmt.Errorf("failed to auto-discover probe: %w", err)
+	}
+
+	return nil
+}
