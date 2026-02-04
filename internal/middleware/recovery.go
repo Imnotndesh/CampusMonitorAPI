@@ -1,5 +1,3 @@
-// internal/middleware/recovery.go
-
 package middleware
 
 import (

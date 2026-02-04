@@ -1,5 +1,3 @@
-// internal/service/telemetry_service.go
-
 package service
 
 import (

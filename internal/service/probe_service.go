@@ -1,5 +1,3 @@
-// internal/service/probe_service.go
-
 package service
 
 import (

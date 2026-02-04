@@ -1,5 +1,3 @@
-// internal/config/config.go (Updated with Logger config)
-
 package config
 
 import (

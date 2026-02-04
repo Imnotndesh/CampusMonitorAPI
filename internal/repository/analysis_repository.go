@@ -1,5 +1,3 @@
-// internal/repository/analytics_repository.go
-
 package repository
 
 import (

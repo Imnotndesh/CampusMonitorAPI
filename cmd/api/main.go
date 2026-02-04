@@ -1,5 +1,3 @@
-// cmd/api/main.go (Complete Integration)
-
 package main
 
 import (

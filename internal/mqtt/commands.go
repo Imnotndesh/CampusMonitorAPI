@@ -1,5 +1,3 @@
-// internal/mqtt/commands.go
-
 package mqtt
 
 import (

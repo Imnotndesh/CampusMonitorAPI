@@ -1,5 +1,3 @@
-// internal/service/analytics_service.go
-
 package service
 
 import (

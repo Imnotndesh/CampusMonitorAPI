@@ -1,5 +1,3 @@
-// internal/mqtt/health.go
-
 package mqtt
 
 import (

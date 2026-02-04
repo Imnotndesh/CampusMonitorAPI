@@ -1,5 +1,3 @@
-// internal/handler/analytics_handler.go
-
 package handler
 
 import (

@@ -1,5 +1,3 @@
-// internal/handler/telemetry_handler.go
-
 package handler
 
 import (
