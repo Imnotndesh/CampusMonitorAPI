@@ -133,3 +133,26 @@
 2026-02-04 23:15:47 [INFO] Shutdown complete
 2026-02-04 23:15:47 [INFO] Disconnecting from MQTT broker
 2026-02-04 23:15:47 [INFO] Disconnected from MQTT broker
+2026-02-04 23:24:04 [INFO] Starting Campus Monitor API Server
+2026-02-04 23:24:04 [INFO] Database connected successfully
+2026-02-04 23:24:04 [INFO] Connecting to MQTT broker: localhost:1883
+2026-02-04 23:24:04 [INFO] Successfully connected to MQTT broker
+2026-02-04 23:24:04 [INFO] MQTT connection established
+2026-02-04 23:24:04 [INFO] Successfully subscribed to topic: campus/probes/telemetry
+2026-02-04 23:24:04 [INFO] Successfully subscribed to topic: campus/probes/telemetry/offline
+2026-02-04 23:24:04 [INFO] MQTT subscriptions active
+2026-02-04 23:24:04 [INFO] All handlers registered
+2026-02-04 23:24:04 [INFO] Starting HTTP server on 0.0.0.0:9080
+2026-02-04 23:24:04 [INFO] API server ready on http://0.0.0.0:9080
+2026-02-04 23:24:38 [ERROR] Failed to insert telemetry: failed to insert telemetry: pq: insert or update on table "_hyper_1_3_chunk" violates foreign key constraint "3_3_fk_probe"
+2026-02-04 23:24:38 [ERROR] Failed to process telemetry: failed to insert telemetry: pq: insert or update on table "_hyper_1_3_chunk" violates foreign key constraint "3_3_fk_probe"
+2026-02-04 23:24:38 [ERROR] Handler error for topic campus/probes/telemetry: failed to insert telemetry: pq: insert or update on table "_hyper_1_3_chunk" violates foreign key constraint "3_3_fk_probe"
+2026-02-04 23:25:08 [ERROR] Failed to insert telemetry: failed to insert telemetry: pq: insert or update on table "_hyper_1_4_chunk" violates foreign key constraint "4_4_fk_probe"
+2026-02-04 23:25:08 [ERROR] Failed to process telemetry: failed to insert telemetry: pq: insert or update on table "_hyper_1_4_chunk" violates foreign key constraint "4_4_fk_probe"
+2026-02-04 23:25:08 [ERROR] Handler error for topic campus/probes/telemetry: failed to insert telemetry: pq: insert or update on table "_hyper_1_4_chunk" violates foreign key constraint "4_4_fk_probe"
+2026-02-04 23:25:18 [WARN] Shutdown signal received
+2026-02-04 23:25:18 [INFO] Shutting down HTTP server...
+2026-02-04 23:25:18 [INFO] HTTP server stopped
+2026-02-04 23:25:18 [INFO] Shutdown complete
+2026-02-04 23:25:18 [INFO] Disconnecting from MQTT broker
+2026-02-04 23:25:18 [INFO] Disconnected from MQTT broker

@@ -15,6 +15,8 @@ type TelemetryRepository struct {
 	db *sql.DB
 }
 
+//TODO: WHEN BUILDING OUT THE UI PLEASE ADD AN INDUCTION SECTION IN ORDER TO INTEGRATE THE PROBE INTO THE PROBE DATABASE.
+
 func NewTelemetryRepository(db *sql.DB) *TelemetryRepository {
 	return &TelemetryRepository{db: db}
 }
