@@ -1,10 +1,9 @@
-// internal/repository/telemetry_repository.go
-
 package repository
 
 import (
 	"context"
 	"database/sql"
+	"encoding/json"
 	"fmt"
 	"strings"
 	"time"
@@ -33,6 +32,18 @@ func (r *TelemetryRepository) Insert(ctx context.Context, telemetry *models.Tele
 		)
 	`
 
+	// Handle metadata: convert to JSON or use sql.NullString for NULL
+	var metadataVal interface{}
+	if telemetry.Metadata != nil && len(telemetry.Metadata) > 0 {
+		metadataJSON, err := json.Marshal(telemetry.Metadata)
+		if err != nil {
+			return fmt.Errorf("failed to marshal metadata: %w", err)
+		}
+		metadataVal = metadataJSON
+	} else {
+		metadataVal = nil // SQL NULL
+	}
+
 	_, err := r.db.ExecContext(
 		ctx, query,
 		telemetry.Timestamp,
@@ -54,7 +65,7 @@ func (r *TelemetryRepository) Insert(ctx context.Context, telemetry *models.Tele
 		telemetry.Throughput,
 		telemetry.NoiseFloor,
 		telemetry.Uptime,
-		telemetry.Metadata,
+		metadataVal,
 	)
 
 	if err != nil {
@@ -92,12 +103,23 @@ func (r *TelemetryRepository) InsertBatch(ctx context.Context, telemetries []mod
 	defer stmt.Close()
 
 	for _, t := range telemetries {
+		var metadataVal interface{}
+		if t.Metadata != nil && len(t.Metadata) > 0 {
+			metadataJSON, err := json.Marshal(t.Metadata)
+			if err != nil {
+				return fmt.Errorf("failed to marshal metadata: %w", err)
+			}
+			metadataVal = metadataJSON
+		} else {
+			metadataVal = nil
+		}
+
 		_, err := stmt.ExecContext(
 			ctx,
 			t.Timestamp, t.ProbeID, t.Type, t.RSSI, t.Latency, t.PacketLoss,
 			t.DNSTime, t.Channel, t.BSSID, t.Neighbors, t.Overlap, t.Congestion,
 			t.SNR, t.LinkQuality, t.Utilization, t.PhyMode, t.Throughput,
-			t.NoiseFloor, t.Uptime, t.Metadata,
+			t.NoiseFloor, t.Uptime, metadataVal,
 		)
 		if err != nil {
 			return fmt.Errorf("failed to insert telemetry batch: %w", err)
@@ -184,18 +206,27 @@ func (r *TelemetryRepository) Query(ctx context.Context, req *models.TelemetryQu
 	}
 	defer rows.Close()
 
-	telemetries := []models.Telemetry{}
+	var telemetries []models.Telemetry
 	for rows.Next() {
 		var t models.Telemetry
+		var metadataJSON sql.NullString
+
 		err := rows.Scan(
 			&t.Timestamp, &t.ProbeID, &t.Type, &t.RSSI, &t.Latency, &t.PacketLoss,
 			&t.DNSTime, &t.Channel, &t.BSSID, &t.Neighbors, &t.Overlap, &t.Congestion,
 			&t.SNR, &t.LinkQuality, &t.Utilization, &t.PhyMode, &t.Throughput,
-			&t.NoiseFloor, &t.Uptime, &t.ReceivedAt, &t.Metadata,
+			&t.NoiseFloor, &t.Uptime, &t.ReceivedAt, &metadataJSON,
 		)
 		if err != nil {
 			return nil, 0, fmt.Errorf("failed to scan telemetry: %w", err)
 		}
+
+		if metadataJSON.Valid && metadataJSON.String != "" {
+			if err := json.Unmarshal([]byte(metadataJSON.String), &t.Metadata); err != nil {
+				return nil, 0, fmt.Errorf("failed to unmarshal metadata: %w", err)
+			}
+		}
+
 		telemetries = append(telemetries, t)
 	}
 
@@ -227,15 +258,24 @@ func (r *TelemetryRepository) GetLatest(ctx context.Context, probeID string, lim
 	telemetries := []models.Telemetry{}
 	for rows.Next() {
 		var t models.Telemetry
+		var metadataJSON sql.NullString
+
 		err := rows.Scan(
 			&t.Timestamp, &t.ProbeID, &t.Type, &t.RSSI, &t.Latency, &t.PacketLoss,
 			&t.DNSTime, &t.Channel, &t.BSSID, &t.Neighbors, &t.Overlap, &t.Congestion,
 			&t.SNR, &t.LinkQuality, &t.Utilization, &t.PhyMode, &t.Throughput,
-			&t.NoiseFloor, &t.Uptime, &t.ReceivedAt, &t.Metadata,
+			&t.NoiseFloor, &t.Uptime, &t.ReceivedAt, &metadataJSON,
 		)
 		if err != nil {
 			return nil, fmt.Errorf("failed to scan telemetry: %w", err)
 		}
+
+		if metadataJSON.Valid && metadataJSON.String != "" {
+			if err := json.Unmarshal([]byte(metadataJSON.String), &t.Metadata); err != nil {
+				return nil, fmt.Errorf("failed to unmarshal metadata: %w", err)
+			}
+		}
+
 		telemetries = append(telemetries, t)
 	}
 
@@ -335,7 +375,7 @@ func (r *TelemetryRepository) GetHourlyStats(ctx context.Context, probeID string
 	}
 	defer rows.Close()
 
-	stats := []models.StatsResponse{}
+	var stats []models.StatsResponse
 	for rows.Next() {
 		var s models.StatsResponse
 		var hour time.Time

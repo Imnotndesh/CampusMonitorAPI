@@ -37,3 +37,99 @@
 2026-01-24 14:01:14 [INFO] Shutdown complete
 2026-01-24 14:01:14 [INFO] Disconnecting from MQTT broker
 2026-01-24 14:01:14 [INFO] Disconnected from MQTT broker
+2026-02-04 22:56:41 [INFO] Starting Campus Monitor API Server
+2026-02-04 22:56:41 [INFO] Database connected successfully
+2026-02-04 22:56:41 [INFO] Connecting to MQTT broker: localhost:1883
+2026-02-04 22:56:41 [INFO] MQTT connection established
+2026-02-04 22:56:41 [INFO] Successfully connected to MQTT broker
+2026-02-04 22:56:41 [INFO] Successfully subscribed to topic: campus/probes/telemetry
+2026-02-04 22:56:41 [INFO] Successfully subscribed to topic: campus/probes/telemetry/offline
+2026-02-04 22:56:41 [INFO] MQTT subscriptions active
+2026-02-04 22:56:41 [INFO] All handlers registered
+2026-02-04 22:56:41 [INFO] API server ready on http://0.0.0.0:8080
+2026-02-04 22:56:41 [INFO] Starting HTTP server on 0.0.0.0:8080
+2026-02-04 22:56:41 [FATAL] Server failed: server failed to start: listen tcp 0.0.0.0:8080: bind: address already in use
+2026-02-04 22:57:33 [INFO] Starting Campus Monitor API Server
+2026-02-04 22:57:33 [INFO] Database connected successfully
+2026-02-04 22:57:33 [INFO] Connecting to MQTT broker: localhost:1883
+2026-02-04 22:57:33 [INFO] Successfully connected to MQTT broker
+2026-02-04 22:57:33 [INFO] MQTT connection established
+2026-02-04 22:57:33 [INFO] Successfully subscribed to topic: campus/probes/telemetry
+2026-02-04 22:57:33 [INFO] Successfully subscribed to topic: campus/probes/telemetry/offline
+2026-02-04 22:57:33 [INFO] MQTT subscriptions active
+2026-02-04 22:57:33 [INFO] All handlers registered
+2026-02-04 22:57:33 [INFO] Starting HTTP server on 0.0.0.0:9080
+2026-02-04 22:57:33 [INFO] API server ready on http://0.0.0.0:9080
+2026-02-04 23:03:43 [ERROR] Failed to insert telemetry: failed to insert telemetry: sql: converting argument $20 type: unsupported type map[string]interface {}, a map
+2026-02-04 23:03:43 [ERROR] Failed to process telemetry: failed to insert telemetry: sql: converting argument $20 type: unsupported type map[string]interface {}, a map
+2026-02-04 23:03:43 [ERROR] Handler error for topic campus/probes/telemetry: failed to insert telemetry: sql: converting argument $20 type: unsupported type map[string]interface {}, a map
+2026-02-04 23:04:13 [ERROR] Failed to insert telemetry: failed to insert telemetry: sql: converting argument $20 type: unsupported type map[string]interface {}, a map
+2026-02-04 23:04:13 [ERROR] Failed to process telemetry: failed to insert telemetry: sql: converting argument $20 type: unsupported type map[string]interface {}, a map
+2026-02-04 23:04:13 [ERROR] Handler error for topic campus/probes/telemetry: failed to insert telemetry: sql: converting argument $20 type: unsupported type map[string]interface {}, a map
+2026-02-04 23:04:43 [ERROR] Failed to insert telemetry: failed to insert telemetry: sql: converting argument $20 type: unsupported type map[string]interface {}, a map
+2026-02-04 23:04:43 [ERROR] Failed to process telemetry: failed to insert telemetry: sql: converting argument $20 type: unsupported type map[string]interface {}, a map
+2026-02-04 23:04:43 [ERROR] Handler error for topic campus/probes/telemetry: failed to insert telemetry: sql: converting argument $20 type: unsupported type map[string]interface {}, a map
+2026-02-04 23:05:13 [ERROR] Failed to insert telemetry: failed to insert telemetry: sql: converting argument $20 type: unsupported type map[string]interface {}, a map
+2026-02-04 23:05:13 [ERROR] Failed to process telemetry: failed to insert telemetry: sql: converting argument $20 type: unsupported type map[string]interface {}, a map
+2026-02-04 23:05:13 [ERROR] Handler error for topic campus/probes/telemetry: failed to insert telemetry: sql: converting argument $20 type: unsupported type map[string]interface {}, a map
+2026-02-04 23:05:15 [WARN] Shutdown signal received
+2026-02-04 23:05:15 [INFO] Shutting down HTTP server...
+2026-02-04 23:05:15 [INFO] HTTP server stopped
+2026-02-04 23:05:15 [INFO] Shutdown complete
+2026-02-04 23:05:15 [INFO] Disconnecting from MQTT broker
+2026-02-04 23:05:15 [INFO] Disconnected from MQTT broker
+2026-02-04 23:06:22 [INFO] Starting Campus Monitor API Server
+2026-02-04 23:06:22 [INFO] Database connected successfully
+2026-02-04 23:06:22 [INFO] Connecting to MQTT broker: localhost:1883
+2026-02-04 23:06:22 [INFO] Successfully connected to MQTT broker
+2026-02-04 23:06:22 [INFO] MQTT connection established
+2026-02-04 23:06:22 [INFO] Successfully subscribed to topic: campus/probes/telemetry
+2026-02-04 23:06:22 [INFO] Successfully subscribed to topic: campus/probes/telemetry/offline
+2026-02-04 23:06:22 [INFO] MQTT subscriptions active
+2026-02-04 23:06:22 [INFO] All handlers registered
+2026-02-04 23:06:22 [INFO] Starting HTTP server on 0.0.0.0:9080
+2026-02-04 23:06:22 [INFO] API server ready on http://0.0.0.0:9080
+2026-02-04 23:07:07 [ERROR] Failed to insert telemetry: failed to insert telemetry: pq: invalid input syntax for type json
+2026-02-04 23:07:07 [ERROR] Failed to process telemetry: failed to insert telemetry: pq: invalid input syntax for type json
+2026-02-04 23:07:07 [ERROR] Handler error for topic campus/probes/telemetry: failed to insert telemetry: pq: invalid input syntax for type json
+2026-02-04 23:07:37 [ERROR] Failed to insert telemetry: failed to insert telemetry: pq: invalid input syntax for type json
+2026-02-04 23:07:37 [ERROR] Failed to process telemetry: failed to insert telemetry: pq: invalid input syntax for type json
+2026-02-04 23:07:37 [ERROR] Handler error for topic campus/probes/telemetry: failed to insert telemetry: pq: invalid input syntax for type json
+2026-02-04 23:08:08 [ERROR] Failed to insert telemetry: failed to insert telemetry: pq: invalid input syntax for type json
+2026-02-04 23:08:08 [ERROR] Failed to process telemetry: failed to insert telemetry: pq: invalid input syntax for type json
+2026-02-04 23:08:08 [ERROR] Handler error for topic campus/probes/telemetry: failed to insert telemetry: pq: invalid input syntax for type json
+2026-02-04 23:08:38 [ERROR] Failed to insert telemetry: failed to insert telemetry: pq: invalid input syntax for type json
+2026-02-04 23:08:38 [ERROR] Failed to process telemetry: failed to insert telemetry: pq: invalid input syntax for type json
+2026-02-04 23:08:38 [ERROR] Handler error for topic campus/probes/telemetry: failed to insert telemetry: pq: invalid input syntax for type json
+2026-02-04 23:09:08 [ERROR] Failed to insert telemetry: failed to insert telemetry: pq: invalid input syntax for type json
+2026-02-04 23:09:08 [ERROR] Failed to process telemetry: failed to insert telemetry: pq: invalid input syntax for type json
+2026-02-04 23:09:08 [ERROR] Handler error for topic campus/probes/telemetry: failed to insert telemetry: pq: invalid input syntax for type json
+2026-02-04 23:09:29 [WARN] Shutdown signal received
+2026-02-04 23:09:29 [INFO] Shutting down HTTP server...
+2026-02-04 23:09:29 [INFO] HTTP server stopped
+2026-02-04 23:09:29 [INFO] Shutdown complete
+2026-02-04 23:09:29 [INFO] Disconnecting from MQTT broker
+2026-02-04 23:09:29 [INFO] Disconnected from MQTT broker
+2026-02-04 23:14:20 [INFO] Starting Campus Monitor API Server
+2026-02-04 23:14:20 [INFO] Database connected successfully
+2026-02-04 23:14:20 [INFO] Connecting to MQTT broker: localhost:1883
+2026-02-04 23:14:20 [INFO] Successfully connected to MQTT broker
+2026-02-04 23:14:20 [INFO] MQTT connection established
+2026-02-04 23:14:20 [INFO] Successfully subscribed to topic: campus/probes/telemetry
+2026-02-04 23:14:20 [INFO] Successfully subscribed to topic: campus/probes/telemetry/offline
+2026-02-04 23:14:20 [INFO] MQTT subscriptions active
+2026-02-04 23:14:20 [INFO] All handlers registered
+2026-02-04 23:14:20 [INFO] API server ready on http://0.0.0.0:9080
+2026-02-04 23:14:20 [INFO] Starting HTTP server on 0.0.0.0:9080
+2026-02-04 23:15:13 [ERROR] Failed to insert telemetry: failed to insert telemetry: pq: insert or update on table "_hyper_1_1_chunk" violates foreign key constraint "1_1_fk_probe"
+2026-02-04 23:15:13 [ERROR] Failed to process telemetry: failed to insert telemetry: pq: insert or update on table "_hyper_1_1_chunk" violates foreign key constraint "1_1_fk_probe"
+2026-02-04 23:15:13 [ERROR] Handler error for topic campus/probes/telemetry: failed to insert telemetry: pq: insert or update on table "_hyper_1_1_chunk" violates foreign key constraint "1_1_fk_probe"
+2026-02-04 23:15:43 [ERROR] Failed to insert telemetry: failed to insert telemetry: pq: insert or update on table "_hyper_1_2_chunk" violates foreign key constraint "2_2_fk_probe"
+2026-02-04 23:15:43 [ERROR] Failed to process telemetry: failed to insert telemetry: pq: insert or update on table "_hyper_1_2_chunk" violates foreign key constraint "2_2_fk_probe"
+2026-02-04 23:15:43 [ERROR] Handler error for topic campus/probes/telemetry: failed to insert telemetry: pq: insert or update on table "_hyper_1_2_chunk" violates foreign key constraint "2_2_fk_probe"
+2026-02-04 23:15:47 [WARN] Shutdown signal received
+2026-02-04 23:15:47 [INFO] Shutting down HTTP server...
+2026-02-04 23:15:47 [INFO] HTTP server stopped
+2026-02-04 23:15:47 [INFO] Shutdown complete
+2026-02-04 23:15:47 [INFO] Disconnecting from MQTT broker
+2026-02-04 23:15:47 [INFO] Disconnected from MQTT broker

@@ -1,8 +1,9 @@
+// cmd/api/main.go (Complete Integration)
+
 package main
 
 import (
 	"context"
-	"encoding/json"
 	"os"
 	"os/signal"
 	"syscall"
@@ -10,8 +11,12 @@ import (
 
 	"CampusMonitorAPI/internal/config"
 	"CampusMonitorAPI/internal/database"
+	"CampusMonitorAPI/internal/handler"
 	"CampusMonitorAPI/internal/logger"
 	"CampusMonitorAPI/internal/mqtt"
+	"CampusMonitorAPI/internal/repository"
+	"CampusMonitorAPI/internal/server"
+	"CampusMonitorAPI/internal/service"
 )
 
 func main() {
@@ -36,7 +41,6 @@ func main() {
 	}
 
 	cfg.Print()
-
 	log.Info("Starting Campus Monitor API Server")
 
 	db, err := database.New(&cfg.Database)
@@ -52,7 +56,11 @@ func main() {
 		log.Fatal("Database health check failed: %v", err)
 	}
 
-	log.Info("Database health check passed")
+	probeRepo := repository.NewProbeRepository(db.DB)
+	telemetryRepo := repository.NewTelemetryRepository(db.DB)
+	commandRepo := repository.NewCommandRepository(db.DB)
+	repository.NewAlertRepository(db.DB)
+	analyticsRepo := repository.NewAnalyticsRepository(db.DB)
 
 	mqttClient, err := mqtt.NewClient(mqtt.ClientConfig{
 		MQTT:   &cfg.MQTT,
@@ -61,57 +69,88 @@ func main() {
 	if err != nil {
 		log.Fatal("Failed to create MQTT client: %v", err)
 	}
-	defer mqttClient.Disconnect()
+	defer func(mqttClient *mqtt.Client) {
+		err := mqttClient.Disconnect()
+		if err != nil {
+			return
+		}
+	}(mqttClient)
 
 	if err := mqttClient.Connect(); err != nil {
 		log.Fatal("Failed to connect to MQTT broker: %v", err)
 	}
 
-	log.Info("Subscribing to: %s", cfg.MQTT.TelemetryTopic)
-	if err := mqttClient.Subscribe(cfg.MQTT.TelemetryTopic, handleTelemetry(log)); err != nil {
+	telemetryService := service.NewTelemetryService(telemetryRepo, probeRepo, log)
+	probeService := service.NewProbeService(probeRepo, log)
+	commandService := service.NewCommandService(commandRepo, mqttClient, log)
+	analyticsService := service.NewAnalyticsService(analyticsRepo, log)
+
+	if err := mqttClient.Subscribe(cfg.MQTT.TelemetryTopic, handleTelemetry(telemetryService, log)); err != nil {
 		log.Fatal("Failed to subscribe to telemetry topic: %v", err)
 	}
 
-	log.Info("Subscribing to: campus/probes/telemetry/offline")
-	if err := mqttClient.Subscribe("campus/probes/telemetry/offline", handleOfflineTelemetry(log)); err != nil {
+	if err := mqttClient.Subscribe("campus/probes/telemetry/offline", handleOfflineTelemetry(telemetryService, log)); err != nil {
 		log.Fatal("Failed to subscribe to offline telemetry topic: %v", err)
 	}
 
-	log.Info("MQTT subscriptions active - waiting for messages...")
+	log.Info("MQTT subscriptions active")
+
+	probeHandler := handler.NewProbeHandler(probeService, log)
+	telemetryHandler := handler.NewTelemetryHandler(telemetryService, log)
+	commandHandler := handler.NewCommandHandler(commandService, log)
+	analyticsHandler := handler.NewAnalyticsHandler(analyticsService, log)
+	healthHandler := handler.NewHealthHandler(db, mqttClient, log)
+
+	srv := server.New(cfg, log)
+	srv.RegisterHandlers(probeHandler, telemetryHandler, commandHandler, analyticsHandler, healthHandler)
+
+	go func() {
+		if err := srv.Start(); err != nil {
+			log.Fatal("Server failed: %v", err)
+		}
+	}()
+
+	log.Info("API server ready on http://%s:%d", cfg.Server.Host, cfg.Server.Port)
 
 	quit := make(chan os.Signal, 1)
 	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
-
-	log.Info("API server ready (press Ctrl+C to shutdown)")
 	<-quit
 
 	log.Warn("Shutdown signal received")
-	time.Sleep(cfg.Server.ShutdownTimeout)
+
+	shutdownCtx, cancel := context.WithTimeout(context.Background(), cfg.Server.ShutdownTimeout)
+	defer cancel()
+
+	if err := srv.Shutdown(shutdownCtx); err != nil {
+		log.Error("Server shutdown error: %v", err)
+	}
+
 	log.Info("Shutdown complete")
 }
 
-func handleTelemetry(log *logger.Logger) mqtt.MessageHandler {
+func handleTelemetry(service *service.TelemetryService, log *logger.Logger) mqtt.MessageHandler {
 	return func(topic string, payload []byte) error {
-		log.Info("TELEMETRY RECEIVED on %s", topic)
-		log.Info("Raw payload: %s", string(payload))
+		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+		defer cancel()
 
-		var data map[string]interface{}
-		if err := json.Unmarshal(payload, &data); err != nil {
-			log.Error("Failed to parse telemetry JSON: %v", err)
+		if err := service.ProcessMessage(ctx, payload); err != nil {
+			log.Error("Failed to process telemetry: %v", err)
 			return err
 		}
-
-		log.Info("Parsed telemetry: ProbeID=%s, Type=%s, RSSI=%v",
-			data["pid"], data["type"], data["rssi"])
-
 		return nil
 	}
 }
 
-func handleOfflineTelemetry(log *logger.Logger) mqtt.MessageHandler {
+func handleOfflineTelemetry(service *service.TelemetryService, log *logger.Logger) mqtt.MessageHandler {
 	return func(topic string, payload []byte) error {
-		log.Warn("OFFLINE TELEMETRY RECEIVED on %s", topic)
-		log.Info("Offline payload: %s", string(payload))
+		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+		defer cancel()
+
+		log.Info("Processing offline telemetry")
+		if err := service.ProcessMessage(ctx, payload); err != nil {
+			log.Error("Failed to process offline telemetry: %v", err)
+			return err
+		}
 		return nil
 	}
 }
