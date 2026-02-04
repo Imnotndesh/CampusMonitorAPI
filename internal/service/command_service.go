@@ -1,5 +1,3 @@
-// internal/service/command_service.go
-
 package service
 
 import (
