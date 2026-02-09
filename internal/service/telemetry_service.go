@@ -38,40 +38,65 @@ func (s *TelemetryService) ProcessMessage(ctx context.Context, payload []byte) e
 		return fmt.Errorf("invalid JSON: %w", err)
 	}
 
+	probeID, ok := rawData["pid"].(string)
+	if !ok {
+		return fmt.Errorf("missing probe_id")
+	}
+
+	// Auto-register unknown probes
+	_, err := s.probeRepo.GetByID(ctx, probeID)
+	if err != nil {
+		s.log.Info("Unknown probe detected: %s, auto-registering", probeID)
+
+		probe := &models.Probe{
+			ProbeID:         probeID,
+			Location:        "Unknown",
+			Building:        "Unknown",
+			Floor:           "Unknown",
+			Department:      "Unknown",
+			Status:          "unknown",
+			FirmwareVersion: "unknown",
+			LastSeen:        time.Now(),
+		}
+
+		if createErr := s.probeRepo.Create(ctx, probe); createErr != nil {
+			s.log.Error("Failed to auto-register probe: %v", createErr)
+		} else {
+			s.log.Info("Auto-registered probe: %s with status 'unknown'", probeID)
+		}
+	}
+
 	telemetryType, ok := rawData["type"].(string)
 	if !ok {
 		return fmt.Errorf("missing or invalid 'type' field")
 	}
 
 	var telemetry *models.Telemetry
-	var err error
+	var parseErr error
 
 	switch telemetryType {
 	case "light":
-		telemetry, err = s.parseLightTelemetry(rawData)
+		telemetry, parseErr = s.parseLightTelemetry(rawData)
 	case "enhanced":
-		telemetry, err = s.parseEnhancedTelemetry(rawData)
+		telemetry, parseErr = s.parseEnhancedTelemetry(rawData)
 	default:
 		return fmt.Errorf("unknown telemetry type: %s", telemetryType)
 	}
 
-	if err != nil {
-		s.log.Error("Failed to parse telemetry: %v", err)
-		return err
+	if parseErr != nil {
+		s.log.Error("Failed to parse telemetry: %v", parseErr)
+		return parseErr
 	}
 
 	telemetry.ReceivedAt = time.Now()
-	if err := s.probeRepo.AutoDiscover(ctx, telemetry.ProbeID); err != nil {
-		s.log.Error("Failed to auto-discover probe %s: %v", telemetry.ProbeID, err)
-		return err
-	}
+
 	if err := s.telemetryRepo.Insert(ctx, telemetry); err != nil {
 		s.log.Error("Failed to insert telemetry: %v", err)
 		return err
 	}
 
 	s.log.Info("Telemetry stored: probe=%s, type=%s, rssi=%v",
-		telemetry.ProbeID, telemetry.Type, *telemetry.RSSI)
+		telemetry.ProbeID, telemetry.Type, telemetry.RSSI)
 
 	if err := s.probeRepo.UpdateLastSeen(ctx, telemetry.ProbeID, telemetry.Timestamp); err != nil {
 		s.log.Warn("Failed to update probe last_seen: %v", err)

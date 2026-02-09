@@ -93,7 +93,7 @@ func main() {
 
 	log.Info("MQTT subscriptions active")
 
-	probeHandler := handler.NewProbeHandler(probeService, log)
+	probeHandler := handler.NewProbeHandler(probeService, commandService, log)
 	telemetryHandler := handler.NewTelemetryHandler(telemetryService, log)
 	commandHandler := handler.NewCommandHandler(commandService, log)
 	analyticsHandler := handler.NewAnalyticsHandler(analyticsService, log)
