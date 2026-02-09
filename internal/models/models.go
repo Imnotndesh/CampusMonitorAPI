@@ -61,17 +61,6 @@ type Alert struct {
 	Metadata       map[string]interface{} `json:"metadata" db:"metadata"`
 }
 
-type Command struct {
-	ID          int                    `json:"id" db:"id"`
-	ProbeID     string                 `json:"probe_id" db:"probe_id"`
-	CommandType string                 `json:"command_type" db:"command_type"`
-	Payload     map[string]interface{} `json:"payload" db:"payload"`
-	IssuedAt    time.Time              `json:"issued_at" db:"issued_at"`
-	ExecutedAt  *time.Time             `json:"executed_at" db:"executed_at"`
-	Status      string                 `json:"status" db:"status"`
-	Result      map[string]interface{} `json:"result" db:"result"`
-}
-
 type LightTelemetryMessage struct {
 	ProbeID    string  `json:"pid"`
 	Type       string  `json:"type"`
@@ -132,12 +121,6 @@ type TelemetryQueryResponse struct {
 	TotalCount int         `json:"total_count"`
 	Limit      int         `json:"limit"`
 	Offset     int         `json:"offset"`
-}
-
-type CommandRequest struct {
-	ProbeID     string                 `json:"probe_id" binding:"required"`
-	CommandType string                 `json:"command_type" binding:"required"`
-	Payload     map[string]interface{} `json:"payload"`
 }
 
 type StatsResponse struct {
@@ -245,4 +228,20 @@ type WSClient struct {
 	ProbeID      string
 	SendChannel  chan WSMessage
 	CloseChannel chan bool
+}
+type Command struct {
+	ID          int                    `json:"id"`
+	ProbeID     string                 `json:"probe_id"`
+	CommandType string                 `json:"command_type"`
+	Payload     map[string]interface{} `json:"payload,omitempty"`
+	Status      string                 `json:"status"`
+	Result      map[string]interface{} `json:"result,omitempty"`
+	IssuedAt    time.Time              `json:"issued_at"`
+	ExecutedAt  *time.Time             `json:"executed_at,omitempty"`
+}
+
+type CommandRequest struct {
+	ProbeID     string                 `json:"probe_id"`
+	CommandType string                 `json:"command_type"`
+	Payload     map[string]interface{} `json:"payload,omitempty"`
 }

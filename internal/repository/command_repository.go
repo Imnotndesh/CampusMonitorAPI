@@ -3,6 +3,7 @@ package repository
 import (
 	"context"
 	"database/sql"
+	"encoding/json"
 	"fmt"
 
 	"CampusMonitorAPI/internal/models"
@@ -22,12 +23,21 @@ func (r *CommandRepository) Create(ctx context.Context, cmd *models.Command) err
 		VALUES ($1, $2, $3, $4)
 		RETURNING id, issued_at
 	`
-
+	var payloadJSON []byte
+	if cmd.Payload != nil {
+		var err error
+		payloadJSON, err = json.Marshal(cmd.Payload)
+		if err != nil {
+			return fmt.Errorf("failed to marshal command payload: %w", err)
+		}
+	} else {
+		payloadJSON = []byte("{}")
+	}
 	err := r.db.QueryRowContext(
 		ctx, query,
 		cmd.ProbeID,
 		cmd.CommandType,
-		cmd.Payload,
+		payloadJSON,
 		cmd.Status,
 	).Scan(&cmd.ID, &cmd.IssuedAt)
 
@@ -145,22 +155,32 @@ func (r *CommandRepository) GetPending(ctx context.Context) ([]models.Command, e
 
 func (r *CommandRepository) UpdateStatus(ctx context.Context, commandID int, status string, result map[string]interface{}) error {
 	query := `
-		UPDATE commands
-		SET status = $2,
-		    result = $3,
-		    executed_at = CASE 
-		        WHEN $2 IN ('completed', 'failed') THEN NOW()
-		        ELSE executed_at
-		    END
-		WHERE id = $1
-	`
+       UPDATE commands
+       SET status = $2,
+           result = $3,
+           executed_at = CASE 
+               WHEN $2 IN ('completed', 'failed') THEN NOW()
+               ELSE executed_at
+           END
+       WHERE id = $1
+    `
+	var resultJSON []byte
+	if result != nil {
+		var err error
+		resultJSON, err = json.Marshal(result)
+		if err != nil {
+			return fmt.Errorf("failed to marshal command result: %w", err)
+		}
+	} else {
+		resultJSON = []byte("{}")
+	}
 
-	result_val, err := r.db.ExecContext(ctx, query, commandID, status, result)
+	res, err := r.db.ExecContext(ctx, query, commandID, status, resultJSON)
 	if err != nil {
 		return fmt.Errorf("failed to update command status: %w", err)
 	}
 
-	rows, err := result_val.RowsAffected()
+	rows, err := res.RowsAffected()
 	if err != nil {
 		return fmt.Errorf("failed to get affected rows: %w", err)
 	}
@@ -172,14 +192,14 @@ func (r *CommandRepository) UpdateStatus(ctx context.Context, commandID int, sta
 	return nil
 }
 
-func (r *CommandRepository) DeleteOld(ctx context.Context, olderThan int) (int64, error) {
+func (r *CommandRepository) DeleteOld(ctx context.Context, olderThanDays int) (int64, error) {
 	query := `
-		DELETE FROM commands
-		WHERE issued_at < NOW() - INTERVAL '1 day' * $1
-		  AND status IN ('completed', 'failed')
-	`
+       DELETE FROM commands
+       WHERE issued_at < NOW() - ($1 || ' days')::INTERVAL
+         AND status IN ('completed', 'failed')
+    `
 
-	result, err := r.db.ExecContext(ctx, query, olderThan)
+	result, err := r.db.ExecContext(ctx, query, olderThanDays)
 	if err != nil {
 		return 0, fmt.Errorf("failed to delete old commands: %w", err)
 	}
@@ -192,17 +212,14 @@ func (r *CommandRepository) DeleteOld(ctx context.Context, olderThan int) (int64
 	return rows, nil
 }
 
-func (r *CommandRepository) GetStatistics(ctx context.Context, probeID string) (map[string]int, error) {
+func (r *CommandRepository) GetStatistics(ctx context.Context) (map[string]int, error) {
 	query := `
-		SELECT 
-			status,
-			COUNT(*) as count
-		FROM commands
-		WHERE probe_id = $1
-		GROUP BY status
-	`
+       SELECT status, COUNT(*) as count
+       FROM commands
+       GROUP BY status
+    `
 
-	rows, err := r.db.QueryContext(ctx, query, probeID)
+	rows, err := r.db.QueryContext(ctx, query)
 	if err != nil {
 		return nil, fmt.Errorf("failed to get command statistics: %w", err)
 	}

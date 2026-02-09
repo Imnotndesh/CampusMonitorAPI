@@ -156,3 +156,660 @@
 2026-02-04 23:25:18 [INFO] Shutdown complete
 2026-02-04 23:25:18 [INFO] Disconnecting from MQTT broker
 2026-02-04 23:25:18 [INFO] Disconnected from MQTT broker
+2026-02-04 23:41:04 [INFO] Starting Campus Monitor API Server
+2026-02-04 23:41:04 [INFO] Database connected successfully
+2026-02-04 23:41:04 [INFO] Connecting to MQTT broker: localhost:1883
+2026-02-04 23:41:04 [INFO] MQTT connection established
+2026-02-04 23:41:04 [INFO] Successfully connected to MQTT broker
+2026-02-04 23:41:04 [INFO] Successfully subscribed to topic: campus/probes/telemetry
+2026-02-04 23:41:04 [INFO] Successfully subscribed to topic: campus/probes/telemetry/offline
+2026-02-04 23:41:04 [INFO] MQTT subscriptions active
+2026-02-04 23:41:04 [INFO] All handlers registered
+2026-02-04 23:41:04 [INFO] API server ready on http://0.0.0.0:9080
+2026-02-04 23:41:04 [INFO] Starting HTTP server on 0.0.0.0:9080
+2026-02-04 23:42:18 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc0001a0f68
+2026-02-04 23:42:34 [WARN] Shutdown signal received
+2026-02-04 23:42:34 [INFO] Shutting down HTTP server...
+2026-02-04 23:42:34 [INFO] HTTP server stopped
+2026-02-04 23:42:34 [INFO] Shutdown complete
+2026-02-04 23:42:34 [INFO] Disconnecting from MQTT broker
+2026-02-04 23:42:34 [INFO] Disconnected from MQTT broker
+2026-02-04 23:45:13 [INFO] Starting Campus Monitor API Server
+2026-02-04 23:45:13 [INFO] Database connected successfully
+2026-02-04 23:45:13 [INFO] Connecting to MQTT broker: localhost:1883
+2026-02-04 23:45:13 [INFO] MQTT connection established
+2026-02-04 23:45:13 [INFO] Successfully connected to MQTT broker
+2026-02-04 23:45:13 [INFO] Successfully subscribed to topic: campus/probes/telemetry
+2026-02-04 23:45:13 [INFO] Successfully subscribed to topic: campus/probes/telemetry/offline
+2026-02-04 23:45:13 [INFO] MQTT subscriptions active
+2026-02-04 23:45:13 [INFO] All handlers registered
+2026-02-04 23:45:13 [INFO] Starting HTTP server on 0.0.0.0:9080
+2026-02-04 23:45:13 [INFO] API server ready on http://0.0.0.0:9080
+2026-02-04 23:45:15 [WARN] Shutdown signal received
+2026-02-04 23:45:15 [INFO] Shutting down HTTP server...
+2026-02-04 23:45:15 [INFO] HTTP server stopped
+2026-02-04 23:45:15 [INFO] Shutdown complete
+2026-02-04 23:45:15 [INFO] Disconnecting from MQTT broker
+2026-02-04 23:45:15 [INFO] Disconnected from MQTT broker
+2026-02-06 11:26:17 [INFO] Starting Campus Monitor API Server
+2026-02-06 11:26:17 [FATAL] Failed to connect to database: failed to ping database: dial tcp [::1]:5432: connect: connection refused
+2026-02-06 11:26:53 [INFO] Starting Campus Monitor API Server
+2026-02-06 11:26:53 [INFO] Database connected successfully
+2026-02-06 11:26:53 [INFO] Connecting to MQTT broker: localhost:1883
+2026-02-06 11:26:53 [INFO] MQTT connection established
+2026-02-06 11:26:53 [INFO] Successfully connected to MQTT broker
+2026-02-06 11:26:53 [INFO] Successfully subscribed to topic: campus/probes/telemetry
+2026-02-06 11:26:53 [INFO] Successfully subscribed to topic: campus/probes/telemetry/offline
+2026-02-06 11:26:53 [INFO] MQTT subscriptions active
+2026-02-06 11:26:53 [INFO] All handlers registered
+2026-02-06 11:26:53 [INFO] API server ready on http://0.0.0.0:9080
+2026-02-06 11:26:53 [INFO] Starting HTTP server on 0.0.0.0:9080
+2026-02-06 11:38:41 [ERROR] Failed to list probes: failed to scan probe: sql: Scan error on column index 10, name "metadata": unsupported Scan, storing driver.Value type <nil> into type *map[string]interface {}
+2026-02-06 11:38:41 [INFO] GET /api/v1/probes 500 33ms 184 bytes
+2026-02-06 11:38:42 [ERROR] Failed to list probes: failed to scan probe: sql: Scan error on column index 10, name "metadata": unsupported Scan, storing driver.Value type <nil> into type *map[string]interface {}
+2026-02-06 11:38:42 [INFO] GET /api/v1/probes 500 0ms 184 bytes
+2026-02-06 11:38:44 [ERROR] Failed to list probes: failed to scan probe: sql: Scan error on column index 10, name "metadata": unsupported Scan, storing driver.Value type <nil> into type *map[string]interface {}
+2026-02-06 11:38:44 [INFO] GET /api/v1/probes 500 0ms 184 bytes
+2026-02-06 11:38:48 [ERROR] Failed to list probes: failed to scan probe: sql: Scan error on column index 10, name "metadata": unsupported Scan, storing driver.Value type <nil> into type *map[string]interface {}
+2026-02-06 11:38:48 [INFO] GET /api/v1/probes 500 2ms 184 bytes
+2026-02-06 11:38:58 [ERROR] Failed to list probes: failed to scan probe: sql: Scan error on column index 10, name "metadata": unsupported Scan, storing driver.Value type <nil> into type *map[string]interface {}
+2026-02-06 11:38:58 [INFO] GET /api/v1/probes 500 1ms 184 bytes
+2026-02-06 11:38:59 [ERROR] Failed to list probes: failed to scan probe: sql: Scan error on column index 10, name "metadata": unsupported Scan, storing driver.Value type <nil> into type *map[string]interface {}
+2026-02-06 11:38:59 [INFO] GET /api/v1/probes 500 0ms 184 bytes
+2026-02-06 11:39:01 [ERROR] Failed to list probes: failed to scan probe: sql: Scan error on column index 10, name "metadata": unsupported Scan, storing driver.Value type <nil> into type *map[string]interface {}
+2026-02-06 11:39:01 [INFO] GET /api/v1/probes 500 0ms 184 bytes
+2026-02-06 11:39:05 [ERROR] Failed to list probes: failed to scan probe: sql: Scan error on column index 10, name "metadata": unsupported Scan, storing driver.Value type <nil> into type *map[string]interface {}
+2026-02-06 11:39:05 [INFO] GET /api/v1/probes 500 0ms 184 bytes
+2026-02-06 11:39:15 [ERROR] Failed to list probes: failed to scan probe: sql: Scan error on column index 10, name "metadata": unsupported Scan, storing driver.Value type <nil> into type *map[string]interface {}
+2026-02-06 11:39:15 [INFO] GET /api/v1/probes 500 0ms 184 bytes
+2026-02-06 11:39:16 [ERROR] Failed to list probes: failed to scan probe: sql: Scan error on column index 10, name "metadata": unsupported Scan, storing driver.Value type <nil> into type *map[string]interface {}
+2026-02-06 11:39:16 [INFO] GET /api/v1/probes 500 0ms 184 bytes
+2026-02-06 11:45:44 [WARN] Shutdown signal received
+2026-02-06 11:45:44 [INFO] Shutting down HTTP server...
+2026-02-06 11:45:44 [INFO] HTTP server stopped
+2026-02-06 11:45:44 [INFO] Shutdown complete
+2026-02-06 11:45:44 [INFO] Disconnecting from MQTT broker
+2026-02-06 11:45:44 [INFO] Disconnected from MQTT broker
+2026-02-06 11:50:48 [INFO] Starting Campus Monitor API Server
+2026-02-06 11:50:48 [INFO] Database connected successfully
+2026-02-06 11:50:48 [INFO] Connecting to MQTT broker: localhost:1883
+2026-02-06 11:50:48 [INFO] Successfully connected to MQTT broker
+2026-02-06 11:50:48 [INFO] MQTT connection established
+2026-02-06 11:50:48 [INFO] Successfully subscribed to topic: campus/probes/telemetry
+2026-02-06 11:50:48 [INFO] Successfully subscribed to topic: campus/probes/telemetry/offline
+2026-02-06 11:50:48 [INFO] MQTT subscriptions active
+2026-02-06 11:50:48 [INFO] All handlers registered
+2026-02-06 11:50:48 [INFO] API server ready on http://0.0.0.0:9080
+2026-02-06 11:50:48 [INFO] Starting HTTP server on 0.0.0.0:9080
+2026-02-06 11:51:04 [INFO] GET /api/v1/probes 200 49ms 297 bytes
+2026-02-06 11:51:14 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 11:51:24 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 11:51:34 [INFO] GET /api/v1/probes 200 1ms 297 bytes
+2026-02-06 12:01:12 [ERROR] Failed to list probes: failed to query probes: pq: canceling statement due to user request
+2026-02-06 12:01:12 [INFO] GET /api/v1/probes 500 140ms 80 bytes
+2026-02-06 12:04:20 [INFO] GET /api/v1/probes 200 107ms 297 bytes
+2026-02-06 12:04:33 [INFO] GET /api/v1/probes 200 3ms 297 bytes
+2026-02-06 12:04:34 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 12:04:43 [INFO] GET /api/v1/probes 200 1ms 297 bytes
+2026-02-06 12:04:43 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 12:04:46 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 12:04:51 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 12:04:55 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 12:05:09 [INFO] GET /api/v1/probes 200 4ms 297 bytes
+2026-02-06 12:05:10 [INFO] GET /api/v1/probes 200 1ms 297 bytes
+2026-02-06 12:05:11 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 12:05:11 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 12:05:50 [INFO] GET /api/v1/probes 200 3ms 297 bytes
+2026-02-06 12:06:23 [INFO] GET /api/v1/probes 200 1ms 297 bytes
+2026-02-06 12:06:25 [INFO] GET /api/v1/probes 200 1ms 297 bytes
+2026-02-06 12:06:28 [INFO] GET /api/v1/probes 200 6ms 297 bytes
+2026-02-06 12:06:30 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 12:07:07 [INFO] GET /api/v1/probes 200 1ms 297 bytes
+2026-02-06 12:16:23 [INFO] GET /api/v1/probes 200 243ms 297 bytes
+2026-02-06 12:16:25 [INFO] GET /api/v1/probes 200 1ms 297 bytes
+2026-02-06 12:16:45 [INFO] GET /api/v1/probes 200 2ms 297 bytes
+2026-02-06 12:16:46 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 12:16:54 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 12:17:05 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 12:17:08 [INFO] GET /api/v1/probes 200 1ms 297 bytes
+2026-02-06 12:17:19 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 12:17:19 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 12:17:24 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 12:17:29 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 12:17:58 [INFO] GET /api/v1/probes 200 1ms 297 bytes
+2026-02-06 12:18:03 [INFO] GET /api/v1/probes 200 1ms 297 bytes
+2026-02-06 12:18:08 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 12:19:44 [INFO] GET /api/v1/probes 200 1ms 297 bytes
+2026-02-06 12:21:39 [INFO] GET /api/v1/probes 200 22ms 297 bytes
+2026-02-06 12:21:42 [INFO] GET /api/v1/probes 200 1ms 297 bytes
+2026-02-06 12:21:42 [INFO] GET /api/v1/probes 200 2ms 297 bytes
+2026-02-06 12:21:46 [INFO] GET /api/v1/probes 200 2ms 297 bytes
+2026-02-06 12:21:47 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 12:21:49 [INFO] GET /api/v1/probes 200 1ms 297 bytes
+2026-02-06 12:21:58 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 12:21:59 [INFO] GET /api/v1/probes 200 1ms 297 bytes
+2026-02-06 12:22:04 [INFO] GET /api/v1/probes 200 1ms 297 bytes
+2026-02-06 12:22:05 [INFO] GET /api/v1/probes 200 1ms 297 bytes
+2026-02-06 12:22:06 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 12:22:07 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 12:22:12 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 12:22:14 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 12:22:28 [INFO] GET /api/v1/probes 200 2ms 297 bytes
+2026-02-06 12:22:28 [INFO] GET /api/v1/probes 200 5ms 297 bytes
+2026-02-06 12:22:32 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 12:23:45 [INFO] GET /api/v1/probes 200 1ms 297 bytes
+2026-02-06 12:23:47 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 12:23:51 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 12:24:01 [INFO] GET /api/v1/probes 200 1ms 297 bytes
+2026-02-06 12:28:49 [INFO] GET /api/v1/probes 200 114ms 297 bytes
+2026-02-06 12:28:49 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 12:28:50 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 12:28:51 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 12:28:53 [INFO] GET /api/v1/probes 200 1ms 297 bytes
+2026-02-06 12:34:03 [INFO] GET /api/v1/probes 200 128ms 297 bytes
+2026-02-06 12:34:32 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 12:34:33 [INFO] GET /api/v1/probes 200 1ms 297 bytes
+2026-02-06 12:34:36 [INFO] GET /api/v1/probes 200 1ms 297 bytes
+2026-02-06 12:34:42 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 12:34:52 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 12:45:32 [INFO] GET /api/v1/probes 200 31ms 297 bytes
+2026-02-06 12:45:34 [INFO] GET /api/v1/probes 200 1ms 297 bytes
+2026-02-06 12:45:37 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 12:45:58 [INFO] GET /api/v1/probes 200 1ms 297 bytes
+2026-02-06 12:46:00 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 12:46:02 [INFO] GET /api/v1/probes 200 1ms 297 bytes
+2026-02-06 12:46:03 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 12:46:04 [INFO] GET /api/v1/probes 200 1ms 297 bytes
+2026-02-06 12:51:15 [INFO] GET /api/v1/probes 200 179ms 297 bytes
+2026-02-06 12:51:25 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 12:51:35 [INFO] GET /api/v1/probes 200 1ms 297 bytes
+2026-02-06 12:51:45 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 12:51:55 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 12:52:05 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 12:52:15 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 12:52:25 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 12:52:35 [INFO] GET /api/v1/probes 200 2ms 297 bytes
+2026-02-06 12:52:45 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 12:52:55 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 12:53:05 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 12:53:06 [INFO] GET /api/v1/probes 200 1ms 297 bytes
+2026-02-06 12:53:16 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 12:53:30 [INFO] GET /api/v1/probes 200 3ms 297 bytes
+2026-02-06 12:53:40 [INFO] GET /api/v1/probes 200 1ms 297 bytes
+2026-02-06 12:53:49 [INFO] GET /api/v1/probes 200 1ms 297 bytes
+2026-02-06 12:54:00 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 12:54:10 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 12:54:14 [INFO] GET /api/v1/probes 200 1ms 297 bytes
+2026-02-06 12:54:31 [INFO] GET /api/v1/probes 200 1ms 297 bytes
+2026-02-06 12:54:33 [INFO] GET /api/v1/probes 200 1ms 297 bytes
+2026-02-06 12:54:34 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 12:55:09 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 12:55:59 [INFO] GET /api/v1/probes 200 25ms 297 bytes
+2026-02-06 12:56:09 [INFO] GET /api/v1/probes 200 1ms 297 bytes
+2026-02-06 12:56:17 [INFO] GET /api/v1/probes 200 27ms 297 bytes
+2026-02-06 12:56:18 [INFO] GET /api/v1/probes 200 1ms 297 bytes
+2026-02-06 12:56:48 [INFO] GET /api/v1/probes 200 1ms 297 bytes
+2026-02-06 12:56:50 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 12:56:50 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 12:57:00 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 12:57:10 [INFO] GET /api/v1/probes 200 1ms 297 bytes
+2026-02-06 12:57:10 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 12:57:36 [INFO] GET /api/v1/probes 200 1ms 297 bytes
+2026-02-06 12:57:46 [INFO] GET /api/v1/probes 200 1ms 297 bytes
+2026-02-06 12:59:24 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=-37
+2026-02-06 12:59:30 [INFO] GET /api/v1/probes 200 1ms 297 bytes
+2026-02-06 12:59:33 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 12:59:35 [INFO] GET /api/v1/probes 200 1ms 297 bytes
+2026-02-06 12:59:54 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=-34
+2026-02-06 13:00:04 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 13:00:05 [INFO] GET /api/v1/probes 200 1ms 297 bytes
+2026-02-06 13:00:24 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=-35
+2026-02-06 13:00:52 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 13:00:53 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=-40
+2026-02-06 13:01:24 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=-36
+2026-02-06 13:01:40 [INFO] GET /api/v1/probes 200 4ms 296 bytes
+2026-02-06 13:01:44 [INFO] GET /api/v1/probes 200 1ms 296 bytes
+2026-02-06 13:01:49 [INFO] GET /api/v1/probes 200 0ms 296 bytes
+2026-02-06 13:01:50 [INFO] Updating probe: PROBE-SEC-05
+2026-02-06 13:01:50 [ERROR] Failed to update probe: failed to update probe: sql: converting argument $7 type: unsupported type map[string]interface {}, a map
+2026-02-06 13:01:50 [ERROR] Failed to update probe: failed to update probe: sql: converting argument $7 type: unsupported type map[string]interface {}, a map
+2026-02-06 13:01:50 [INFO] PUT /api/v1/probes/PROBE-SEC-05 500 1ms 118 bytes
+2026-02-06 13:01:52 [INFO] Updating probe: PROBE-SEC-05
+2026-02-06 13:01:52 [ERROR] Failed to update probe: failed to update probe: sql: converting argument $7 type: unsupported type map[string]interface {}, a map
+2026-02-06 13:01:52 [ERROR] Failed to update probe: failed to update probe: sql: converting argument $7 type: unsupported type map[string]interface {}, a map
+2026-02-06 13:01:52 [INFO] PUT /api/v1/probes/PROBE-SEC-05 500 0ms 118 bytes
+2026-02-06 13:01:54 [INFO] GET /api/v1/probes 200 0ms 296 bytes
+2026-02-06 13:01:54 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=-41
+2026-02-06 13:01:57 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 13:01:59 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 13:02:38 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 13:02:39 [INFO] GET /api/v1/probes 200 1ms 297 bytes
+2026-02-06 13:02:49 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 13:02:59 [INFO] GET /api/v1/probes 200 2ms 297 bytes
+2026-02-06 13:03:09 [INFO] GET /api/v1/probes 200 2ms 297 bytes
+2026-02-06 13:03:19 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 13:03:29 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 13:03:39 [INFO] GET /api/v1/probes 200 7ms 297 bytes
+2026-02-06 13:03:49 [INFO] GET /api/v1/probes 200 1ms 297 bytes
+2026-02-06 13:03:59 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 13:04:09 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 13:04:19 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 13:04:29 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 13:04:39 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 13:04:57 [WARN] Shutdown signal received
+2026-02-06 13:04:57 [INFO] Shutting down HTTP server...
+2026-02-06 13:04:57 [INFO] HTTP server stopped
+2026-02-06 13:04:57 [INFO] Shutdown complete
+2026-02-06 13:04:57 [INFO] Disconnecting from MQTT broker
+2026-02-06 13:04:57 [INFO] Disconnected from MQTT broker
+2026-02-06 21:18:46 [INFO] Starting Campus Monitor API Server
+2026-02-06 21:18:46 [FATAL] Failed to connect to database: failed to ping database: dial tcp [::1]:5432: connect: connection refused
+2026-02-06 21:19:19 [INFO] Starting Campus Monitor API Server
+2026-02-06 21:19:19 [INFO] Database connected successfully
+2026-02-06 21:19:19 [INFO] Connecting to MQTT broker: localhost:1883
+2026-02-06 21:19:19 [INFO] Successfully connected to MQTT broker
+2026-02-06 21:19:19 [INFO] MQTT connection established
+2026-02-06 21:19:19 [INFO] Successfully subscribed to topic: campus/probes/telemetry
+2026-02-06 21:19:19 [INFO] Successfully subscribed to topic: campus/probes/telemetry/offline
+2026-02-06 21:19:19 [INFO] MQTT subscriptions active
+2026-02-06 21:19:19 [INFO] All handlers registered
+2026-02-06 21:19:19 [INFO] API server ready on http://0.0.0.0:9080
+2026-02-06 21:19:19 [INFO] Starting HTTP server on 0.0.0.0:9080
+2026-02-06 21:20:11 [INFO] GET /api/v1/probes 200 11ms 297 bytes
+2026-02-06 21:20:16 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 21:20:21 [INFO] GET /api/v1/probes 200 1ms 297 bytes
+2026-02-06 21:20:24 [INFO] Updating probe: PROBE-SEC-05
+2026-02-06 21:20:24 [ERROR] Failed to update probe: failed to update probe: sql: converting argument $7 type: unsupported type map[string]interface {}, a map
+2026-02-06 21:20:24 [ERROR] Failed to update probe: failed to update probe: sql: converting argument $7 type: unsupported type map[string]interface {}, a map
+2026-02-06 21:20:24 [INFO] PUT /api/v1/probes/PROBE-SEC-05 500 0ms 118 bytes
+2026-02-06 21:20:26 [INFO] GET /api/v1/probes 200 0ms 297 bytes
+2026-02-06 21:20:26 [INFO] Updating probe: PROBE-SEC-05
+2026-02-06 21:20:26 [ERROR] Failed to update probe: failed to update probe: sql: converting argument $7 type: unsupported type map[string]interface {}, a map
+2026-02-06 21:20:26 [ERROR] Failed to update probe: failed to update probe: sql: converting argument $7 type: unsupported type map[string]interface {}, a map
+2026-02-06 21:20:26 [INFO] PUT /api/v1/probes/PROBE-SEC-05 500 0ms 118 bytes
+2026-02-06 21:20:31 [INFO] GET /api/v1/probes 200 1ms 297 bytes
+2026-02-06 21:20:34 [INFO] Updating probe: PROBE-SEC-05
+2026-02-06 21:20:34 [ERROR] Failed to update probe: failed to update probe: sql: converting argument $7 type: unsupported type map[string]interface {}, a map
+2026-02-06 21:20:34 [ERROR] Failed to update probe: failed to update probe: sql: converting argument $7 type: unsupported type map[string]interface {}, a map
+2026-02-06 21:20:34 [INFO] PUT /api/v1/probes/PROBE-SEC-05 500 0ms 118 bytes
+2026-02-06 21:20:36 [INFO] GET /api/v1/probes 200 2ms 297 bytes
+2026-02-06 21:20:41 [INFO] GET /api/v1/probes 200 1ms 297 bytes
+2026-02-06 21:20:50 [INFO] GET /api/v1/probes 200 1ms 297 bytes
+2026-02-06 21:20:53 [INFO] GET /api/v1/probes 200 1ms 297 bytes
+2026-02-06 21:22:15 [WARN] Shutdown signal received
+2026-02-06 21:22:15 [INFO] Shutting down HTTP server...
+2026-02-06 21:22:15 [INFO] HTTP server stopped
+2026-02-06 21:22:15 [INFO] Shutdown complete
+2026-02-06 21:22:15 [INFO] Disconnecting from MQTT broker
+2026-02-06 21:22:15 [INFO] Disconnected from MQTT broker
+2026-02-06 21:26:44 [INFO] Starting Campus Monitor API Server
+2026-02-06 21:26:44 [INFO] Database connected successfully
+2026-02-06 21:26:44 [INFO] Connecting to MQTT broker: localhost:1883
+2026-02-06 21:26:44 [INFO] MQTT connection established
+2026-02-06 21:26:44 [INFO] Successfully connected to MQTT broker
+2026-02-06 21:26:44 [INFO] Successfully subscribed to topic: campus/probes/telemetry
+2026-02-06 21:26:44 [INFO] Successfully subscribed to topic: campus/probes/telemetry/offline
+2026-02-06 21:26:44 [INFO] MQTT subscriptions active
+2026-02-06 21:26:44 [INFO] All handlers registered
+2026-02-06 21:26:44 [INFO] API server ready on http://0.0.0.0:9080
+2026-02-06 21:26:44 [INFO] Starting HTTP server on 0.0.0.0:9080
+2026-02-06 21:28:31 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=-48
+2026-02-06 21:28:45 [INFO] GET /api/v1/probes 200 3ms 296 bytes
+2026-02-06 21:28:51 [INFO] GET /api/v1/probes 200 0ms 296 bytes
+2026-02-06 21:29:01 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=-49
+2026-02-06 21:29:03 [INFO] GET /api/v1/probes 200 1ms 297 bytes
+2026-02-06 21:29:08 [INFO] GET /api/v1/probes 200 1ms 297 bytes
+2026-02-06 21:29:09 [INFO] Updating probe: PROBE-SEC-05
+2026-02-06 21:29:09 [ERROR] Failed to update probe: failed to get probe: sql: Scan error on column index 10, name "metadata": unsupported Scan, storing driver.Value type <nil> into type *map[string]interface {}
+2026-02-06 21:29:09 [INFO] PUT /api/v1/probes/PROBE-SEC-05 500 12ms 183 bytes
+2026-02-06 21:29:13 [INFO] GET /api/v1/probes 200 0ms 293 bytes
+2026-02-06 21:29:31 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=-50
+2026-02-06 21:29:41 [INFO] GET /api/v1/probes 200 2ms 293 bytes
+2026-02-06 21:30:01 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=-47
+2026-02-06 21:30:31 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=-48
+2026-02-06 21:31:01 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=-50
+2026-02-06 21:31:10 [WARN] Shutdown signal received
+2026-02-06 21:31:10 [INFO] Shutting down HTTP server...
+2026-02-06 21:31:10 [INFO] HTTP server stopped
+2026-02-06 21:31:10 [INFO] Shutdown complete
+2026-02-06 21:31:10 [INFO] Disconnecting from MQTT broker
+2026-02-06 21:31:10 [INFO] Disconnected from MQTT broker
+2026-02-06 21:31:12 [INFO] Starting Campus Monitor API Server
+2026-02-06 21:31:12 [INFO] Database connected successfully
+2026-02-06 21:31:12 [INFO] Connecting to MQTT broker: localhost:1883
+2026-02-06 21:31:12 [INFO] MQTT connection established
+2026-02-06 21:31:12 [INFO] Successfully connected to MQTT broker
+2026-02-06 21:31:12 [INFO] Successfully subscribed to topic: campus/probes/telemetry
+2026-02-06 21:31:12 [INFO] Successfully subscribed to topic: campus/probes/telemetry/offline
+2026-02-06 21:31:12 [INFO] MQTT subscriptions active
+2026-02-06 21:31:12 [INFO] All handlers registered
+2026-02-06 21:31:12 [INFO] Starting HTTP server on 0.0.0.0:9080
+2026-02-06 21:31:12 [INFO] API server ready on http://0.0.0.0:9080
+2026-02-06 21:31:30 [INFO] GET /api/v1/probes 200 9ms 293 bytes
+2026-02-06 21:31:31 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=-46
+2026-02-06 21:31:32 [INFO] Updating probe: PROBE-SEC-05
+2026-02-06 21:31:32 [INFO] Probe updated successfully: PROBE-SEC-05
+2026-02-06 21:31:32 [INFO] PUT /api/v1/probes/PROBE-SEC-05 200 11ms 291 bytes
+2026-02-06 21:31:32 [INFO] GET /api/v1/probes 200 0ms 293 bytes
+2026-02-06 21:31:37 [INFO] GET /api/v1/probes 200 0ms 293 bytes
+2026-02-06 21:31:42 [INFO] GET /api/v1/probes 200 0ms 293 bytes
+2026-02-06 21:31:47 [INFO] GET /api/v1/probes 200 0ms 293 bytes
+2026-02-06 21:31:52 [INFO] GET /api/v1/probes 200 0ms 293 bytes
+2026-02-06 21:31:57 [INFO] GET /api/v1/probes 200 0ms 293 bytes
+2026-02-06 21:32:01 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=-50
+2026-02-06 21:32:02 [INFO] GET /api/v1/probes 200 0ms 293 bytes
+2026-02-06 21:32:07 [INFO] GET /api/v1/probes 200 0ms 293 bytes
+2026-02-06 21:32:12 [INFO] GET /api/v1/probes 200 0ms 293 bytes
+2026-02-06 21:32:17 [INFO] GET /api/v1/probes 200 0ms 293 bytes
+2026-02-06 21:32:19 [INFO] GET /api/v1/probes 200 1ms 293 bytes
+2026-02-06 21:32:29 [INFO] GET /api/v1/probes 200 0ms 293 bytes
+2026-02-06 21:32:31 [INFO] GET /api/v1/probes 200 1ms 293 bytes
+2026-02-06 21:32:31 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=-53
+2026-02-06 21:32:35 [INFO] GET /api/v1/probes 200 0ms 293 bytes
+2026-02-06 21:32:44 [INFO] GET /api/v1/probes 200 0ms 293 bytes
+2026-02-06 21:32:49 [INFO] GET /api/v1/probes 200 0ms 293 bytes
+2026-02-06 21:32:54 [INFO] GET /api/v1/probes 200 0ms 293 bytes
+2026-02-06 21:32:59 [INFO] GET /api/v1/probes 200 0ms 293 bytes
+2026-02-06 21:33:01 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=-50
+2026-02-06 21:33:04 [INFO] GET /api/v1/probes 200 0ms 293 bytes
+2026-02-06 21:33:09 [INFO] GET /api/v1/probes 200 0ms 293 bytes
+2026-02-06 21:33:14 [INFO] GET /api/v1/probes 200 0ms 293 bytes
+2026-02-06 21:33:19 [INFO] GET /api/v1/probes 200 0ms 293 bytes
+2026-02-06 21:33:24 [INFO] GET /api/v1/probes 200 0ms 293 bytes
+2026-02-06 21:33:29 [INFO] GET /api/v1/probes 200 0ms 293 bytes
+2026-02-06 21:33:31 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=-48
+2026-02-06 21:33:34 [INFO] GET /api/v1/probes 200 0ms 293 bytes
+2026-02-06 21:33:39 [INFO] GET /api/v1/probes 200 0ms 293 bytes
+2026-02-06 21:33:44 [INFO] GET /api/v1/probes 200 0ms 293 bytes
+2026-02-06 21:33:49 [INFO] GET /api/v1/probes 200 0ms 293 bytes
+2026-02-06 21:33:54 [INFO] GET /api/v1/probes 200 0ms 293 bytes
+2026-02-06 21:33:59 [INFO] GET /api/v1/probes 200 1ms 293 bytes
+2026-02-06 21:34:01 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=-52
+2026-02-06 21:34:04 [INFO] GET /api/v1/probes 200 0ms 293 bytes
+2026-02-06 21:34:09 [INFO] GET /api/v1/probes 200 2ms 293 bytes
+2026-02-06 21:34:14 [INFO] GET /api/v1/probes 200 0ms 293 bytes
+2026-02-06 21:34:20 [INFO] GET /api/v1/probes 200 0ms 293 bytes
+2026-02-06 21:34:25 [INFO] GET /api/v1/probes 200 0ms 293 bytes
+2026-02-06 21:34:30 [INFO] GET /api/v1/probes 200 0ms 293 bytes
+2026-02-06 21:34:31 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=-50
+2026-02-06 21:34:35 [INFO] GET /api/v1/probes 200 0ms 292 bytes
+2026-02-06 21:34:48 [INFO] GET /api/v1/probes 200 0ms 292 bytes
+2026-02-06 21:34:53 [INFO] GET /api/v1/probes 200 0ms 292 bytes
+2026-02-06 21:34:58 [INFO] GET /api/v1/probes 200 0ms 292 bytes
+2026-02-06 21:35:01 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=-55
+2026-02-06 21:35:26 [INFO] GET /api/v1/probes 200 1ms 293 bytes
+2026-02-06 21:35:30 [INFO] GET /api/v1/probes 200 0ms 293 bytes
+2026-02-06 21:35:31 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=-53
+2026-02-06 21:36:01 [INFO] GET /api/v1/probes 200 1ms 293 bytes
+2026-02-06 21:36:02 [INFO] GET /api/v1/probes 200 1ms 293 bytes
+2026-02-06 21:36:12 [WARN] Shutdown signal received
+2026-02-06 21:36:12 [INFO] Shutting down HTTP server...
+2026-02-06 21:36:12 [INFO] HTTP server stopped
+2026-02-06 21:36:12 [INFO] Shutdown complete
+2026-02-06 21:36:12 [INFO] Disconnecting from MQTT broker
+2026-02-06 21:36:12 [INFO] Disconnected from MQTT broker
+2026-02-06 22:03:50 [INFO] Starting Campus Monitor API Server
+2026-02-06 22:03:50 [INFO] Database connected successfully
+2026-02-06 22:03:50 [INFO] Connecting to MQTT broker: localhost:1883
+2026-02-06 22:03:50 [INFO] Successfully connected to MQTT broker
+2026-02-06 22:03:50 [INFO] MQTT connection established
+2026-02-06 22:03:50 [INFO] Successfully subscribed to topic: campus/probes/telemetry
+2026-02-06 22:03:50 [INFO] Successfully subscribed to topic: campus/probes/telemetry/offline
+2026-02-06 22:03:50 [INFO] MQTT subscriptions active
+2026-02-06 22:03:50 [INFO] All handlers registered
+2026-02-06 22:03:50 [INFO] API server ready on http://0.0.0.0:9080
+2026-02-06 22:03:50 [INFO] Starting HTTP server on 0.0.0.0:9080
+2026-02-06 22:04:09 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc00019a4e0
+2026-02-06 22:04:39 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc00019a7a0
+2026-02-06 22:05:10 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc0003021e0
+2026-02-06 22:05:40 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc00019aac0
+2026-02-06 22:06:10 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc00029e1e0
+2026-02-06 22:06:40 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc00029e480
+2026-02-06 22:07:10 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc00019ae10
+2026-02-06 22:07:40 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc00019b0e0
+2026-02-06 22:08:10 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc00019b3c0
+2026-02-06 22:08:40 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc0003023e0
+2026-02-06 22:09:10 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc0003025f0
+2026-02-06 22:09:19 [INFO] GET /api/v1/probes 200 2ms 293 bytes
+2026-02-06 22:09:40 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc000015050
+2026-02-06 22:09:41 [INFO] GET /api/v1/probes 200 1ms 293 bytes
+2026-02-06 22:09:43 [INFO] GET /api/v1/probes 200 0ms 293 bytes
+2026-02-06 22:09:54 [INFO] GET /api/v1/probes 200 0ms 293 bytes
+2026-02-06 22:09:58 [INFO] GET /api/v1/probes 200 0ms 293 bytes
+2026-02-06 22:10:02 [INFO] GET /api/v1/probes 200 0ms 293 bytes
+2026-02-06 22:10:05 [INFO] Sending command deep_scan to probe PROBE-SEC-05
+2026-02-06 22:10:05 [INFO] Issuing command: type=deep_scan, probe=PROBE-SEC-05
+2026-02-06 22:10:05 [ERROR] Failed to create command: failed to create command: sql: converting argument $3 type: unsupported type map[string]interface {}, a map
+2026-02-06 22:10:05 [ERROR] Failed to issue command: failed to create command: sql: converting argument $3 type: unsupported type map[string]interface {}, a map
+2026-02-06 22:10:05 [INFO] POST /api/v1/probes/PROBE-SEC-05/command 500 0ms 120 bytes
+2026-02-06 22:10:09 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc0003b20d8
+2026-02-06 22:10:17 [INFO] Sending command reboot to probe PROBE-SEC-05
+2026-02-06 22:10:17 [INFO] Issuing command: type=reboot, probe=PROBE-SEC-05
+2026-02-06 22:10:17 [ERROR] Failed to create command: failed to create command: sql: converting argument $3 type: unsupported type map[string]interface {}, a map
+2026-02-06 22:10:17 [ERROR] Failed to issue command: failed to create command: sql: converting argument $3 type: unsupported type map[string]interface {}, a map
+2026-02-06 22:10:17 [INFO] POST /api/v1/probes/PROBE-SEC-05/command 500 0ms 120 bytes
+2026-02-06 22:10:32 [INFO] GET /api/v1/probes 200 0ms 293 bytes
+2026-02-06 22:10:39 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc0003b2390
+2026-02-06 22:11:03 [INFO] GET /api/v1/probes 200 1ms 293 bytes
+2026-02-06 22:11:10 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc00029e990
+2026-02-06 22:11:39 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc00029ec30
+2026-02-06 22:12:10 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc000302d50
+2026-02-06 22:12:40 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc000015d00
+2026-02-06 22:13:10 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc00029ef30
+2026-02-06 22:13:40 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc00029f1f0
+2026-02-06 22:24:55 [WARN] Shutdown signal received
+2026-02-06 22:24:55 [INFO] Shutting down HTTP server...
+2026-02-06 22:24:55 [INFO] HTTP server stopped
+2026-02-06 22:24:55 [INFO] Shutdown complete
+2026-02-06 22:24:55 [INFO] Disconnecting from MQTT broker
+2026-02-06 22:24:55 [INFO] Disconnected from MQTT broker
+2026-02-06 22:26:26 [INFO] Starting Campus Monitor API Server
+2026-02-06 22:26:26 [INFO] Database connected successfully
+2026-02-06 22:26:26 [INFO] Connecting to MQTT broker: localhost:1883
+2026-02-06 22:26:26 [INFO] MQTT connection established
+2026-02-06 22:26:26 [INFO] Successfully connected to MQTT broker
+2026-02-06 22:26:26 [INFO] Successfully subscribed to topic: campus/probes/telemetry
+2026-02-06 22:26:26 [INFO] Successfully subscribed to topic: campus/probes/telemetry/offline
+2026-02-06 22:26:26 [INFO] MQTT subscriptions active
+2026-02-06 22:26:26 [INFO] All handlers registered
+2026-02-06 22:26:26 [INFO] API server ready on http://0.0.0.0:9080
+2026-02-06 22:26:26 [INFO] Starting HTTP server on 0.0.0.0:9080
+2026-02-06 22:26:42 [INFO] GET /api/v1/probes 200 8ms 293 bytes
+2026-02-06 22:26:44 [INFO] GET /api/v1/probes 200 2ms 293 bytes
+2026-02-06 22:26:47 [INFO] GET /api/v1/probes 200 0ms 293 bytes
+2026-02-06 22:26:49 [INFO] GET /api/v1/probes 200 0ms 293 bytes
+2026-02-06 22:26:56 [INFO] GET /api/v1/probes 200 0ms 293 bytes
+2026-02-06 22:27:26 [INFO] GET /api/v1/probes 200 0ms 293 bytes
+2026-02-06 22:27:56 [INFO] GET /api/v1/probes 200 0ms 293 bytes
+2026-02-06 22:28:19 [INFO] Sending command deep_scan to probe PROBE-SEC-05
+2026-02-06 22:28:19 [INFO] Issuing command: type=deep_scan, probe=PROBE-SEC-05
+2026-02-06 22:28:19 [INFO] Sending deep scan command to probe: PROBE-SEC-05 (duration: 2s)
+2026-02-06 22:28:19 [INFO] Deep scan command sent successfully to probe: PROBE-SEC-05
+2026-02-06 22:28:19 [INFO] Command sent successfully: id=1
+2026-02-06 22:28:19 [INFO] POST /api/v1/probes/PROBE-SEC-05/command 200 15ms 236 bytes
+2026-02-06 22:28:26 [INFO] GET /api/v1/probes 200 1ms 293 bytes
+2026-02-06 22:28:36 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc0000b1540
+2026-02-06 22:28:56 [INFO] GET /api/v1/probes 200 0ms 293 bytes
+2026-02-06 22:29:06 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc0000b1990
+2026-02-06 22:29:18 [INFO] Sending command reboot to probe PROBE-SEC-05
+2026-02-06 22:29:18 [INFO] Issuing command: type=reboot, probe=PROBE-SEC-05
+2026-02-06 22:29:18 [ERROR] Failed to issue command: unknown command type: reboot
+2026-02-06 22:29:18 [INFO] POST /api/v1/probes/PROBE-SEC-05/command 500 11ms 41 bytes
+2026-02-06 22:29:26 [INFO] GET /api/v1/probes 200 0ms 293 bytes
+2026-02-06 22:29:36 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc0001a8390
+2026-02-06 22:29:56 [INFO] GET /api/v1/probes 200 2ms 293 bytes
+2026-02-06 22:30:06 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc0000b1dc0
+2026-02-06 22:30:19 [INFO] Sending command deep_scan to probe PROBE-SEC-05
+2026-02-06 22:30:20 [INFO] Issuing command: type=deep_scan, probe=PROBE-SEC-05
+2026-02-06 22:30:20 [INFO] Sending deep scan command to probe: PROBE-SEC-05 (duration: 2s)
+2026-02-06 22:30:20 [INFO] Deep scan command sent successfully to probe: PROBE-SEC-05
+2026-02-06 22:30:20 [INFO] Command sent successfully: id=3
+2026-02-06 22:30:20 [INFO] POST /api/v1/probes/PROBE-SEC-05/command 200 213ms 236 bytes
+2026-02-06 22:30:34 [INFO] GET /api/v1/probes 200 15ms 293 bytes
+2026-02-06 22:30:36 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc00038e0d0
+2026-02-06 22:31:06 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc00031efb0
+2026-02-06 22:31:36 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc00031f2a0
+2026-02-06 22:32:06 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc00031f560
+2026-02-06 22:32:32 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc00038e750
+2026-02-06 22:32:34 [INFO] GET /api/v1/probes 200 3ms 293 bytes
+2026-02-06 22:32:39 [INFO] Sending command reboot to probe PROBE-SEC-05
+2026-02-06 22:32:39 [INFO] Issuing command: type=reboot, probe=PROBE-SEC-05
+2026-02-06 22:32:39 [ERROR] Failed to issue command: unknown command type: reboot
+2026-02-06 22:32:39 [INFO] POST /api/v1/probes/PROBE-SEC-05/command 500 11ms 41 bytes
+2026-02-06 22:32:43 [INFO] GET /api/v1/probes 200 2ms 293 bytes
+2026-02-06 22:33:06 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc00038e8c0
+2026-02-06 22:33:36 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc0001a8930
+2026-02-06 23:09:46 [INFO] GET /api/v1/probes 200 239ms 293 bytes
+2026-02-06 23:09:48 [INFO] GET /api/v1/probes 200 0ms 293 bytes
+2026-02-06 23:09:53 [WARN] Shutdown signal received
+2026-02-06 23:09:53 [INFO] Shutting down HTTP server...
+2026-02-06 23:09:53 [INFO] HTTP server stopped
+2026-02-06 23:09:53 [INFO] Shutdown complete
+2026-02-06 23:09:53 [INFO] Disconnecting from MQTT broker
+2026-02-06 23:09:53 [INFO] Disconnected from MQTT broker
+2026-02-09 16:21:05 [INFO] Starting Campus Monitor API Server
+2026-02-09 16:21:05 [INFO] Database connected successfully
+2026-02-09 16:21:05 [INFO] Connecting to MQTT broker: localhost:1883
+2026-02-09 16:21:05 [INFO] Successfully connected to MQTT broker
+2026-02-09 16:21:05 [INFO] MQTT connection established
+2026-02-09 16:21:05 [INFO] Successfully subscribed to topic: campus/probes/telemetry
+2026-02-09 16:21:05 [INFO] Successfully subscribed to topic: campus/probes/telemetry/offline
+2026-02-09 16:21:05 [INFO] MQTT subscriptions active
+2026-02-09 16:21:05 [INFO] All handlers registered
+2026-02-09 16:21:05 [INFO] API server ready on http://0.0.0.0:9080
+2026-02-09 16:21:05 [INFO] Starting HTTP server on 0.0.0.0:9080
+2026-02-09 16:21:17 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc00009a2b0
+2026-02-09 16:21:35 [INFO] GET /api/v1/probes 200 3ms 293 bytes
+2026-02-09 16:21:37 [INFO] GET /api/v1/probes 200 0ms 293 bytes
+2026-02-09 16:21:47 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc000177160
+2026-02-09 16:22:07 [INFO] GET /api/v1/probes 200 0ms 293 bytes
+2026-02-09 16:22:17 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc0001775b0
+2026-02-09 16:22:25 [INFO] Sending command update_config to probe PROBE-SEC-05
+2026-02-09 16:22:25 [INFO] Issuing command: type=update_config, probe=PROBE-SEC-05
+2026-02-09 16:22:26 [INFO] Sending custom command: update_config
+2026-02-09 16:22:26 [INFO] Command sent to PROBE-SEC-05: update_config (ID: cmd-1770643346)
+2026-02-09 16:22:26 [ERROR] Failed to issue command: failed to update command status: sql: converting argument $3 type: unsupported type map[string]interface {}, a map
+2026-02-09 16:22:26 [INFO] POST /api/v1/probes/PROBE-SEC-05/command 500 129ms 127 bytes
+2026-02-09 16:22:38 [INFO] GET /api/v1/probes 200 3ms 293 bytes
+2026-02-09 16:22:45 [INFO] GET /api/v1/probes 200 1ms 293 bytes
+2026-02-09 16:22:46 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc000177bd0
+2026-02-09 16:22:49 [INFO] GET /api/v1/probes 200 0ms 292 bytes
+2026-02-09 16:22:50 [INFO] GET /api/v1/probes 200 1ms 292 bytes
+2026-02-09 16:22:51 [INFO] GET /api/v1/probes 200 1ms 292 bytes
+2026-02-09 16:22:57 [INFO] GET /api/v1/probes 200 0ms 292 bytes
+2026-02-09 16:22:58 [INFO] GET /api/v1/probes 200 0ms 292 bytes
+2026-02-09 16:23:08 [INFO] GET /api/v1/probes 200 3ms 292 bytes
+2026-02-09 16:23:17 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc00009ae20
+2026-02-09 16:23:18 [INFO] GET /api/v1/probes 200 3ms 293 bytes
+2026-02-09 16:23:28 [INFO] GET /api/v1/probes 200 1ms 293 bytes
+2026-02-09 16:23:37 [INFO] GET /api/v1/probes 200 0ms 293 bytes
+2026-02-09 16:23:41 [INFO] GET /api/v1/probes 200 1ms 293 bytes
+2026-02-09 16:23:47 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc0003ae5f0
+2026-02-09 16:23:51 [INFO] GET /api/v1/probes 200 0ms 293 bytes
+2026-02-09 16:23:53 [INFO] GET /api/v1/probes 200 0ms 293 bytes
+2026-02-09 16:23:55 [INFO] GET /api/v1/probes 200 0ms 293 bytes
+2026-02-09 16:24:17 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc0001a95a0
+2026-02-09 16:24:47 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc0002234f0
+2026-02-09 16:25:17 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc0003aeaf0
+2026-02-09 16:25:47 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc0001a97a0
+2026-02-09 16:26:17 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc0003af090
+2026-02-09 16:26:47 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc000223970
+2026-02-09 16:27:17 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc000223b50
+2026-02-09 16:27:47 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc0003af430
+2026-02-09 16:28:17 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc0001a9a50
+2026-02-09 16:28:49 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc00009b160
+2026-02-09 16:29:17 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc0001a9d40
+2026-02-09 16:29:45 [WARN] Shutdown signal received
+2026-02-09 16:29:45 [INFO] Shutting down HTTP server...
+2026-02-09 16:29:45 [INFO] HTTP server stopped
+2026-02-09 16:29:45 [INFO] Shutdown complete
+2026-02-09 16:29:45 [INFO] Disconnecting from MQTT broker
+2026-02-09 16:29:45 [INFO] Disconnected from MQTT broker
+2026-02-09 16:31:40 [INFO] Starting Campus Monitor API Server
+2026-02-09 16:31:40 [INFO] Database connected successfully
+2026-02-09 16:31:40 [INFO] Connecting to MQTT broker: localhost:1883
+2026-02-09 16:31:40 [INFO] Successfully connected to MQTT broker
+2026-02-09 16:31:40 [INFO] MQTT connection established
+2026-02-09 16:31:40 [INFO] Successfully subscribed to topic: campus/probes/telemetry
+2026-02-09 16:31:40 [INFO] Successfully subscribed to topic: campus/probes/telemetry/offline
+2026-02-09 16:31:40 [INFO] MQTT subscriptions active
+2026-02-09 16:31:40 [INFO] All handlers registered
+2026-02-09 16:31:40 [INFO] API server ready on http://0.0.0.0:9080
+2026-02-09 16:31:40 [INFO] Starting HTTP server on 0.0.0.0:9080
+2026-02-09 16:31:47 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc000314ba0
+2026-02-09 16:31:50 [INFO] GET /api/v1/probes 200 3ms 292 bytes
+2026-02-09 16:31:52 [INFO] GET /api/v1/probes 200 0ms 292 bytes
+2026-02-09 16:32:04 [INFO] GET /api/v1/probes 200 0ms 292 bytes
+2026-02-09 16:32:06 [INFO] GET /api/v1/probes 200 1ms 292 bytes
+2026-02-09 16:32:09 [INFO] Sending command reboot to probe PROBE-SEC-05
+2026-02-09 16:32:09 [INFO] Issuing command: type=reboot, probe=PROBE-SEC-05
+2026-02-09 16:32:09 [INFO] Sending custom command: reboot
+2026-02-09 16:32:09 [INFO] Command sent to PROBE-SEC-05: reboot (ID: cmd-1770643929)
+2026-02-09 16:32:09 [INFO] Command sent successfully: id=6, type=reboot, probe=PROBE-SEC-05
+2026-02-09 16:32:09 [INFO] POST /api/v1/probes/PROBE-SEC-05/command 200 101ms 185 bytes
+2026-02-09 16:32:17 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc000315900
+2026-02-09 16:32:36 [INFO] GET /api/v1/probes 200 13ms 292 bytes
+2026-02-09 16:32:46 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc000315d30
+2026-02-09 16:33:07 [INFO] GET /api/v1/probes 200 3ms 292 bytes
+2026-02-09 16:33:17 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc0000ba6b0
+2026-02-09 16:33:37 [INFO] GET /api/v1/probes 200 5ms 293 bytes
+2026-02-09 16:33:47 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc0000ba950
+2026-02-09 16:34:07 [INFO] GET /api/v1/probes 200 1ms 293 bytes
+2026-02-09 16:34:17 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc000015500
+2026-02-09 16:34:43 [INFO] GET /api/v1/probes 200 25ms 293 bytes
+2026-02-09 16:34:45 [INFO] Sending command restart to probe PROBE-SEC-05
+2026-02-09 16:34:45 [INFO] Issuing command: type=restart, probe=PROBE-SEC-05
+2026-02-09 16:34:45 [INFO] Command sent to PROBE-SEC-05: restart (ID: cmd-1770644085)
+2026-02-09 16:34:46 [INFO] Command sent successfully: id=7, type=restart, probe=PROBE-SEC-05
+2026-02-09 16:34:46 [INFO] POST /api/v1/probes/PROBE-SEC-05/command 200 53ms 186 bytes
+2026-02-09 16:34:47 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc0003441c0
+2026-02-09 16:35:13 [INFO] GET /api/v1/probes 200 2ms 293 bytes
+2026-02-09 16:35:30 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc000015a50
+2026-02-09 16:35:41 [INFO] Sending command update_config to probe PROBE-SEC-05
+2026-02-09 16:35:41 [INFO] Issuing command: type=update_config, probe=PROBE-SEC-05
+2026-02-09 16:35:41 [INFO] Sending custom command: update_config
+2026-02-09 16:35:41 [INFO] Command sent to PROBE-SEC-05: update_config (ID: cmd-1770644141)
+2026-02-09 16:35:41 [INFO] Command sent successfully: id=8, type=update_config, probe=PROBE-SEC-05
+2026-02-09 16:35:41 [INFO] POST /api/v1/probes/PROBE-SEC-05/command 200 41ms 192 bytes
+2026-02-09 16:35:43 [INFO] GET /api/v1/probes 200 5ms 293 bytes
+2026-02-09 16:36:00 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc00012a720
+2026-02-09 16:36:13 [INFO] GET /api/v1/probes 200 2ms 293 bytes
+2026-02-09 16:36:30 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc000344630
+2026-02-09 16:36:43 [INFO] GET /api/v1/probes 200 74ms 293 bytes
+2026-02-09 16:37:00 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc0003449e0
+2026-02-09 16:37:13 [INFO] GET /api/v1/probes 200 2ms 293 bytes
+2026-02-09 16:37:18 [INFO] GET /api/v1/probes 200 4ms 293 bytes
+2026-02-09 16:37:18 [INFO] GET /api/v1/probes 200 1ms 293 bytes
+2026-02-09 16:37:30 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc0002283b0
+2026-02-09 16:37:47 [INFO] Sending command config_update to probe PROBE-SEC-05
+2026-02-09 16:37:47 [INFO] Issuing command: type=config_update, probe=PROBE-SEC-05
+2026-02-09 16:37:47 [INFO] Command sent to PROBE-SEC-05: config_update (ID: cmd-1770644267)
+2026-02-09 16:37:47 [INFO] Command sent successfully: id=9, type=config_update, probe=PROBE-SEC-05
+2026-02-09 16:37:47 [INFO] POST /api/v1/probes/PROBE-SEC-05/command 200 130ms 192 bytes
+2026-02-09 16:37:48 [INFO] GET /api/v1/probes 200 6ms 292 bytes
+2026-02-09 16:38:00 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc000228510
+2026-02-09 16:38:08 [INFO] GET /api/v1/probes 200 1ms 293 bytes
+2026-02-09 16:38:10 [INFO] GET /api/v1/probes 200 1ms 293 bytes
+2026-02-09 16:38:23 [INFO] GET /api/v1/probes 200 1ms 293 bytes
+2026-02-09 16:38:30 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc00012ac90
+2026-02-09 16:38:34 [INFO] GET /api/v1/probes 200 1ms 293 bytes
+2026-02-09 16:38:42 [INFO] GET /api/v1/probes 200 1ms 293 bytes
+2026-02-09 16:39:00 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc000228dc0
+2026-02-09 16:39:25 [INFO] GET /api/v1/probes 200 0ms 293 bytes
+2026-02-09 16:39:29 [INFO] Sending command deep_scan to probe PROBE-SEC-05
+2026-02-09 16:39:29 [INFO] Issuing command: type=deep_scan, probe=PROBE-SEC-05
+2026-02-09 16:39:29 [INFO] Command sent to PROBE-SEC-05: deep_scan (ID: cmd-1770644369)
+2026-02-09 16:39:29 [INFO] Command sent successfully: id=10, type=deep_scan, probe=PROBE-SEC-05
+2026-02-09 16:39:29 [INFO] POST /api/v1/probes/PROBE-SEC-05/command 200 21ms 189 bytes
+2026-02-09 16:39:30 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc0002292f0
+2026-02-09 16:39:55 [INFO] GET /api/v1/probes 200 3ms 293 bytes
+2026-02-09 16:40:00 [INFO] Telemetry stored: probe=PROBE-SEC-05, type=light, rssi=0xc000345370
+2026-02-09 16:40:01 [INFO] GET /api/v1/probes 200 2ms 293 bytes
+2026-02-09 16:40:10 [INFO] GET /api/v1/probes 200 1ms 293 bytes
+2026-02-09 16:40:11 [INFO] GET /api/v1/probes 200 1ms 293 bytes
+2026-02-09 16:40:25 [WARN] Shutdown signal received
+2026-02-09 16:40:25 [INFO] Shutting down HTTP server...
+2026-02-09 16:40:25 [INFO] HTTP server stopped
+2026-02-09 16:40:25 [INFO] Shutdown complete
+2026-02-09 16:40:25 [INFO] Disconnecting from MQTT broker
+2026-02-09 16:40:25 [INFO] Disconnected from MQTT broker

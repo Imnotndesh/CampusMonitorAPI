@@ -4,6 +4,7 @@ import (
 	"CampusMonitorAPI/internal/models"
 	"context"
 	"database/sql"
+	"encoding/json"
 	"fmt"
 	"time"
 
@@ -52,14 +53,14 @@ func (r *ProbeRepository) Create(ctx context.Context, probe *models.Probe) error
 
 func (r *ProbeRepository) GetByID(ctx context.Context, probeID string) (*models.Probe, error) {
 	query := `
-		SELECT probe_id, location, building, floor, department, 
-			   status, firmware_version, last_seen, 
-			   created_at, updated_at, metadata
-		FROM probes
-		WHERE probe_id = $1
-	`
+        SELECT probe_id, location, building, floor, department, 
+               status, firmware_version, last_seen, created_at, updated_at, metadata
+        FROM probes
+        WHERE probe_id = $1`
 
-	probe := &models.Probe{}
+	var probe models.Probe
+	var metadataJSON []byte
+
 	err := r.db.QueryRowContext(ctx, query, probeID).Scan(
 		&probe.ProbeID,
 		&probe.Location,
@@ -71,17 +72,23 @@ func (r *ProbeRepository) GetByID(ctx context.Context, probeID string) (*models.
 		&probe.LastSeen,
 		&probe.CreatedAt,
 		&probe.UpdatedAt,
-		&probe.Metadata,
+		&metadataJSON,
 	)
 
-	if err == sql.ErrNoRows {
-		return nil, fmt.Errorf("probe %s not found", probeID)
-	}
 	if err != nil {
-		return nil, fmt.Errorf("failed to get probe: %w", err)
+		if err == sql.ErrNoRows {
+			return nil, fmt.Errorf("probe not found")
+		}
+		return nil, fmt.Errorf("failed to scan probe: %w", err)
 	}
 
-	return probe, nil
+	if len(metadataJSON) > 0 {
+		if err := json.Unmarshal(metadataJSON, &probe.Metadata); err != nil {
+			return nil, fmt.Errorf("failed to unmarshal metadata: %w", err)
+		}
+	}
+
+	return &probe, nil
 }
 
 func (r *ProbeRepository) GetAll(ctx context.Context) ([]models.Probe, error) {
@@ -102,6 +109,8 @@ func (r *ProbeRepository) GetAll(ctx context.Context) ([]models.Probe, error) {
 	probes := []models.Probe{}
 	for rows.Next() {
 		var probe models.Probe
+		var metadataJSON []byte
+
 		err := rows.Scan(
 			&probe.ProbeID,
 			&probe.Location,
@@ -113,29 +122,45 @@ func (r *ProbeRepository) GetAll(ctx context.Context) ([]models.Probe, error) {
 			&probe.LastSeen,
 			&probe.CreatedAt,
 			&probe.UpdatedAt,
-			&probe.Metadata,
+			&metadataJSON,
 		)
 		if err != nil {
 			return nil, fmt.Errorf("failed to scan probe: %w", err)
 		}
+		if len(metadataJSON) > 0 {
+			if err := json.Unmarshal(metadataJSON, &probe.Metadata); err != nil {
+				return nil, fmt.Errorf("failed to unmarshal metadata: %w", err)
+			}
+		}
+
 		probes = append(probes, probe)
 	}
 
 	return probes, nil
 }
-
 func (r *ProbeRepository) Update(ctx context.Context, probeID string, updates *models.UpdateProbeRequest) error {
 	query := `
-		UPDATE probes
-		SET location = COALESCE($2, location),
-		    building = COALESCE($3, building),
-		    floor = COALESCE($4, floor),
-		    department = COALESCE($5, department),
-		    status = COALESCE($6, status),
-		    metadata = COALESCE($7, metadata),
-		    updated_at = NOW()
-		WHERE probe_id = $1
-	`
+       UPDATE probes
+       SET location = COALESCE($2, location),
+           building = COALESCE($3, building),
+           floor = COALESCE($4, floor),
+           department = COALESCE($5, department),
+           status = COALESCE($6, status),
+           metadata = COALESCE($7, metadata),
+           updated_at = NOW()
+       WHERE probe_id = $1
+    `
+	var metadataArg interface{}
+
+	if updates.Metadata != nil {
+		metadataJSON, err := json.Marshal(updates.Metadata)
+		if err != nil {
+			return fmt.Errorf("failed to marshal metadata updates: %w", err)
+		}
+		metadataArg = metadataJSON
+	} else {
+		metadataArg = nil
+	}
 
 	result, err := r.db.ExecContext(
 		ctx, query,
@@ -145,7 +170,7 @@ func (r *ProbeRepository) Update(ctx context.Context, probeID string, updates *m
 		updates.Floor,
 		updates.Department,
 		updates.Status,
-		updates.Metadata,
+		metadataArg,
 	)
 
 	if err != nil {
@@ -345,4 +370,24 @@ func (r *ProbeRepository) GetStale(ctx context.Context, threshold time.Duration)
 	}
 
 	return probes, nil
+}
+
+func (r *ProbeRepository) AutoDiscover(ctx context.Context, probeID string) error {
+	query := `
+		INSERT INTO probes (
+			probe_id, status, location, building, floor, department, 
+			firmware_version, last_seen, created_at, updated_at
+		) VALUES (
+			$1, 'pending', 'unknown', 'unknown', 'unknown', 'unknown', 
+			'unknown', NOW(), NOW(), NOW()
+		)
+		ON CONFLICT (probe_id) DO NOTHING
+	`
+
+	_, err := r.db.ExecContext(ctx, query, probeID)
+	if err != nil {
+		return fmt.Errorf("failed to auto-discover probe: %w", err)
+	}
+
+	return nil
 }
