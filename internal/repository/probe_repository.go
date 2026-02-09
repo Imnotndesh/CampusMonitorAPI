@@ -7,8 +7,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"time"
-
-	"github.com/lib/pq"
 )
 
 type ProbeRepository struct {
@@ -21,15 +19,26 @@ func NewProbeRepository(db *sql.DB) *ProbeRepository {
 
 func (r *ProbeRepository) Create(ctx context.Context, probe *models.Probe) error {
 	query := `
-		INSERT INTO probes (
-			probe_id, location, building, floor, department, 
-			status, firmware_version, last_seen, metadata
-		) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
-		RETURNING created_at, updated_at
-	`
+        INSERT INTO probes (
+            probe_id, location, building, floor, department, 
+            status, firmware_version, last_seen, metadata
+        )
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+        RETURNING created_at
+    `
 
-	err := r.db.QueryRowContext(
-		ctx, query,
+	// --- FIX START: Convert Metadata Map to JSON Bytes ---
+	var metadataJSON []byte
+	if probe.Metadata != nil {
+		var err error
+		metadataJSON, err = json.Marshal(probe.Metadata)
+		if err != nil {
+			return fmt.Errorf("failed to marshal probe metadata: %w", err)
+		}
+	} else {
+		metadataJSON = []byte("{}")
+	}
+	err := r.db.QueryRowContext(ctx, query,
 		probe.ProbeID,
 		probe.Location,
 		probe.Building,
@@ -38,13 +47,10 @@ func (r *ProbeRepository) Create(ctx context.Context, probe *models.Probe) error
 		probe.Status,
 		probe.FirmwareVersion,
 		probe.LastSeen,
-		probe.Metadata,
-	).Scan(&probe.CreatedAt, &probe.UpdatedAt)
+		metadataJSON,
+	).Scan(&probe.CreatedAt)
 
 	if err != nil {
-		if pqErr, ok := err.(*pq.Error); ok && pqErr.Code == "23505" {
-			return fmt.Errorf("probe with ID %s already exists", probe.ProbeID)
-		}
 		return fmt.Errorf("failed to create probe: %w", err)
 	}
 

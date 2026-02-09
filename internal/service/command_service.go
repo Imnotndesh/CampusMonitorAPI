@@ -4,7 +4,9 @@ package service
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"time"
 
 	"CampusMonitorAPI/internal/logger"
 	"CampusMonitorAPI/internal/models"
@@ -14,6 +16,7 @@ import (
 
 type CommandService struct {
 	commandRepo *repository.CommandRepository
+	probeRepo   *repository.ProbeRepository
 	mqttClient  *mqtt.Client
 	log         *logger.Logger
 }
@@ -21,15 +24,27 @@ type CommandService struct {
 func NewCommandService(
 	commandRepo *repository.CommandRepository,
 	mqttClient *mqtt.Client,
+	probeRepo *repository.ProbeRepository,
 	log *logger.Logger,
 ) *CommandService {
 	return &CommandService{
 		commandRepo: commandRepo,
 		mqttClient:  mqttClient,
+		probeRepo:   probeRepo,
 		log:         log,
 	}
 }
+func (s *CommandService) UpdateResultByID(ctx context.Context, commandID int, result map[string]interface{}) error {
+	status := "completed"
+	err := s.commandRepo.UpdateStatus(ctx, commandID, status, result)
+	if err != nil {
+		s.log.Error("Failed to update command %d: %v", commandID, err)
+		return err
+	}
 
+	s.log.Info("Command %d manually updated via API", commandID)
+	return nil
+}
 func (s *CommandService) IssueCommand(ctx context.Context, req *models.CommandRequest) (*models.Command, error) {
 	s.log.Info("Issuing command: type=%s, probe=%s", req.CommandType, req.ProbeID)
 
@@ -129,17 +144,6 @@ func (s *CommandService) GetPendingCommands(ctx context.Context) ([]models.Comma
 	return s.commandRepo.GetPending(ctx)
 }
 
-func (s *CommandService) ProcessCommandResult(ctx context.Context, commandID int, result map[string]interface{}) error {
-	s.log.Info("Processing command result: id=%d", commandID)
-
-	status := "completed"
-	if success, ok := result["success"].(bool); ok && !success {
-		status = "failed"
-	}
-
-	return s.commandRepo.UpdateStatus(ctx, commandID, status, result)
-}
-
 func (s *CommandService) BroadcastCommand(ctx context.Context, commandType string, params map[string]interface{}) error {
 	s.log.Info("Broadcasting command: type=%s", commandType)
 	cmd := &models.Command{
@@ -200,4 +204,62 @@ func (s *CommandService) DeleteOldCommands(ctx context.Context, days int) (int, 
 
 	s.log.Info("Deleted %d old commands", count)
 	return int(count), nil
+}
+func (s *CommandService) ProcessCommandResult(ctx context.Context, payload []byte) error {
+	var result struct {
+		ProbeID   string                 `json:"probe_id"`
+		Command   string                 `json:"command"`
+		Status    string                 `json:"status"`
+		Result    map[string]interface{} `json:"result"`
+		CommandID string                 `json:"command_id"` // Optional
+	}
+
+	if err := json.Unmarshal(payload, &result); err != nil {
+		s.log.Error("Failed to unmarshal command result: %v", err)
+		return err
+	}
+
+	s.log.Info("Processing result: Probe=%s Cmd=%s Status=%s", result.ProbeID, result.Command, result.Status)
+
+	err := s.commandRepo.UpdateLatestResult(ctx, result.ProbeID, result.Command, result.Status, result.Result)
+	if err != nil {
+		s.log.Warn("Could not link result to a specific command history entry: %v", err)
+	}
+
+	if result.Status == "completed" {
+		switch result.Command {
+		case "deep_scan":
+			if err := s.commandRepo.PruneOldScans(ctx, result.ProbeID, 5); err != nil {
+				s.log.Warn("Failed to prune old deep scans: %v", err)
+			}
+			s.log.Info("Deep scan completed for %s", result.ProbeID)
+		case "config_update":
+			s.log.Info("Probe %s configuration updated successfully", result.ProbeID)
+
+		case "ota_update":
+			s.log.Info("Probe %s OTA update initiated", result.ProbeID)
+
+		case "get_status":
+			s.handleStatusUpdate(ctx, result.ProbeID, result.Result)
+
+		case "ping":
+			_ = s.probeRepo.UpdateLastSeen(ctx, result.ProbeID, time.Now())
+
+		case "factory_reset":
+			s.log.Warn("Probe %s performed a factory reset", result.ProbeID)
+		}
+	}
+
+	return nil
+}
+
+// handleStatusUpdate extracts details from the get_status payload and updates the probes table
+func (s *CommandService) handleStatusUpdate(ctx context.Context, probeID string, data map[string]interface{}) {
+
+	if err := s.probeRepo.UpdateLastSeen(ctx, probeID, time.Now()); err != nil {
+		s.log.Error("Failed to update last_seen from status report: %v", err)
+	}
+}
+func (s *CommandService) DeleteCommand(ctx context.Context, commandID int) error {
+	return s.commandRepo.Delete(ctx, commandID)
 }

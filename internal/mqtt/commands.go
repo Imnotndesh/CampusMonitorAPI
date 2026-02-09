@@ -1,4 +1,4 @@
-// internal/mqtt/commands.go (Updated)
+// internal/mqtt/commands.go (FIXED)
 package mqtt
 
 import (
@@ -11,16 +11,16 @@ import (
 
 type Command struct {
 	Command   string                 `json:"command"`
-	CommandID string                 `json:"command_id"`
-	Params    map[string]interface{} `json:"params,omitempty"`
-	Timestamp int64                  `json:"timestamp"`
+	CommandID string                 `json:"command_id,omitempty"`
+	Payload   map[string]interface{} `json:"payload,omitempty"`
+	Timestamp int64                  `json:"timestamp,omitempty"`
 }
 
 func (c *Client) SendDeepScan(probeID string, duration int) error {
 	cmd := Command{
 		Command:   "deep_scan",
 		CommandID: fmt.Sprintf("cmd-%d", time.Now().Unix()),
-		Params: map[string]interface{}{
+		Payload: map[string]interface{}{
 			"duration": duration,
 		},
 		Timestamp: time.Now().Unix(),
@@ -33,7 +33,7 @@ func (c *Client) SendConfigUpdate(probeID string, config map[string]interface{})
 	cmd := Command{
 		Command:   "config_update",
 		CommandID: fmt.Sprintf("cmd-%d", time.Now().Unix()),
-		Params:    config,
+		Payload:   config,
 		Timestamp: time.Now().Unix(),
 	}
 
@@ -44,7 +44,7 @@ func (c *Client) SendRestart(probeID string, delay int) error {
 	cmd := Command{
 		Command:   "restart",
 		CommandID: fmt.Sprintf("cmd-%d", time.Now().Unix()),
-		Params: map[string]interface{}{
+		Payload: map[string]interface{}{
 			"delay": delay,
 		},
 		Timestamp: time.Now().Unix(),
@@ -57,7 +57,7 @@ func (c *Client) SendOTAUpdate(probeID string, url string, version string) error
 	cmd := Command{
 		Command:   "ota_update",
 		CommandID: fmt.Sprintf("cmd-%d", time.Now().Unix()),
-		Params: map[string]interface{}{
+		Payload: map[string]interface{}{
 			"url":     url,
 			"version": version,
 		},
@@ -71,7 +71,7 @@ func (c *Client) SendPing(probeID string) error {
 	cmd := Command{
 		Command:   "ping",
 		CommandID: fmt.Sprintf("cmd-%d", time.Now().Unix()),
-		Params:    map[string]interface{}{},
+		Payload:   map[string]interface{}{},
 		Timestamp: time.Now().Unix(),
 	}
 
@@ -82,7 +82,7 @@ func (c *Client) SendGetStatus(probeID string) error {
 	cmd := Command{
 		Command:   "get_status",
 		CommandID: fmt.Sprintf("cmd-%d", time.Now().Unix()),
-		Params:    map[string]interface{}{},
+		Payload:   map[string]interface{}{}, // CHANGED from Params
 		Timestamp: time.Now().Unix(),
 	}
 
@@ -93,7 +93,7 @@ func (c *Client) SendRawCommand(probeID string, commandType string, params map[s
 	cmd := Command{
 		Command:   commandType,
 		CommandID: fmt.Sprintf("cmd-%d", time.Now().Unix()),
-		Params:    params,
+		Payload:   params,
 		Timestamp: time.Now().Unix(),
 	}
 
@@ -104,7 +104,7 @@ func (c *Client) BroadcastCommand(commandType string, params map[string]interfac
 	cmd := Command{
 		Command:   commandType,
 		CommandID: fmt.Sprintf("broadcast-cmd-%d", time.Now().Unix()),
-		Params:    params,
+		Payload:   params,
 		Timestamp: time.Now().Unix(),
 	}
 
@@ -113,7 +113,7 @@ func (c *Client) BroadcastCommand(commandType string, params map[string]interfac
 		return fmt.Errorf("failed to marshal command: %w", err)
 	}
 
-	topic := "campus/probes/broadcast/cmd"
+	topic := "campus/probes/broadcast/command"
 	token := c.client.Publish(topic, 1, false, payload)
 	token.Wait()
 
@@ -130,8 +130,11 @@ func (c *Client) publishCommand(probeID string, cmd Command) error {
 	if err != nil {
 		return fmt.Errorf("failed to marshal command: %w", err)
 	}
+	topic := fmt.Sprintf("campus/probes/%s/command", probeID)
 
-	topic := fmt.Sprintf("campus/probes/%s/cmd", probeID)
+	c.log.Info("Publishing to topic: %s", topic)
+	c.log.Info("Payload: %s", string(payload))
+
 	token := c.client.Publish(topic, 1, false, payload)
 	token.Wait()
 
