@@ -34,7 +34,7 @@ func (h *CommandHandler) RegisterRoutes(r *mux.Router) {
 	r.HandleFunc("/commands/broadcast", h.BroadcastCommand).Methods("POST")
 	r.HandleFunc("/commands/statistics", h.GetStatistics).Methods("GET")
 	r.HandleFunc("/commands/{id}/result", h.UpdateCommandResult).Methods("PUT")
-	r.HandleFunc("/api/v1/commands/{id}", h.DeleteCommand).Methods("DELETE")
+	r.HandleFunc("/commands/{id}", h.DeleteCommand).Methods("DELETE")
 }
 
 func (h *CommandHandler) IssueCommand(w http.ResponseWriter, r *http.Request) {
