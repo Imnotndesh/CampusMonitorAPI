@@ -55,14 +55,20 @@ type CongestionAnalysis struct {
 }
 
 type PerformanceMetrics struct {
-	Period        string  `json:"period"`
-	AvgLatency    float64 `json:"avg_latency"`
-	P50Latency    float64 `json:"p50_latency"`
-	P95Latency    float64 `json:"p95_latency"`
-	P99Latency    float64 `json:"p99_latency"`
-	AvgPacketLoss float64 `json:"avg_packet_loss"`
-	AvgDNSTime    float64 `json:"avg_dns_time"`
-	SampleCount   int     `json:"sample_count"`
+	Period         string  `json:"period"`
+	AvgRSSI        float64 `json:"avg_rssi"`
+	MinRSSI        int     `json:"min_rssi"`
+	MaxRSSI        int     `json:"max_rssi"`
+	AvgLatency     float64 `json:"avg_latency"`
+	MinLatency     float64 `json:"min_latency"`
+	MaxLatency     float64 `json:"max_latency"`
+	P50Latency     float64 `json:"p50_latency"`
+	P95Latency     float64 `json:"p95_latency"`
+	P99Latency     float64 `json:"p99_latency"`
+	AvgPacketLoss  float64 `json:"avg_packet_loss"`
+	AvgDNSTime     float64 `json:"avg_dns_time"`
+	StabilityScore float64 `json:"stability_score"`
+	SampleCount    int     `json:"sample_count"`
 }
 
 type ProbeComparison struct {
@@ -326,7 +332,12 @@ func (r *AnalyticsRepository) GetPerformanceMetrics(ctx context.Context, probeID
 
 	query := fmt.Sprintf(`
 		SELECT 
+			AVG(rssi) as avg_rssi,
+			MIN(rssi) as min_rssi,
+			MAX(rssi) as max_rssi,
 			AVG(latency) as avg_latency,
+			MIN(latency) as min_latency,
+			MAX(latency) as max_latency,
 			PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY latency) as p50_latency,
 			PERCENTILE_CONT(0.95) WITHIN GROUP (ORDER BY latency) as p95_latency,
 			PERCENTILE_CONT(0.99) WITHIN GROUP (ORDER BY latency) as p99_latency,
@@ -341,17 +352,40 @@ func (r *AnalyticsRepository) GetPerformanceMetrics(ctx context.Context, probeID
 		Period: fmt.Sprintf("%s to %s", start.Format("2006-01-02"), end.Format("2006-01-02")),
 	}
 
-	var avgLat, p50, p95, p99, avgLoss, avgDNS sql.NullFloat64
+	var avgRSSI, avgLat, minLat, maxLat, p50, p95, p99, avgLoss, avgDNS sql.NullFloat64
+	var minRSSI, maxRSSI sql.NullInt64
+
 	err := r.db.QueryRowContext(ctx, query, args...).Scan(
-		&avgLat, &p50, &p95, &p99, &avgLoss, &avgDNS, &metrics.SampleCount,
+		&avgRSSI, &minRSSI, &maxRSSI,
+		&avgLat, &minLat, &maxLat,
+		&p50, &p95, &p99,
+		&avgLoss, &avgDNS,
+		&metrics.SampleCount,
 	)
 	if err != nil {
 		return nil, fmt.Errorf("failed to get performance metrics: %w", err)
 	}
 
+	if avgRSSI.Valid {
+		metrics.AvgRSSI = avgRSSI.Float64
+	}
+	if minRSSI.Valid {
+		metrics.MinRSSI = int(minRSSI.Int64)
+	}
+	if maxRSSI.Valid {
+		metrics.MaxRSSI = int(maxRSSI.Int64)
+	}
+
 	if avgLat.Valid {
 		metrics.AvgLatency = avgLat.Float64
 	}
+	if minLat.Valid {
+		metrics.MinLatency = minLat.Float64
+	}
+	if maxLat.Valid {
+		metrics.MaxLatency = maxLat.Float64
+	}
+
 	if p50.Valid {
 		metrics.P50Latency = p50.Float64
 	}
@@ -361,12 +395,14 @@ func (r *AnalyticsRepository) GetPerformanceMetrics(ctx context.Context, probeID
 	if p99.Valid {
 		metrics.P99Latency = p99.Float64
 	}
+
 	if avgLoss.Valid {
 		metrics.AvgPacketLoss = avgLoss.Float64
 	}
 	if avgDNS.Valid {
 		metrics.AvgDNSTime = avgDNS.Float64
 	}
+	metrics.StabilityScore = calculateStabilityScore(metrics.AvgLatency, metrics.AvgPacketLoss)
 
 	return metrics, nil
 }
@@ -617,4 +653,16 @@ func (r *AnalyticsRepository) GetRoamingAnalysis(ctx context.Context, probeID st
 	}
 
 	return roaming, nil
+}
+func calculateStabilityScore(latency, packetLoss float64) float64 {
+	score := 100.0
+	if latency > 40 {
+		score -= (latency - 40) * 0.5
+	}
+	score -= packetLoss * 5.0
+	if score < 0 {
+		return 0
+	}
+
+	return score
 }

@@ -3396,3 +3396,463 @@
 2026-02-14 14:25:05 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 2ms 2055 bytes
 2026-02-14 14:25:10 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 16ms 2055 bytes
 2026-02-14 14:25:15 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 1ms 2055 bytes
+2026-02-14 14:25:20 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 1ms 2055 bytes
+2026-02-14 14:25:25 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 1ms 2055 bytes
+2026-02-14 14:25:30 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 6ms 2055 bytes
+2026-02-14 14:25:35 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 3ms 2055 bytes
+2026-02-14 14:25:36 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0002bfc98
+2026-02-14 14:25:40 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 9ms 2055 bytes
+2026-02-14 14:25:44 [INFO] GET /api/v1/analytics/timeseries/rssi 200 4ms 3026 bytes
+2026-02-14 14:25:44 [INFO] GET /api/v1/analytics/timeseries/latency 200 7ms 2953 bytes
+2026-02-14 14:25:45 [INFO] GET /api/v1/analytics/aps 200 8ms 186 bytes
+2026-02-14 14:25:45 [INFO] GET /api/v1/analytics/health 200 15ms 179 bytes
+2026-02-14 14:25:45 [INFO] GET /api/v1/analytics/channels 200 15ms 78 bytes
+2026-02-14 14:25:45 [INFO] GET /api/v1/analytics/congestion 200 12ms 438 bytes
+2026-02-14 14:26:06 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00017a1d8
+2026-02-14 14:26:36 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00017a448
+2026-02-14 14:27:06 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0002be208
+2026-02-14 14:27:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0002be4d8
+2026-02-14 14:28:06 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00017a048
+2026-02-14 14:28:19 [INFO] GET /api/v1/analytics/health 200 4ms 179 bytes
+2026-02-14 14:28:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00017a2e8
+2026-02-14 14:29:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0001a8238
+2026-02-14 14:29:32 [INFO] GET /api/v1/analytics/timeseries/rssi 200 16ms 3073 bytes
+2026-02-14 14:29:32 [INFO] GET /api/v1/analytics/congestion 200 48ms 452 bytes
+2026-02-14 14:29:32 [INFO] GET /api/v1/probes 200 132ms 282 bytes
+2026-02-14 14:29:32 [INFO] GET /api/v1/analytics/channels 200 134ms 78 bytes
+2026-02-14 14:29:32 [INFO] GET /api/v1/analytics/timeseries/latency 200 140ms 3001 bytes
+2026-02-14 14:29:32 [INFO] GET /api/v1/analytics/health 200 181ms 179 bytes
+2026-02-14 14:29:32 [INFO] GET /api/v1/analytics/aps 200 204ms 186 bytes
+2026-02-14 14:29:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0002bef98
+2026-02-14 14:29:59 [INFO] GET /api/v1/probes 200 1ms 282 bytes
+2026-02-14 14:29:59 [INFO] GET /api/v1/analytics/channels 200 26ms 79 bytes
+2026-02-14 14:29:59 [INFO] GET /api/v1/analytics/aps 200 31ms 186 bytes
+2026-02-14 14:29:59 [INFO] GET /api/v1/analytics/congestion 200 31ms 451 bytes
+2026-02-14 14:29:59 [INFO] GET /api/v1/analytics/timeseries/rssi 200 52ms 3024 bytes
+2026-02-14 14:29:59 [INFO] GET /api/v1/analytics/timeseries/latency 200 59ms 2953 bytes
+2026-02-14 14:29:59 [INFO] GET /api/v1/analytics/health 200 70ms 179 bytes
+2026-02-14 14:30:01 [INFO] GET /api/v1/probes 200 1ms 282 bytes
+2026-02-14 14:30:01 [INFO] GET /api/v1/analytics/health 200 13ms 178 bytes
+2026-02-14 14:30:01 [INFO] GET /api/v1/analytics/channels 200 25ms 78 bytes
+2026-02-14 14:30:01 [INFO] GET /api/v1/analytics/timeseries/latency 200 26ms 193 bytes
+2026-02-14 14:30:01 [INFO] GET /api/v1/analytics/timeseries/rssi 200 26ms 195 bytes
+2026-02-14 14:30:01 [INFO] GET /api/v1/analytics/aps 200 29ms 186 bytes
+2026-02-14 14:30:01 [INFO] GET /api/v1/analytics/congestion 200 85ms 451 bytes
+2026-02-14 14:30:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0001a9618
+2026-02-14 14:30:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0000142c8
+2026-02-14 14:31:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0000b04e8
+2026-02-14 14:31:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0000b0d38
+2026-02-14 14:32:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0000b0f88
+2026-02-14 14:32:36 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000154188
+2026-02-14 14:33:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0000b0908
+2026-02-14 14:33:17 [INFO] GET /api/v1/probes 200 5ms 282 bytes
+2026-02-14 14:33:17 [INFO] GET /api/v1/analytics/timeseries/latency 200 4ms 194 bytes
+2026-02-14 14:33:17 [INFO] GET /api/v1/analytics/timeseries/rssi 200 9ms 194 bytes
+2026-02-14 14:33:17 [INFO] GET /api/v1/analytics/aps 200 8ms 186 bytes
+2026-02-14 14:33:17 [INFO] GET /api/v1/analytics/channels 200 13ms 78 bytes
+2026-02-14 14:33:17 [INFO] GET /api/v1/analytics/congestion 200 6ms 452 bytes
+2026-02-14 14:33:17 [INFO] GET /api/v1/analytics/health 200 43ms 179 bytes
+2026-02-14 14:33:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0002be258
+2026-02-14 14:33:45 [INFO] GET /api/v1/probes 200 4ms 282 bytes
+2026-02-14 14:33:45 [INFO] GET /api/v1/analytics/timeseries/latency 200 3ms 193 bytes
+2026-02-14 14:33:45 [INFO] GET /api/v1/analytics/timeseries/rssi 200 18ms 195 bytes
+2026-02-14 14:33:45 [INFO] GET /api/v1/analytics/channels 200 11ms 78 bytes
+2026-02-14 14:33:45 [INFO] GET /api/v1/analytics/congestion 200 21ms 451 bytes
+2026-02-14 14:33:45 [INFO] GET /api/v1/analytics/health 200 46ms 179 bytes
+2026-02-14 14:33:45 [INFO] GET /api/v1/analytics/aps 200 46ms 186 bytes
+2026-02-14 14:33:48 [INFO] GET /api/v1/probes 200 2ms 282 bytes
+2026-02-14 14:33:48 [INFO] GET /api/v1/analytics/timeseries/rssi 200 12ms 195 bytes
+2026-02-14 14:33:48 [INFO] GET /api/v1/analytics/timeseries/latency 200 14ms 193 bytes
+2026-02-14 14:33:48 [INFO] GET /api/v1/analytics/congestion 200 15ms 451 bytes
+2026-02-14 14:33:48 [INFO] GET /api/v1/analytics/aps 200 27ms 186 bytes
+2026-02-14 14:33:48 [INFO] GET /api/v1/analytics/health 200 34ms 179 bytes
+2026-02-14 14:33:48 [INFO] GET /api/v1/analytics/channels 200 69ms 78 bytes
+2026-02-14 14:34:01 [INFO] GET /api/v1/analytics/timeseries/rssi 200 6ms 3028 bytes
+2026-02-14 14:34:01 [INFO] GET /api/v1/analytics/timeseries/latency 200 10ms 2953 bytes
+2026-02-14 14:34:01 [INFO] GET /api/v1/analytics/channels 200 3ms 78 bytes
+2026-02-14 14:34:01 [INFO] GET /api/v1/analytics/congestion 200 8ms 451 bytes
+2026-02-14 14:34:01 [INFO] GET /api/v1/analytics/health 200 40ms 179 bytes
+2026-02-14 14:34:01 [INFO] GET /api/v1/analytics/aps 200 15ms 186 bytes
+2026-02-14 14:34:07 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0000b1ef8
+2026-02-14 14:34:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0002be1a8
+2026-02-14 14:35:01 [INFO] GET /api/v1/analytics/timeseries/rssi 200 193ms 3028 bytes
+2026-02-14 14:35:01 [INFO] GET /api/v1/analytics/channels 200 206ms 78 bytes
+2026-02-14 14:35:01 [INFO] GET /api/v1/analytics/congestion 200 24ms 451 bytes
+2026-02-14 14:35:01 [INFO] GET /api/v1/probes 200 233ms 282 bytes
+2026-02-14 14:35:01 [INFO] GET /api/v1/analytics/aps 200 286ms 187 bytes
+2026-02-14 14:35:01 [INFO] GET /api/v1/analytics/health 200 300ms 179 bytes
+2026-02-14 14:35:01 [INFO] GET /api/v1/analytics/timeseries/latency 200 326ms 2951 bytes
+2026-02-14 14:35:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000014f98
+2026-02-14 14:35:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000015158
+2026-02-14 14:36:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0001548b8
+2026-02-14 14:36:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0000141d8
+2026-02-14 14:37:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0000b0b28
+2026-02-14 14:37:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0000146b8
+2026-02-14 14:38:06 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0002be108
+2026-02-14 14:38:28 [INFO] GET /api/v1/analytics/timeseries/latency 200 11ms 2997 bytes
+2026-02-14 14:38:28 [INFO] GET /api/v1/probes 200 11ms 282 bytes
+2026-02-14 14:38:28 [INFO] GET /api/v1/analytics/timeseries/rssi 200 13ms 3071 bytes
+2026-02-14 14:38:28 [INFO] GET /api/v1/analytics/health 200 30ms 179 bytes
+2026-02-14 14:38:28 [INFO] GET /api/v1/analytics/channels 200 67ms 78 bytes
+2026-02-14 14:38:28 [INFO] GET /api/v1/analytics/congestion 200 24ms 435 bytes
+2026-02-14 14:38:28 [INFO] GET /api/v1/analytics/aps 200 102ms 186 bytes
+2026-02-14 14:38:37 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000154478
+2026-02-14 14:38:43 [INFO] GET /api/v1/probes 200 2ms 282 bytes
+2026-02-14 14:38:43 [INFO] GET /api/v1/analytics/timeseries/rssi 200 5ms 3071 bytes
+2026-02-14 14:38:43 [INFO] GET /api/v1/analytics/aps 200 9ms 186 bytes
+2026-02-14 14:38:43 [INFO] GET /api/v1/analytics/channels 200 5ms 78 bytes
+2026-02-14 14:38:43 [INFO] GET /api/v1/analytics/timeseries/latency 200 6ms 2997 bytes
+2026-02-14 14:38:43 [INFO] GET /api/v1/analytics/congestion 200 11ms 451 bytes
+2026-02-14 14:38:43 [INFO] GET /api/v1/analytics/health 200 23ms 179 bytes
+2026-02-14 14:39:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000154bc8
+2026-02-14 14:39:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000155058
+2026-02-14 14:39:48 [INFO] GET /api/v1/analytics/channels 200 3ms 78 bytes
+2026-02-14 14:39:48 [INFO] GET /api/v1/probes 200 6ms 282 bytes
+2026-02-14 14:39:48 [INFO] GET /api/v1/analytics/timeseries/latency 200 6ms 2947 bytes
+2026-02-14 14:39:48 [INFO] GET /api/v1/analytics/timeseries/rssi 200 10ms 3024 bytes
+2026-02-14 14:39:48 [INFO] GET /api/v1/analytics/health 200 12ms 178 bytes
+2026-02-14 14:39:48 [INFO] GET /api/v1/analytics/congestion 200 4ms 451 bytes
+2026-02-14 14:39:48 [INFO] GET /api/v1/analytics/aps 200 22ms 186 bytes
+2026-02-14 14:40:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000155c18
+2026-02-14 14:40:13 [INFO] GET /api/v1/analytics/timeseries/latency 200 40ms 254 bytes
+2026-02-14 14:40:13 [INFO] GET /api/v1/analytics/timeseries/rssi 200 69ms 259 bytes
+2026-02-14 14:40:13 [INFO] GET /api/v1/analytics/aps 200 75ms 186 bytes
+2026-02-14 14:40:13 [INFO] GET /api/v1/analytics/channels 200 79ms 385 bytes
+2026-02-14 14:40:13 [INFO] GET /api/v1/analytics/congestion 200 77ms 451 bytes
+2026-02-14 14:40:13 [INFO] GET /api/v1/analytics/health 200 104ms 179 bytes
+2026-02-14 14:40:25 [INFO] GET /api/v1/analytics/timeseries/rssi 200 7ms 3073 bytes
+2026-02-14 14:40:25 [INFO] GET /api/v1/analytics/timeseries/latency 200 12ms 2993 bytes
+2026-02-14 14:40:25 [INFO] GET /api/v1/analytics/congestion 200 8ms 451 bytes
+2026-02-14 14:40:25 [INFO] GET /api/v1/analytics/channels 200 19ms 78 bytes
+2026-02-14 14:40:25 [INFO] GET /api/v1/analytics/aps 200 19ms 186 bytes
+2026-02-14 14:40:25 [INFO] GET /api/v1/analytics/health 200 40ms 179 bytes
+2026-02-14 14:40:29 [INFO] GET /api/v1/analytics/timeseries/latency 200 3ms 2993 bytes
+2026-02-14 14:40:29 [INFO] Detecting anomalies: probe=PROBE-NEW, hours=1
+2026-02-14 14:40:29 [INFO] GET /api/v1/analytics/timeseries/rssi 200 10ms 3073 bytes
+2026-02-14 14:40:29 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 4ms 2055 bytes
+2026-02-14 14:40:29 [INFO] GET /api/v1/analytics/performance/PROBE-NEW 200 7ms 212 bytes
+2026-02-14 14:40:29 [INFO] GET /api/v1/analytics/roaming/PROBE-NEW 200 13ms 169 bytes
+2026-02-14 14:40:29 [INFO] GET /api/v1/analytics/anomalies/PROBE-NEW 200 46ms 3 bytes
+2026-02-14 14:40:34 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 14ms 2055 bytes
+2026-02-14 14:40:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000014a38
+2026-02-14 14:40:40 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 1ms 2055 bytes
+2026-02-14 14:40:45 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 5ms 2055 bytes
+2026-02-14 14:40:47 [INFO] GET /api/v1/analytics/performance/PROBE-NEW 200 3ms 210 bytes
+2026-02-14 14:40:47 [INFO] GET /api/v1/analytics/timeseries/latency 200 5ms 1622 bytes
+2026-02-14 14:40:47 [INFO] GET /api/v1/analytics/timeseries/rssi 200 6ms 1683 bytes
+2026-02-14 14:40:47 [INFO] Detecting anomalies: probe=PROBE-NEW, hours=6
+2026-02-14 14:40:47 [INFO] GET /api/v1/analytics/roaming/PROBE-NEW 200 8ms 169 bytes
+2026-02-14 14:40:47 [INFO] GET /api/v1/analytics/anomalies/PROBE-NEW 200 31ms 362 bytes
+2026-02-14 14:40:50 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 2ms 2055 bytes
+2026-02-14 14:40:55 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 6ms 2055 bytes
+2026-02-14 14:41:00 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 8ms 2055 bytes
+2026-02-14 14:41:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0001543f8
+2026-02-14 14:41:05 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 5ms 2055 bytes
+2026-02-14 14:41:10 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 6ms 2055 bytes
+2026-02-14 14:41:15 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 6ms 2055 bytes
+2026-02-14 14:41:20 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 6ms 2055 bytes
+2026-02-14 14:41:25 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 6ms 2055 bytes
+2026-02-14 14:41:30 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 1ms 2055 bytes
+2026-02-14 14:41:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00035f4c8
+2026-02-14 14:41:35 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 6ms 2055 bytes
+2026-02-14 14:41:40 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 6ms 2055 bytes
+2026-02-14 14:41:45 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 5ms 2055 bytes
+2026-02-14 14:41:50 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 1ms 2055 bytes
+2026-02-14 14:41:55 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 6ms 2055 bytes
+2026-02-14 14:42:01 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 9ms 2055 bytes
+2026-02-14 14:42:06 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 5ms 2055 bytes
+2026-02-14 14:42:06 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0000b1778
+2026-02-14 14:42:11 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 6ms 2055 bytes
+2026-02-14 14:42:16 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 1ms 2055 bytes
+2026-02-14 14:42:21 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 2ms 2055 bytes
+2026-02-14 14:42:26 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 3ms 2055 bytes
+2026-02-14 14:42:31 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 2ms 2055 bytes
+2026-02-14 14:42:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0001a8818
+2026-02-14 14:42:37 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 5ms 2055 bytes
+2026-02-14 14:42:42 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 5ms 2055 bytes
+2026-02-14 14:42:47 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 9ms 2055 bytes
+2026-02-14 14:42:52 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 5ms 2055 bytes
+2026-02-14 14:42:57 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 6ms 2055 bytes
+2026-02-14 14:43:02 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 6ms 2055 bytes
+2026-02-14 14:43:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00017aef8
+2026-02-14 14:43:07 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 10ms 2055 bytes
+2026-02-14 14:43:07 [INFO] GET /api/v1/probes 200 1ms 282 bytes
+2026-02-14 14:43:07 [INFO] GET /api/v1/analytics/timeseries/rssi 200 2ms 1696 bytes
+2026-02-14 14:43:07 [INFO] GET /api/v1/analytics/timeseries/latency 200 4ms 1636 bytes
+2026-02-14 14:43:07 [INFO] Detecting anomalies: probe=PROBE-NEW, hours=6
+2026-02-14 14:43:07 [INFO] GET /api/v1/analytics/performance/PROBE-NEW 200 7ms 200 bytes
+2026-02-14 14:43:07 [INFO] GET /api/v1/analytics/roaming/PROBE-NEW 200 9ms 169 bytes
+2026-02-14 14:43:07 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 18ms 2055 bytes
+2026-02-14 14:43:07 [INFO] GET /api/v1/analytics/anomalies/PROBE-NEW 200 27ms 541 bytes
+2026-02-14 14:43:26 [INFO] GET /api/v1/analytics/performance/PROBE-NEW 200 4ms 200 bytes
+2026-02-14 14:43:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000403948
+2026-02-14 14:44:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000014868
+2026-02-14 14:44:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000154228
+2026-02-14 14:44:58 [INFO] GET /api/v1/probes 200 1ms 282 bytes
+2026-02-14 14:44:58 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 2ms 2055 bytes
+2026-02-14 14:44:58 [INFO] Detecting anomalies: probe=PROBE-NEW, hours=6
+2026-02-14 14:44:58 [INFO] GET /api/v1/analytics/timeseries/latency 200 11ms 1622 bytes
+2026-02-14 14:44:58 [INFO] GET /api/v1/analytics/timeseries/rssi 200 10ms 1683 bytes
+2026-02-14 14:44:58 [INFO] GET /api/v1/analytics/roaming/PROBE-NEW 200 10ms 169 bytes
+2026-02-14 14:44:58 [INFO] GET /api/v1/analytics/performance/PROBE-NEW 200 17ms 225 bytes
+2026-02-14 14:44:58 [INFO] GET /api/v1/analytics/anomalies/PROBE-NEW 200 34ms 537 bytes
+2026-02-14 14:45:03 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 9ms 2055 bytes
+2026-02-14 14:45:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00017a458
+2026-02-14 14:45:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000402b48
+2026-02-14 14:46:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000155268
+2026-02-14 14:46:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0000141d8
+2026-02-14 14:47:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000014618
+2026-02-14 14:47:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000014778
+2026-02-14 14:48:06 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000014978
+2026-02-14 14:48:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000014148
+2026-02-14 14:49:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000402208
+2026-02-14 14:49:36 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0004024d8
+2026-02-14 14:50:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000014338
+2026-02-14 14:50:36 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00017a498
+2026-02-14 14:51:06 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00017a778
+2026-02-14 14:51:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0002be0d8
+2026-02-14 14:52:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0001a8228
+2026-02-14 14:52:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000402048
+2026-02-14 14:53:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0001a8168
+2026-02-14 14:53:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0002be1d8
+2026-02-14 14:54:06 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0002be4a8
+2026-02-14 14:54:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0002be698
+2026-02-14 14:55:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0002be1a8
+2026-02-14 14:55:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0003c6118
+2026-02-14 14:56:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0003c62b8
+2026-02-14 14:56:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0003c64e8
+2026-02-14 14:57:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00035e228
+2026-02-14 14:57:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0004021e8
+2026-02-14 14:58:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0003c60f8
+2026-02-14 14:58:06 [WARN] Shutdown signal received
+2026-02-14 14:58:06 [INFO] Shutting down HTTP server...
+2026-02-14 14:58:06 [INFO] HTTP server stopped
+2026-02-14 14:58:06 [INFO] Shutdown complete
+2026-02-14 14:58:06 [INFO] Disconnecting from MQTT broker
+2026-02-14 14:58:06 [INFO] Disconnected from MQTT broker
+2026-02-14 14:58:10 [INFO] Starting Campus Monitor API Server
+2026-02-14 14:58:10 [INFO] Database connected successfully
+2026-02-14 14:58:10 [INFO] Connecting to MQTT broker: localhost:1883
+2026-02-14 14:58:10 [INFO] Successfully connected to MQTT broker
+2026-02-14 14:58:10 [INFO] MQTT connection established
+2026-02-14 14:58:10 [INFO] Successfully subscribed to topic: campus/probes/telemetry
+2026-02-14 14:58:10 [INFO] Successfully subscribed to topic: campus/probes/telemetry/offline
+2026-02-14 14:58:10 [INFO] Successfully subscribed to topic: campus/probes/+/result
+2026-02-14 14:58:10 [INFO] MQTT subscriptions active
+2026-02-14 14:58:10 [INFO] All handlers registered
+2026-02-14 14:58:10 [INFO] Starting HTTP server on 0.0.0.0:9080
+2026-02-14 14:58:10 [INFO] API server ready on http://0.0.0.0:9080
+2026-02-14 14:58:12 [INFO] Detecting anomalies: probe=PROBE-NEW, hours=6
+2026-02-14 14:58:12 [INFO] GET /api/v1/probes 200 30ms 282 bytes
+2026-02-14 14:58:12 [INFO] GET /api/v1/analytics/roaming/PROBE-NEW 200 19ms 169 bytes
+2026-02-14 14:58:12 [INFO] GET /api/v1/analytics/performance/PROBE-NEW 200 67ms 317 bytes
+2026-02-14 14:58:12 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 102ms 2055 bytes
+2026-02-14 14:58:12 [INFO] GET /api/v1/analytics/timeseries/rssi 200 105ms 1834 bytes
+2026-02-14 14:58:12 [INFO] GET /api/v1/analytics/timeseries/latency 200 119ms 1770 bytes
+2026-02-14 14:58:12 [INFO] GET /api/v1/analytics/anomalies/PROBE-NEW 200 119ms 1448 bytes
+2026-02-14 14:58:18 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 5ms 2055 bytes
+2026-02-14 14:58:19 [INFO] GET /api/v1/analytics/timeseries/rssi 200 8ms 1834 bytes
+2026-02-14 14:58:19 [INFO] GET /api/v1/analytics/timeseries/latency 200 5ms 1770 bytes
+2026-02-14 14:58:19 [INFO] GET /api/v1/analytics/channels 200 11ms 78 bytes
+2026-02-14 14:58:19 [INFO] GET /api/v1/analytics/congestion 200 10ms 451 bytes
+2026-02-14 14:58:19 [INFO] GET /api/v1/analytics/aps 200 18ms 187 bytes
+2026-02-14 14:58:19 [INFO] GET /api/v1/analytics/health 200 39ms 179 bytes
+2026-02-14 14:58:21 [INFO] GET /api/v1/analytics/timeseries/rssi 200 5ms 1834 bytes
+2026-02-14 14:58:21 [INFO] Detecting anomalies: probe=PROBE-NEW, hours=6
+2026-02-14 14:58:21 [INFO] GET /api/v1/analytics/performance/PROBE-NEW 200 9ms 317 bytes
+2026-02-14 14:58:21 [INFO] GET /api/v1/analytics/timeseries/latency 200 11ms 1770 bytes
+2026-02-14 14:58:21 [INFO] GET /api/v1/analytics/roaming/PROBE-NEW 200 13ms 169 bytes
+2026-02-14 14:58:21 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 12ms 2055 bytes
+2026-02-14 14:58:21 [INFO] GET /api/v1/analytics/anomalies/PROBE-NEW 200 23ms 1448 bytes
+2026-02-14 14:58:26 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 4ms 2055 bytes
+2026-02-14 14:58:31 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 2ms 2055 bytes
+2026-02-14 14:58:31 [INFO] GET /api/v1/analytics/performance/PROBE-NEW 200 3ms 317 bytes
+2026-02-14 14:58:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0000b1e58
+2026-02-14 14:58:36 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 14ms 2055 bytes
+2026-02-14 14:58:41 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 2ms 2055 bytes
+2026-02-14 14:58:46 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 4ms 2055 bytes
+2026-02-14 14:58:47 [INFO] GET /api/v1/probes 200 1ms 282 bytes
+2026-02-14 14:58:47 [INFO] GET /api/v1/analytics/roaming/PROBE-NEW 200 9ms 169 bytes
+2026-02-14 14:58:47 [INFO] GET /api/v1/analytics/timeseries/rssi 200 8ms 1838 bytes
+2026-02-14 14:58:47 [INFO] GET /api/v1/analytics/timeseries/latency 200 5ms 1774 bytes
+2026-02-14 14:58:47 [INFO] GET /api/v1/analytics/performance/PROBE-NEW 200 8ms 342 bytes
+2026-02-14 14:58:47 [INFO] Detecting anomalies: probe=PROBE-NEW, hours=6
+2026-02-14 14:58:47 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 1ms 2055 bytes
+2026-02-14 14:58:47 [INFO] GET /api/v1/analytics/anomalies/PROBE-NEW 200 54ms 1446 bytes
+2026-02-14 14:58:52 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 1ms 2055 bytes
+2026-02-14 14:58:57 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 4ms 2055 bytes
+2026-02-14 14:59:02 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 5ms 2055 bytes
+2026-02-14 14:59:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000440698
+2026-02-14 14:59:07 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 7ms 2055 bytes
+2026-02-14 14:59:13 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 10ms 2055 bytes
+2026-02-14 14:59:18 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 6ms 2055 bytes
+2026-02-14 14:59:23 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 5ms 2055 bytes
+2026-02-14 14:59:27 [INFO] Detecting anomalies: probe=PROBE-NEW, hours=6
+2026-02-14 14:59:27 [INFO] GET /api/v1/probes 200 26ms 282 bytes
+2026-02-14 14:59:27 [INFO] GET /api/v1/analytics/timeseries/latency 200 13ms 1786 bytes
+2026-02-14 14:59:27 [INFO] GET /api/v1/analytics/anomalies/PROBE-NEW 200 64ms 1445 bytes
+2026-02-14 14:59:27 [INFO] GET /api/v1/analytics/performance/PROBE-NEW 200 72ms 342 bytes
+2026-02-14 14:59:27 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 3ms 2055 bytes
+2026-02-14 14:59:27 [INFO] GET /api/v1/analytics/timeseries/rssi 200 140ms 1834 bytes
+2026-02-14 14:59:27 [INFO] GET /api/v1/analytics/roaming/PROBE-NEW 200 147ms 169 bytes
+2026-02-14 14:59:33 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 3ms 2055 bytes
+2026-02-14 14:59:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0004418c8
+2026-02-14 14:59:53 [INFO] GET /api/v1/analytics/roaming/PROBE-NEW 200 3ms 169 bytes
+2026-02-14 15:00:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000015cb8
+2026-02-14 15:00:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000015fa8
+2026-02-14 15:01:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0002ec1b8
+2026-02-14 15:01:36 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000441c68
+2026-02-14 15:02:08 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000504c58
+2026-02-14 15:02:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000441e78
+2026-02-14 15:03:04 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000464058
+2026-02-14 15:03:34 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000464248
+2026-02-14 15:04:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000505058
+2026-02-14 15:04:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0002ec558
+2026-02-14 15:05:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0005055e8
+2026-02-14 15:05:36 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000375748
+2026-02-14 15:06:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000464398
+2026-02-14 15:06:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0004640d8
+2026-02-14 15:07:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000504278
+2026-02-14 15:07:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0003741e8
+2026-02-14 15:08:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000374048
+2026-02-14 15:08:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000504188
+2026-02-14 15:09:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0002ec2d8
+2026-02-14 15:09:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0003746e8
+2026-02-14 15:10:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000374948
+2026-02-14 15:10:06 [INFO] GET /api/v1/analytics/roaming/PROBE-NEW 200 92ms 169 bytes
+2026-02-14 15:11:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000374128
+2026-02-14 15:11:05 [INFO] GET /api/v1/probes 200 1ms 282 bytes
+2026-02-14 15:11:05 [INFO] Detecting anomalies: probe=PROBE-NEW, hours=6
+2026-02-14 15:11:05 [INFO] GET /api/v1/analytics/timeseries/rssi 200 29ms 1989 bytes
+2026-02-14 15:11:05 [INFO] GET /api/v1/analytics/roaming/PROBE-NEW 200 21ms 169 bytes
+2026-02-14 15:11:05 [INFO] GET /api/v1/analytics/performance/PROBE-NEW 200 133ms 317 bytes
+2026-02-14 15:11:05 [INFO] GET /api/v1/analytics/anomalies/PROBE-NEW 200 155ms 1788 bytes
+2026-02-14 15:11:05 [INFO] GET /api/v1/analytics/timeseries/latency 200 160ms 1920 bytes
+2026-02-14 15:11:05 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 7ms 2055 bytes
+2026-02-14 15:11:36 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000504e48
+2026-02-14 15:11:45 [INFO] GET /api/v1/probes 200 3ms 282 bytes
+2026-02-14 15:11:45 [INFO] GET /api/v1/analytics/timeseries/rssi 200 4ms 2003 bytes
+2026-02-14 15:11:45 [INFO] GET /api/v1/analytics/timeseries/latency 200 6ms 1934 bytes
+2026-02-14 15:11:45 [INFO] Detecting anomalies: probe=PROBE-NEW, hours=6
+2026-02-14 15:11:45 [INFO] GET /api/v1/analytics/performance/PROBE-NEW 200 15ms 333 bytes
+2026-02-14 15:11:45 [INFO] GET /api/v1/analytics/roaming/PROBE-NEW 200 16ms 169 bytes
+2026-02-14 15:11:45 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 14ms 2055 bytes
+2026-02-14 15:11:45 [INFO] GET /api/v1/analytics/anomalies/PROBE-NEW 200 50ms 1797 bytes
+2026-02-14 15:11:55 [INFO] GET /api/v1/analytics/timeseries/rssi 200 5ms 2003 bytes
+2026-02-14 15:11:55 [INFO] GET /api/v1/probes 200 5ms 282 bytes
+2026-02-14 15:11:55 [INFO] GET /api/v1/analytics/timeseries/latency 200 7ms 1934 bytes
+2026-02-14 15:11:55 [INFO] Detecting anomalies: probe=PROBE-NEW, hours=6
+2026-02-14 15:11:55 [INFO] GET /api/v1/analytics/performance/PROBE-NEW 200 8ms 333 bytes
+2026-02-14 15:11:55 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 4ms 2055 bytes
+2026-02-14 15:11:55 [INFO] GET /api/v1/analytics/roaming/PROBE-NEW 200 13ms 169 bytes
+2026-02-14 15:11:55 [INFO] GET /api/v1/analytics/anomalies/PROBE-NEW 200 27ms 1797 bytes
+2026-02-14 15:12:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000374d48
+2026-02-14 15:12:16 [INFO] GET /api/v1/probes 200 1ms 282 bytes
+2026-02-14 15:12:16 [INFO] Detecting anomalies: probe=PROBE-NEW, hours=6
+2026-02-14 15:12:16 [INFO] GET /api/v1/analytics/timeseries/latency 200 7ms 1921 bytes
+2026-02-14 15:12:16 [INFO] GET /api/v1/analytics/timeseries/rssi 200 13ms 1989 bytes
+2026-02-14 15:12:16 [INFO] GET /api/v1/analytics/performance/PROBE-NEW 200 7ms 342 bytes
+2026-02-14 15:12:16 [INFO] GET /api/v1/analytics/anomalies/PROBE-NEW 200 49ms 2160 bytes
+2026-02-14 15:12:16 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 67ms 2055 bytes
+2026-02-14 15:12:16 [INFO] GET /api/v1/analytics/roaming/PROBE-NEW 200 85ms 169 bytes
+2026-02-14 15:12:22 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 4ms 2055 bytes
+2026-02-14 15:12:22 [INFO] GET /api/v1/analytics/performance/PROBE-NEW 200 5ms 342 bytes
+2026-02-14 15:12:22 [INFO] Detecting anomalies: probe=PROBE-NEW, hours=24
+2026-02-14 15:12:22 [INFO] GET /api/v1/analytics/timeseries/latency 200 19ms 257 bytes
+2026-02-14 15:12:22 [INFO] GET /api/v1/analytics/timeseries/rssi 200 34ms 247 bytes
+2026-02-14 15:12:22 [INFO] GET /api/v1/analytics/roaming/PROBE-NEW 200 31ms 169 bytes
+2026-02-14 15:12:22 [INFO] GET /api/v1/analytics/anomalies/PROBE-NEW 200 55ms 2160 bytes
+2026-02-14 15:12:23 [INFO] Detecting anomalies: probe=PROBE-NEW, hours=6
+2026-02-14 15:12:23 [INFO] GET /api/v1/analytics/timeseries/rssi 200 10ms 1989 bytes
+2026-02-14 15:12:23 [INFO] GET /api/v1/analytics/timeseries/latency 200 10ms 1921 bytes
+2026-02-14 15:12:23 [INFO] GET /api/v1/analytics/performance/PROBE-NEW 200 17ms 342 bytes
+2026-02-14 15:12:23 [INFO] GET /api/v1/analytics/roaming/PROBE-NEW 200 13ms 169 bytes
+2026-02-14 15:12:23 [INFO] GET /api/v1/analytics/anomalies/PROBE-NEW 200 16ms 2160 bytes
+2026-02-14 15:12:24 [INFO] Detecting anomalies: probe=PROBE-NEW, hours=1
+2026-02-14 15:12:24 [INFO] GET /api/v1/analytics/timeseries/latency 200 5ms 2979 bytes
+2026-02-14 15:12:24 [INFO] GET /api/v1/analytics/timeseries/rssi 200 10ms 3063 bytes
+2026-02-14 15:12:24 [INFO] GET /api/v1/analytics/performance/PROBE-NEW 200 8ms 327 bytes
+2026-02-14 15:12:24 [INFO] GET /api/v1/analytics/roaming/PROBE-NEW 200 8ms 169 bytes
+2026-02-14 15:12:24 [INFO] GET /api/v1/analytics/anomalies/PROBE-NEW 200 13ms 363 bytes
+2026-02-14 15:12:25 [INFO] Detecting anomalies: probe=PROBE-NEW, hours=6
+2026-02-14 15:12:25 [INFO] GET /api/v1/analytics/timeseries/latency 200 3ms 1921 bytes
+2026-02-14 15:12:25 [INFO] GET /api/v1/analytics/timeseries/rssi 200 6ms 1989 bytes
+2026-02-14 15:12:25 [INFO] GET /api/v1/analytics/performance/PROBE-NEW 200 5ms 342 bytes
+2026-02-14 15:12:25 [INFO] GET /api/v1/analytics/roaming/PROBE-NEW 200 9ms 169 bytes
+2026-02-14 15:12:25 [INFO] GET /api/v1/analytics/anomalies/PROBE-NEW 200 14ms 2160 bytes
+2026-02-14 15:12:25 [INFO] GET /api/v1/analytics/timeseries/rssi 200 5ms 247 bytes
+2026-02-14 15:12:25 [INFO] Detecting anomalies: probe=PROBE-NEW, hours=24
+2026-02-14 15:12:25 [INFO] GET /api/v1/analytics/roaming/PROBE-NEW 200 7ms 169 bytes
+2026-02-14 15:12:25 [INFO] GET /api/v1/analytics/timeseries/latency 200 12ms 257 bytes
+2026-02-14 15:12:25 [INFO] GET /api/v1/analytics/performance/PROBE-NEW 200 15ms 342 bytes
+2026-02-14 15:12:25 [INFO] GET /api/v1/analytics/anomalies/PROBE-NEW 200 16ms 2160 bytes
+2026-02-14 15:12:27 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 15ms 2055 bytes
+2026-02-14 15:12:29 [INFO] GET /api/v1/analytics/timeseries/rssi 200 7ms 247 bytes
+2026-02-14 15:12:29 [INFO] GET /api/v1/analytics/timeseries/latency 200 7ms 257 bytes
+2026-02-14 15:12:29 [INFO] GET /api/v1/analytics/congestion 200 8ms 583 bytes
+2026-02-14 15:12:29 [INFO] GET /api/v1/analytics/aps 200 15ms 186 bytes
+2026-02-14 15:12:29 [INFO] GET /api/v1/analytics/health 200 19ms 204 bytes
+2026-02-14 15:12:29 [INFO] GET /api/v1/analytics/channels 200 21ms 78 bytes
+2026-02-14 15:12:34 [INFO] Detecting anomalies: probe=PROBE-NEW, hours=24
+2026-02-14 15:12:34 [INFO] GET /api/v1/analytics/timeseries/rssi 200 5ms 247 bytes
+2026-02-14 15:12:34 [INFO] GET /api/v1/analytics/performance/PROBE-NEW 200 7ms 342 bytes
+2026-02-14 15:12:34 [INFO] GET /api/v1/analytics/timeseries/latency 200 8ms 257 bytes
+2026-02-14 15:12:34 [INFO] GET /api/v1/analytics/roaming/PROBE-NEW 200 15ms 169 bytes
+2026-02-14 15:12:34 [INFO] GET /api/v1/analytics/anomalies/PROBE-NEW 200 17ms 2160 bytes
+2026-02-14 15:12:34 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 51ms 2055 bytes
+2026-02-14 15:12:36 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000505c78
+2026-02-14 15:12:40 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 5ms 2055 bytes
+2026-02-14 15:13:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000319198
+2026-02-14 15:13:23 [INFO] GET /api/v1/probes 200 2ms 281 bytes
+2026-02-14 15:13:23 [INFO] GET /api/v1/analytics/timeseries/latency 200 9ms 256 bytes
+2026-02-14 15:13:23 [INFO] GET /api/v1/analytics/timeseries/rssi 200 14ms 246 bytes
+2026-02-14 15:13:23 [INFO] GET /api/v1/analytics/performance/PROBE-NEW 200 4ms 343 bytes
+2026-02-14 15:13:23 [INFO] Detecting anomalies: probe=PROBE-NEW, hours=24
+2026-02-14 15:13:23 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 6ms 2055 bytes
+2026-02-14 15:13:23 [INFO] GET /api/v1/analytics/roaming/PROBE-NEW 200 12ms 169 bytes
+2026-02-14 15:13:23 [INFO] GET /api/v1/analytics/anomalies/PROBE-NEW 200 25ms 1445 bytes
+2026-02-14 15:13:28 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 13ms 2055 bytes
+2026-02-14 15:13:33 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 8ms 2055 bytes
+2026-02-14 15:13:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0000b0d88
+2026-02-14 15:13:38 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 8ms 2055 bytes
+2026-02-14 15:13:43 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 7ms 2055 bytes
+2026-02-14 15:13:48 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 6ms 2055 bytes
+2026-02-14 15:13:53 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 10ms 2055 bytes
+2026-02-14 15:13:58 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 4ms 2055 bytes
+2026-02-14 15:14:03 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 6ms 2055 bytes
+2026-02-14 15:14:04 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000374038
+2026-02-14 15:14:09 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 8ms 2055 bytes
+2026-02-14 15:14:12 [INFO] GET /api/v1/analytics/timeseries/rssi 200 2ms 3059 bytes
+2026-02-14 15:14:12 [INFO] GET /api/v1/analytics/timeseries/latency 200 3ms 2979 bytes
+2026-02-14 15:14:12 [INFO] Detecting anomalies: probe=PROBE-NEW, hours=1
+2026-02-14 15:14:12 [INFO] GET /api/v1/analytics/performance/PROBE-NEW 200 8ms 325 bytes
+2026-02-14 15:14:12 [INFO] GET /api/v1/analytics/roaming/PROBE-NEW 200 8ms 169 bytes
+2026-02-14 15:14:12 [INFO] GET /api/v1/analytics/anomalies/PROBE-NEW 200 18ms 362 bytes
+2026-02-14 15:14:14 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 6ms 2055 bytes
+2026-02-14 15:14:19 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 5ms 2055 bytes
+2026-02-14 15:14:24 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 8ms 2055 bytes
+2026-02-14 15:14:28 [INFO] GET /api/v1/analytics/timeseries/rssi 200 3ms 3059 bytes
+2026-02-14 15:14:28 [INFO] GET /api/v1/analytics/timeseries/latency 200 3ms 2979 bytes
+2026-02-14 15:14:28 [INFO] GET /api/v1/analytics/health 200 9ms 206 bytes
+2026-02-14 15:14:28 [INFO] GET /api/v1/analytics/congestion 200 4ms 595 bytes
+2026-02-14 15:14:28 [INFO] GET /api/v1/analytics/channels 200 9ms 78 bytes
+2026-02-14 15:14:28 [INFO] GET /api/v1/analytics/aps 200 12ms 186 bytes
+2026-02-14 15:14:37 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0002ec168
+2026-02-14 15:14:56 [INFO] GET /api/v1/analytics/timeseries/rssi 200 7ms 3010 bytes
+2026-02-14 15:14:56 [INFO] Detecting anomalies: probe=PROBE-NEW, hours=1
+2026-02-14 15:14:56 [INFO] GET /api/v1/analytics/roaming/PROBE-NEW 200 4ms 169 bytes
+2026-02-14 15:14:56 [INFO] GET /api/v1/analytics/timeseries/latency 200 10ms 2933 bytes
+2026-02-14 15:14:56 [INFO] GET /api/v1/analytics/performance/PROBE-NEW 200 13ms 342 bytes
+2026-02-14 15:14:56 [INFO] GET /api/v1/analytics/anomalies/PROBE-NEW 200 50ms 544 bytes
+2026-02-14 15:14:56 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 48ms 2055 bytes
+2026-02-14 15:15:01 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 1ms 2055 bytes
+2026-02-14 15:15:04 [INFO] GET /api/v1/probes 200 3ms 282 bytes
+2026-02-14 15:15:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00022fc48
+2026-02-14 15:15:06 [INFO] GET /api/v1/probes 200 1ms 282 bytes
+2026-02-14 15:15:06 [INFO] GET /api/v1/analytics/timeseries/rssi 200 4ms 233 bytes
+2026-02-14 15:15:06 [INFO] GET /api/v1/analytics/health 200 9ms 220 bytes
+2026-02-14 15:15:06 [INFO] GET /api/v1/analytics/aps 200 9ms 186 bytes
+2026-02-14 15:15:06 [INFO] GET /api/v1/analytics/channels 200 13ms 78 bytes
+2026-02-14 15:15:06 [INFO] GET /api/v1/analytics/timeseries/latency 200 24ms 243 bytes
+2026-02-14 15:15:06 [INFO] GET /api/v1/analytics/congestion 200 15ms 595 bytes
+2026-02-14 15:15:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000015d58
