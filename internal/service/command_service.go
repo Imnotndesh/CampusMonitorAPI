@@ -1,5 +1,4 @@
-// internal/service/command_service.go (Updated)
-
+// internal/service/command_service.go
 package service
 
 import (
@@ -22,6 +21,8 @@ type CommandService struct {
 	log              *logger.Logger
 }
 
+const StaleThreshold = 60 * time.Second
+
 func NewCommandService(
 	commandRepo *repository.CommandRepository,
 	mqttClient *mqtt.Client,
@@ -37,6 +38,7 @@ func NewCommandService(
 		log:              log,
 	}
 }
+
 func (s *CommandService) UpdateResultByID(ctx context.Context, commandID int, result map[string]interface{}) error {
 	status := "completed"
 	err := s.commandRepo.UpdateStatus(ctx, commandID, status, result)
@@ -48,6 +50,7 @@ func (s *CommandService) UpdateResultByID(ctx context.Context, commandID int, re
 	s.log.Info("Command %d manually updated via API", commandID)
 	return nil
 }
+
 func (s *CommandService) IssueCommand(ctx context.Context, req *models.CommandRequest) (*models.Command, error) {
 	s.log.Info("Issuing command: type=%s, probe=%s", req.CommandType, req.ProbeID)
 
@@ -64,14 +67,23 @@ func (s *CommandService) IssueCommand(ctx context.Context, req *models.CommandRe
 	}
 
 	var err error
+	if req.CommandType != "ping" {
+		checkCtx, cancel := context.WithTimeout(ctx, 6*time.Second)
+		defer cancel()
+
+		if err := s.VerifyProbeConnectivity(checkCtx, req.ProbeID); err != nil {
+			s.log.Warn("Connectivity check failed for %s: %v", req.ProbeID, err)
+			return nil, fmt.Errorf("cannot send %s: %v", req.CommandType, err)
+		}
+	}
 
 	switch req.CommandType {
 	case "deep_scan":
-		duration := 2
+		duration := 5
 		if d, ok := req.Payload["duration"].(float64); ok {
 			duration = int(d)
 		}
-		err = s.mqttClient.SendDeepScan(req.ProbeID, duration)
+		err = s.mqttClient.SendDeepScan(req.ProbeID, cmd.ID, duration)
 
 	case "config_update":
 		config := make(map[string]interface{})
@@ -87,43 +99,77 @@ func (s *CommandService) IssueCommand(ctx context.Context, req *models.CommandRe
 		if topic, ok := req.Payload["telemetry_topic"].(string); ok {
 			config["telemetry_topic"] = topic
 		}
-		err = s.mqttClient.SendConfigUpdate(req.ProbeID, config)
+		err = s.mqttClient.SendConfigUpdate(req.ProbeID, cmd.ID, config)
+
+	case "get_config":
+		err = s.mqttClient.SendGetConfig(req.ProbeID, cmd.ID)
+
+	case "set_wifi":
+		ssid, _ := req.Payload["ssid"].(string)
+		password, _ := req.Payload["password"].(string)
+		if ssid == "" || password == "" {
+			err = fmt.Errorf("set_wifi requires ssid and password")
+		} else {
+			err = s.mqttClient.SendSetWifi(req.ProbeID, cmd.ID, ssid, password)
+		}
+
+	case "set_mqtt":
+		broker, _ := req.Payload["broker"].(string)
+		port := 1883
+		if p, ok := req.Payload["port"].(float64); ok {
+			port = int(p)
+		}
+		user, _ := req.Payload["user"].(string)
+		password, _ := req.Payload["password"].(string)
+
+		if broker == "" {
+			err = fmt.Errorf("set_mqtt requires broker")
+		} else {
+			err = s.mqttClient.SendSetMqtt(req.ProbeID, cmd.ID, broker, port, user, password)
+		}
+
+	case "rename_probe":
+		newID, _ := req.Payload["new_id"].(string)
+		if newID == "" {
+			err = fmt.Errorf("rename_probe requires new_id")
+		} else {
+			err = s.mqttClient.SendRenameProbe(req.ProbeID, cmd.ID, newID)
+		}
 
 	case "restart":
 		delay := 2000
 		if d, ok := req.Payload["delay"].(float64); ok {
 			delay = int(d)
 		}
-		err = s.mqttClient.SendRestart(req.ProbeID, delay)
+		err = s.mqttClient.SendRestart(req.ProbeID, cmd.ID, delay)
 
 	case "ota_update":
 		url, _ := req.Payload["url"].(string)
-		version, _ := req.Payload["version"].(string)
-		if url == "" || version == "" {
-			err = fmt.Errorf("ota_update requires url and version")
+		if url == "" {
+			err = fmt.Errorf("ota_update requires url")
 		} else {
-			err = s.mqttClient.SendOTAUpdate(req.ProbeID, url, version)
+			err = s.mqttClient.SendOTAUpdate(req.ProbeID, cmd.ID, url)
 		}
 
 	case "factory_reset":
-		err = s.mqttClient.SendRawCommand(req.ProbeID, "factory_reset", map[string]interface{}{})
+		err = s.mqttClient.SendFactoryReset(req.ProbeID, cmd.ID)
 
 	case "ping":
-		err = s.mqttClient.SendPing(req.ProbeID)
+		err = s.mqttClient.SendPing(req.ProbeID, cmd.ID)
 
 	case "get_status":
-		err = s.mqttClient.SendGetStatus(req.ProbeID)
+		err = s.mqttClient.SendGetStatus(req.ProbeID, cmd.ID)
 
 	default:
 		s.log.Info("Sending custom command: %s", req.CommandType)
-		err = s.mqttClient.SendRawCommand(req.ProbeID, req.CommandType, req.Payload)
+		err = s.mqttClient.SendRawCommand(req.ProbeID, cmd.ID, req.CommandType, req.Payload)
 	}
 
 	if err != nil {
 		s.log.Error("Failed to send command via MQTT: %v", err)
-		err := s.commandRepo.UpdateStatus(ctx, cmd.ID, "failed", map[string]interface{}{"error": err.Error()})
-		if err != nil {
-			return nil, err
+		updateErr := s.commandRepo.UpdateStatus(ctx, cmd.ID, "failed", map[string]interface{}{"error": err.Error()})
+		if updateErr != nil {
+			return nil, updateErr
 		}
 		return nil, fmt.Errorf("failed to send command: %w", err)
 	}
@@ -161,11 +207,11 @@ func (s *CommandService) BroadcastCommand(ctx context.Context, commandType strin
 		return err
 	}
 
-	if err := s.mqttClient.BroadcastCommand(commandType, params); err != nil {
+	if err := s.mqttClient.BroadcastCommand(cmd.ID, commandType, params); err != nil {
 		s.log.Error("Failed to broadcast command: %v", err)
-		err := s.commandRepo.UpdateStatus(ctx, cmd.ID, "failed", map[string]interface{}{"error": err.Error()})
-		if err != nil {
-			return err
+		updateErr := s.commandRepo.UpdateStatus(ctx, cmd.ID, "failed", map[string]interface{}{"error": err.Error()})
+		if updateErr != nil {
+			return updateErr
 		}
 		return err
 	}
@@ -196,6 +242,7 @@ func (s *CommandService) GetCommandStatistics(ctx context.Context) (map[string]i
 
 	return result, nil
 }
+
 func (s *CommandService) DeleteOldCommands(ctx context.Context, days int) (int, error) {
 	s.log.Info("Deleting commands older than %d days", days)
 
@@ -208,13 +255,14 @@ func (s *CommandService) DeleteOldCommands(ctx context.Context, days int) (int, 
 	s.log.Info("Deleted %d old commands", count)
 	return int(count), nil
 }
+
 func (s *CommandService) ProcessCommandResult(ctx context.Context, payload []byte) error {
 	var result struct {
 		ProbeID   string                 `json:"probe_id"`
 		Command   string                 `json:"command"`
 		Status    string                 `json:"status"`
 		Result    map[string]interface{} `json:"result"`
-		CommandID string                 `json:"command_id"` // Optional
+		CommandID string                 `json:"command_id"`
 	}
 
 	if err := json.Unmarshal(payload, &result); err != nil {
@@ -222,11 +270,21 @@ func (s *CommandService) ProcessCommandResult(ctx context.Context, payload []byt
 		return err
 	}
 
-	s.log.Info("Processing result: Probe=%s Cmd=%s Status=%s", result.ProbeID, result.Command, result.Status)
+	s.log.Info("Processing result: Probe=%s Cmd=%s Status=%s CommandID=%s", result.ProbeID, result.Command, result.Status, result.CommandID)
 
-	err := s.commandRepo.UpdateLatestResult(ctx, result.ProbeID, result.Command, result.Status, result.Result)
-	if err != nil {
-		s.log.Warn("Could not link result to a specific command history entry: %v", err)
+	if result.CommandID != "" {
+		cmdID := 0
+		if _, err := fmt.Sscanf(result.CommandID, "%d", &cmdID); err == nil && cmdID > 0 {
+			err := s.commandRepo.UpdateStatus(ctx, cmdID, result.Status, result.Result)
+			if err != nil {
+				s.log.Warn("Failed to update command %d: %v", cmdID, err)
+			}
+		}
+	} else {
+		err := s.commandRepo.UpdateLatestResult(ctx, result.ProbeID, result.Command, result.Status, result.Result)
+		if err != nil {
+			s.log.Warn("Could not link result to a specific command history entry: %v", err)
+		}
 	}
 
 	if result.Status == "completed" {
@@ -244,14 +302,26 @@ func (s *CommandService) ProcessCommandResult(ctx context.Context, payload []byt
 				}
 			}()
 			s.log.Info("Deep scan completed for %s", result.ProbeID)
-		case "config_update":
+
+		case "config_update", "set_wifi", "set_mqtt":
 			s.log.Info("Probe %s configuration updated successfully", result.ProbeID)
 
+		case "rename_probe":
+			if newID, ok := result.Result["new_id"].(string); ok && newID != "" {
+				s.log.Info("Probe %s renamed to %s", result.ProbeID, newID)
+			}
+
 		case "ota_update":
-			s.log.Info("Probe %s OTA update initiated", result.ProbeID)
+			s.log.Info("Probe %s OTA update status: %s", result.ProbeID, result.Status)
+			if progress, ok := result.Result["progress"].(float64); ok {
+				s.log.Info("OTA Progress: %.0f%%", progress)
+			}
 
 		case "get_status":
 			s.handleStatusUpdate(ctx, result.ProbeID, result.Result)
+
+		case "get_config":
+			s.log.Info("Probe %s config retrieved", result.ProbeID)
 
 		case "ping":
 			_ = s.probeRepo.UpdateLastSeen(ctx, result.ProbeID, time.Now())
@@ -259,18 +329,69 @@ func (s *CommandService) ProcessCommandResult(ctx context.Context, payload []byt
 		case "factory_reset":
 			s.log.Warn("Probe %s performed a factory reset", result.ProbeID)
 		}
+	} else if result.Status == "processing" {
+		if result.Command == "ota_update" {
+			if progress, ok := result.Result["progress"].(float64); ok {
+				s.log.Info("Probe %s OTA progress: %.0f%%", result.ProbeID, progress)
+			}
+		}
 	}
 
 	return nil
 }
 
-// handleStatusUpdate extracts details from the get_status payload and updates the probes table
-func (s *CommandService) handleStatusUpdate(ctx context.Context, probeID string, data map[string]interface{}) {
+func (s *CommandService) VerifyProbeConnectivity(ctx context.Context, probeID string) error {
+	probe, err := s.probeRepo.GetByID(ctx, probeID)
+	if err != nil {
+		return fmt.Errorf("probe lookup failed: %w", err)
+	}
+	if time.Since(probe.LastSeen) < StaleThreshold {
+		return nil
+	}
 
+	s.log.Info("Attempting to ping %s (last seen: %v)", probeID, probe.LastSeen)
+
+	tempCmd := &models.Command{
+		ProbeID:     probeID,
+		CommandType: "ping",
+		Status:      "pending",
+	}
+	if err := s.commandRepo.Create(ctx, tempCmd); err != nil {
+		return fmt.Errorf("failed to create ping command: %w", err)
+	}
+
+	if err := s.mqttClient.SendPing(probeID, tempCmd.ID); err != nil {
+		return fmt.Errorf("failed to send wake-up ping: %w", err)
+	}
+
+	ticker := time.NewTicker(500 * time.Millisecond)
+	defer ticker.Stop()
+	timeout := time.After(5 * time.Second)
+
+	initialLastSeen := probe.LastSeen
+
+	for {
+		select {
+		case <-ctx.Done():
+			return ctx.Err()
+		case <-timeout:
+			return fmt.Errorf("probe unreachable: no response to ping after 5s")
+		case <-ticker.C:
+			p, err := s.probeRepo.GetByID(ctx, probeID)
+			if err == nil && p.LastSeen.After(initialLastSeen) {
+				s.log.Info("Probe %s is back online!", probeID)
+				return nil
+			}
+		}
+	}
+}
+
+func (s *CommandService) handleStatusUpdate(ctx context.Context, probeID string, data map[string]interface{}) {
 	if err := s.probeRepo.UpdateLastSeen(ctx, probeID, time.Now()); err != nil {
 		s.log.Error("Failed to update last_seen from status report: %v", err)
 	}
 }
+
 func (s *CommandService) DeleteCommand(ctx context.Context, commandID int) error {
 	return s.commandRepo.Delete(ctx, commandID)
 }

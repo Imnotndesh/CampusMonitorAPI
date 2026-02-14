@@ -39,6 +39,7 @@ func (h *ProbeHandler) RegisterRoutes(r *mux.Router) {
 	r.HandleFunc("/probes/{id}/adopt", h.AdoptProbe).Methods("POST")
 	r.HandleFunc("/probes/active", h.GetActiveProbes).Methods("GET")
 	r.HandleFunc("/probes/building/{building}", h.GetProbesByBuilding).Methods("GET")
+	r.HandleFunc("/probes/{probe_id}/ping", h.CheckConnectivity).Methods("POST")
 }
 
 func (h *ProbeHandler) CreateProbe(w http.ResponseWriter, r *http.Request) {
@@ -179,6 +180,20 @@ func (h *ProbeHandler) SendCommand(w http.ResponseWriter, r *http.Request) {
 		"command": command,
 	})
 }
+func (h *ProbeHandler) CheckConnectivity(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	probeID := vars["probe_id"]
+	err := h.commandService.VerifyProbeConnectivity(r.Context(), probeID)
+	if err != nil {
+		respondError(w, http.StatusGatewayTimeout, "Probe is unreachable")
+		return
+	}
+
+	respondJSON(w, http.StatusOK, map[string]string{
+		"status":  "online",
+		"message": "Probe is active and responding",
+	})
+}
 
 func (h *ProbeHandler) AdoptProbe(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
@@ -190,8 +205,6 @@ func (h *ProbeHandler) AdoptProbe(w http.ResponseWriter, r *http.Request) {
 		respondError(w, http.StatusBadRequest, "Invalid request body")
 		return
 	}
-
-	// Set status to active when adopting
 	status := "active"
 	req.Status = &status
 

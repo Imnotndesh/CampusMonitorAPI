@@ -3856,3 +3856,318 @@
 2026-02-14 15:15:06 [INFO] GET /api/v1/analytics/timeseries/latency 200 24ms 243 bytes
 2026-02-14 15:15:06 [INFO] GET /api/v1/analytics/congestion 200 15ms 595 bytes
 2026-02-14 15:15:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000015d58
+2026-02-14 15:16:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000270358
+2026-02-14 15:16:10 [INFO] GET /api/v1/probes 200 1ms 282 bytes
+2026-02-14 15:16:10 [INFO] GET /api/v1/analytics/channels 200 13ms 78 bytes
+2026-02-14 15:16:10 [INFO] GET /api/v1/analytics/aps 200 37ms 186 bytes
+2026-02-14 15:16:10 [INFO] GET /api/v1/analytics/timeseries/latency 200 69ms 246 bytes
+2026-02-14 15:16:10 [INFO] GET /api/v1/analytics/timeseries/rssi 200 74ms 237 bytes
+2026-02-14 15:16:10 [INFO] GET /api/v1/analytics/health 200 91ms 180 bytes
+2026-02-14 15:16:10 [INFO] GET /api/v1/analytics/congestion 200 92ms 585 bytes
+2026-02-14 15:16:18 [INFO] GET /api/v1/probes 200 3ms 282 bytes
+2026-02-14 15:16:23 [INFO] GET /api/v1/probes 200 1ms 282 bytes
+2026-02-14 15:16:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0002ecc48
+2026-02-14 15:17:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000374718
+2026-02-14 15:17:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0002ecf48
+2026-02-14 15:18:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000270618
+2026-02-14 15:18:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000014368
+2026-02-14 15:19:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0002701b8
+2026-02-14 15:19:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000270428
+2026-02-14 15:20:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0002ec2a8
+2026-02-14 15:20:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0002ec0e8
+2026-02-14 15:21:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0002ec340
+2026-02-14 15:21:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0002706c8
+2026-02-14 15:22:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000270a28
+2026-02-14 15:22:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0002ec058
+2026-02-14 15:23:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0002ec2c8
+2026-02-14 15:23:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000270418
+2026-02-14 15:24:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0002ec478
+2026-02-14 15:24:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0002ec0e8
+2026-02-14 15:25:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000374218
+2026-02-14 15:25:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000374378
+2026-02-14 15:26:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000014458
+2026-02-14 15:26:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0002ec0d8
+2026-02-14 15:27:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0003744c8
+2026-02-14 15:27:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0003746a8
+2026-02-14 15:28:01 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000014318
+2026-02-14 15:28:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0003740d8
+2026-02-14 15:29:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0002702b8
+2026-02-14 15:29:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0002705d8
+2026-02-14 15:30:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000014158
+2026-02-14 15:30:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000270268
+2026-02-14 15:31:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000014208
+2026-02-14 15:31:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0000144f8
+2026-02-14 15:32:06 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0002ec0e8
+2026-02-14 15:32:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000014d58
+2026-02-14 15:33:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0002702a8
+2026-02-14 15:33:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0002ec1e8
+2026-02-14 15:34:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0002ec4b8
+2026-02-14 15:34:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0000142e8
+2026-02-14 15:35:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0002ec1a8
+2026-02-14 15:35:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000270348
+2026-02-14 15:36:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0002704c8
+2026-02-14 15:36:34 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0002707c8
+2026-02-14 15:37:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0000141f8
+2026-02-14 15:37:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0002701c8
+2026-02-14 15:38:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00022e328
+2026-02-14 15:38:34 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00022e5d8
+2026-02-14 15:39:06 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000270298
+2026-02-14 15:39:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0002705b8
+2026-02-14 15:40:07 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0002708a8
+2026-02-14 15:40:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000014398
+2026-02-14 15:41:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0000142b8
+2026-02-14 15:41:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0002702a8
+2026-02-14 15:42:04 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00022e2c8
+2026-02-14 15:42:36 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0002ec118
+2026-02-14 15:43:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0000142a8
+2026-02-14 15:43:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000014568
+2026-02-14 15:44:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0002ec1e8
+2026-02-14 15:44:37 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000014918
+2026-02-14 15:45:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0002ec0d8
+2026-02-14 15:45:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0002ec348
+2026-02-14 15:46:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0002ec608
+2026-02-14 15:46:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0002ec8b8
+2026-02-14 15:47:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00022e078
+2026-02-14 15:47:40 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0002703b8
+2026-02-14 15:48:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0002706a8
+2026-02-14 15:49:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000270908
+2026-02-14 15:49:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000318258
+2026-02-14 15:50:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00022e268
+2026-02-14 15:50:36 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00022e6e8
+2026-02-14 15:50:50 [INFO] GET /api/v1/probes 200 4ms 282 bytes
+2026-02-14 15:50:51 [INFO] GET /api/v1/probes 200 1ms 282 bytes
+2026-02-14 15:50:53 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 10ms 2055 bytes
+2026-02-14 15:51:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000318048
+2026-02-14 15:51:15 [INFO] Issuing command: type=get_status, probe=PROBE-NEW
+2026-02-14 15:51:15 [INFO] Publishing to topic: campus/probes/PROBE-NEW/command
+2026-02-14 15:51:15 [INFO] Payload: {"command":"get_status","command_id":"cmd-1771073475","timestamp":1771073475}
+2026-02-14 15:51:15 [INFO] Command sent to PROBE-NEW: get_status (ID: cmd-1771073475)
+2026-02-14 15:51:15 [INFO] Command sent successfully: id=37, type=get_status, probe=PROBE-NEW
+2026-02-14 15:51:15 [INFO] POST /api/v1/commands 201 127ms 122 bytes
+2026-02-14 15:51:15 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 1ms 2174 bytes
+2026-02-14 15:51:15 [INFO] Processing result: Probe=PROBE-NEW Cmd=get_status Status=completed
+2026-02-14 15:51:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00022eac8
+2026-02-14 15:51:45 [INFO] GET /api/v1/commands/1 200 1ms 3 bytes
+2026-02-14 15:52:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00022ef38
+2026-02-14 15:52:07 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 2ms 2301 bytes
+2026-02-14 15:52:36 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000270308
+2026-02-14 15:53:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000319e88
+2026-02-14 15:53:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000128228
+2026-02-14 15:54:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000318278
+2026-02-14 15:54:35 [WARN] Shutdown signal received
+2026-02-14 15:54:35 [INFO] Shutting down HTTP server...
+2026-02-14 15:54:35 [INFO] HTTP server stopped
+2026-02-14 15:54:35 [INFO] Shutdown complete
+2026-02-14 15:54:35 [INFO] Disconnecting from MQTT broker
+2026-02-14 15:54:35 [INFO] Disconnected from MQTT broker
+2026-02-14 15:54:39 [INFO] Starting Campus Monitor API Server
+2026-02-14 15:54:39 [INFO] Database connected successfully
+2026-02-14 15:54:39 [INFO] Connecting to MQTT broker: localhost:1883
+2026-02-14 15:54:39 [INFO] MQTT connection established
+2026-02-14 15:54:39 [INFO] Successfully connected to MQTT broker
+2026-02-14 15:54:39 [INFO] Successfully subscribed to topic: campus/probes/telemetry
+2026-02-14 15:54:39 [INFO] Successfully subscribed to topic: campus/probes/telemetry/offline
+2026-02-14 15:54:39 [INFO] Successfully subscribed to topic: campus/probes/+/result
+2026-02-14 15:54:39 [INFO] MQTT subscriptions active
+2026-02-14 15:54:39 [INFO] All handlers registered
+2026-02-14 15:54:39 [INFO] Starting HTTP server on 0.0.0.0:9080
+2026-02-14 15:54:39 [INFO] API server ready on http://0.0.0.0:9080
+2026-02-14 15:54:50 [INFO] GET /api/v1/probes 200 13ms 282 bytes
+2026-02-14 15:54:50 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 35ms 2301 bytes
+2026-02-14 15:55:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000015088
+2026-02-14 15:55:10 [INFO] POST /api/v1/probes/PROBE-NEW/ping 200 7ms 63 bytes
+2026-02-14 15:55:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0000154e8
+2026-02-14 15:56:04 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0000156b8
+2026-02-14 15:56:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000015978
+2026-02-14 15:57:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0000bebd8
+2026-02-14 15:57:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0000beea8
+2026-02-14 15:58:06 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00033d278
+2026-02-14 15:58:36 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000015ce8
+2026-02-14 15:59:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00033d398
+2026-02-14 15:59:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000296cb8
+2026-02-14 16:00:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000296fa8
+2026-02-14 16:00:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0000bf3c8
+2026-02-14 16:01:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0000bf678
+2026-02-14 16:01:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00033d768
+2026-02-14 16:02:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0000bf938
+2026-02-14 16:02:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0000bfc08
+2026-02-14 16:03:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0002972d8
+2026-02-14 16:03:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0000bff18
+2026-02-14 16:04:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0001c0048
+2026-02-14 16:04:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0001c0358
+2026-02-14 16:05:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0002974a8
+2026-02-14 16:05:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00039c2a8
+2026-02-14 16:06:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0001c0558
+2026-02-14 16:06:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00033db38
+2026-02-14 16:07:06 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000297a28
+2026-02-14 16:07:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000297cf8
+2026-02-14 16:08:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000297ed8
+2026-02-14 16:08:10 [INFO] GET /api/v1/probes 200 11ms 282 bytes
+2026-02-14 16:08:11 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 242ms 2301 bytes
+2026-02-14 16:08:16 [INFO] Issuing command: type=get_status, probe=PROBE-NEW
+2026-02-14 16:08:16 [INFO] Publishing to topic: campus/probes/PROBE-NEW/command
+2026-02-14 16:08:16 [INFO] Payload: {"command":"get_status","command_id":"cmd-1771074496","timestamp":1771074496}
+2026-02-14 16:08:16 [INFO] Command sent to PROBE-NEW: get_status (ID: cmd-1771074496)
+2026-02-14 16:08:16 [INFO] Command sent successfully: id=38, type=get_status, probe=PROBE-NEW
+2026-02-14 16:08:16 [INFO] POST /api/v1/commands 201 100ms 122 bytes
+2026-02-14 16:08:16 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 2ms 2420 bytes
+2026-02-14 16:08:16 [INFO] Processing result: Probe=PROBE-NEW Cmd=get_status Status=completed
+2026-02-14 16:08:22 [INFO] POST /api/v1/probes/PROBE-NEW/ping 200 3ms 63 bytes
+2026-02-14 16:08:34 [INFO] POST /api/v1/probes/PROBE-NEW/ping 200 5ms 63 bytes
+2026-02-14 16:08:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0001dc488
+2026-02-14 16:08:56 [INFO] Issuing command: type=get_status, probe=PROBE-NEW
+2026-02-14 16:08:56 [INFO] Publishing to topic: campus/probes/PROBE-NEW/command
+2026-02-14 16:08:56 [INFO] Payload: {"command":"get_status","command_id":"cmd-1771074536","timestamp":1771074536}
+2026-02-14 16:08:56 [INFO] Command sent to PROBE-NEW: get_status (ID: cmd-1771074536)
+2026-02-14 16:08:56 [INFO] Command sent successfully: id=39, type=get_status, probe=PROBE-NEW
+2026-02-14 16:08:56 [INFO] POST /api/v1/commands 201 55ms 122 bytes
+2026-02-14 16:08:56 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 1ms 2666 bytes
+2026-02-14 16:09:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0001dc608
+2026-02-14 16:09:05 [INFO] Processing result: Probe=PROBE-NEW Cmd=get_status Status=completed
+2026-02-14 16:09:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00036a018
+2026-02-14 16:09:35 [INFO] GET /api/v1/probes 200 2ms 282 bytes
+2026-02-14 16:09:41 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 7ms 2793 bytes
+2026-02-14 16:10:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0002ffab8
+2026-02-14 16:10:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0001dc7f8
+2026-02-14 16:11:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0001dca38
+2026-02-14 16:11:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0002ffd48
+2026-02-14 16:12:07 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00042c038
+2026-02-14 16:12:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00036a3f8
+2026-02-14 16:13:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00039cd48
+2026-02-14 16:13:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00042c368
+2026-02-14 16:14:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00042c558
+2026-02-14 16:14:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00042c828
+2026-02-14 16:15:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00042cae8
+2026-02-14 16:15:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00036aa18
+2026-02-14 16:16:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0001dcd28
+2026-02-14 16:16:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00042ce88
+2026-02-14 16:17:06 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0001dd018
+2026-02-14 16:17:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00036ac28
+2026-02-14 16:18:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00039d108
+2026-02-14 16:18:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00039d3d8
+2026-02-14 16:19:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00039d908
+2026-02-14 16:19:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00039db68
+2026-02-14 16:20:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00042d238
+2026-02-14 16:20:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00042d408
+2026-02-14 16:21:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00036af38
+2026-02-14 16:21:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0001dd398
+2026-02-14 16:22:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0001dd5a8
+2026-02-14 16:22:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0001dd7a8
+2026-02-14 16:23:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00036b318
+2026-02-14 16:23:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0001dda78
+2026-02-14 16:24:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0001ddd78
+2026-02-14 16:24:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0001ddf78
+2026-02-14 16:25:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00042dbe8
+2026-02-14 16:25:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0001f0148
+2026-02-14 16:26:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00036b708
+2026-02-14 16:26:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00042dfa8
+2026-02-14 16:27:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00044e168
+2026-02-14 16:27:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00044e418
+2026-02-14 16:28:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00044e6f8
+2026-02-14 16:28:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00036ba68
+2026-02-14 16:29:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00036bca8
+2026-02-14 16:29:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00044ea18
+2026-02-14 16:30:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00044eca8
+2026-02-14 16:30:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00039df38
+2026-02-14 16:31:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00036bed8
+2026-02-14 16:31:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000490138
+2026-02-14 16:32:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000490308
+2026-02-14 16:32:36 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0001f0938
+2026-02-14 16:33:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0004905a8
+2026-02-14 16:33:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0001f0b58
+2026-02-14 16:34:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0001f0d98
+2026-02-14 16:34:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00044f068
+2026-02-14 16:35:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00044f328
+2026-02-14 16:35:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0004908d8
+2026-02-14 16:36:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0001f0fe8
+2026-02-14 16:36:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00044f658
+2026-02-14 16:37:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0001f1228
+2026-02-14 16:37:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000490cf8
+2026-02-14 16:38:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000490fb8
+2026-02-14 16:38:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0004911c8
+2026-02-14 16:39:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0001f1508
+2026-02-14 16:39:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0003b29c8
+2026-02-14 16:40:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00044f8a8
+2026-02-14 16:40:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0001f1778
+2026-02-14 16:41:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000491798
+2026-02-14 16:41:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00044fc48
+2026-02-14 16:42:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0003b2d08
+2026-02-14 16:42:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0003b2fb8
+2026-02-14 16:43:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000478058
+2026-02-14 16:43:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0004781b8
+2026-02-14 16:44:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000478358
+2026-02-14 16:44:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0004784b8
+2026-02-14 16:45:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc000491ce8
+2026-02-14 16:45:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0003b3648
+2026-02-14 16:46:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0004a6058
+2026-02-14 16:46:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0004a61d8
+2026-02-14 16:47:05 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0004a63e8
+2026-02-14 16:47:35 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0004786c8
+2026-02-14 17:54:30 [INFO] GET /api/v1/probes 200 457ms 282 bytes
+2026-02-14 17:54:32 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 8ms 2793 bytes
+2026-02-14 17:54:37 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 10ms 2793 bytes
+2026-02-14 17:54:42 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 3ms 2793 bytes
+2026-02-14 17:54:47 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 11ms 2793 bytes
+2026-02-14 17:54:52 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 5ms 2793 bytes
+2026-02-14 17:54:57 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 2ms 2793 bytes
+2026-02-14 17:55:02 [INFO] Issuing command: type=get_status, probe=PROBE-NEW
+2026-02-14 17:55:02 [INFO] Attempting to ping%!(EXTRA string=PROBE-NEW, time.Time=2026-02-14 13:47:35 +0000 UTC)
+2026-02-14 17:55:02 [INFO] Publishing to topic: campus/probes/PROBE-NEW/command
+2026-02-14 17:55:02 [INFO] Payload: {"command":"ping","command_id":"cmd-1771080902","timestamp":1771080902}
+2026-02-14 17:55:02 [INFO] Command sent to PROBE-NEW: ping (ID: cmd-1771080902)
+2026-02-14 17:55:02 [INFO] Processing result: Probe=PROBE-NEW Cmd=ping Status=completed
+2026-02-14 17:55:02 [WARN] Could not link result to a specific command history entry: no matching command record found
+2026-02-14 17:55:02 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 5ms 2915 bytes
+2026-02-14 17:55:03 [INFO] Probe PROBE-NEW is back online!
+2026-02-14 17:55:03 [INFO] Publishing to topic: campus/probes/PROBE-NEW/command
+2026-02-14 17:55:03 [INFO] Payload: {"command":"get_status","command_id":"cmd-1771080903","timestamp":1771080903}
+2026-02-14 17:55:03 [INFO] Command sent to PROBE-NEW: get_status (ID: cmd-1771080903)
+2026-02-14 17:55:03 [INFO] Command sent successfully: id=40, type=get_status, probe=PROBE-NEW
+2026-02-14 17:55:03 [INFO] POST /api/v1/commands 201 586ms 122 bytes
+2026-02-14 17:55:03 [INFO] Processing result: Probe=PROBE-NEW Cmd=get_status Status=completed
+2026-02-14 17:55:03 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 36ms 3036 bytes
+2026-02-14 17:55:08 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 7ms 3036 bytes
+2026-02-14 17:55:13 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 7ms 3036 bytes
+2026-02-14 17:55:18 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 2ms 3036 bytes
+2026-02-14 17:55:23 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 8ms 3036 bytes
+2026-02-14 17:55:25 [INFO] GET /api/v1/probes 200 2ms 289 bytes
+2026-02-14 17:55:26 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 6ms 3036 bytes
+2026-02-14 17:55:29 [INFO] POST /api/v1/probes/PROBE-NEW/ping 200 7ms 63 bytes
+2026-02-14 17:55:31 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 7ms 3036 bytes
+2026-02-14 17:55:32 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc00033d8f8
+2026-02-14 17:55:36 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 7ms 3036 bytes
+2026-02-14 17:55:40 [INFO] Issuing command: type=get_config, probe=PROBE-NEW
+2026-02-14 17:55:40 [INFO] Sending custom command: get_config
+2026-02-14 17:55:40 [INFO] Publishing to topic: campus/probes/PROBE-NEW/command
+2026-02-14 17:55:40 [INFO] Payload: {"command":"get_config","command_id":"cmd-1771080940","timestamp":1771080940}
+2026-02-14 17:55:40 [INFO] Command sent to PROBE-NEW: get_config (ID: cmd-1771080940)
+2026-02-14 17:55:40 [INFO] Command sent successfully: id=41, type=get_config, probe=PROBE-NEW
+2026-02-14 17:55:40 [INFO] POST /api/v1/commands 201 51ms 121 bytes
+2026-02-14 17:55:40 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 2ms 3154 bytes
+2026-02-14 17:55:40 [INFO] Processing result: Probe=PROBE-NEW Cmd=get_config Status=failed
+2026-02-14 17:55:45 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 6ms 3240 bytes
+2026-02-14 17:55:50 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 6ms 3240 bytes
+2026-02-14 17:55:55 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 1ms 3240 bytes
+2026-02-14 17:56:00 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 2ms 3240 bytes
+2026-02-14 17:56:01 [INFO] Telemetry stored: probe=PROBE-NEW, type=light, rssi=0xc0001fc0a8
+2026-02-14 17:56:06 [INFO] Issuing command: type=restart, probe=PROBE-NEW
+2026-02-14 17:56:06 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 3ms 3240 bytes
+2026-02-14 17:56:06 [INFO] Publishing to topic: campus/probes/PROBE-NEW/command
+2026-02-14 17:56:06 [INFO] Payload: {"command":"restart","command_id":"cmd-1771080966","payload":{"delay":2000},"timestamp":1771080966}
+2026-02-14 17:56:06 [INFO] Command sent to PROBE-NEW: restart (ID: cmd-1771080966)
+2026-02-14 17:56:06 [INFO] Command sent successfully: id=42, type=restart, probe=PROBE-NEW
+2026-02-14 17:56:06 [INFO] POST /api/v1/commands 201 30ms 144 bytes
+2026-02-14 17:56:06 [INFO] Processing result: Probe=PROBE-NEW Cmd=restart Status=completed
+2026-02-14 17:56:06 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 2ms 3381 bytes
+2026-02-14 17:56:11 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 4ms 3462 bytes
+2026-02-14 17:56:16 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 7ms 3462 bytes
+2026-02-14 17:56:22 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 11ms 3462 bytes
+2026-02-14 17:56:27 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 6ms 3462 bytes
+2026-02-14 17:56:32 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 9ms 3462 bytes
+2026-02-14 17:56:37 [INFO] GET /api/v1/commands/probe/PROBE-NEW 200 1ms 3462 bytes
+2026-02-14 17:56:37 [WARN] Shutdown signal received
+2026-02-14 17:56:37 [INFO] Shutting down HTTP server...
+2026-02-14 17:56:37 [INFO] HTTP server stopped
+2026-02-14 17:56:37 [INFO] Shutdown complete
+2026-02-14 17:56:37 [INFO] Disconnecting from MQTT broker
+2026-02-14 17:56:37 [INFO] Disconnected from MQTT broker
