@@ -15,23 +15,26 @@ import (
 )
 
 type CommandService struct {
-	commandRepo *repository.CommandRepository
-	probeRepo   *repository.ProbeRepository
-	mqttClient  *mqtt.Client
-	log         *logger.Logger
+	commandRepo      *repository.CommandRepository
+	probeRepo        *repository.ProbeRepository
+	telemetryService *TelemetryService
+	mqttClient       *mqtt.Client
+	log              *logger.Logger
 }
 
 func NewCommandService(
 	commandRepo *repository.CommandRepository,
 	mqttClient *mqtt.Client,
 	probeRepo *repository.ProbeRepository,
+	telemetryService *TelemetryService,
 	log *logger.Logger,
 ) *CommandService {
 	return &CommandService{
-		commandRepo: commandRepo,
-		mqttClient:  mqttClient,
-		probeRepo:   probeRepo,
-		log:         log,
+		commandRepo:      commandRepo,
+		mqttClient:       mqttClient,
+		probeRepo:        probeRepo,
+		telemetryService: telemetryService,
+		log:              log,
 	}
 }
 func (s *CommandService) UpdateResultByID(ctx context.Context, commandID int, result map[string]interface{}) error {
@@ -232,6 +235,14 @@ func (s *CommandService) ProcessCommandResult(ctx context.Context, payload []byt
 			if err := s.commandRepo.PruneOldScans(ctx, result.ProbeID, 5); err != nil {
 				s.log.Warn("Failed to prune old deep scans: %v", err)
 			}
+			go func() {
+				bgCtx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+				defer cancel()
+
+				if err := s.telemetryService.RecordDeepScanAsTelemetry(bgCtx, result.ProbeID, result.Result); err != nil {
+					s.log.Error("Failed to record deep scan telemetry: %v", err)
+				}
+			}()
 			s.log.Info("Deep scan completed for %s", result.ProbeID)
 		case "config_update":
 			s.log.Info("Probe %s configuration updated successfully", result.ProbeID)

@@ -90,7 +90,7 @@ func main() {
 	analyticsService := service.NewAnalyticsService(analyticsRepo, log)
 
 	// UPDATE: CommandService now needs probeRepo as well
-	commandService := service.NewCommandService(commandRepo, mqttClient, probeRepo, log)
+	commandService := service.NewCommandService(commandRepo, mqttClient, probeRepo, telemetryService, log)
 
 	// 7. MQTT Subscriptions
 	// A. Telemetry

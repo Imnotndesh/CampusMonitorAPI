@@ -82,7 +82,7 @@ func (c *Client) SendGetStatus(probeID string) error {
 	cmd := Command{
 		Command:   "get_status",
 		CommandID: fmt.Sprintf("cmd-%d", time.Now().Unix()),
-		Payload:   map[string]interface{}{}, // CHANGED from Params
+		Payload:   map[string]interface{}{},
 		Timestamp: time.Now().Unix(),
 	}
 
