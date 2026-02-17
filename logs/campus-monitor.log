@@ -5911,3 +5911,965 @@
 2026-02-17 16:26:59 [INFO] Shutdown complete
 2026-02-17 16:26:59 [INFO] Disconnecting from MQTT broker
 2026-02-17 16:26:59 [INFO] Disconnected from MQTT broker
+2026-02-17 16:35:30 [INFO] Starting Campus Monitor API Server
+2026-02-17 16:35:30 [INFO] Database connected successfully
+2026-02-17 16:35:30 [INFO] Connecting to MQTT broker: localhost:1883
+2026-02-17 16:35:30 [INFO] Successfully connected to MQTT broker
+2026-02-17 16:35:30 [INFO] MQTT connection established
+2026-02-17 16:35:30 [INFO] Successfully subscribed to topic: campus/probes/telemetry
+2026-02-17 16:35:30 [INFO] Successfully subscribed to topic: campus/probes/telemetry/offline
+2026-02-17 16:35:30 [INFO] Successfully subscribed to topic: campus/probes/+/result
+2026-02-17 16:35:30 [INFO] MQTT subscriptions active
+2026-02-17 16:35:30 [INFO] Started background ping worker
+2026-02-17 16:35:30 [INFO] All handlers registered
+2026-02-17 16:35:30 [INFO] Starting HTTP server on 0.0.0.0:9080
+2026-02-17 16:35:30 [INFO] API server ready on http://0.0.0.0:9080
+2026-02-17 16:36:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 16:36:00 [INFO] Payload: {"command":"ping","command_id":"213","timestamp":1771335360}
+2026-02-17 16:36:00 [INFO] Command sent to Main: ping (ID: 213)
+2026-02-17 16:36:00 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=213
+2026-02-17 16:36:19 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000014d50
+2026-02-17 16:36:25 [INFO] GET /api/v1/probes 200 2ms 277 bytes
+2026-02-17 16:36:25 [INFO] GET /api/v1/analytics/timeseries/latency 200 41ms 181 bytes
+2026-02-17 16:36:25 [INFO] GET /api/v1/analytics/timeseries/rssi 200 77ms 182 bytes
+2026-02-17 16:36:25 [INFO] GET /api/v1/analytics/aps 200 64ms 185 bytes
+2026-02-17 16:36:25 [INFO] GET /api/v1/analytics/channels 200 108ms 141 bytes
+2026-02-17 16:36:25 [INFO] GET /api/v1/analytics/congestion 200 113ms 437 bytes
+2026-02-17 16:36:25 [INFO] GET /api/v1/analytics/health 200 171ms 175 bytes
+2026-02-17 16:36:28 [INFO] GET /api/v1/probes 200 3ms 277 bytes
+2026-02-17 16:36:28 [INFO] GET /api/v1/analytics/timeseries/latency 200 13ms 181 bytes
+2026-02-17 16:36:28 [INFO] GET /api/v1/analytics/timeseries/rssi 200 14ms 182 bytes
+2026-02-17 16:36:28 [INFO] GET /api/v1/analytics/aps 200 11ms 185 bytes
+2026-02-17 16:36:28 [INFO] GET /api/v1/analytics/channels 200 29ms 141 bytes
+2026-02-17 16:36:28 [INFO] GET /api/v1/analytics/health 200 63ms 175 bytes
+2026-02-17 16:36:28 [INFO] GET /api/v1/analytics/congestion 200 66ms 437 bytes
+2026-02-17 16:36:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 16:36:30 [INFO] Payload: {"command":"ping","command_id":"214","timestamp":1771335390}
+2026-02-17 16:36:30 [INFO] Command sent to Main: ping (ID: 214)
+2026-02-17 16:36:30 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=214
+2026-02-17 16:36:31 [INFO] GET /api/v1/probes/Main/ping-status 200 0ms 34 bytes
+2026-02-17 16:36:32 [INFO] GET /api/v1/probes 200 2ms 285 bytes
+2026-02-17 16:36:32 [INFO] GET /api/v1/commands/probe/Main 200 4ms 8341 bytes
+2026-02-17 16:36:35 [INFO] GET /api/v1/commands/probe/Main 200 5ms 8341 bytes
+2026-02-17 16:36:37 [INFO] GET /api/v1/commands/probe/Main 200 9ms 8341 bytes
+2026-02-17 16:36:39 [INFO] GET /api/v1/commands/probe/Main 200 7ms 8341 bytes
+2026-02-17 16:36:41 [INFO] GET /api/v1/commands/probe/Main 200 1ms 8341 bytes
+2026-02-17 16:36:42 [INFO] GET /api/v1/probes/Main/ping-status 200 0ms 34 bytes
+2026-02-17 16:36:43 [INFO] GET /api/v1/commands/probe/Main 200 2ms 8341 bytes
+2026-02-17 16:36:45 [INFO] GET /api/v1/commands/probe/Main 200 9ms 8341 bytes
+2026-02-17 16:36:47 [INFO] GET /api/v1/commands/probe/Main 200 1ms 8341 bytes
+2026-02-17 16:36:49 [INFO] Issuing command: type=set_mqtt, probe=Main
+2026-02-17 16:36:49 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 16:36:49 [INFO] Payload: {"command":"set_mqtt","command_id":"215","payload":{"broker":"fedora.local","password":"","port":1883,"user":""},"timestamp":1771335409}
+2026-02-17 16:36:49 [INFO] Command sent to Main: set_mqtt (ID: 215)
+2026-02-17 16:36:49 [INFO] Command sent successfully: id=215, type=set_mqtt, probe=Main
+2026-02-17 16:36:49 [INFO] POST /api/v1/commands 201 42ms 152 bytes
+2026-02-17 16:36:49 [INFO] Processing result: Probe=Main Cmd=set_mqtt Status=completed CommandID=215
+2026-02-17 16:36:49 [INFO] Probe Main configuration updated successfully
+2026-02-17 16:36:49 [INFO] GET /api/v1/commands/probe/Main 200 4ms 8478 bytes
+2026-02-17 16:36:51 [INFO] GET /api/v1/commands/probe/Main 200 5ms 8478 bytes
+2026-02-17 16:36:52 [INFO] GET /api/v1/probes/Main/ping-status 200 0ms 34 bytes
+2026-02-17 16:36:53 [INFO] GET /api/v1/commands/probe/Main 200 1ms 8478 bytes
+2026-02-17 16:36:55 [INFO] GET /api/v1/commands/probe/Main 200 29ms 8478 bytes
+2026-02-17 16:36:57 [INFO] GET /api/v1/commands/probe/Main 200 8ms 8478 bytes
+2026-02-17 16:37:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 16:37:00 [INFO] Payload: {"command":"ping","command_id":"216","timestamp":1771335420}
+2026-02-17 16:37:00 [INFO] Command sent to Main: ping (ID: 216)
+2026-02-17 16:37:00 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=216
+2026-02-17 16:37:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 16:37:30 [INFO] Payload: {"command":"ping","command_id":"217","timestamp":1771335450}
+2026-02-17 16:37:30 [INFO] Command sent to Main: ping (ID: 217)
+2026-02-17 16:37:30 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=217
+2026-02-17 16:38:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 16:38:00 [INFO] Payload: {"command":"ping","command_id":"218","timestamp":1771335480}
+2026-02-17 16:38:00 [INFO] Command sent to Main: ping (ID: 218)
+2026-02-17 16:38:00 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=218
+2026-02-17 16:38:07 [INFO] GET /api/v1/probes/Main/ping-status 200 0ms 34 bytes
+2026-02-17 16:38:07 [INFO] GET /api/v1/commands/probe/Main 200 5ms 8759 bytes
+2026-02-17 16:38:07 [INFO] GET /api/v1/probes 200 1ms 285 bytes
+2026-02-17 16:38:09 [INFO] GET /api/v1/commands/probe/Main 200 22ms 8759 bytes
+2026-02-17 16:38:11 [INFO] GET /api/v1/commands/probe/Main 200 11ms 8759 bytes
+2026-02-17 16:38:14 [INFO] GET /api/v1/commands/probe/Main 200 9ms 8759 bytes
+2026-02-17 16:38:16 [INFO] GET /api/v1/commands/probe/Main 200 4ms 8759 bytes
+2026-02-17 16:38:18 [INFO] GET /api/v1/probes/Main/ping-status 200 0ms 34 bytes
+2026-02-17 16:38:18 [INFO] GET /api/v1/commands/probe/Main 200 9ms 8759 bytes
+2026-02-17 16:38:20 [INFO] Issuing command: type=get_config, probe=Main
+2026-02-17 16:38:20 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 16:38:20 [INFO] Payload: {"command":"get_config","command_id":"219","timestamp":1771335500}
+2026-02-17 16:38:20 [INFO] Command sent to Main: get_config (ID: 219)
+2026-02-17 16:38:20 [INFO] Command sent successfully: id=219, type=get_config, probe=Main
+2026-02-17 16:38:20 [INFO] POST /api/v1/commands 201 46ms 118 bytes
+2026-02-17 16:38:20 [INFO] Processing result: Probe=Main Cmd=get_config Status=completed CommandID=219
+2026-02-17 16:38:20 [INFO] GET /api/v1/commands/probe/Main 200 3ms 8762 bytes
+2026-02-17 16:38:20 [INFO] Probe Main config retrieved
+2026-02-17 16:38:20 [INFO] GET /api/v1/commands/probe/Main 200 2ms 8988 bytes
+2026-02-17 16:38:22 [INFO] GET /api/v1/commands/probe/Main 200 11ms 8988 bytes
+2026-02-17 16:38:24 [INFO] GET /api/v1/commands/probe/Main 200 11ms 8988 bytes
+2026-02-17 16:38:26 [INFO] GET /api/v1/commands/probe/Main 200 11ms 8988 bytes
+2026-02-17 16:38:28 [INFO] GET /api/v1/probes/Main/ping-status 200 0ms 34 bytes
+2026-02-17 16:38:28 [INFO] GET /api/v1/commands/probe/Main 200 10ms 8988 bytes
+2026-02-17 16:38:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 16:38:30 [INFO] Payload: {"command":"ping","command_id":"220","timestamp":1771335510}
+2026-02-17 16:38:30 [INFO] Command sent to Main: ping (ID: 220)
+2026-02-17 16:38:30 [INFO] GET /api/v1/commands/probe/Main 200 4ms 8988 bytes
+2026-02-17 16:38:32 [INFO] GET /api/v1/commands/probe/Main 200 12ms 8988 bytes
+2026-02-17 16:38:34 [INFO] GET /api/v1/commands/probe/Main 200 11ms 8988 bytes
+2026-02-17 16:38:36 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000430f10
+2026-02-17 16:38:36 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=220
+2026-02-17 16:38:36 [INFO] GET /api/v1/commands/probe/Main 200 7ms 8988 bytes
+2026-02-17 16:38:38 [INFO] GET /api/v1/probes/Main/ping-status 200 0ms 35 bytes
+2026-02-17 16:38:38 [INFO] GET /api/v1/commands/probe/Main 200 11ms 9081 bytes
+2026-02-17 16:38:40 [INFO] GET /api/v1/commands/probe/Main 200 11ms 9081 bytes
+2026-02-17 16:38:42 [INFO] GET /api/v1/commands/probe/Main 200 11ms 9081 bytes
+2026-02-17 16:38:45 [INFO] GET /api/v1/commands/probe/Main 200 22ms 9081 bytes
+2026-02-17 16:38:47 [INFO] GET /api/v1/commands/probe/Main 200 12ms 9081 bytes
+2026-02-17 16:38:48 [INFO] GET /api/v1/probes/Main/ping-status 200 0ms 35 bytes
+2026-02-17 16:38:49 [INFO] GET /api/v1/commands/probe/Main 200 5ms 9081 bytes
+2026-02-17 16:38:51 [INFO] GET /api/v1/commands/probe/Main 200 8ms 9081 bytes
+2026-02-17 16:38:53 [INFO] GET /api/v1/commands/probe/Main 200 11ms 9081 bytes
+2026-02-17 16:38:55 [INFO] GET /api/v1/commands/probe/Main 200 13ms 9081 bytes
+2026-02-17 16:38:57 [INFO] GET /api/v1/commands/probe/Main 200 11ms 9081 bytes
+2026-02-17 16:38:58 [INFO] GET /api/v1/probes/Main/ping-status 200 0ms 35 bytes
+2026-02-17 16:38:59 [INFO] GET /api/v1/commands/probe/Main 200 1ms 9081 bytes
+2026-02-17 16:39:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 16:39:00 [INFO] Payload: {"command":"ping","command_id":"221","timestamp":1771335540}
+2026-02-17 16:39:00 [INFO] Command sent to Main: ping (ID: 221)
+2026-02-17 16:39:00 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=221
+2026-02-17 16:39:01 [INFO] GET /api/v1/commands/probe/Main 200 2ms 9176 bytes
+2026-02-17 16:39:03 [INFO] GET /api/v1/commands/probe/Main 200 9ms 9176 bytes
+2026-02-17 16:39:05 [INFO] GET /api/v1/commands/probe/Main 200 12ms 9176 bytes
+2026-02-17 16:39:07 [INFO] GET /api/v1/commands/probe/Main 200 1ms 9176 bytes
+2026-02-17 16:39:08 [INFO] GET /api/v1/probes/Main/ping-status 200 0ms 34 bytes
+2026-02-17 16:39:09 [INFO] GET /api/v1/commands/probe/Main 200 13ms 9176 bytes
+2026-02-17 16:39:11 [INFO] GET /api/v1/commands/probe/Main 200 9ms 9176 bytes
+2026-02-17 16:39:13 [INFO] GET /api/v1/commands/probe/Main 200 10ms 9176 bytes
+2026-02-17 16:39:15 [INFO] GET /api/v1/commands/probe/Main 200 12ms 9176 bytes
+2026-02-17 16:39:17 [INFO] GET /api/v1/commands/probe/Main 200 7ms 9176 bytes
+2026-02-17 16:39:18 [INFO] GET /api/v1/probes/Main/ping-status 200 0ms 34 bytes
+2026-02-17 16:39:19 [INFO] GET /api/v1/commands/probe/Main 200 13ms 9176 bytes
+2026-02-17 16:39:22 [INFO] GET /api/v1/commands/probe/Main 200 11ms 9176 bytes
+2026-02-17 16:39:25 [INFO] GET /api/v1/probes 200 1ms 285 bytes
+2026-02-17 16:39:25 [INFO] GET /api/v1/analytics/congestion 200 20ms 451 bytes
+2026-02-17 16:39:25 [INFO] GET /api/v1/analytics/timeseries/rssi 200 39ms 195 bytes
+2026-02-17 16:39:25 [INFO] GET /api/v1/analytics/channels 200 39ms 154 bytes
+2026-02-17 16:39:25 [INFO] GET /api/v1/analytics/timeseries/latency 200 50ms 194 bytes
+2026-02-17 16:39:25 [INFO] GET /api/v1/analytics/aps 200 64ms 185 bytes
+2026-02-17 16:39:25 [INFO] GET /api/v1/analytics/health 200 110ms 175 bytes
+2026-02-17 16:39:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 16:39:30 [INFO] Payload: {"command":"ping","command_id":"222","timestamp":1771335570}
+2026-02-17 16:39:30 [INFO] Command sent to Main: ping (ID: 222)
+2026-02-17 16:39:33 [INFO] GET /api/v1/probes/Main/ping-status 200 0ms 34 bytes
+2026-02-17 16:39:33 [INFO] GET /api/v1/probes 200 1ms 285 bytes
+2026-02-17 16:39:34 [INFO] GET /api/v1/commands/probe/Main 200 10ms 9176 bytes
+2026-02-17 16:39:36 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000015db0
+2026-02-17 16:39:36 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=222
+2026-02-17 16:39:36 [INFO] GET /api/v1/commands/probe/Main 200 14ms 9271 bytes
+2026-02-17 16:39:38 [INFO] GET /api/v1/commands/probe/Main 200 14ms 9271 bytes
+2026-02-17 16:39:40 [INFO] GET /api/v1/commands/probe/Main 200 10ms 9271 bytes
+2026-02-17 16:39:43 [INFO] GET /api/v1/commands/probe/Main 200 14ms 9271 bytes
+2026-02-17 16:39:43 [INFO] GET /api/v1/probes/Main/ping-status 200 0ms 35 bytes
+2026-02-17 16:39:45 [INFO] GET /api/v1/commands/probe/Main 200 14ms 9271 bytes
+2026-02-17 16:39:47 [INFO] GET /api/v1/commands/probe/Main 200 10ms 9271 bytes
+2026-02-17 16:39:49 [INFO] GET /api/v1/commands/probe/Main 200 12ms 9271 bytes
+2026-02-17 16:39:51 [INFO] GET /api/v1/commands/probe/Main 200 10ms 9271 bytes
+2026-02-17 16:39:53 [INFO] GET /api/v1/probes/Main/ping-status 200 0ms 35 bytes
+2026-02-17 16:39:53 [INFO] GET /api/v1/commands/probe/Main 200 10ms 9271 bytes
+2026-02-17 16:39:55 [INFO] GET /api/v1/commands/probe/Main 200 5ms 9271 bytes
+2026-02-17 16:39:57 [INFO] GET /api/v1/commands/probe/Main 200 11ms 9271 bytes
+2026-02-17 16:39:59 [INFO] GET /api/v1/commands/probe/Main 200 17ms 9271 bytes
+2026-02-17 16:40:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 16:40:00 [INFO] Payload: {"command":"ping","command_id":"223","timestamp":1771335600}
+2026-02-17 16:40:00 [INFO] Command sent to Main: ping (ID: 223)
+2026-02-17 16:40:00 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=223
+2026-02-17 16:40:01 [INFO] GET /api/v1/commands/probe/Main 200 15ms 9366 bytes
+2026-02-17 16:40:03 [INFO] GET /api/v1/probes/Main/ping-status 200 0ms 34 bytes
+2026-02-17 16:40:03 [INFO] GET /api/v1/commands/probe/Main 200 15ms 9366 bytes
+2026-02-17 16:40:05 [INFO] GET /api/v1/commands/probe/Main 200 11ms 9366 bytes
+2026-02-17 16:40:07 [INFO] GET /api/v1/commands/probe/Main 200 12ms 9366 bytes
+2026-02-17 16:40:09 [INFO] GET /api/v1/commands/probe/Main 200 5ms 9366 bytes
+2026-02-17 16:40:12 [INFO] GET /api/v1/commands/probe/Main 200 13ms 9366 bytes
+2026-02-17 16:40:13 [INFO] GET /api/v1/probes/Main/ping-status 200 0ms 34 bytes
+2026-02-17 16:40:14 [INFO] GET /api/v1/commands/probe/Main 200 16ms 9366 bytes
+2026-02-17 16:40:16 [INFO] GET /api/v1/commands/probe/Main 200 10ms 9366 bytes
+2026-02-17 16:40:18 [INFO] GET /api/v1/commands/probe/Main 200 12ms 9366 bytes
+2026-02-17 16:40:20 [INFO] GET /api/v1/commands/probe/Main 200 4ms 9366 bytes
+2026-02-17 16:40:22 [INFO] GET /api/v1/commands/probe/Main 200 12ms 9366 bytes
+2026-02-17 16:40:23 [INFO] GET /api/v1/probes/Main/ping-status 200 0ms 34 bytes
+2026-02-17 16:40:28 [INFO] GET /api/v1/probes/Main/ping-status 200 0ms 34 bytes
+2026-02-17 16:40:28 [INFO] GET /api/v1/probes 200 2ms 285 bytes
+2026-02-17 16:40:28 [INFO] GET /api/v1/commands/probe/Main 200 5ms 9366 bytes
+2026-02-17 16:40:30 [INFO] GET /api/v1/commands/probe/Main 200 3ms 9366 bytes
+2026-02-17 16:40:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 16:40:30 [INFO] Payload: {"command":"ping","command_id":"224","timestamp":1771335630}
+2026-02-17 16:40:30 [INFO] Command sent to Main: ping (ID: 224)
+2026-02-17 16:40:32 [INFO] GET /api/v1/commands/probe/Main 200 10ms 9366 bytes
+2026-02-17 16:40:34 [INFO] GET /api/v1/commands/probe/Main 200 13ms 9366 bytes
+2026-02-17 16:40:35 [INFO] Issuing command: type=set_wifi, probe=Main
+2026-02-17 16:40:35 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 16:40:35 [INFO] Payload: {"command":"set_wifi","command_id":"225","payload":{"password":"nd3gwaiot","ssid":"IOT"},"timestamp":1771335635}
+2026-02-17 16:40:35 [INFO] Command sent to Main: set_wifi (ID: 225)
+2026-02-17 16:40:35 [INFO] Command sent successfully: id=225, type=set_wifi, probe=Main
+2026-02-17 16:40:35 [INFO] POST /api/v1/commands 201 24ms 164 bytes
+2026-02-17 16:40:35 [INFO] GET /api/v1/commands/probe/Main 200 2ms 9415 bytes
+2026-02-17 16:40:36 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000235040
+2026-02-17 16:40:36 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=224
+2026-02-17 16:40:36 [INFO] Processing result: Probe=Main Cmd=set_wifi Status=completed CommandID=225
+2026-02-17 16:40:36 [INFO] Probe Main configuration updated successfully
+2026-02-17 16:40:37 [INFO] GET /api/v1/commands/probe/Main 200 13ms 9617 bytes
+2026-02-17 16:40:38 [INFO] GET /api/v1/probes/Main/ping-status 200 0ms 35 bytes
+2026-02-17 16:40:39 [INFO] GET /api/v1/commands/probe/Main 200 4ms 9617 bytes
+2026-02-17 16:40:41 [INFO] GET /api/v1/commands/probe/Main 200 4ms 9617 bytes
+2026-02-17 16:41:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 16:41:00 [INFO] Payload: {"command":"ping","command_id":"226","timestamp":1771335660}
+2026-02-17 16:41:00 [INFO] Command sent to Main: ping (ID: 226)
+2026-02-17 16:41:00 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=226
+2026-02-17 16:41:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 16:41:30 [INFO] Payload: {"command":"ping","command_id":"227","timestamp":1771335690}
+2026-02-17 16:41:30 [INFO] Command sent to Main: ping (ID: 227)
+2026-02-17 16:41:30 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=227
+2026-02-17 16:41:52 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000458160
+2026-02-17 16:42:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 16:42:00 [INFO] Payload: {"command":"ping","command_id":"228","timestamp":1771335720}
+2026-02-17 16:42:00 [INFO] Command sent to Main: ping (ID: 228)
+2026-02-17 16:42:00 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=228
+2026-02-17 16:42:14 [INFO] GET /api/v1/probes/Main/ping-status 200 0ms 34 bytes
+2026-02-17 16:42:14 [INFO] GET /api/v1/probes 200 12ms 285 bytes
+2026-02-17 16:42:14 [INFO] GET /api/v1/commands/probe/Main 200 48ms 9897 bytes
+2026-02-17 16:42:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 16:42:30 [INFO] Payload: {"command":"ping","command_id":"229","timestamp":1771335750}
+2026-02-17 16:42:30 [INFO] Command sent to Main: ping (ID: 229)
+2026-02-17 16:42:30 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=229
+2026-02-17 16:42:53 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000458700
+2026-02-17 16:43:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 16:43:00 [INFO] Payload: {"command":"ping","command_id":"230","timestamp":1771335780}
+2026-02-17 16:43:00 [INFO] Command sent to Main: ping (ID: 230)
+2026-02-17 16:43:00 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=230
+2026-02-17 16:43:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 16:43:30 [INFO] Payload: {"command":"ping","command_id":"231","timestamp":1771335810}
+2026-02-17 16:43:30 [INFO] Command sent to Main: ping (ID: 231)
+2026-02-17 16:43:30 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=231
+2026-02-17 16:43:54 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000458a40
+2026-02-17 16:44:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 16:44:00 [INFO] Payload: {"command":"ping","command_id":"232","timestamp":1771335840}
+2026-02-17 16:44:00 [INFO] Command sent to Main: ping (ID: 232)
+2026-02-17 16:44:00 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=232
+2026-02-17 16:44:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 16:44:30 [INFO] Payload: {"command":"ping","command_id":"233","timestamp":1771335870}
+2026-02-17 16:44:30 [INFO] Command sent to Main: ping (ID: 233)
+2026-02-17 16:44:30 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=233
+2026-02-17 16:44:55 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0002f8e30
+2026-02-17 16:45:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 16:45:00 [INFO] Payload: {"command":"ping","command_id":"234","timestamp":1771335900}
+2026-02-17 16:45:00 [INFO] Command sent to Main: ping (ID: 234)
+2026-02-17 16:45:00 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=234
+2026-02-17 16:45:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 16:45:30 [INFO] Payload: {"command":"ping","command_id":"235","timestamp":1771335930}
+2026-02-17 16:45:30 [INFO] Command sent to Main: ping (ID: 235)
+2026-02-17 16:45:30 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=235
+2026-02-17 16:45:56 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0003b61c0
+2026-02-17 16:46:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 16:46:00 [INFO] Payload: {"command":"ping","command_id":"236","timestamp":1771335960}
+2026-02-17 16:46:00 [INFO] Command sent to Main: ping (ID: 236)
+2026-02-17 16:46:00 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=236
+2026-02-17 16:46:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 16:46:30 [INFO] Payload: {"command":"ping","command_id":"237","timestamp":1771335990}
+2026-02-17 16:46:30 [INFO] Command sent to Main: ping (ID: 237)
+2026-02-17 16:46:30 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=237
+2026-02-17 16:46:55 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0004581c0
+2026-02-17 16:47:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 16:47:00 [INFO] Payload: {"command":"ping","command_id":"238","timestamp":1771336020}
+2026-02-17 16:47:00 [INFO] Command sent to Main: ping (ID: 238)
+2026-02-17 16:47:00 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=238
+2026-02-17 16:47:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 16:47:30 [INFO] Payload: {"command":"ping","command_id":"239","timestamp":1771336050}
+2026-02-17 16:47:30 [INFO] Command sent to Main: ping (ID: 239)
+2026-02-17 16:47:30 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=239
+2026-02-17 16:47:46 [INFO] GET /api/v1/probes/Main/ping-status 200 0ms 34 bytes
+2026-02-17 16:47:46 [INFO] GET /api/v1/probes 200 2ms 284 bytes
+2026-02-17 16:47:46 [INFO] GET /api/v1/commands/probe/Main 200 103ms 10614 bytes
+2026-02-17 16:47:48 [INFO] GET /api/v1/commands/probe/Main 200 13ms 10614 bytes
+2026-02-17 16:47:50 [INFO] GET /api/v1/commands/probe/Main 200 11ms 10614 bytes
+2026-02-17 16:47:52 [INFO] GET /api/v1/commands/probe/Main 200 1ms 10614 bytes
+2026-02-17 16:47:53 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0000b2770
+2026-02-17 16:47:54 [INFO] GET /api/v1/commands/probe/Main 200 3ms 10614 bytes
+2026-02-17 16:47:56 [INFO] GET /api/v1/probes/Main/ping-status 200 0ms 34 bytes
+2026-02-17 16:47:56 [INFO] GET /api/v1/commands/probe/Main 200 3ms 10614 bytes
+2026-02-17 16:47:58 [INFO] GET /api/v1/commands/probe/Main 200 2ms 10614 bytes
+2026-02-17 16:48:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 16:48:00 [INFO] Payload: {"command":"ping","command_id":"240","timestamp":1771336080}
+2026-02-17 16:48:00 [INFO] Command sent to Main: ping (ID: 240)
+2026-02-17 16:48:00 [INFO] GET /api/v1/commands/probe/Main 200 4ms 10473 bytes
+2026-02-17 16:48:02 [INFO] GET /api/v1/commands/probe/Main 200 7ms 10473 bytes
+2026-02-17 16:48:04 [INFO] GET /api/v1/commands/probe/Main 200 8ms 10473 bytes
+2026-02-17 16:48:06 [INFO] GET /api/v1/probes/Main/ping-status 200 0ms 35 bytes
+2026-02-17 16:48:06 [INFO] GET /api/v1/commands/probe/Main 200 11ms 10473 bytes
+2026-02-17 16:48:08 [INFO] GET /api/v1/commands/probe/Main 200 4ms 10473 bytes
+2026-02-17 16:48:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 16:48:30 [INFO] Payload: {"command":"ping","command_id":"241","timestamp":1771336110}
+2026-02-17 16:48:30 [INFO] Command sent to Main: ping (ID: 241)
+2026-02-17 16:48:30 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=241
+2026-02-17 16:48:38 [INFO] GET /api/v1/probes 200 2ms 285 bytes
+2026-02-17 16:48:38 [INFO] GET /api/v1/probes/Main/ping-status 200 0ms 34 bytes
+2026-02-17 16:48:38 [INFO] GET /api/v1/commands/probe/Main 200 5ms 10473 bytes
+2026-02-17 16:48:40 [INFO] GET /api/v1/commands/probe/Main 200 13ms 10473 bytes
+2026-02-17 16:48:42 [INFO] GET /api/v1/commands/probe/Main 200 24ms 10473 bytes
+2026-02-17 16:48:44 [INFO] GET /api/v1/commands/probe/Main 200 13ms 10473 bytes
+2026-02-17 16:48:46 [INFO] GET /api/v1/commands/probe/Main 200 13ms 10473 bytes
+2026-02-17 16:48:48 [INFO] GET /api/v1/probes/Main/ping-status 200 0ms 34 bytes
+2026-02-17 16:48:48 [INFO] GET /api/v1/commands/probe/Main 200 9ms 10473 bytes
+2026-02-17 16:48:50 [INFO] Issuing command: type=set_wifi, probe=Main
+2026-02-17 16:48:50 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 16:48:50 [INFO] Payload: {"command":"set_wifi","command_id":"242","payload":{"password":"nd3gwaiot","ssid":"IOT"},"timestamp":1771336130}
+2026-02-17 16:48:50 [INFO] Command sent to Main: set_wifi (ID: 242)
+2026-02-17 16:48:50 [INFO] Command sent successfully: id=242, type=set_wifi, probe=Main
+2026-02-17 16:48:50 [INFO] POST /api/v1/commands 201 47ms 164 bytes
+2026-02-17 16:48:50 [INFO] GET /api/v1/commands/probe/Main 200 2ms 10428 bytes
+2026-02-17 16:48:50 [INFO] GET /api/v1/commands/probe/Main 200 5ms 10428 bytes
+2026-02-17 16:48:51 [INFO] Processing result: Probe=Main Cmd=set_wifi Status=processing CommandID=242
+2026-02-17 16:48:53 [INFO] GET /api/v1/commands/probe/Main 200 15ms 10485 bytes
+2026-02-17 16:48:55 [INFO] GET /api/v1/commands/probe/Main 200 3ms 10485 bytes
+2026-02-17 16:48:57 [INFO] GET /api/v1/commands/probe/Main 200 2ms 10485 bytes
+2026-02-17 16:48:58 [INFO] GET /api/v1/probes/Main/ping-status 200 0ms 34 bytes
+2026-02-17 16:48:59 [INFO] GET /api/v1/commands/probe/Main 200 4ms 10485 bytes
+2026-02-17 16:49:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 16:49:00 [INFO] Payload: {"command":"ping","command_id":"243","timestamp":1771336140}
+2026-02-17 16:49:00 [INFO] Command sent to Main: ping (ID: 243)
+2026-02-17 16:49:01 [INFO] Processing result: Probe=Main Cmd=set_wifi Status=completed CommandID=
+2026-02-17 16:49:01 [INFO] Probe Main configuration updated successfully
+2026-02-17 16:49:17 [INFO] GET /api/v1/probes/Main/ping-status 200 0ms 35 bytes
+2026-02-17 16:49:17 [INFO] GET /api/v1/probes 200 3ms 285 bytes
+2026-02-17 16:49:17 [INFO] GET /api/v1/commands/probe/Main 200 3ms 10447 bytes
+2026-02-17 16:49:19 [INFO] GET /api/v1/commands/probe/Main 200 20ms 10447 bytes
+2026-02-17 16:49:22 [INFO] GET /api/v1/commands/probe/Main 200 14ms 10447 bytes
+2026-02-17 16:49:24 [INFO] GET /api/v1/commands/probe/Main 200 12ms 10447 bytes
+2026-02-17 16:49:26 [INFO] GET /api/v1/commands/probe/Main 200 3ms 10447 bytes
+2026-02-17 16:49:27 [INFO] GET /api/v1/probes/Main/ping-status 200 0ms 35 bytes
+2026-02-17 16:49:28 [INFO] GET /api/v1/commands/probe/Main 200 7ms 10447 bytes
+2026-02-17 16:49:30 [INFO] GET /api/v1/commands/probe/Main 200 4ms 10447 bytes
+2026-02-17 16:49:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 16:49:30 [INFO] Payload: {"command":"ping","command_id":"244","timestamp":1771336170}
+2026-02-17 16:49:30 [INFO] Command sent to Main: ping (ID: 244)
+2026-02-17 16:49:30 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=244
+2026-02-17 16:49:31 [INFO] GET /api/v1/probes 200 2ms 285 bytes
+2026-02-17 16:49:31 [INFO] GET /api/v1/analytics/channels 200 13ms 154 bytes
+2026-02-17 16:49:31 [INFO] GET /api/v1/analytics/timeseries/latency 200 77ms 180 bytes
+2026-02-17 16:49:31 [INFO] GET /api/v1/analytics/aps 200 77ms 170 bytes
+2026-02-17 16:49:31 [INFO] GET /api/v1/analytics/timeseries/rssi 200 87ms 195 bytes
+2026-02-17 16:49:31 [INFO] GET /api/v1/analytics/congestion 200 86ms 434 bytes
+2026-02-17 16:49:31 [INFO] GET /api/v1/analytics/health 200 108ms 178 bytes
+2026-02-17 16:49:33 [INFO] GET /api/v1/analytics/timeseries/rssi 200 3ms 195 bytes
+2026-02-17 16:49:33 [INFO] GET /api/v1/analytics/timeseries/latency 200 4ms 180 bytes
+2026-02-17 16:49:33 [INFO] Detecting anomalies: probe=Main, hours=24
+2026-02-17 16:49:33 [INFO] GET /api/v1/analytics/performance/Main 200 8ms 339 bytes
+2026-02-17 16:49:33 [INFO] GET /api/v1/commands/probe/Main 200 7ms 10446 bytes
+2026-02-17 16:49:33 [INFO] GET /api/v1/analytics/roaming/Main 200 14ms 169 bytes
+2026-02-17 16:49:33 [INFO] GET /api/v1/analytics/anomalies/Main 200 53ms 179 bytes
+2026-02-17 16:49:38 [INFO] GET /api/v1/commands/probe/Main 200 8ms 10446 bytes
+2026-02-17 16:49:43 [INFO] GET /api/v1/commands/probe/Main 200 6ms 10446 bytes
+2026-02-17 16:49:46 [INFO] GET /api/v1/analytics/channels 200 5ms 154 bytes
+2026-02-17 16:49:46 [INFO] GET /api/v1/analytics/timeseries/rssi 200 7ms 195 bytes
+2026-02-17 16:49:46 [INFO] GET /api/v1/analytics/timeseries/latency 200 16ms 180 bytes
+2026-02-17 16:49:46 [INFO] GET /api/v1/analytics/congestion 200 8ms 434 bytes
+2026-02-17 16:49:46 [INFO] GET /api/v1/analytics/aps 200 21ms 170 bytes
+2026-02-17 16:49:46 [INFO] GET /api/v1/analytics/health 200 51ms 178 bytes
+2026-02-17 16:49:47 [INFO] GET /api/v1/analytics/timeseries/latency 200 2ms 1058 bytes
+2026-02-17 16:49:47 [INFO] GET /api/v1/analytics/timeseries/rssi 200 6ms 1080 bytes
+2026-02-17 16:49:47 [INFO] GET /api/v1/analytics/channels 200 2ms 78 bytes
+2026-02-17 16:49:47 [INFO] GET /api/v1/analytics/aps 200 3ms 170 bytes
+2026-02-17 16:49:47 [INFO] GET /api/v1/analytics/congestion 200 7ms 434 bytes
+2026-02-17 16:49:47 [INFO] GET /api/v1/analytics/health 200 33ms 178 bytes
+2026-02-17 16:50:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 16:50:00 [INFO] Payload: {"command":"ping","command_id":"245","timestamp":1771336200}
+2026-02-17 16:50:00 [INFO] Command sent to Main: ping (ID: 245)
+2026-02-17 16:50:09 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=
+2026-02-17 16:50:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 16:50:30 [INFO] Payload: {"command":"ping","command_id":"246","timestamp":1771336230}
+2026-02-17 16:50:30 [INFO] Command sent to Main: ping (ID: 246)
+2026-02-17 16:50:30 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=246
+2026-02-17 16:51:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 16:51:00 [INFO] Payload: {"command":"ping","command_id":"247","timestamp":1771336260}
+2026-02-17 16:51:00 [INFO] Command sent to Main: ping (ID: 247)
+2026-02-17 16:51:14 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=
+2026-02-17 16:51:26 [INFO] GET /api/v1/probes 200 1ms 284 bytes
+2026-02-17 16:51:26 [INFO] GET /api/v1/analytics/timeseries/rssi 200 4ms 1080 bytes
+2026-02-17 16:51:26 [INFO] GET /api/v1/analytics/timeseries/latency 200 5ms 1058 bytes
+2026-02-17 16:51:26 [INFO] GET /api/v1/analytics/health 200 8ms 175 bytes
+2026-02-17 16:51:26 [INFO] GET /api/v1/analytics/congestion 200 15ms 434 bytes
+2026-02-17 16:51:26 [INFO] GET /api/v1/analytics/channels 200 19ms 78 bytes
+2026-02-17 16:51:26 [INFO] GET /api/v1/analytics/aps 200 28ms 170 bytes
+2026-02-17 16:51:28 [INFO] GET /api/v1/probes/Main/ping-status 200 0ms 35 bytes
+2026-02-17 16:51:28 [INFO] GET /api/v1/probes 200 1ms 284 bytes
+2026-02-17 16:51:30 [INFO] GET /api/v1/commands/probe/Main 200 14ms 10444 bytes
+2026-02-17 16:51:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 16:51:30 [INFO] Payload: {"command":"ping","command_id":"248","timestamp":1771336290}
+2026-02-17 16:51:30 [INFO] Command sent to Main: ping (ID: 248)
+2026-02-17 16:51:30 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=248
+2026-02-17 16:51:32 [INFO] GET /api/v1/commands/probe/Main 200 6ms 10444 bytes
+2026-02-17 16:51:35 [INFO] Issuing command: type=restart, probe=Main
+2026-02-17 16:51:35 [INFO] GET /api/v1/commands/probe/Main 200 3ms 10444 bytes
+2026-02-17 16:51:35 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 16:51:35 [INFO] Payload: {"command":"restart","command_id":"249","payload":{"delay":2000},"timestamp":1771336295}
+2026-02-17 16:51:35 [INFO] Command sent to Main: restart (ID: 249)
+2026-02-17 16:51:35 [INFO] Command sent successfully: id=249, type=restart, probe=Main
+2026-02-17 16:51:35 [INFO] POST /api/v1/commands 201 46ms 140 bytes
+2026-02-17 16:51:35 [INFO] Processing result: Probe=Main Cmd=restart Status=completed CommandID=249
+2026-02-17 16:51:35 [INFO] GET /api/v1/commands/probe/Main 200 3ms 10455 bytes
+2026-02-17 16:51:37 [INFO] GET /api/v1/commands/probe/Main 200 3ms 10455 bytes
+2026-02-17 16:51:38 [INFO] GET /api/v1/probes/Main/ping-status 200 0ms 34 bytes
+2026-02-17 16:51:39 [INFO] GET /api/v1/commands/probe/Main 200 4ms 10455 bytes
+2026-02-17 16:51:41 [INFO] GET /api/v1/commands/probe/Main 200 8ms 10455 bytes
+2026-02-17 16:51:43 [INFO] GET /api/v1/commands/probe/Main 200 11ms 10455 bytes
+2026-02-17 16:51:46 [INFO] GET /api/v1/commands/probe/Main 200 12ms 10455 bytes
+2026-02-17 16:51:48 [INFO] GET /api/v1/commands/probe/Main 200 2ms 10455 bytes
+2026-02-17 16:51:48 [INFO] GET /api/v1/probes/Main/ping-status 200 0ms 34 bytes
+2026-02-17 16:51:50 [INFO] GET /api/v1/commands/probe/Main 200 12ms 10455 bytes
+2026-02-17 16:51:52 [INFO] GET /api/v1/commands/probe/Main 200 18ms 10455 bytes
+2026-02-17 16:51:54 [INFO] GET /api/v1/commands/probe/Main 200 6ms 10455 bytes
+2026-02-17 16:51:55 [INFO] GET /api/v1/probes 200 1ms 285 bytes
+2026-02-17 16:51:55 [INFO] GET /api/v1/analytics/timeseries/rssi 200 24ms 195 bytes
+2026-02-17 16:51:55 [INFO] GET /api/v1/analytics/timeseries/latency 200 23ms 180 bytes
+2026-02-17 16:51:55 [INFO] GET /api/v1/analytics/channels 200 23ms 154 bytes
+2026-02-17 16:51:55 [INFO] GET /api/v1/analytics/aps 200 35ms 170 bytes
+2026-02-17 16:51:55 [INFO] GET /api/v1/analytics/congestion 200 107ms 434 bytes
+2026-02-17 16:51:55 [INFO] GET /api/v1/analytics/health 200 141ms 175 bytes
+2026-02-17 16:52:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 16:52:00 [INFO] Payload: {"command":"ping","command_id":"250","timestamp":1771336320}
+2026-02-17 16:52:00 [INFO] Command sent to Main: ping (ID: 250)
+2026-02-17 16:52:00 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=250
+2026-02-17 16:52:01 [INFO] GET /api/v1/analytics/timeseries/rssi 200 3ms 195 bytes
+2026-02-17 16:52:01 [INFO] GET /api/v1/analytics/timeseries/latency 200 4ms 180 bytes
+2026-02-17 16:52:01 [INFO] Detecting anomalies: probe=Main, hours=24
+2026-02-17 16:52:01 [INFO] GET /api/v1/commands/probe/Main 200 5ms 10454 bytes
+2026-02-17 16:52:01 [INFO] GET /api/v1/analytics/roaming/Main 200 7ms 169 bytes
+2026-02-17 16:52:01 [INFO] GET /api/v1/analytics/performance/Main 200 12ms 339 bytes
+2026-02-17 16:52:01 [INFO] GET /api/v1/analytics/anomalies/Main 200 36ms 179 bytes
+2026-02-17 16:52:03 [INFO] Sending command deep_scan to probe Main
+2026-02-17 16:52:03 [INFO] Issuing command: type=deep_scan, probe=Main
+2026-02-17 16:52:03 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 16:52:03 [INFO] Payload: {"command":"deep_scan","command_id":"251","payload":{"duration":5},"timestamp":1771336323}
+2026-02-17 16:52:03 [INFO] Command sent to Main: deep_scan (ID: 251)
+2026-02-17 16:52:03 [INFO] Command sent successfully: id=251, type=deep_scan, probe=Main
+2026-02-17 16:52:03 [INFO] POST /api/v1/probes/Main/command 200 41ms 181 bytes
+2026-02-17 16:52:03 [INFO] GET /api/v1/commands/probe/Main 200 2ms 10360 bytes
+2026-02-17 16:52:03 [ERROR] Failed to unmarshal command result: json: cannot unmarshal number into Go struct field .result of type map[string]interface {}
+2026-02-17 16:52:03 [ERROR] Failed to process command result: json: cannot unmarshal number into Go struct field .result of type map[string]interface {}
+2026-02-17 16:52:03 [ERROR] Handler error for topic campus/probes/Main/result: json: cannot unmarshal number into Go struct field .result of type map[string]interface {}
+2026-02-17 16:52:08 [INFO] GET /api/v1/commands/probe/Main 200 1ms 10360 bytes
+2026-02-17 16:52:13 [INFO] GET /api/v1/commands/probe/Main 200 21ms 10360 bytes
+2026-02-17 16:52:24 [INFO] Processing result: Probe=Main Cmd=deep_scan Status=completed CommandID=
+2026-02-17 16:52:24 [INFO] Deep scan completed for Main
+2026-02-17 16:52:24 [INFO] Converting Deep Scan result to Enhanced Telemetry for probe Main
+2026-02-17 16:52:27 [INFO] GET /api/v1/probes 200 2ms 285 bytes
+2026-02-17 16:52:27 [INFO] GET /api/v1/analytics/timeseries/rssi 200 5ms 196 bytes
+2026-02-17 16:52:27 [INFO] GET /api/v1/analytics/timeseries/latency 200 4ms 180 bytes
+2026-02-17 16:52:27 [INFO] Detecting anomalies: probe=Main, hours=24
+2026-02-17 16:52:27 [INFO] GET /api/v1/analytics/roaming/Main 200 9ms 350 bytes
+2026-02-17 16:52:27 [INFO] GET /api/v1/analytics/performance/Main 200 15ms 339 bytes
+2026-02-17 16:52:27 [INFO] GET /api/v1/commands/probe/Main 200 14ms 10655 bytes
+2026-02-17 16:52:27 [INFO] GET /api/v1/analytics/anomalies/Main 200 54ms 179 bytes
+2026-02-17 16:52:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 16:52:30 [INFO] Payload: {"command":"ping","command_id":"252","timestamp":1771336350}
+2026-02-17 16:52:30 [INFO] Command sent to Main: ping (ID: 252)
+2026-02-17 16:52:30 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=252
+2026-02-17 16:52:32 [INFO] GET /api/v1/commands/probe/Main 200 13ms 10654 bytes
+2026-02-17 16:52:37 [INFO] GET /api/v1/commands/probe/Main 200 16ms 10654 bytes
+2026-02-17 16:52:42 [INFO] GET /api/v1/commands/probe/Main 200 9ms 10654 bytes
+2026-02-17 16:52:47 [INFO] GET /api/v1/probes/Main/ping-status 200 0ms 34 bytes
+2026-02-17 16:52:47 [INFO] GET /api/v1/probes 200 1ms 283 bytes
+2026-02-17 16:52:48 [INFO] GET /api/v1/commands/probe/Main 200 7ms 10654 bytes
+2026-02-17 16:52:51 [INFO] GET /api/v1/commands/probe/Main 200 15ms 10654 bytes
+2026-02-17 16:52:51 [INFO] GET /api/v1/probes 200 1ms 283 bytes
+2026-02-17 16:52:52 [INFO] GET /api/v1/probes/Main/ping-status 200 0ms 34 bytes
+2026-02-17 16:52:52 [INFO] GET /api/v1/probes 200 1ms 283 bytes
+2026-02-17 16:52:53 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000014c10
+2026-02-17 16:53:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 16:53:00 [INFO] Payload: {"command":"ping","command_id":"253","timestamp":1771336380}
+2026-02-17 16:53:00 [INFO] Command sent to Main: ping (ID: 253)
+2026-02-17 16:53:00 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=253
+2026-02-17 16:53:02 [INFO] GET /api/v1/probes/Main/ping-status 200 0ms 34 bytes
+2026-02-17 16:53:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 16:53:30 [INFO] Payload: {"command":"ping","command_id":"254","timestamp":1771336410}
+2026-02-17 16:53:30 [INFO] Command sent to Main: ping (ID: 254)
+2026-02-17 16:53:30 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=254
+2026-02-17 16:53:52 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000015520
+2026-02-17 16:54:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 16:54:00 [INFO] Payload: {"command":"ping","command_id":"255","timestamp":1771336440}
+2026-02-17 16:54:00 [INFO] Command sent to Main: ping (ID: 255)
+2026-02-17 16:54:00 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=255
+2026-02-17 16:54:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 16:54:30 [INFO] Payload: {"command":"ping","command_id":"256","timestamp":1771336470}
+2026-02-17 16:54:30 [INFO] Command sent to Main: ping (ID: 256)
+2026-02-17 16:54:30 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=256
+2026-02-17 16:54:53 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0000142b0
+2026-02-17 16:55:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 16:55:00 [INFO] Payload: {"command":"ping","command_id":"257","timestamp":1771336500}
+2026-02-17 16:55:00 [INFO] Command sent to Main: ping (ID: 257)
+2026-02-17 16:55:00 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=257
+2026-02-17 16:55:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 16:55:30 [INFO] Payload: {"command":"ping","command_id":"258","timestamp":1771336530}
+2026-02-17 16:55:30 [INFO] Command sent to Main: ping (ID: 258)
+2026-02-17 16:55:30 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=258
+2026-02-17 16:55:53 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0002351a0
+2026-02-17 16:56:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 16:56:00 [INFO] Payload: {"command":"ping","command_id":"259","timestamp":1771336560}
+2026-02-17 16:56:00 [INFO] Command sent to Main: ping (ID: 259)
+2026-02-17 16:56:00 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=259
+2026-02-17 16:56:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 16:56:30 [INFO] Payload: {"command":"ping","command_id":"260","timestamp":1771336590}
+2026-02-17 16:56:30 [INFO] Command sent to Main: ping (ID: 260)
+2026-02-17 16:56:30 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=260
+2026-02-17 16:56:53 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000234130
+2026-02-17 16:57:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 16:57:00 [INFO] Payload: {"command":"ping","command_id":"261","timestamp":1771336620}
+2026-02-17 16:57:00 [INFO] Command sent to Main: ping (ID: 261)
+2026-02-17 16:57:00 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=261
+2026-02-17 16:57:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 16:57:30 [INFO] Payload: {"command":"ping","command_id":"262","timestamp":1771336650}
+2026-02-17 16:57:30 [INFO] Command sent to Main: ping (ID: 262)
+2026-02-17 16:57:30 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=262
+2026-02-17 16:57:53 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000014b70
+2026-02-17 16:58:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 16:58:00 [INFO] Payload: {"command":"ping","command_id":"263","timestamp":1771336680}
+2026-02-17 16:58:00 [INFO] Command sent to Main: ping (ID: 263)
+2026-02-17 16:58:00 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=263
+2026-02-17 16:58:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 16:58:30 [INFO] Payload: {"command":"ping","command_id":"264","timestamp":1771336710}
+2026-02-17 16:58:30 [INFO] Command sent to Main: ping (ID: 264)
+2026-02-17 16:58:30 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=264
+2026-02-17 16:58:53 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc00052c0c0
+2026-02-17 16:59:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 16:59:00 [INFO] Payload: {"command":"ping","command_id":"265","timestamp":1771336740}
+2026-02-17 16:59:00 [INFO] Command sent to Main: ping (ID: 265)
+2026-02-17 16:59:00 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=265
+2026-02-17 16:59:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 16:59:30 [INFO] Payload: {"command":"ping","command_id":"266","timestamp":1771336770}
+2026-02-17 16:59:30 [INFO] Command sent to Main: ping (ID: 266)
+2026-02-17 16:59:30 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=266
+2026-02-17 16:59:53 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000015010
+2026-02-17 17:00:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:00:00 [INFO] Payload: {"command":"ping","command_id":"267","timestamp":1771336800}
+2026-02-17 17:00:00 [INFO] Command sent to Main: ping (ID: 267)
+2026-02-17 17:00:00 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=267
+2026-02-17 17:00:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:00:30 [INFO] Payload: {"command":"ping","command_id":"268","timestamp":1771336830}
+2026-02-17 17:00:30 [INFO] Command sent to Main: ping (ID: 268)
+2026-02-17 17:00:30 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=268
+2026-02-17 17:00:53 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0000141d0
+2026-02-17 17:01:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:01:00 [INFO] Payload: {"command":"ping","command_id":"269","timestamp":1771336860}
+2026-02-17 17:01:00 [INFO] Command sent to Main: ping (ID: 269)
+2026-02-17 17:01:00 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=269
+2026-02-17 17:01:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:01:30 [INFO] Payload: {"command":"ping","command_id":"270","timestamp":1771336890}
+2026-02-17 17:01:30 [INFO] Command sent to Main: ping (ID: 270)
+2026-02-17 17:01:30 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=270
+2026-02-17 17:01:53 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000014c80
+2026-02-17 17:02:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:02:00 [INFO] Payload: {"command":"ping","command_id":"271","timestamp":1771336920}
+2026-02-17 17:02:00 [INFO] Command sent to Main: ping (ID: 271)
+2026-02-17 17:02:00 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=271
+2026-02-17 17:02:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:02:30 [INFO] Payload: {"command":"ping","command_id":"272","timestamp":1771336950}
+2026-02-17 17:02:30 [INFO] Command sent to Main: ping (ID: 272)
+2026-02-17 17:02:30 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=272
+2026-02-17 17:02:53 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000014150
+2026-02-17 17:03:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:03:00 [INFO] Payload: {"command":"ping","command_id":"273","timestamp":1771336980}
+2026-02-17 17:03:00 [INFO] Command sent to Main: ping (ID: 273)
+2026-02-17 17:03:00 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=273
+2026-02-17 17:03:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:03:30 [INFO] Payload: {"command":"ping","command_id":"274","timestamp":1771337010}
+2026-02-17 17:03:30 [INFO] Command sent to Main: ping (ID: 274)
+2026-02-17 17:03:30 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=274
+2026-02-17 17:03:53 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc00052c960
+2026-02-17 17:04:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:04:00 [INFO] Payload: {"command":"ping","command_id":"275","timestamp":1771337040}
+2026-02-17 17:04:00 [INFO] Command sent to Main: ping (ID: 275)
+2026-02-17 17:04:00 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=275
+2026-02-17 17:04:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:04:30 [INFO] Payload: {"command":"ping","command_id":"276","timestamp":1771337070}
+2026-02-17 17:04:30 [INFO] Command sent to Main: ping (ID: 276)
+2026-02-17 17:04:30 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=276
+2026-02-17 17:04:53 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0002f00c0
+2026-02-17 17:05:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:05:00 [INFO] Payload: {"command":"ping","command_id":"277","timestamp":1771337100}
+2026-02-17 17:05:00 [INFO] Command sent to Main: ping (ID: 277)
+2026-02-17 17:05:00 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=277
+2026-02-17 17:05:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:05:30 [INFO] Payload: {"command":"ping","command_id":"278","timestamp":1771337130}
+2026-02-17 17:05:30 [INFO] Command sent to Main: ping (ID: 278)
+2026-02-17 17:05:30 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=278
+2026-02-17 17:05:53 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000014e90
+2026-02-17 17:06:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:06:00 [INFO] Payload: {"command":"ping","command_id":"279","timestamp":1771337160}
+2026-02-17 17:06:00 [INFO] Command sent to Main: ping (ID: 279)
+2026-02-17 17:06:00 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=279
+2026-02-17 17:06:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:06:30 [INFO] Payload: {"command":"ping","command_id":"280","timestamp":1771337190}
+2026-02-17 17:06:30 [INFO] Command sent to Main: ping (ID: 280)
+2026-02-17 17:06:30 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=280
+2026-02-17 17:06:53 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000014150
+2026-02-17 17:07:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:07:00 [INFO] Payload: {"command":"ping","command_id":"281","timestamp":1771337220}
+2026-02-17 17:07:00 [INFO] Command sent to Main: ping (ID: 281)
+2026-02-17 17:07:00 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=281
+2026-02-17 17:07:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:07:30 [INFO] Payload: {"command":"ping","command_id":"282","timestamp":1771337250}
+2026-02-17 17:07:30 [INFO] Command sent to Main: ping (ID: 282)
+2026-02-17 17:07:30 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=282
+2026-02-17 17:07:53 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc00052cb50
+2026-02-17 17:08:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:08:00 [INFO] Payload: {"command":"ping","command_id":"283","timestamp":1771337280}
+2026-02-17 17:08:00 [INFO] Command sent to Main: ping (ID: 283)
+2026-02-17 17:08:00 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=283
+2026-02-17 17:08:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:08:30 [INFO] Payload: {"command":"ping","command_id":"284","timestamp":1771337310}
+2026-02-17 17:08:30 [INFO] Command sent to Main: ping (ID: 284)
+2026-02-17 17:08:30 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=284
+2026-02-17 17:08:53 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0002f00c0
+2026-02-17 17:09:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:09:00 [INFO] Payload: {"command":"ping","command_id":"285","timestamp":1771337340}
+2026-02-17 17:09:00 [INFO] Command sent to Main: ping (ID: 285)
+2026-02-17 17:09:00 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=285
+2026-02-17 17:09:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:09:30 [INFO] Payload: {"command":"ping","command_id":"286","timestamp":1771337370}
+2026-02-17 17:09:30 [INFO] Command sent to Main: ping (ID: 286)
+2026-02-17 17:10:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:10:00 [INFO] Payload: {"command":"ping","command_id":"287","timestamp":1771337400}
+2026-02-17 17:10:00 [INFO] Command sent to Main: ping (ID: 287)
+2026-02-17 17:10:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:10:30 [INFO] Payload: {"command":"ping","command_id":"288","timestamp":1771337430}
+2026-02-17 17:10:30 [INFO] Command sent to Main: ping (ID: 288)
+2026-02-17 17:11:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:11:00 [INFO] Payload: {"command":"ping","command_id":"289","timestamp":1771337460}
+2026-02-17 17:11:00 [INFO] Command sent to Main: ping (ID: 289)
+2026-02-17 17:11:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:11:30 [INFO] Payload: {"command":"ping","command_id":"290","timestamp":1771337490}
+2026-02-17 17:11:30 [INFO] Command sent to Main: ping (ID: 290)
+2026-02-17 17:12:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:12:00 [INFO] Payload: {"command":"ping","command_id":"291","timestamp":1771337520}
+2026-02-17 17:12:00 [INFO] Command sent to Main: ping (ID: 291)
+2026-02-17 17:12:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:12:30 [INFO] Payload: {"command":"ping","command_id":"292","timestamp":1771337550}
+2026-02-17 17:12:30 [INFO] Command sent to Main: ping (ID: 292)
+2026-02-17 17:13:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:13:00 [INFO] Payload: {"command":"ping","command_id":"293","timestamp":1771337580}
+2026-02-17 17:13:00 [INFO] Command sent to Main: ping (ID: 293)
+2026-02-17 17:13:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:13:30 [INFO] Payload: {"command":"ping","command_id":"294","timestamp":1771337610}
+2026-02-17 17:13:30 [INFO] Command sent to Main: ping (ID: 294)
+2026-02-17 17:14:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:14:00 [INFO] Payload: {"command":"ping","command_id":"295","timestamp":1771337640}
+2026-02-17 17:14:00 [INFO] Command sent to Main: ping (ID: 295)
+2026-02-17 17:14:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:14:30 [INFO] Payload: {"command":"ping","command_id":"296","timestamp":1771337670}
+2026-02-17 17:14:30 [INFO] Command sent to Main: ping (ID: 296)
+2026-02-17 17:15:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:15:00 [INFO] Payload: {"command":"ping","command_id":"297","timestamp":1771337700}
+2026-02-17 17:15:00 [INFO] Command sent to Main: ping (ID: 297)
+2026-02-17 17:15:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:15:30 [INFO] Payload: {"command":"ping","command_id":"298","timestamp":1771337730}
+2026-02-17 17:15:30 [INFO] Command sent to Main: ping (ID: 298)
+2026-02-17 17:16:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:16:00 [INFO] Payload: {"command":"ping","command_id":"299","timestamp":1771337760}
+2026-02-17 17:16:00 [INFO] Command sent to Main: ping (ID: 299)
+2026-02-17 17:16:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:16:30 [INFO] Payload: {"command":"ping","command_id":"300","timestamp":1771337790}
+2026-02-17 17:16:30 [INFO] Command sent to Main: ping (ID: 300)
+2026-02-17 17:17:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:17:00 [INFO] Payload: {"command":"ping","command_id":"301","timestamp":1771337820}
+2026-02-17 17:17:00 [INFO] Command sent to Main: ping (ID: 301)
+2026-02-17 17:17:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:17:30 [INFO] Payload: {"command":"ping","command_id":"302","timestamp":1771337850}
+2026-02-17 17:17:30 [INFO] Command sent to Main: ping (ID: 302)
+2026-02-17 17:18:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:18:00 [INFO] Payload: {"command":"ping","command_id":"303","timestamp":1771337880}
+2026-02-17 17:18:00 [INFO] Command sent to Main: ping (ID: 303)
+2026-02-17 17:18:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:18:30 [INFO] Payload: {"command":"ping","command_id":"304","timestamp":1771337910}
+2026-02-17 17:18:30 [INFO] Command sent to Main: ping (ID: 304)
+2026-02-17 17:19:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:19:00 [INFO] Payload: {"command":"ping","command_id":"305","timestamp":1771337940}
+2026-02-17 17:19:00 [INFO] Command sent to Main: ping (ID: 305)
+2026-02-17 17:19:02 [INFO] GET /api/v1/probes/Main/ping-status 200 0ms 35 bytes
+2026-02-17 17:19:02 [INFO] GET /api/v1/probes 200 1ms 284 bytes
+2026-02-17 17:19:03 [INFO] GET /api/v1/commands/probe/Main 200 7ms 8442 bytes
+2026-02-17 17:19:05 [INFO] GET /api/v1/commands/probe/Main 200 3ms 8442 bytes
+2026-02-17 17:19:07 [INFO] GET /api/v1/commands/probe/Main 200 7ms 8442 bytes
+2026-02-17 17:19:09 [INFO] GET /api/v1/commands/probe/Main 200 7ms 8442 bytes
+2026-02-17 17:19:11 [INFO] GET /api/v1/commands/probe/Main 200 7ms 8442 bytes
+2026-02-17 17:19:12 [INFO] GET /api/v1/probes/Main/ping-status 200 0ms 35 bytes
+2026-02-17 17:19:13 [INFO] GET /api/v1/commands/probe/Main 200 10ms 8442 bytes
+2026-02-17 17:19:16 [INFO] GET /api/v1/commands/probe/Main 200 19ms 8442 bytes
+2026-02-17 17:19:18 [INFO] GET /api/v1/commands/probe/Main 200 9ms 8442 bytes
+2026-02-17 17:19:20 [INFO] GET /api/v1/commands/probe/Main 200 3ms 8442 bytes
+2026-02-17 17:19:22 [INFO] GET /api/v1/commands/probe/Main 200 11ms 8442 bytes
+2026-02-17 17:19:22 [INFO] GET /api/v1/probes/Main/ping-status 200 0ms 35 bytes
+2026-02-17 17:19:24 [INFO] GET /api/v1/commands/probe/Main 200 3ms 8442 bytes
+2026-02-17 17:19:26 [INFO] GET /api/v1/commands/probe/Main 200 11ms 8442 bytes
+2026-02-17 17:19:28 [INFO] GET /api/v1/commands/probe/Main 200 5ms 8442 bytes
+2026-02-17 17:19:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:19:30 [INFO] Payload: {"command":"ping","command_id":"306","timestamp":1771337970}
+2026-02-17 17:19:30 [INFO] Command sent to Main: ping (ID: 306)
+2026-02-17 17:20:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:20:00 [INFO] Payload: {"command":"ping","command_id":"307","timestamp":1771338000}
+2026-02-17 17:20:00 [INFO] Command sent to Main: ping (ID: 307)
+2026-02-17 17:20:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:20:30 [INFO] Payload: {"command":"ping","command_id":"308","timestamp":1771338030}
+2026-02-17 17:20:30 [INFO] Command sent to Main: ping (ID: 308)
+2026-02-17 17:21:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:21:00 [INFO] Payload: {"command":"ping","command_id":"309","timestamp":1771338060}
+2026-02-17 17:21:00 [INFO] Command sent to Main: ping (ID: 309)
+2026-02-17 17:21:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:21:30 [INFO] Payload: {"command":"ping","command_id":"310","timestamp":1771338090}
+2026-02-17 17:21:30 [INFO] Command sent to Main: ping (ID: 310)
+2026-02-17 17:22:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:22:00 [INFO] Payload: {"command":"ping","command_id":"311","timestamp":1771338120}
+2026-02-17 17:22:00 [INFO] Command sent to Main: ping (ID: 311)
+2026-02-17 17:22:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:22:30 [INFO] Payload: {"command":"ping","command_id":"312","timestamp":1771338150}
+2026-02-17 17:22:30 [INFO] Command sent to Main: ping (ID: 312)
+2026-02-17 17:23:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:23:00 [INFO] Payload: {"command":"ping","command_id":"313","timestamp":1771338180}
+2026-02-17 17:23:00 [INFO] Command sent to Main: ping (ID: 313)
+2026-02-17 17:23:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:23:30 [INFO] Payload: {"command":"ping","command_id":"314","timestamp":1771338210}
+2026-02-17 17:23:30 [INFO] Command sent to Main: ping (ID: 314)
+2026-02-17 17:24:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:24:00 [INFO] Payload: {"command":"ping","command_id":"315","timestamp":1771338240}
+2026-02-17 17:24:00 [INFO] Command sent to Main: ping (ID: 315)
+2026-02-17 17:24:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:24:30 [INFO] Payload: {"command":"ping","command_id":"316","timestamp":1771338270}
+2026-02-17 17:24:30 [INFO] Command sent to Main: ping (ID: 316)
+2026-02-17 17:25:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:25:00 [INFO] Payload: {"command":"ping","command_id":"317","timestamp":1771338300}
+2026-02-17 17:25:00 [INFO] Command sent to Main: ping (ID: 317)
+2026-02-17 17:25:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:25:30 [INFO] Payload: {"command":"ping","command_id":"318","timestamp":1771338330}
+2026-02-17 17:25:30 [INFO] Command sent to Main: ping (ID: 318)
+2026-02-17 17:26:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:26:00 [INFO] Payload: {"command":"ping","command_id":"319","timestamp":1771338360}
+2026-02-17 17:26:00 [INFO] Command sent to Main: ping (ID: 319)
+2026-02-17 17:26:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:26:30 [INFO] Payload: {"command":"ping","command_id":"320","timestamp":1771338390}
+2026-02-17 17:26:30 [INFO] Command sent to Main: ping (ID: 320)
+2026-02-17 17:27:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:27:00 [INFO] Payload: {"command":"ping","command_id":"321","timestamp":1771338420}
+2026-02-17 17:27:00 [INFO] Command sent to Main: ping (ID: 321)
+2026-02-17 17:27:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:27:30 [INFO] Payload: {"command":"ping","command_id":"322","timestamp":1771338450}
+2026-02-17 17:27:30 [INFO] Command sent to Main: ping (ID: 322)
+2026-02-17 17:28:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:28:00 [INFO] Payload: {"command":"ping","command_id":"323","timestamp":1771338480}
+2026-02-17 17:28:00 [INFO] Command sent to Main: ping (ID: 323)
+2026-02-17 17:28:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:28:30 [INFO] Payload: {"command":"ping","command_id":"324","timestamp":1771338510}
+2026-02-17 17:28:30 [INFO] Command sent to Main: ping (ID: 324)
+2026-02-17 17:29:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:29:00 [INFO] Payload: {"command":"ping","command_id":"325","timestamp":1771338540}
+2026-02-17 17:29:00 [INFO] Command sent to Main: ping (ID: 325)
+2026-02-17 17:29:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:29:30 [INFO] Payload: {"command":"ping","command_id":"326","timestamp":1771338570}
+2026-02-17 17:29:30 [INFO] Command sent to Main: ping (ID: 326)
+2026-02-17 17:30:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:30:00 [INFO] Payload: {"command":"ping","command_id":"327","timestamp":1771338600}
+2026-02-17 17:30:00 [INFO] Command sent to Main: ping (ID: 327)
+2026-02-17 17:30:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:30:30 [INFO] Payload: {"command":"ping","command_id":"328","timestamp":1771338630}
+2026-02-17 17:30:30 [INFO] Command sent to Main: ping (ID: 328)
+2026-02-17 17:31:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:31:00 [INFO] Payload: {"command":"ping","command_id":"329","timestamp":1771338660}
+2026-02-17 17:31:00 [INFO] Command sent to Main: ping (ID: 329)
+2026-02-17 17:31:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:31:30 [INFO] Payload: {"command":"ping","command_id":"330","timestamp":1771338690}
+2026-02-17 17:31:30 [INFO] Command sent to Main: ping (ID: 330)
+2026-02-17 17:32:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:32:00 [INFO] Payload: {"command":"ping","command_id":"331","timestamp":1771338720}
+2026-02-17 17:32:00 [INFO] Command sent to Main: ping (ID: 331)
+2026-02-17 17:32:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:32:30 [INFO] Payload: {"command":"ping","command_id":"332","timestamp":1771338750}
+2026-02-17 17:32:30 [INFO] Command sent to Main: ping (ID: 332)
+2026-02-17 17:33:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:33:00 [INFO] Payload: {"command":"ping","command_id":"333","timestamp":1771338780}
+2026-02-17 17:33:00 [INFO] Command sent to Main: ping (ID: 333)
+2026-02-17 17:33:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:33:30 [INFO] Payload: {"command":"ping","command_id":"334","timestamp":1771338810}
+2026-02-17 17:33:30 [INFO] Command sent to Main: ping (ID: 334)
+2026-02-17 17:34:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:34:00 [INFO] Payload: {"command":"ping","command_id":"335","timestamp":1771338840}
+2026-02-17 17:34:00 [INFO] Command sent to Main: ping (ID: 335)
+2026-02-17 17:34:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:34:30 [INFO] Payload: {"command":"ping","command_id":"336","timestamp":1771338870}
+2026-02-17 17:34:30 [INFO] Command sent to Main: ping (ID: 336)
+2026-02-17 17:35:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:35:00 [INFO] Payload: {"command":"ping","command_id":"337","timestamp":1771338900}
+2026-02-17 17:35:00 [INFO] Command sent to Main: ping (ID: 337)
+2026-02-17 17:35:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:35:30 [INFO] Payload: {"command":"ping","command_id":"338","timestamp":1771338930}
+2026-02-17 17:35:30 [INFO] Command sent to Main: ping (ID: 338)
+2026-02-17 17:36:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:36:00 [INFO] Payload: {"command":"ping","command_id":"339","timestamp":1771338960}
+2026-02-17 17:36:00 [INFO] Command sent to Main: ping (ID: 339)
+2026-02-17 17:36:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:36:30 [INFO] Payload: {"command":"ping","command_id":"340","timestamp":1771338990}
+2026-02-17 17:36:30 [INFO] Command sent to Main: ping (ID: 340)
+2026-02-17 17:37:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:37:00 [INFO] Payload: {"command":"ping","command_id":"341","timestamp":1771339020}
+2026-02-17 17:37:00 [INFO] Command sent to Main: ping (ID: 341)
+2026-02-17 17:37:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:37:30 [INFO] Payload: {"command":"ping","command_id":"342","timestamp":1771339050}
+2026-02-17 17:37:30 [INFO] Command sent to Main: ping (ID: 342)
+2026-02-17 17:38:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:38:00 [INFO] Payload: {"command":"ping","command_id":"343","timestamp":1771339080}
+2026-02-17 17:38:00 [INFO] Command sent to Main: ping (ID: 343)
+2026-02-17 17:38:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:38:30 [INFO] Payload: {"command":"ping","command_id":"344","timestamp":1771339110}
+2026-02-17 17:38:30 [INFO] Command sent to Main: ping (ID: 344)
+2026-02-17 17:39:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:39:00 [INFO] Payload: {"command":"ping","command_id":"345","timestamp":1771339140}
+2026-02-17 17:39:00 [INFO] Command sent to Main: ping (ID: 345)
+2026-02-17 17:39:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:39:30 [INFO] Payload: {"command":"ping","command_id":"346","timestamp":1771339170}
+2026-02-17 17:39:30 [INFO] Command sent to Main: ping (ID: 346)
+2026-02-17 17:40:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:40:00 [INFO] Payload: {"command":"ping","command_id":"347","timestamp":1771339200}
+2026-02-17 17:40:00 [INFO] Command sent to Main: ping (ID: 347)
+2026-02-17 17:40:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:40:30 [INFO] Payload: {"command":"ping","command_id":"348","timestamp":1771339230}
+2026-02-17 17:40:30 [INFO] Command sent to Main: ping (ID: 348)
+2026-02-17 17:41:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:41:00 [INFO] Payload: {"command":"ping","command_id":"349","timestamp":1771339260}
+2026-02-17 17:41:00 [INFO] Command sent to Main: ping (ID: 349)
+2026-02-17 17:41:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:41:30 [INFO] Payload: {"command":"ping","command_id":"350","timestamp":1771339290}
+2026-02-17 17:41:30 [INFO] Command sent to Main: ping (ID: 350)
+2026-02-17 17:42:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:42:00 [INFO] Payload: {"command":"ping","command_id":"351","timestamp":1771339320}
+2026-02-17 17:42:00 [INFO] Command sent to Main: ping (ID: 351)
+2026-02-17 17:42:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:42:30 [INFO] Payload: {"command":"ping","command_id":"352","timestamp":1771339350}
+2026-02-17 17:42:30 [INFO] Command sent to Main: ping (ID: 352)
+2026-02-17 17:43:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:43:00 [INFO] Payload: {"command":"ping","command_id":"353","timestamp":1771339380}
+2026-02-17 17:43:00 [INFO] Command sent to Main: ping (ID: 353)
+2026-02-17 17:43:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:43:30 [INFO] Payload: {"command":"ping","command_id":"354","timestamp":1771339410}
+2026-02-17 17:43:30 [INFO] Command sent to Main: ping (ID: 354)
+2026-02-17 17:44:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:44:00 [INFO] Payload: {"command":"ping","command_id":"355","timestamp":1771339440}
+2026-02-17 17:44:00 [INFO] Command sent to Main: ping (ID: 355)
+2026-02-17 17:44:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:44:30 [INFO] Payload: {"command":"ping","command_id":"356","timestamp":1771339470}
+2026-02-17 17:44:30 [INFO] Command sent to Main: ping (ID: 356)
+2026-02-17 17:45:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:45:00 [INFO] Payload: {"command":"ping","command_id":"357","timestamp":1771339500}
+2026-02-17 17:45:00 [INFO] Command sent to Main: ping (ID: 357)
+2026-02-17 17:45:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:45:30 [INFO] Payload: {"command":"ping","command_id":"358","timestamp":1771339530}
+2026-02-17 17:45:30 [INFO] Command sent to Main: ping (ID: 358)
+2026-02-17 17:46:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:46:00 [INFO] Payload: {"command":"ping","command_id":"359","timestamp":1771339560}
+2026-02-17 17:46:00 [INFO] Command sent to Main: ping (ID: 359)
+2026-02-17 17:46:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:46:30 [INFO] Payload: {"command":"ping","command_id":"360","timestamp":1771339590}
+2026-02-17 17:46:30 [INFO] Command sent to Main: ping (ID: 360)
+2026-02-17 17:47:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:47:00 [INFO] Payload: {"command":"ping","command_id":"361","timestamp":1771339620}
+2026-02-17 17:47:00 [INFO] Command sent to Main: ping (ID: 361)
+2026-02-17 17:47:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:47:30 [INFO] Payload: {"command":"ping","command_id":"362","timestamp":1771339650}
+2026-02-17 17:47:30 [INFO] Command sent to Main: ping (ID: 362)
+2026-02-17 17:48:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:48:00 [INFO] Payload: {"command":"ping","command_id":"363","timestamp":1771339680}
+2026-02-17 17:48:00 [INFO] Command sent to Main: ping (ID: 363)
+2026-02-17 17:48:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:48:30 [INFO] Payload: {"command":"ping","command_id":"364","timestamp":1771339710}
+2026-02-17 17:48:30 [INFO] Command sent to Main: ping (ID: 364)
+2026-02-17 17:49:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:49:00 [INFO] Payload: {"command":"ping","command_id":"365","timestamp":1771339740}
+2026-02-17 17:49:00 [INFO] Command sent to Main: ping (ID: 365)
+2026-02-17 17:49:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:49:30 [INFO] Payload: {"command":"ping","command_id":"366","timestamp":1771339770}
+2026-02-17 17:49:30 [INFO] Command sent to Main: ping (ID: 366)
+2026-02-17 17:50:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:50:00 [INFO] Payload: {"command":"ping","command_id":"367","timestamp":1771339800}
+2026-02-17 17:50:00 [INFO] Command sent to Main: ping (ID: 367)
+2026-02-17 17:50:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:50:30 [INFO] Payload: {"command":"ping","command_id":"368","timestamp":1771339830}
+2026-02-17 17:50:30 [INFO] Command sent to Main: ping (ID: 368)
+2026-02-17 17:51:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:51:00 [INFO] Payload: {"command":"ping","command_id":"369","timestamp":1771339860}
+2026-02-17 17:51:00 [INFO] Command sent to Main: ping (ID: 369)
+2026-02-17 17:51:00 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=369
+2026-02-17 17:51:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:51:30 [INFO] Payload: {"command":"ping","command_id":"370","timestamp":1771339890}
+2026-02-17 17:51:30 [INFO] Command sent to Main: ping (ID: 370)
+2026-02-17 17:51:30 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=370
+2026-02-17 17:52:00 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:52:00 [INFO] Payload: {"command":"ping","command_id":"371","timestamp":1771339920}
+2026-02-17 17:52:00 [INFO] Command sent to Main: ping (ID: 371)
+2026-02-17 17:52:30 [INFO] Publishing to topic: campus/probes/Main/command
+2026-02-17 17:52:30 [INFO] Payload: {"command":"ping","command_id":"372","timestamp":1771339950}
+2026-02-17 17:52:30 [INFO] Command sent to Main: ping (ID: 372)
+2026-02-17 17:52:30 [INFO] Processing result: Probe=Main Cmd=ping Status=completed CommandID=372
+2026-02-17 17:52:36 [WARN] Shutdown signal received
+2026-02-17 17:52:36 [INFO] Shutting down HTTP server...
+2026-02-17 17:52:36 [INFO] HTTP server stopped
+2026-02-17 17:52:36 [INFO] Shutdown complete
+2026-02-17 17:52:36 [INFO] Disconnecting from MQTT broker
+2026-02-17 17:52:36 [INFO] Disconnected from MQTT broker
+2026-02-17 17:52:40 [INFO] Starting Campus Monitor API Server
+2026-02-17 17:52:40 [INFO] Database connected successfully
+2026-02-17 17:52:40 [INFO] Connecting to MQTT broker: localhost:1883
+2026-02-17 17:52:40 [INFO] Successfully connected to MQTT broker
+2026-02-17 17:52:40 [INFO] MQTT connection established
+2026-02-17 17:52:40 [INFO] Successfully subscribed to topic: campus/probes/telemetry
+2026-02-17 17:52:40 [INFO] Successfully subscribed to topic: campus/probes/telemetry/offline
+2026-02-17 17:52:40 [INFO] Successfully subscribed to topic: campus/probes/+/result
+2026-02-17 17:52:40 [INFO] MQTT subscriptions active
+2026-02-17 17:52:40 [INFO] Started background monitors
+2026-02-17 17:52:40 [INFO] Starting Probe Monitor
+2026-02-17 17:52:40 [INFO] Probe Monitor started successfully
+2026-02-17 17:52:40 [INFO] All handlers registered
+2026-02-17 17:52:40 [INFO] API server ready on http://0.0.0.0:9080
+2026-02-17 17:52:40 [INFO] Subscribing to status broadcasts: campus/probes/+/status
+2026-02-17 17:52:40 [INFO] Subscribing to config broadcasts: campus/probes/+/config
+2026-02-17 17:52:40 [INFO] Starting HTTP server on 0.0.0.0:9080
+2026-02-17 17:52:40 [INFO] Successfully subscribed to topic with channel: campus/probes/+/config
+2026-02-17 17:52:40 [INFO] Successfully subscribed to topic with channel: campus/probes/+/status
+2026-02-17 17:53:00 [INFO] GET /api/v1/probes/Main/ping-status 200 0ms 103 bytes
+2026-02-17 17:53:00 [INFO] GET /api/v1/probes 200 75ms 285 bytes
+2026-02-17 17:53:00 [INFO] GET /api/v1/commands/probe/Main 200 79ms 5877 bytes
+2026-02-17 17:53:16 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0002334a0
+2026-02-17 17:54:15 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000014770
+2026-02-17 17:55:16 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0000b11c0
+2026-02-17 17:56:16 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0000b1470
+2026-02-17 17:57:16 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0000148c0
+2026-02-17 17:58:16 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000014d90
+2026-02-17 17:59:16 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000315ec0
+2026-02-17 18:00:16 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000233ba0
+2026-02-17 18:01:16 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000364180
+2026-02-17 18:02:16 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0000150d0
+2026-02-17 18:03:16 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000364470
+2026-02-17 18:04:16 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000364730
+2026-02-17 18:05:16 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000364a10
+2026-02-17 18:06:16 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0003a0050
+2026-02-17 18:07:16 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000015850
+2026-02-17 18:08:03 [INFO] GET /api/v1/probes/Main/ping-status 200 0ms 117 bytes
+2026-02-17 18:08:03 [INFO] GET /api/v1/probes 200 3ms 278 bytes
+2026-02-17 18:08:16 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0000b17a0
+2026-02-17 18:09:17 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0000b1a00
+2026-02-17 18:09:34 [INFO] GET /api/v1/probes 200 2ms 278 bytes
+2026-02-17 18:10:16 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0003a0670
+2026-02-17 18:11:07 [INFO] GET /api/v1/probes 200 1ms 277 bytes
+2026-02-17 18:11:09 [INFO] GET /api/v1/probes 200 1ms 277 bytes
+2026-02-17 18:11:15 [INFO] GET /api/v1/commands/probe/Main 200 19ms 5877 bytes
+2026-02-17 18:11:15 [INFO] GET /api/v1/probes/Main/status 200 20ms 196 bytes
+2026-02-17 18:11:15 [INFO] GET /api/v1/probes/Main/config 200 23ms 253 bytes
+2026-02-17 18:11:16 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0003a14b0
+2026-02-17 18:11:21 [INFO] GET /api/v1/probes/Main/status 200 0ms 196 bytes
+2026-02-17 18:11:26 [INFO] GET /api/v1/probes/Main/status 200 0ms 196 bytes
+2026-02-17 18:11:31 [INFO] GET /api/v1/probes/Main/status 200 0ms 196 bytes
+2026-02-17 18:11:36 [INFO] GET /api/v1/probes/Main/status 200 0ms 196 bytes
+2026-02-17 18:11:41 [INFO] GET /api/v1/probes/Main/status 200 0ms 196 bytes
+2026-02-17 18:11:46 [INFO] GET /api/v1/probes/Main/status 200 0ms 196 bytes

@@ -23,6 +23,10 @@ type Client struct {
 	ctx       context.Context
 	cancel    context.CancelFunc
 }
+type Message struct {
+	Topic   string
+	Payload []byte
+}
 
 type MessageHandler func(topic string, payload []byte) error
 
@@ -135,6 +139,40 @@ func (c *Client) Subscribe(topic string, handler MessageHandler) error {
 
 	c.log.Info("Successfully subscribed to topic: %s", topic)
 	return nil
+}
+
+func (c *Client) SubscribeChannel(topic string) (<-chan Message, error) {
+	if !c.IsConnected() {
+		return nil, fmt.Errorf("not connected to broker")
+	}
+
+	msgChan := make(chan Message, 100)
+
+	c.log.Debug("Subscribing to topic with channel: %s (QoS: %d)", topic, c.cfg.QoS)
+
+	token := c.client.Subscribe(topic, c.cfg.QoS, func(client mqtt.Client, msg mqtt.Message) {
+		select {
+		case msgChan <- Message{
+			Topic:   msg.Topic(),
+			Payload: msg.Payload(),
+		}:
+		default:
+			c.log.Warn("Message channel full for topic: %s, dropping message", topic)
+		}
+	})
+
+	if !token.WaitTimeout(5 * time.Second) {
+		close(msgChan)
+		return nil, fmt.Errorf("subscribe timeout for topic: %s", topic)
+	}
+
+	if err := token.Error(); err != nil {
+		close(msgChan)
+		return nil, fmt.Errorf("subscribe failed for topic %s: %w", topic, err)
+	}
+
+	c.log.Info("Successfully subscribed to topic with channel: %s", topic)
+	return msgChan, nil
 }
 
 func (c *Client) Unsubscribe(topic string) error {

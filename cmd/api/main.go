@@ -84,43 +84,40 @@ func main() {
 		log.Fatal("Failed to connect to MQTT broker: %v", err)
 	}
 
-	// 6. Initialize Services
 	telemetryService := service.NewTelemetryService(telemetryRepo, probeRepo, log)
 	probeService := service.NewProbeService(probeRepo, log)
 	analyticsService := service.NewAnalyticsService(analyticsRepo, log)
-
-	// UPDATE: CommandService now needs probeRepo as well
 	commandService := service.NewCommandService(commandRepo, mqttClient, probeRepo, telemetryService, log)
 
-	// 7. MQTT Subscriptions
-	// A. Telemetry
+	// MQTT Subscriptions
+	// Telemetry
 	if err := mqttClient.Subscribe(cfg.MQTT.TelemetryTopic, handleTelemetry(telemetryService, log)); err != nil {
 		log.Fatal("Failed to subscribe to telemetry topic: %v", err)
 	}
 
-	// B. Offline Telemetry
+	// Offline Telemetry
 	if err := mqttClient.Subscribe("campus/probes/telemetry/offline", handleOfflineTelemetry(telemetryService, log)); err != nil {
 		log.Fatal("Failed to subscribe to offline telemetry topic: %v", err)
 	}
-
-	// C. Command Results (NEW)
-	// Subscribes to campus/probes/+/result to catch responses from all probes
+	// Command results
 	if err := mqttClient.Subscribe("campus/probes/+/result", handleCommandResult(commandService, log)); err != nil {
 		log.Fatal("Failed to subscribe to command results topic: %v", err)
 	}
 
 	log.Info("MQTT subscriptions active")
 
+	log.Info("Started background monitors")
+	probeMonitor := service.NewProbeMonitor(mqttClient, probeRepo, log)
+	probeMonitor.Start()
+
 	// 8. Initialize Handlers
-	probeHandler := handler.NewProbeHandler(probeService, commandService, log)
+	probeHandler := handler.NewProbeHandler(probeService, commandService, probeMonitor, log)
 	telemetryHandler := handler.NewTelemetryHandler(telemetryService, log)
 	commandHandler := handler.NewCommandHandler(commandService, log)
 	analyticsHandler := handler.NewAnalyticsHandler(analyticsService, log)
 	healthHandler := handler.NewHealthHandler(db, mqttClient, log)
 
 	// Background pinging service
-	log.Info("Started background ping worker")
-	commandService.StartBackgroundPinger(context.Background())
 
 	// 9. Start HTTP Server
 	srv := server.New(cfg, log)
@@ -140,7 +137,7 @@ func main() {
 	<-quit
 
 	log.Warn("Shutdown signal received")
-
+	probeMonitor.Shutdown()
 	shutdownCtx, cancel := context.WithTimeout(context.Background(), cfg.Server.ShutdownTimeout)
 	defer cancel()
 
@@ -150,8 +147,6 @@ func main() {
 
 	log.Info("Shutdown complete")
 }
-
-// --- MQTT Handlers ---
 
 func handleTelemetry(service *service.TelemetryService, log *logger.Logger) mqtt.MessageHandler {
 	return func(topic string, payload []byte) error {

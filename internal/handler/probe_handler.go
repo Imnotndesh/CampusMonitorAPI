@@ -14,17 +14,20 @@ import (
 type ProbeHandler struct {
 	probeService   *service.ProbeService
 	commandService *service.CommandService
+	probeMonitor   *service.ProbeMonitor
 	log            *logger.Logger
 }
 
 func NewProbeHandler(
 	probeService *service.ProbeService,
 	commandService *service.CommandService,
+	probeMonitor *service.ProbeMonitor,
 	log *logger.Logger,
 ) *ProbeHandler {
 	return &ProbeHandler{
 		probeService:   probeService,
 		commandService: commandService,
+		probeMonitor:   probeMonitor,
 		log:            log,
 	}
 }
@@ -40,6 +43,9 @@ func (h *ProbeHandler) RegisterRoutes(r *mux.Router) {
 	r.HandleFunc("/probes/active", h.GetActiveProbes).Methods("GET")
 	r.HandleFunc("/probes/building/{building}", h.GetProbesByBuilding).Methods("GET")
 	r.HandleFunc("/probes/{probe_id}/ping", h.CheckConnectivity).Methods("POST")
+	r.HandleFunc("/probes/{probe_id}/status", h.GetProbeStatus).Methods("GET")
+	r.HandleFunc("/probes/{probe_id}/config", h.GetProbeConfig).Methods("GET")
+	r.HandleFunc("/probes/{probe_id}/ping-status", h.GetPingStatus).Methods("GET")
 }
 
 func (h *ProbeHandler) CreateProbe(w http.ResponseWriter, r *http.Request) {
@@ -217,4 +223,37 @@ func (h *ProbeHandler) AdoptProbe(w http.ResponseWriter, r *http.Request) {
 
 	h.log.Info("Probe %s adopted successfully", probeID)
 	respondJSON(w, http.StatusOK, probe)
+}
+func (h *ProbeHandler) GetProbeStatus(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	probeID := vars["probe_id"]
+
+	status := h.probeMonitor.GetProbeStatus(probeID)
+	if status == nil {
+		respondError(w, http.StatusNotFound, "Status not available - probe may not have broadcasted yet")
+		return
+	}
+
+	respondJSON(w, http.StatusOK, status)
+}
+
+func (h *ProbeHandler) GetProbeConfig(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	probeID := vars["probe_id"]
+
+	config := h.probeMonitor.GetProbeConfig(probeID)
+	if config == nil {
+		respondError(w, http.StatusNotFound, "Config not available - probe may not have broadcasted yet")
+		return
+	}
+
+	respondJSON(w, http.StatusOK, config)
+}
+
+func (h *ProbeHandler) GetPingStatus(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	probeID := vars["probe_id"]
+
+	status := h.probeMonitor.GetPingStatus(probeID)
+	respondJSON(w, http.StatusOK, status)
 }
