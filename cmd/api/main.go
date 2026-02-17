@@ -118,6 +118,10 @@ func main() {
 	analyticsHandler := handler.NewAnalyticsHandler(analyticsService, log)
 	healthHandler := handler.NewHealthHandler(db, mqttClient, log)
 
+	// Background pinging service
+	log.Info("Started background ping worker")
+	commandService.StartBackgroundPinger(context.Background())
+
 	// 9. Start HTTP Server
 	srv := server.New(cfg, log)
 	srv.RegisterHandlers(probeHandler, telemetryHandler, commandHandler, analyticsHandler, healthHandler)

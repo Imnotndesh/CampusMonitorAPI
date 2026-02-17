@@ -35,6 +35,7 @@ func (h *CommandHandler) RegisterRoutes(r *mux.Router) {
 	r.HandleFunc("/commands/statistics", h.GetStatistics).Methods("GET")
 	r.HandleFunc("/commands/{id}/result", h.UpdateCommandResult).Methods("PUT")
 	r.HandleFunc("/commands/{id}", h.DeleteCommand).Methods("DELETE")
+	r.HandleFunc("/probes/{probe_id}/ping-status", h.GetPingStatus).Methods("GET")
 }
 
 func (h *CommandHandler) IssueCommand(w http.ResponseWriter, r *http.Request) {
@@ -187,5 +188,17 @@ func (h *CommandHandler) DeleteCommand(w http.ResponseWriter, r *http.Request) {
 	respondJSON(w, http.StatusOK, map[string]interface{}{
 		"success": true,
 		"message": "Command deleted",
+	})
+}
+
+func (h *CommandHandler) GetPingStatus(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	probeID := vars["probe_id"]
+
+	status := h.commandService.GetPingStatus(probeID)
+
+	respondJSON(w, http.StatusOK, map[string]interface{}{
+		"probe_id": probeID,
+		"online":   status,
 	})
 }
