@@ -7033,3 +7033,103 @@
 2026-02-20 17:23:24 [INFO] POST /api/v1/alerts/test 200 0ms 81 bytes
 2026-02-20 17:23:28 [INFO] Simulation: Test alert triggered successfully
 2026-02-20 17:23:28 [INFO] POST /api/v1/alerts/test 200 0ms 81 bytes
+2026-02-20 17:29:20 [ERROR] WS Upgrade Error: websocket: response does not implement http.Hijacker
+2026-02-20 17:29:20 [INFO] GET /api/v1/ws 500 0ms 22 bytes
+2026-02-20 17:29:20 [INFO] GET /api/v1/alerts/active 200 58ms 5 bytes
+2026-02-20 17:29:20 [ERROR] WS Upgrade Error: websocket: response does not implement http.Hijacker
+2026-02-20 17:29:20 [INFO] GET /api/v1/ws 500 0ms 22 bytes
+2026-02-20 17:29:22 [INFO] Simulation: Test alert triggered successfully
+2026-02-20 17:29:22 [INFO] POST /api/v1/alerts/test 200 0ms 81 bytes
+2026-02-20 17:29:24 [INFO] Simulation: Test alert triggered successfully
+2026-02-20 17:29:24 [INFO] POST /api/v1/alerts/test 200 0ms 81 bytes
+2026-02-20 17:29:28 [INFO] GET /api/v1/probes 200 3ms 285 bytes
+2026-02-20 17:29:28 [ERROR] WS Upgrade Error: websocket: response does not implement http.Hijacker
+2026-02-20 17:29:28 [INFO] GET /api/v1/ws 500 1ms 22 bytes
+2026-02-20 17:29:28 [INFO] GET /api/v1/alerts/active 200 3ms 5 bytes
+2026-02-20 17:29:31 [INFO] Simulation: Test alert triggered successfully
+2026-02-20 17:29:31 [INFO] POST /api/v1/alerts/test 200 0ms 81 bytes
+2026-02-20 17:34:07 [INFO] GET /api/v1/alerts/active 200 2ms 5 bytes
+2026-02-20 17:34:07 [ERROR] WS Upgrade Error: websocket: response does not implement http.Hijacker
+2026-02-20 17:34:07 [INFO] GET /api/v1/ws 500 0ms 22 bytes
+2026-02-20 17:34:07 [ERROR] WS Upgrade Error: websocket: response does not implement http.Hijacker
+2026-02-20 17:34:07 [INFO] GET /api/v1/ws 500 0ms 22 bytes
+2026-02-20 17:34:19 [INFO] GET /api/v1/alerts/active 200 2ms 5 bytes
+2026-02-20 17:34:21 [ERROR] WS Upgrade Error: websocket: response does not implement http.Hijacker
+2026-02-20 17:34:21 [INFO] GET /api/v1/ws 500 13ms 22 bytes
+2026-02-20 17:34:21 [ERROR] WS Upgrade Error: websocket: response does not implement http.Hijacker
+2026-02-20 17:34:21 [INFO] GET /api/v1/ws 500 12ms 22 bytes
+2026-02-20 17:34:21 [INFO] GET /api/v1/alerts/active 200 29ms 5 bytes
+2026-02-20 17:34:36 [INFO] Shutting down server...
+2026-02-20 17:34:36 [INFO] WebSocket Hub shutting down...
+2026-02-20 17:34:36 [INFO] API server ready on http://0.0.0.0:9080
+2026-02-20 17:34:40 [INFO] Starting Campus Monitor API Server
+2026-02-20 17:34:40 [INFO] Database connected successfully
+2026-02-20 17:34:40 [INFO] Connecting to MQTT broker: localhost:1883
+2026-02-20 17:34:40 [INFO] Successfully connected to MQTT broker
+2026-02-20 17:34:40 [INFO] MQTT connection established
+2026-02-20 17:34:40 [INFO] Successfully subscribed to topic: campus/probes/telemetry
+2026-02-20 17:34:40 [INFO] Successfully subscribed to topic: campus/probes/telemetry/offline
+2026-02-20 17:34:40 [INFO] Successfully subscribed to topic: campus/probes/+/result
+2026-02-20 17:34:40 [INFO] MQTT subscriptions active
+2026-02-20 17:34:40 [INFO] Started background monitors
+2026-02-20 17:34:40 [INFO] Starting Probe Monitor
+2026-02-20 17:34:40 [INFO] Probe Monitor started successfully
+2026-02-20 17:34:40 [INFO] Subscribing to status broadcasts: campus/probes/+/status
+2026-02-20 17:34:40 [INFO] Subscribing to config broadcasts: campus/probes/+/config
+2026-02-20 17:34:40 [INFO] Successfully subscribed to topic with channel: campus/probes/+/status
+2026-02-20 17:34:40 [INFO] Successfully subscribed to topic with channel: campus/probes/+/config
+2026-02-20 17:34:40 [INFO] All handlers and WebSocket endpoint registered
+2026-02-20 17:34:40 [INFO] All handlers registered
+2026-02-20 17:34:40 [INFO] Starting HTTP server on 0.0.0.0:9080
+2026-02-20 17:34:40 [INFO] WebSocket Hub started
+2026-02-20 17:34:43 [INFO] GET /api/v1/probes 200 55ms 285 bytes
+2026-02-20 17:34:43 [INFO] GET /api/v1/analytics/timeseries/rssi 200 82ms 3 bytes
+2026-02-20 17:34:43 [INFO] GET /api/v1/analytics/aps 200 71ms 3 bytes
+2026-02-20 17:34:43 [INFO] GET /api/v1/analytics/congestion 200 41ms 3 bytes
+2026-02-20 17:34:43 [INFO] GET /api/v1/analytics/timeseries/latency 200 108ms 3 bytes
+2026-02-20 17:34:43 [INFO] GET /api/v1/analytics/channels 200 121ms 3 bytes
+2026-02-20 17:34:43 [INFO] GET /api/v1/analytics/health 200 168ms 172 bytes
+2026-02-20 17:34:44 [ERROR] WS Upgrade Error: websocket: response does not implement http.Hijacker
+2026-02-20 17:34:44 [INFO] GET /api/v1/ws 500 0ms 22 bytes
+2026-02-20 17:34:44 [INFO] GET /api/v1/alerts/active 200 5ms 5 bytes
+2026-02-20 17:36:03 [INFO] Shutting down server...
+2026-02-20 17:36:03 [INFO] WebSocket Hub shutting down...
+2026-02-20 17:36:03 [INFO] API server ready on http://0.0.0.0:9080
+2026-02-20 17:36:06 [INFO] Starting Campus Monitor API Server
+2026-02-20 17:36:06 [INFO] Database connected successfully
+2026-02-20 17:36:06 [INFO] Connecting to MQTT broker: localhost:1883
+2026-02-20 17:36:06 [INFO] Successfully connected to MQTT broker
+2026-02-20 17:36:06 [INFO] MQTT connection established
+2026-02-20 17:36:06 [INFO] Successfully subscribed to topic: campus/probes/telemetry
+2026-02-20 17:36:06 [INFO] Successfully subscribed to topic: campus/probes/telemetry/offline
+2026-02-20 17:36:06 [INFO] Successfully subscribed to topic: campus/probes/+/result
+2026-02-20 17:36:06 [INFO] MQTT subscriptions active
+2026-02-20 17:36:06 [INFO] Started background monitors
+2026-02-20 17:36:06 [INFO] Starting Probe Monitor
+2026-02-20 17:36:06 [INFO] Probe Monitor started successfully
+2026-02-20 17:36:06 [INFO] Subscribing to status broadcasts: campus/probes/+/status
+2026-02-20 17:36:06 [INFO] Subscribing to config broadcasts: campus/probes/+/config
+2026-02-20 17:36:06 [INFO] Successfully subscribed to topic with channel: campus/probes/+/status
+2026-02-20 17:36:06 [INFO] Successfully subscribed to topic with channel: campus/probes/+/config
+2026-02-20 17:36:06 [INFO] All handlers and WebSocket endpoint registered
+2026-02-20 17:36:06 [INFO] All handlers registered
+2026-02-20 17:36:06 [INFO] Starting HTTP server on 0.0.0.0:9080
+2026-02-20 17:36:06 [INFO] WebSocket Hub started
+2026-02-20 17:36:15 [INFO] GET /api/v1/alerts/active 200 12ms 5 bytes
+2026-02-20 17:36:18 [INFO] GET /api/v1/probes 200 11ms 285 bytes
+2026-02-20 17:36:18 [INFO] GET /api/v1/analytics/timeseries/latency 200 41ms 3 bytes
+2026-02-20 17:36:18 [INFO] GET /api/v1/analytics/congestion 200 17ms 3 bytes
+2026-02-20 17:36:19 [INFO] GET /api/v1/analytics/aps 200 67ms 3 bytes
+2026-02-20 17:36:19 [INFO] GET /api/v1/analytics/timeseries/rssi 200 94ms 3 bytes
+2026-02-20 17:36:19 [INFO] GET /api/v1/analytics/channels 200 99ms 3 bytes
+2026-02-20 17:36:19 [INFO] GET /api/v1/analytics/health 200 109ms 172 bytes
+2026-02-20 17:36:19 [INFO] GET /api/v1/alerts/active 200 9ms 5 bytes
+2026-02-20 17:36:19 [INFO] New WS Client connected. Total: 1
+2026-02-20 17:36:23 [INFO] Simulation: Test alert triggered successfully
+2026-02-20 17:36:23 [INFO] POST /api/v1/alerts/test 200 0ms 81 bytes
+2026-02-20 17:36:29 [INFO] PUT /api/v1/alerts/acknowledge/0 200 6ms 32 bytes
+2026-02-20 17:36:29 [INFO] GET /api/v1/alerts/active 200 4ms 5 bytes
+2026-02-20 17:36:30 [INFO] Simulation: Test alert triggered successfully
+2026-02-20 17:36:30 [INFO] POST /api/v1/alerts/test 200 2ms 81 bytes
+2026-02-20 17:36:36 [INFO] PUT /api/v1/alerts/acknowledge/0 200 5ms 32 bytes
+2026-02-20 17:36:37 [INFO] GET /api/v1/alerts/active 200 4ms 5 bytes

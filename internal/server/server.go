@@ -67,7 +67,7 @@ func (s *Server) RegisterHandlers(
 	healthHandler.RegisterRoutes(s.router)
 	alertHandler.RegisterRoutes(api)
 
-	api.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
+	s.router.HandleFunc("/api/v1/ws", func(w http.ResponseWriter, r *http.Request) {
 		websocket.ServeWs(s.wsHub, w, r, s.log)
 	}).Methods("GET")
 
