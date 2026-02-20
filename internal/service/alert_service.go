@@ -7,6 +7,7 @@ import (
 
 	"CampusMonitorAPI/internal/models"
 	"CampusMonitorAPI/internal/repository"
+	"CampusMonitorAPI/internal/websocket"
 )
 
 // IAlertService defines the business logic for handling alerts.
@@ -22,11 +23,13 @@ type IAlertService interface {
 
 type AlertService struct {
 	repo repository.IAlertRepository
+	hub  *websocket.Hub // Added WebSocket Hub for real-time dispatch
 }
 
-func NewAlertService(repo repository.IAlertRepository) *AlertService {
+func NewAlertService(repo repository.IAlertRepository, hub *websocket.Hub) *AlertService {
 	return &AlertService{
 		repo: repo,
+		hub:  hub,
 	}
 }
 
@@ -70,7 +73,6 @@ func (s *AlertService) DeleteAlert(ctx context.Context, id uint) error {
 
 // GetActiveAlerts retrieves all alerts that haven't been resolved yet.
 func (s *AlertService) GetActiveAlerts(ctx context.Context) ([]models.Alert, error) {
-	// We use a high limit for active alerts to ensure the dashboard is comprehensive
 	return s.repo.GetHistory(ctx, 100, 0)
 }
 
@@ -84,14 +86,15 @@ func (s *AlertService) GetAlertHistory(ctx context.Context, limit, offset int) (
 	return s.repo.GetHistory(ctx, limit, offset)
 }
 
-// notify handles the actual transmission of the alert to connected clients.
+// notify handles the actual transmission of the alert to connected clients via WebSockets.
 func (s *AlertService) notify(alert *models.Alert) {
-	fmt.Printf("[WS PUSH] Alert dispatched to dashboard for Probe %s\n", alert.ProbeID)
+	if s.hub != nil {
+		s.hub.Broadcast("ALERT", alert)
+	}
 }
 
 // CleanUpTask can be run as a background cron to remove ancient resolved alerts.
 func (s *AlertService) CleanUpTask(ctx context.Context) {
-	// Example: Delete resolved alerts older than 30 days
 	count, err := s.repo.DeleteOld(ctx, 30*24*time.Hour)
 	if err == nil && count > 0 {
 		fmt.Printf("[CLEANUP] Removed %d old resolved alerts from history\n", count)

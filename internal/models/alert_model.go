@@ -41,3 +41,12 @@ type AlertConfig struct {
 	LatencyWindow    int     `json:"latency_window"`
 	HeartbeatTimeout int     `json:"heartbeat_timeout"`
 }
+
+// TODO: Make this part of a config or something
+var DEFAULT_ALERT_CONFIG = AlertConfig{
+	RSSIThreshold:    -85.0,
+	RSSIOccurrences:  3,
+	LatencyThreshold: 500.0,
+	LatencyWindow:    3,
+	HeartbeatTimeout: 60,
+}
