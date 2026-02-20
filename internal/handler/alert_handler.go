@@ -29,6 +29,8 @@ func (h *AlertHandler) RegisterRoutes(r *mux.Router) {
 	r.HandleFunc("/alerts/acknowledge/{id}", h.Acknowledge).Methods("PUT")
 	r.HandleFunc("/alerts/resolve/{id}", h.Resolve).Methods("PUT")
 	r.HandleFunc("/alerts/{id}", h.Delete).Methods("DELETE")
+	r.HandleFunc("/alerts/test", h.SendTest).Methods("POST")
+
 }
 
 func (h *AlertHandler) GetActiveAlerts(w http.ResponseWriter, r *http.Request) {
@@ -40,6 +42,19 @@ func (h *AlertHandler) GetActiveAlerts(w http.ResponseWriter, r *http.Request) {
 	}
 
 	respondJSON(w, http.StatusOK, alerts)
+}
+func (h *AlertHandler) SendTest(w http.ResponseWriter, r *http.Request) {
+	if err := h.alertService.SendTestAlert(r.Context()); err != nil {
+		h.log.Error("Failed to send test alert: %v", err)
+		respondError(w, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	h.log.Info("Simulation: Test alert triggered successfully")
+	respondJSON(w, http.StatusOK, map[string]string{
+		"message": "Test alert dispatched to all connected clients",
+		"type":    "SIMULATION",
+	})
 }
 
 func (h *AlertHandler) GetAlertHistory(w http.ResponseWriter, r *http.Request) {

@@ -19,6 +19,7 @@ type IAlertService interface {
 	GetActiveAlerts(ctx context.Context) ([]models.Alert, error)
 	GetProbeAlerts(ctx context.Context, probeID string) ([]models.Alert, error)
 	GetAlertHistory(ctx context.Context, limit, offset int) ([]models.Alert, error)
+	SendTestAlert(ctx context.Context) error
 }
 
 type AlertService struct {
@@ -99,4 +100,18 @@ func (s *AlertService) CleanUpTask(ctx context.Context) {
 	if err == nil && count > 0 {
 		fmt.Printf("[CLEANUP] Removed %d old resolved alerts from history\n", count)
 	}
+}
+func (s *AlertService) SendTestAlert(ctx context.Context) error {
+	testAlert := &models.Alert{
+		ProbeID:        "SYSTEM-TEST",
+		Category:       models.CategorySystem,
+		Severity:       models.SeverityInfo,
+		MetricKey:      "heartbeat",
+		ThresholdValue: 0,
+		ActualValue:    1,
+		Message:        "This is a test notification to verify the Notification WebSocket integration.",
+		Status:         models.StatusActive,
+		Occurrences:    1,
+	}
+	return s.Dispatch(ctx, testAlert)
 }
