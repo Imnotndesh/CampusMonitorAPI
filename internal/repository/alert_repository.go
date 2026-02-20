@@ -44,9 +44,8 @@ func (r *AlertRepository) Create(ctx context.Context, alert *models.Alert) error
 	now := time.Now()
 	alert.CreatedAt = now
 	alert.UpdatedAt = now
-	alert.Status = models.StatusActive
 
-	err := r.db.QueryRowContext(
+	return r.db.QueryRowContext(
 		ctx, query,
 		alert.ProbeID,
 		alert.Category,
@@ -60,12 +59,6 @@ func (r *AlertRepository) Create(ctx context.Context, alert *models.Alert) error
 		alert.CreatedAt,
 		alert.UpdatedAt,
 	).Scan(&alert.ID)
-
-	if err != nil {
-		return fmt.Errorf("failed to create alert: %w", err)
-	}
-
-	return nil
 }
 
 // GetByID retrieves a single alert by its primary key.

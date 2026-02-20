@@ -1,6 +1,7 @@
 package service
 
 import (
+	"CampusMonitorAPI/internal/logger"
 	"context"
 	"fmt"
 	"time"
@@ -103,15 +104,15 @@ func (s *AlertService) CleanUpTask(ctx context.Context) {
 }
 func (s *AlertService) SendTestAlert(ctx context.Context) error {
 	testAlert := &models.Alert{
-		ProbeID:        "SYSTEM-TEST",
-		Category:       models.CategorySystem,
-		Severity:       models.SeverityInfo,
-		MetricKey:      "heartbeat",
-		ThresholdValue: 0,
-		ActualValue:    1,
-		Message:        "This is a test notification to verify the Notification WebSocket integration.",
-		Status:         models.StatusActive,
-		Occurrences:    1,
+		ProbeID:   "TEST-PROBE-01",
+		Category:  models.CategorySystem,
+		Severity:  models.SeverityInfo,
+		MetricKey: "simulation",
+		Message:   "Simulation: This is an ephemeral test notification (not saved to DB).",
+		Status:    models.StatusActive,
+		CreatedAt: time.Now(),
 	}
-	return s.Dispatch(ctx, testAlert)
+	s.notify(testAlert)
+	logger.Info("Ephemeral test alert broadcasted to WebSocket hub.")
+	return nil
 }
