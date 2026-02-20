@@ -5,6 +5,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"sync"
 	"time"
 
 	"CampusMonitorAPI/internal/logger"
@@ -19,6 +20,8 @@ type CommandService struct {
 	telemetryService *TelemetryService
 	mqttClient       *mqtt.Client
 	log              *logger.Logger
+	pingStatus       map[string]bool
+	pingStatusMux    sync.RWMutex
 }
 
 const StaleThreshold = 60 * time.Second
@@ -36,6 +39,7 @@ func NewCommandService(
 		probeRepo:        probeRepo,
 		telemetryService: telemetryService,
 		log:              log,
+		pingStatus:       make(map[string]bool),
 	}
 }
 
@@ -394,4 +398,67 @@ func (s *CommandService) handleStatusUpdate(ctx context.Context, probeID string,
 
 func (s *CommandService) DeleteCommand(ctx context.Context, commandID int) error {
 	return s.commandRepo.Delete(ctx, commandID)
+}
+
+func (s *CommandService) StartBackgroundPinger(ctx context.Context) {
+	ticker := time.NewTicker(30 * time.Second)
+	go func() {
+		for {
+			select {
+			case <-ctx.Done():
+				return
+			case <-ticker.C:
+				s.pingAllProbes(ctx)
+			}
+		}
+	}()
+}
+
+func (s *CommandService) pingAllProbes(ctx context.Context) {
+	probes, err := s.probeRepo.GetAll(ctx)
+	if err != nil {
+		s.log.Error("Failed to get probes for ping: %v", err)
+		return
+	}
+
+	for _, probe := range probes {
+		go func(probeID string) {
+			tempCmd := &models.Command{
+				ProbeID:     probeID,
+				CommandType: "ping",
+				Status:      "pending",
+			}
+
+			if err := s.commandRepo.Create(ctx, tempCmd); err != nil {
+				s.setPingStatus(probeID, false)
+				return
+			}
+
+			if err := s.mqttClient.SendPing(probeID, tempCmd.ID); err != nil {
+				s.setPingStatus(probeID, false)
+				return
+			}
+
+			time.Sleep(3 * time.Second)
+
+			cmd, err := s.commandRepo.GetByID(ctx, tempCmd.ID)
+			if err == nil && cmd.Status == "completed" {
+				s.setPingStatus(probeID, true)
+			} else {
+				s.setPingStatus(probeID, false)
+			}
+		}(probe.ProbeID)
+	}
+}
+
+func (s *CommandService) setPingStatus(probeID string, status bool) {
+	s.pingStatusMux.Lock()
+	defer s.pingStatusMux.Unlock()
+	s.pingStatus[probeID] = status
+}
+
+func (s *CommandService) GetPingStatus(probeID string) bool {
+	s.pingStatusMux.RLock()
+	defer s.pingStatusMux.RUnlock()
+	return s.pingStatus[probeID]
 }
