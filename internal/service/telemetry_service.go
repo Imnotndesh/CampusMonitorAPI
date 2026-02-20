@@ -170,6 +170,55 @@ func (s *TelemetryService) parseLightTelemetry(data map[string]interface{}) (*mo
 	return telemetry, nil
 }
 
+// RecordDeepScanAsTelemetry converts a deep scan result into a telemetry record
+func (s *TelemetryService) RecordDeepScanAsTelemetry(ctx context.Context, probeID string, result map[string]interface{}) error {
+	s.log.Info("Converting Deep Scan result to Enhanced Telemetry for probe %s", probeID)
+	t := &models.Telemetry{
+		ProbeID:   probeID,
+		Timestamp: time.Now(),
+		Type:      "enhanced",
+	}
+	if v, ok := result["rssi"].(float64); ok {
+		val := int(v)
+		t.RSSI = &val
+	}
+	if v, ok := result["latency"].(float64); ok {
+		val := int(v)
+		t.Latency = &val
+	}
+	if v, ok := result["packetLoss"].(float64); ok {
+		t.PacketLoss = &v
+	}
+	if v, ok := result["channel"].(float64); ok {
+		ch := int(v)
+		t.Channel = &ch
+	}
+	if v, ok := result["bssid"].(string); ok {
+		t.BSSID = &v
+	}
+	if v, ok := result["snr"].(float64); ok {
+		t.SNR = &v
+	}
+	if v, ok := result["linkQuality"].(float64); ok {
+		t.LinkQuality = &v
+	}
+	if v, ok := result["utilization"].(float64); ok {
+		t.Utilization = &v
+	}
+	if v, ok := result["phyMode"].(string); ok {
+		t.PhyMode = &v
+	}
+	if v, ok := result["tcpThroughput"].(float64); ok {
+		val := int(v)
+		t.Throughput = &val
+	}
+	if v, ok := result["noiseFloor"].(float64); ok {
+		val := int(v)
+		t.NoiseFloor = &val
+	}
+	return s.telemetryRepo.Insert(ctx, t)
+}
+
 func (s *TelemetryService) parseEnhancedTelemetry(data map[string]interface{}) (*models.Telemetry, error) {
 	telemetry, err := s.parseLightTelemetry(data)
 	if err != nil {

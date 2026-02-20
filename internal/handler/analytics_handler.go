@@ -3,7 +3,6 @@ package handler
 import (
 	"net/http"
 	"strconv"
-	"strings"
 	"time"
 
 	"CampusMonitorAPI/internal/logger"
@@ -88,7 +87,6 @@ func (h *AnalyticsHandler) GetHeatmap(w http.ResponseWriter, r *http.Request) {
 
 	respondJSON(w, http.StatusOK, data)
 }
-
 func (h *AnalyticsHandler) GetChannelDistribution(w http.ResponseWriter, r *http.Request) {
 	start, end := parseTimeRange(r)
 
@@ -145,14 +143,24 @@ func (h *AnalyticsHandler) GetPerformanceMetrics(w http.ResponseWriter, r *http.
 }
 
 func (h *AnalyticsHandler) GetProbeComparison(w http.ResponseWriter, r *http.Request) {
-	probeIDsStr := r.URL.Query().Get("probe_ids")
-	probeIDs := strings.Split(probeIDsStr, ",")
+	probeIDs := r.URL.Query()["probe_ids"]
+	if len(probeIDs) == 0 {
+		respondError(w, http.StatusBadRequest, "No probe_ids specified")
+		return
+	}
 
-	start, end := parseTimeRange(r)
+	hours := 24
+	if h := r.URL.Query().Get("hours"); h != "" {
+		if parsed, err := strconv.Atoi(h); err == nil {
+			hours = parsed
+		}
+	}
+	end := time.Now()
+	start := end.Add(-time.Duration(hours) * time.Hour)
 
 	data, err := h.analyticsService.GetProbeComparison(r.Context(), probeIDs, start, end)
 	if err != nil {
-		h.log.Error("Failed to get probe comparison: %v", err)
+		h.log.Error("Failed to compare probes: %v", err)
 		respondError(w, http.StatusInternalServerError, err.Error())
 		return
 	}
@@ -212,17 +220,15 @@ func parseTimeRange(r *http.Request) (time.Time, time.Time) {
 	end := time.Now()
 	start := end.Add(-24 * time.Hour)
 
-	if startStr := r.URL.Query().Get("start_time"); startStr != "" {
-		if t, err := time.Parse(time.RFC3339, startStr); err == nil {
+	if s := r.URL.Query().Get("start_time"); s != "" {
+		if t, err := time.Parse(time.RFC3339, s); err == nil {
 			start = t
 		}
 	}
-
-	if endStr := r.URL.Query().Get("end_time"); endStr != "" {
-		if t, err := time.Parse(time.RFC3339, endStr); err == nil {
+	if e := r.URL.Query().Get("end_time"); e != "" {
+		if t, err := time.Parse(time.RFC3339, e); err == nil {
 			end = t
 		}
 	}
-
 	return start, end
 }

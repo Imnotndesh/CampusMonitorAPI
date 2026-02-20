@@ -18,11 +18,14 @@ import (
 )
 
 func main() {
+	// 1. Load Config
 	cfg, err := config.Load()
 	if err != nil {
-		logger.Fatal("Failed to load configuration: %v", err)
+		// Fallback logger since main logger isn't ready
+		panic("Failed to load configuration: " + err.Error())
 	}
 
+	// 2. Initialize Logger
 	log, err := logger.New(logger.Config{
 		Level:       cfg.Logging.Level,
 		Mode:        cfg.Logging.Mode,
@@ -30,7 +33,7 @@ func main() {
 		UseColors:   cfg.Logging.UseColors,
 	})
 	if err != nil {
-		logger.Fatal("Failed to initialize logger: %v", err)
+		panic("Failed to initialize logger: " + err.Error())
 	}
 	defer log.Close()
 
@@ -41,6 +44,7 @@ func main() {
 	cfg.Print()
 	log.Info("Starting Campus Monitor API Server")
 
+	// 3. Database Connection
 	db, err := database.New(&cfg.Database)
 	if err != nil {
 		log.Fatal("Failed to connect to database: %v", err)
@@ -54,12 +58,14 @@ func main() {
 		log.Fatal("Database health check failed: %v", err)
 	}
 
+	// 4. Initialize Repositories
 	probeRepo := repository.NewProbeRepository(db.DB)
 	telemetryRepo := repository.NewTelemetryRepository(db.DB)
 	commandRepo := repository.NewCommandRepository(db.DB)
 	repository.NewAlertRepository(db.DB)
 	analyticsRepo := repository.NewAnalyticsRepository(db.DB)
 
+	// 5. Initialize MQTT Client
 	mqttClient, err := mqtt.NewClient(mqtt.ClientConfig{
 		MQTT:   &cfg.MQTT,
 		Logger: log,
@@ -70,7 +76,7 @@ func main() {
 	defer func(mqttClient *mqtt.Client) {
 		err := mqttClient.Disconnect()
 		if err != nil {
-			return
+			log.Error("Failed to disconnect MQTT: %v", err)
 		}
 	}(mqttClient)
 
@@ -78,27 +84,41 @@ func main() {
 		log.Fatal("Failed to connect to MQTT broker: %v", err)
 	}
 
+	// 6. Initialize Services
 	telemetryService := service.NewTelemetryService(telemetryRepo, probeRepo, log)
 	probeService := service.NewProbeService(probeRepo, log)
-	commandService := service.NewCommandService(commandRepo, mqttClient, log)
 	analyticsService := service.NewAnalyticsService(analyticsRepo, log)
 
+	// UPDATE: CommandService now needs probeRepo as well
+	commandService := service.NewCommandService(commandRepo, mqttClient, probeRepo, telemetryService, log)
+
+	// 7. MQTT Subscriptions
+	// A. Telemetry
 	if err := mqttClient.Subscribe(cfg.MQTT.TelemetryTopic, handleTelemetry(telemetryService, log)); err != nil {
 		log.Fatal("Failed to subscribe to telemetry topic: %v", err)
 	}
 
+	// B. Offline Telemetry
 	if err := mqttClient.Subscribe("campus/probes/telemetry/offline", handleOfflineTelemetry(telemetryService, log)); err != nil {
 		log.Fatal("Failed to subscribe to offline telemetry topic: %v", err)
 	}
 
+	// C. Command Results (NEW)
+	// Subscribes to campus/probes/+/result to catch responses from all probes
+	if err := mqttClient.Subscribe("campus/probes/+/result", handleCommandResult(commandService, log)); err != nil {
+		log.Fatal("Failed to subscribe to command results topic: %v", err)
+	}
+
 	log.Info("MQTT subscriptions active")
 
+	// 8. Initialize Handlers
 	probeHandler := handler.NewProbeHandler(probeService, commandService, log)
 	telemetryHandler := handler.NewTelemetryHandler(telemetryService, log)
 	commandHandler := handler.NewCommandHandler(commandService, log)
 	analyticsHandler := handler.NewAnalyticsHandler(analyticsService, log)
 	healthHandler := handler.NewHealthHandler(db, mqttClient, log)
 
+	// 9. Start HTTP Server
 	srv := server.New(cfg, log)
 	srv.RegisterHandlers(probeHandler, telemetryHandler, commandHandler, analyticsHandler, healthHandler)
 
@@ -110,6 +130,7 @@ func main() {
 
 	log.Info("API server ready on http://%s:%d", cfg.Server.Host, cfg.Server.Port)
 
+	// 10. Graceful Shutdown
 	quit := make(chan os.Signal, 1)
 	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
 	<-quit
@@ -125,6 +146,8 @@ func main() {
 
 	log.Info("Shutdown complete")
 }
+
+// --- MQTT Handlers ---
 
 func handleTelemetry(service *service.TelemetryService, log *logger.Logger) mqtt.MessageHandler {
 	return func(topic string, payload []byte) error {
@@ -147,6 +170,18 @@ func handleOfflineTelemetry(service *service.TelemetryService, log *logger.Logge
 		log.Info("Processing offline telemetry")
 		if err := service.ProcessMessage(ctx, payload); err != nil {
 			log.Error("Failed to process offline telemetry: %v", err)
+			return err
+		}
+		return nil
+	}
+}
+
+func handleCommandResult(service *service.CommandService, log *logger.Logger) mqtt.MessageHandler {
+	return func(topic string, payload []byte) error {
+		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+		defer cancel()
+		if err := service.ProcessCommandResult(ctx, payload); err != nil {
+			log.Error("Failed to process command result: %v", err)
 			return err
 		}
 		return nil

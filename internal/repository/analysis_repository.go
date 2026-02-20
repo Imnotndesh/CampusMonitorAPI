@@ -55,14 +55,20 @@ type CongestionAnalysis struct {
 }
 
 type PerformanceMetrics struct {
-	Period        string  `json:"period"`
-	AvgLatency    float64 `json:"avg_latency"`
-	P50Latency    float64 `json:"p50_latency"`
-	P95Latency    float64 `json:"p95_latency"`
-	P99Latency    float64 `json:"p99_latency"`
-	AvgPacketLoss float64 `json:"avg_packet_loss"`
-	AvgDNSTime    float64 `json:"avg_dns_time"`
-	SampleCount   int     `json:"sample_count"`
+	Period         string  `json:"period"`
+	AvgRSSI        float64 `json:"avg_rssi"`
+	MinRSSI        int     `json:"min_rssi"`
+	MaxRSSI        int     `json:"max_rssi"`
+	AvgLatency     float64 `json:"avg_latency"`
+	MinLatency     float64 `json:"min_latency"`
+	MaxLatency     float64 `json:"max_latency"`
+	P50Latency     float64 `json:"p50_latency"`
+	P95Latency     float64 `json:"p95_latency"`
+	P99Latency     float64 `json:"p99_latency"`
+	AvgPacketLoss  float64 `json:"avg_packet_loss"`
+	AvgDNSTime     float64 `json:"avg_dns_time"`
+	StabilityScore float64 `json:"stability_score"`
+	SampleCount    int     `json:"sample_count"`
 }
 
 type ProbeComparison struct {
@@ -77,13 +83,14 @@ type ProbeComparison struct {
 }
 
 type NetworkHealth struct {
-	Timestamp    time.Time `json:"timestamp"`
-	TotalProbes  int       `json:"total_probes"`
-	ActiveProbes int       `json:"active_probes"`
-	StaleProbes  int       `json:"stale_probes"`
-	AvgRSSI      float64   `json:"avg_rssi"`
-	AvgLatency   float64   `json:"avg_latency"`
-	HealthScore  float64   `json:"health_score"`
+	Timestamp     time.Time `json:"timestamp"`
+	TotalProbes   int       `json:"total_probes"`
+	ActiveProbes  int       `json:"active_probes"`
+	StaleProbes   int       `json:"stale_probes"`
+	AvgRSSI       float64   `json:"avg_rssi"`
+	AvgLatency    float64   `json:"avg_latency"`
+	AvgPacketLoss float64   `json:"avg_packet_loss"`
+	HealthScore   float64   `json:"health_score"`
 }
 
 type AnomalyDetection struct {
@@ -102,15 +109,20 @@ func (r *AnalyticsRepository) GetRSSITimeSeries(ctx context.Context, probeID str
 			time_bucket('%s', timestamp) as bucket,
 			AVG(rssi) as avg_rssi
 		FROM telemetry
-		WHERE probe_id = $1
-		  AND timestamp >= $2
-		  AND timestamp <= $3
+		WHERE timestamp >= $1
+		  AND timestamp <= $2
 		  AND rssi IS NOT NULL
-		GROUP BY bucket
-		ORDER BY bucket
 	`, interval)
 
-	rows, err := r.db.QueryContext(ctx, query, probeID, start, end)
+	args := []interface{}{start, end}
+	if probeID != "" && probeID != "all" {
+		query += " AND probe_id = $3"
+		args = append(args, probeID)
+	}
+
+	query += " GROUP BY bucket ORDER BY bucket"
+
+	rows, err := r.db.QueryContext(ctx, query, args...)
 	if err != nil {
 		return nil, fmt.Errorf("failed to get RSSI time series: %w", err)
 	}
@@ -134,15 +146,19 @@ func (r *AnalyticsRepository) GetLatencyTimeSeries(ctx context.Context, probeID 
 			time_bucket('%s', timestamp) as bucket,
 			AVG(latency) as avg_latency
 		FROM telemetry
-		WHERE probe_id = $1
-		  AND timestamp >= $2
-		  AND timestamp <= $3
+		WHERE timestamp >= $1
+		  AND timestamp <= $2
 		  AND latency IS NOT NULL
-		GROUP BY bucket
-		ORDER BY bucket
 	`, interval)
 
-	rows, err := r.db.QueryContext(ctx, query, probeID, start, end)
+	args := []interface{}{start, end}
+	if probeID != "" && probeID != "all" {
+		query += " AND probe_id = $3"
+		args = append(args, probeID)
+	}
+	query += " GROUP BY bucket ORDER BY bucket"
+
+	rows, err := r.db.QueryContext(ctx, query, args...)
 	if err != nil {
 		return nil, fmt.Errorf("failed to get latency time series: %w", err)
 	}
@@ -176,10 +192,9 @@ func (r *AnalyticsRepository) GetHeatmapData(ctx context.Context, start, end tim
 		GROUP BY p.building, p.floor, p.location
 		ORDER BY p.building, p.floor, p.location
 	`
-
 	rows, err := r.db.QueryContext(ctx, query, start, end)
 	if err != nil {
-		return nil, fmt.Errorf("failed to get heatmap data: %w", err)
+		return nil, fmt.Errorf("failed to get heatmap: %w", err)
 	}
 	defer rows.Close()
 
@@ -187,11 +202,10 @@ func (r *AnalyticsRepository) GetHeatmapData(ctx context.Context, start, end tim
 	for rows.Next() {
 		var h HeatmapData
 		if err := rows.Scan(&h.Building, &h.Floor, &h.Location, &h.AvgRSSI, &h.Count); err != nil {
-			return nil, fmt.Errorf("failed to scan heatmap data: %w", err)
+			return nil, err
 		}
 		heatmap = append(heatmap, h)
 	}
-
 	return heatmap, nil
 }
 
@@ -209,27 +223,25 @@ func (r *AnalyticsRepository) GetChannelDistribution(ctx context.Context, start,
 		GROUP BY channel
 		ORDER BY channel
 	`
-
 	rows, err := r.db.QueryContext(ctx, query, start, end)
 	if err != nil {
-		return nil, fmt.Errorf("failed to get channel distribution: %w", err)
+		return nil, fmt.Errorf("failed to get channels: %w", err)
 	}
 	defer rows.Close()
 
-	distribution := []ChannelDistribution{}
+	dist := []ChannelDistribution{}
 	for rows.Next() {
 		var c ChannelDistribution
-		var utilization sql.NullFloat64
-		if err := rows.Scan(&c.Channel, &c.ProbeCount, &c.AvgRSSI, &utilization); err != nil {
-			return nil, fmt.Errorf("failed to scan channel distribution: %w", err)
+		var u sql.NullFloat64
+		if err := rows.Scan(&c.Channel, &c.ProbeCount, &c.AvgRSSI, &u); err != nil {
+			return nil, err
 		}
-		if utilization.Valid {
-			c.Utilization = utilization.Float64
+		if u.Valid {
+			c.Utilization = u.Float64
 		}
-		distribution = append(distribution, c)
+		dist = append(dist, c)
 	}
-
-	return distribution, nil
+	return dist, nil
 }
 
 func (r *AnalyticsRepository) GetAPAnalysis(ctx context.Context, start, end time.Time) ([]APAnalysis, error) {
@@ -249,27 +261,25 @@ func (r *AnalyticsRepository) GetAPAnalysis(ctx context.Context, start, end time
 		GROUP BY bssid
 		ORDER BY probes_connected DESC, total_samples DESC
 	`
-
 	rows, err := r.db.QueryContext(ctx, query, start, end)
 	if err != nil {
-		return nil, fmt.Errorf("failed to get AP analysis: %w", err)
+		return nil, fmt.Errorf("failed to get APs: %w", err)
 	}
 	defer rows.Close()
 
-	analysis := []APAnalysis{}
+	res := []APAnalysis{}
 	for rows.Next() {
-		var ap APAnalysis
-		var channel sql.NullInt64
-		if err := rows.Scan(&ap.BSSID, &ap.FirstSeen, &ap.LastSeen, &ap.ProbesConnected, &ap.AvgRSSI, &channel, &ap.TotalSamples); err != nil {
-			return nil, fmt.Errorf("failed to scan AP analysis: %w", err)
+		var a APAnalysis
+		var c sql.NullInt64
+		if err := rows.Scan(&a.BSSID, &a.FirstSeen, &a.LastSeen, &a.ProbesConnected, &a.AvgRSSI, &c, &a.TotalSamples); err != nil {
+			return nil, err
 		}
-		if channel.Valid {
-			ap.Channel = int(channel.Int64)
+		if c.Valid {
+			a.Channel = int(c.Int64)
 		}
-		analysis = append(analysis, ap)
+		res = append(res, a)
 	}
-
-	return analysis, nil
+	return res, nil
 }
 
 func (r *AnalyticsRepository) GetCongestionAnalysis(ctx context.Context, start, end time.Time) ([]CongestionAnalysis, error) {
@@ -288,36 +298,46 @@ func (r *AnalyticsRepository) GetCongestionAnalysis(ctx context.Context, start, 
 		GROUP BY hour
 		ORDER BY hour
 	`
-
 	rows, err := r.db.QueryContext(ctx, query, start, end)
 	if err != nil {
-		return nil, fmt.Errorf("failed to get congestion analysis: %w", err)
+		return nil, fmt.Errorf("failed to get congestion: %w", err)
 	}
 	defer rows.Close()
 
-	analysis := []CongestionAnalysis{}
+	res := []CongestionAnalysis{}
 	for rows.Next() {
 		var c CongestionAnalysis
-		var avgUtil, peakUtil sql.NullFloat64
-		if err := rows.Scan(&c.Hour, &c.AvgNeighbors, &c.AvgOverlap, &avgUtil, &peakUtil, &c.CongestedProbes); err != nil {
-			return nil, fmt.Errorf("failed to scan congestion analysis: %w", err)
+		var au, pu sql.NullFloat64
+		if err := rows.Scan(&c.Hour, &c.AvgNeighbors, &c.AvgOverlap, &au, &pu, &c.CongestedProbes); err != nil {
+			return nil, err
 		}
-		if avgUtil.Valid {
-			c.AvgUtilization = avgUtil.Float64
+		if au.Valid {
+			c.AvgUtilization = au.Float64
 		}
-		if peakUtil.Valid {
-			c.PeakUtilization = peakUtil.Float64
+		if pu.Valid {
+			c.PeakUtilization = pu.Float64
 		}
-		analysis = append(analysis, c)
+		res = append(res, c)
 	}
-
-	return analysis, nil
+	return res, nil
 }
 
 func (r *AnalyticsRepository) GetPerformanceMetrics(ctx context.Context, probeID string, start, end time.Time) (*PerformanceMetrics, error) {
-	query := `
+	whereClause := "timestamp >= $1 AND timestamp <= $2 AND latency IS NOT NULL"
+	args := []interface{}{start, end}
+	if probeID != "" && probeID != "all" {
+		whereClause += " AND probe_id = $3"
+		args = append(args, probeID)
+	}
+
+	query := fmt.Sprintf(`
 		SELECT 
+			AVG(rssi) as avg_rssi,
+			MIN(rssi) as min_rssi,
+			MAX(rssi) as max_rssi,
 			AVG(latency) as avg_latency,
+			MIN(latency) as min_latency,
+			MAX(latency) as max_latency,
 			PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY latency) as p50_latency,
 			PERCENTILE_CONT(0.95) WITHIN GROUP (ORDER BY latency) as p95_latency,
 			PERCENTILE_CONT(0.99) WITHIN GROUP (ORDER BY latency) as p99_latency,
@@ -325,27 +345,47 @@ func (r *AnalyticsRepository) GetPerformanceMetrics(ctx context.Context, probeID
 			AVG(dns_time) as avg_dns_time,
 			COUNT(*) as sample_count
 		FROM telemetry
-		WHERE probe_id = $1
-		  AND timestamp >= $2
-		  AND timestamp <= $3
-		  AND latency IS NOT NULL
-	`
+		WHERE %s
+	`, whereClause)
 
 	metrics := &PerformanceMetrics{
 		Period: fmt.Sprintf("%s to %s", start.Format("2006-01-02"), end.Format("2006-01-02")),
 	}
 
-	var avgLat, p50, p95, p99, avgLoss, avgDNS sql.NullFloat64
-	err := r.db.QueryRowContext(ctx, query, probeID, start, end).Scan(
-		&avgLat, &p50, &p95, &p99, &avgLoss, &avgDNS, &metrics.SampleCount,
+	var avgRSSI, avgLat, minLat, maxLat, p50, p95, p99, avgLoss, avgDNS sql.NullFloat64
+	var minRSSI, maxRSSI sql.NullInt64
+
+	err := r.db.QueryRowContext(ctx, query, args...).Scan(
+		&avgRSSI, &minRSSI, &maxRSSI,
+		&avgLat, &minLat, &maxLat,
+		&p50, &p95, &p99,
+		&avgLoss, &avgDNS,
+		&metrics.SampleCount,
 	)
 	if err != nil {
 		return nil, fmt.Errorf("failed to get performance metrics: %w", err)
 	}
 
+	if avgRSSI.Valid {
+		metrics.AvgRSSI = avgRSSI.Float64
+	}
+	if minRSSI.Valid {
+		metrics.MinRSSI = int(minRSSI.Int64)
+	}
+	if maxRSSI.Valid {
+		metrics.MaxRSSI = int(maxRSSI.Int64)
+	}
+
 	if avgLat.Valid {
 		metrics.AvgLatency = avgLat.Float64
 	}
+	if minLat.Valid {
+		metrics.MinLatency = minLat.Float64
+	}
+	if maxLat.Valid {
+		metrics.MaxLatency = maxLat.Float64
+	}
+
 	if p50.Valid {
 		metrics.P50Latency = p50.Float64
 	}
@@ -355,12 +395,14 @@ func (r *AnalyticsRepository) GetPerformanceMetrics(ctx context.Context, probeID
 	if p99.Valid {
 		metrics.P99Latency = p99.Float64
 	}
+
 	if avgLoss.Valid {
 		metrics.AvgPacketLoss = avgLoss.Float64
 	}
 	if avgDNS.Valid {
 		metrics.AvgDNSTime = avgDNS.Float64
 	}
+	metrics.StabilityScore = calculateStabilityScore(metrics.AvgLatency, metrics.AvgPacketLoss)
 
 	return metrics, nil
 }
@@ -408,78 +450,72 @@ func (r *AnalyticsRepository) GetProbeComparison(ctx context.Context, probeIDs [
 }
 
 func (r *AnalyticsRepository) GetNetworkHealth(ctx context.Context) (*NetworkHealth, error) {
+	const activeWindow = 5 * time.Minute
+
 	query := `
-		WITH recent_telemetry AS (
-			SELECT DISTINCT ON (probe_id) 
-				probe_id, rssi, latency, timestamp
-			FROM telemetry
-			WHERE timestamp >= NOW() - INTERVAL '5 minutes'
-			ORDER BY probe_id, timestamp DESC
-		),
-		probe_stats AS (
+		WITH metrics AS (
 			SELECT 
-				COUNT(DISTINCT p.probe_id) as total_probes,
-				COUNT(DISTINCT CASE WHEN p.last_seen >= NOW() - INTERVAL '5 minutes' THEN p.probe_id END) as active_probes,
-				COUNT(DISTINCT CASE WHEN p.last_seen < NOW() - INTERVAL '5 minutes' THEN p.probe_id END) as stale_probes
-			FROM probes p
-			WHERE p.status = 'active'
+				COUNT(DISTINCT probe_id) as active_count,
+				AVG(latency) as avg_latency,
+				AVG(rssi) as avg_rssi,
+				AVG(packet_loss) as avg_loss
+			FROM telemetry
+			WHERE timestamp >= NOW() - $1::interval
+		),
+		total AS (
+			SELECT COUNT(*) as total_count FROM probes
 		)
 		SELECT 
-			NOW() as timestamp,
-			ps.total_probes,
-			ps.active_probes,
-			ps.stale_probes,
-			COALESCE(AVG(rt.rssi), 0) as avg_rssi,
-			COALESCE(AVG(rt.latency), 0) as avg_latency
-		FROM probe_stats ps
-		LEFT JOIN recent_telemetry rt ON true
-		GROUP BY ps.total_probes, ps.active_probes, ps.stale_probes
+			t.total_count,
+			COALESCE(m.active_count, 0),
+			COALESCE(m.avg_rssi, 0),
+			COALESCE(m.avg_latency, 0),
+			COALESCE(m.avg_loss, 0)
+		FROM total t, metrics m
 	`
 
-	health := &NetworkHealth{}
-	var avgRSSI, avgLatency sql.NullFloat64
+	health := &NetworkHealth{
+		Timestamp: time.Now(),
+	}
 
-	err := r.db.QueryRowContext(ctx, query).Scan(
-		&health.Timestamp,
-		&health.TotalProbes,
-		&health.ActiveProbes,
-		&health.StaleProbes,
-		&avgRSSI,
-		&avgLatency,
+	var total, active int
+	var rssi, latency, loss sql.NullFloat64
+
+	err := r.db.QueryRowContext(ctx, query, activeWindow.String()).Scan(
+		&total,
+		&active,
+		&rssi,
+		&latency,
+		&loss,
 	)
 	if err != nil {
 		return nil, fmt.Errorf("failed to get network health: %w", err)
 	}
 
-	if avgRSSI.Valid {
-		health.AvgRSSI = avgRSSI.Float64
+	health.TotalProbes = total
+	health.ActiveProbes = active
+	health.StaleProbes = total - active
+
+	if rssi.Valid {
+		health.AvgRSSI = rssi.Float64
 	}
-	if avgLatency.Valid {
-		health.AvgLatency = avgLatency.Float64
+	if latency.Valid {
+		health.AvgLatency = latency.Float64
+	}
+	if loss.Valid {
+		health.AvgPacketLoss = loss.Float64
 	}
 
-	rssiScore := (health.AvgRSSI + 100) / 100 * 100
-	if rssiScore > 100 {
-		rssiScore = 100
+	score := 100.0
+	if health.AvgLatency > 50 {
+		score -= (health.AvgLatency - 50) * 0.5
 	}
-	if rssiScore < 0 {
-		rssiScore = 0
-	}
+	score -= health.AvgPacketLoss * 5
 
-	latencyScore := 100.0
-	if health.AvgLatency > 0 {
-		latencyScore = 100 - (health.AvgLatency / 100 * 100)
-		if latencyScore < 0 {
-			latencyScore = 0
-		}
+	if score < 0 {
+		score = 0
 	}
-
-	uptimeScore := 0.0
-	if health.TotalProbes > 0 {
-		uptimeScore = float64(health.ActiveProbes) / float64(health.TotalProbes) * 100
-	}
-
-	health.HealthScore = (rssiScore*0.4 + latencyScore*0.3 + uptimeScore*0.3)
+	health.HealthScore = score
 
 	return health, nil
 }
@@ -617,4 +653,16 @@ func (r *AnalyticsRepository) GetRoamingAnalysis(ctx context.Context, probeID st
 	}
 
 	return roaming, nil
+}
+func calculateStabilityScore(latency, packetLoss float64) float64 {
+	score := 100.0
+	if latency > 40 {
+		score -= (latency - 40) * 0.5
+	}
+	score -= packetLoss * 5.0
+	if score < 0 {
+		return 0
+	}
+
+	return score
 }

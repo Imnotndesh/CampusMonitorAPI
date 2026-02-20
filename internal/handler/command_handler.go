@@ -34,6 +34,7 @@ func (h *CommandHandler) RegisterRoutes(r *mux.Router) {
 	r.HandleFunc("/commands/broadcast", h.BroadcastCommand).Methods("POST")
 	r.HandleFunc("/commands/statistics", h.GetStatistics).Methods("GET")
 	r.HandleFunc("/commands/{id}/result", h.UpdateCommandResult).Methods("PUT")
+	r.HandleFunc("/commands/{id}", h.DeleteCommand).Methods("DELETE")
 }
 
 func (h *CommandHandler) IssueCommand(w http.ResponseWriter, r *http.Request) {
@@ -158,7 +159,7 @@ func (h *CommandHandler) UpdateCommandResult(w http.ResponseWriter, r *http.Requ
 		return
 	}
 
-	if err := h.commandService.ProcessCommandResult(r.Context(), id, result); err != nil {
+	if err := h.commandService.UpdateResultByID(r.Context(), id, result); err != nil {
 		h.log.Error("Failed to update command result: %v", err)
 		respondError(w, http.StatusInternalServerError, err.Error())
 		return
@@ -167,5 +168,24 @@ func (h *CommandHandler) UpdateCommandResult(w http.ResponseWriter, r *http.Requ
 	respondJSON(w, http.StatusOK, map[string]interface{}{
 		"success": true,
 		"message": "Command result updated",
+	})
+}
+func (h *CommandHandler) DeleteCommand(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id, err := strconv.Atoi(vars["id"])
+	if err != nil {
+		respondError(w, http.StatusBadRequest, "Invalid command ID")
+		return
+	}
+
+	if err := h.commandService.DeleteCommand(r.Context(), id); err != nil {
+		h.log.Error("Failed to delete command: %v", err)
+		respondError(w, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	respondJSON(w, http.StatusOK, map[string]interface{}{
+		"success": true,
+		"message": "Command deleted",
 	})
 }
