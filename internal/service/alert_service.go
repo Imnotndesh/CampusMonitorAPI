@@ -104,7 +104,7 @@ func (s *AlertService) CleanUpTask(ctx context.Context) {
 }
 func (s *AlertService) SendTestAlert(ctx context.Context) error {
 	testAlert := &models.Alert{
-		ProbeID:   "TEST-PROBE-01",
+		ID:        uint(time.Now().UnixNano() / 1e6),
 		Category:  models.CategorySystem,
 		Severity:  models.SeverityInfo,
 		MetricKey: "simulation",
