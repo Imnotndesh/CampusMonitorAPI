@@ -14,17 +14,20 @@ import (
 type TelemetryService struct {
 	telemetryRepo *repository.TelemetryRepository
 	probeRepo     *repository.ProbeRepository
+	alertEval     IAlertEvaluator
 	log           *logger.Logger
 }
 
 func NewTelemetryService(
 	telemetryRepo *repository.TelemetryRepository,
 	probeRepo *repository.ProbeRepository,
+	alertEval IAlertEvaluator,
 	log *logger.Logger,
 ) *TelemetryService {
 	return &TelemetryService{
 		telemetryRepo: telemetryRepo,
 		probeRepo:     probeRepo,
+		alertEval:     alertEval,
 		log:           log,
 	}
 }

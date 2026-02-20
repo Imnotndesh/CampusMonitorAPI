@@ -46,21 +46,6 @@ type Telemetry struct {
 	ReceivedAt time.Time              `json:"received_at" db:"received_at"`
 	Metadata   map[string]interface{} `json:"metadata" db:"metadata"`
 }
-
-type Alert struct {
-	ID             int                    `json:"id" db:"id"`
-	ProbeID        string                 `json:"probe_id" db:"probe_id"`
-	AlertType      string                 `json:"alert_type" db:"alert_type"`
-	Severity       string                 `json:"severity" db:"severity"`
-	Message        string                 `json:"message" db:"message"`
-	ThresholdValue *float64               `json:"threshold_value" db:"threshold_value"`
-	ActualValue    *float64               `json:"actual_value" db:"actual_value"`
-	TriggeredAt    time.Time              `json:"triggered_at" db:"triggered_at"`
-	ResolvedAt     *time.Time             `json:"resolved_at" db:"resolved_at"`
-	Acknowledged   bool                   `json:"acknowledged" db:"acknowledged"`
-	Metadata       map[string]interface{} `json:"metadata" db:"metadata"`
-}
-
 type LightTelemetryMessage struct {
 	ProbeID    string  `json:"pid"`
 	Type       string  `json:"type"`
@@ -164,14 +149,6 @@ type TelemetryRepository interface {
 	GetHourlyStats(probeID string, hours int) ([]StatsResponse, error)
 }
 
-type AlertRepository interface {
-	Create(alert *Alert) error
-	GetByProbeID(probeID string, limit int) ([]Alert, error)
-	GetUnresolved() ([]Alert, error)
-	Resolve(alertID int) error
-	Acknowledge(alertID int) error
-}
-
 type CommandRepository interface {
 	Create(cmd *Command) error
 	GetByProbeID(probeID string, limit int) ([]Command, error)
@@ -198,14 +175,6 @@ type CommandService interface {
 	IssueCommand(req *CommandRequest) (*Command, error)
 	GetCommandHistory(probeID string) ([]Command, error)
 	ProcessCommandResult(commandID int, result map[string]interface{}) error
-}
-
-type AlertService interface {
-	CheckThresholds(telemetry *Telemetry) error
-	GetAlerts(probeID string) ([]Alert, error)
-	GetUnresolvedAlerts() ([]Alert, error)
-	ResolveAlert(alertID int) error
-	AcknowledgeAlert(alertID int) error
 }
 
 type MQTTService interface {
