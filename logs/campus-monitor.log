@@ -6921,3 +6921,115 @@
 2026-02-20 16:41:24 [INFO] Shutting down server...
 2026-02-20 16:41:24 [INFO] API server ready on http://0.0.0.0:9080
 2026-02-20 16:41:24 [INFO] WebSocket Hub shutting down...
+2026-02-20 16:54:48 [INFO] Starting Campus Monitor API Server
+2026-02-20 16:54:48 [INFO] Database connected successfully
+2026-02-20 16:54:48 [INFO] Connecting to MQTT broker: localhost:1883
+2026-02-20 16:54:48 [INFO] MQTT connection established
+2026-02-20 16:54:48 [INFO] Successfully connected to MQTT broker
+2026-02-20 16:54:48 [INFO] Successfully subscribed to topic: campus/probes/telemetry
+2026-02-20 16:54:48 [INFO] Successfully subscribed to topic: campus/probes/telemetry/offline
+2026-02-20 16:54:48 [INFO] Successfully subscribed to topic: campus/probes/+/result
+2026-02-20 16:54:48 [INFO] MQTT subscriptions active
+2026-02-20 16:54:48 [INFO] Started background monitors
+2026-02-20 16:54:48 [INFO] Starting Probe Monitor
+2026-02-20 16:54:48 [INFO] Probe Monitor started successfully
+2026-02-20 16:54:48 [INFO] Subscribing to status broadcasts: campus/probes/+/status
+2026-02-20 16:54:48 [INFO] Subscribing to config broadcasts: campus/probes/+/config
+2026-02-20 16:54:48 [INFO] Successfully subscribed to topic with channel: campus/probes/+/config
+2026-02-20 16:54:48 [INFO] Successfully subscribed to topic with channel: campus/probes/+/status
+2026-02-20 16:54:48 [INFO] All handlers and WebSocket endpoint registered
+2026-02-20 16:54:48 [INFO] All handlers registered
+2026-02-20 16:54:48 [INFO] Starting HTTP server on 0.0.0.0:9080
+2026-02-20 16:54:48 [INFO] WebSocket Hub started
+2026-02-20 16:54:59 [INFO] GET /api/v1/probes 200 11ms 285 bytes
+2026-02-20 16:55:02 [INFO] GET /api/v1/probes 200 1ms 285 bytes
+2026-02-20 16:58:25 [ERROR] Failed to get active alerts: failed to query alert history: pq: column "category" does not exist
+2026-02-20 16:58:25 [INFO] GET /api/v1/alerts/active 500 9ms 82 bytes
+2026-02-20 17:02:08 [INFO] GET /api/v1/probes 200 27ms 285 bytes
+2026-02-20 17:02:09 [ERROR] Failed to get active alerts: failed to query alert history: pq: column "category" does not exist
+2026-02-20 17:02:09 [INFO] GET /api/v1/alerts/active 500 4ms 82 bytes
+2026-02-20 17:05:07 [ERROR] Failed to get active alerts: failed to query alert history: pq: column "category" does not exist
+2026-02-20 17:05:07 [INFO] GET /api/v1/alerts/active 500 1ms 82 bytes
+2026-02-20 17:05:08 [ERROR] Failed to get active alerts: failed to query alert history: pq: column "category" does not exist
+2026-02-20 17:05:08 [INFO] GET /api/v1/alerts/active 500 1ms 82 bytes
+2026-02-20 17:05:11 [ERROR] Failed to send test alert: failed to persist alert history: failed to create alert: pq: column "category" of relation "alerts" does not exist
+2026-02-20 17:05:11 [INFO] POST /api/v1/alerts/test 500 20ms 131 bytes
+2026-02-20 17:05:13 [ERROR] Failed to send test alert: failed to persist alert history: failed to create alert: pq: column "category" of relation "alerts" does not exist
+2026-02-20 17:05:13 [INFO] POST /api/v1/alerts/test 500 4ms 131 bytes
+2026-02-20 17:05:15 [ERROR] Failed to send test alert: failed to persist alert history: failed to create alert: pq: column "category" of relation "alerts" does not exist
+2026-02-20 17:05:15 [INFO] POST /api/v1/alerts/test 500 1ms 131 bytes
+2026-02-20 17:13:53 [INFO] GET /api/v1/alerts/active 200 33ms 5 bytes
+2026-02-20 17:13:55 [INFO] GET /api/v1/probes 200 2ms 285 bytes
+2026-02-20 17:13:56 [INFO] GET /api/v1/alerts/active 200 2ms 5 bytes
+2026-02-20 17:14:00 [ERROR] Failed to send test alert: failed to persist alert history: failed to create alert: pq: null value in column "alert_type" of relation "alerts" violates not-null constraint
+2026-02-20 17:14:00 [INFO] POST /api/v1/alerts/test 500 5ms 161 bytes
+2026-02-20 17:17:38 [INFO] Shutting down server...
+2026-02-20 17:17:38 [INFO] WebSocket Hub shutting down...
+2026-02-20 17:17:38 [INFO] API server ready on http://0.0.0.0:9080
+2026-02-20 17:17:50 [INFO] Starting Campus Monitor API Server
+2026-02-20 17:17:50 [INFO] Database connected successfully
+2026-02-20 17:17:50 [INFO] Connecting to MQTT broker: localhost:1883
+2026-02-20 17:17:50 [INFO] MQTT connection established
+2026-02-20 17:17:50 [INFO] Successfully connected to MQTT broker
+2026-02-20 17:17:50 [INFO] Successfully subscribed to topic: campus/probes/telemetry
+2026-02-20 17:17:50 [INFO] Successfully subscribed to topic: campus/probes/telemetry/offline
+2026-02-20 17:17:50 [INFO] Successfully subscribed to topic: campus/probes/+/result
+2026-02-20 17:17:50 [INFO] MQTT subscriptions active
+2026-02-20 17:17:50 [INFO] Started background monitors
+2026-02-20 17:17:50 [INFO] Starting Probe Monitor
+2026-02-20 17:17:50 [INFO] Probe Monitor started successfully
+2026-02-20 17:17:50 [INFO] Subscribing to config broadcasts: campus/probes/+/config
+2026-02-20 17:17:50 [INFO] Successfully subscribed to topic with channel: campus/probes/+/config
+2026-02-20 17:17:50 [INFO] Subscribing to status broadcasts: campus/probes/+/status
+2026-02-20 17:17:50 [INFO] Successfully subscribed to topic with channel: campus/probes/+/status
+2026-02-20 17:17:50 [INFO] All handlers and WebSocket endpoint registered
+2026-02-20 17:17:50 [INFO] All handlers registered
+2026-02-20 17:17:50 [INFO] Starting HTTP server on 0.0.0.0:9080
+2026-02-20 17:17:50 [INFO] WebSocket Hub started
+2026-02-20 17:17:58 [INFO] GET /api/v1/alerts/active 200 9ms 5 bytes
+2026-02-20 17:18:02 [INFO] GET /api/v1/probes 200 4ms 285 bytes
+2026-02-20 17:18:02 [INFO] GET /api/v1/analytics/timeseries/latency 200 6ms 3 bytes
+2026-02-20 17:18:02 [INFO] GET /api/v1/analytics/channels 200 4ms 3 bytes
+2026-02-20 17:18:02 [INFO] GET /api/v1/analytics/timeseries/rssi 200 39ms 3 bytes
+2026-02-20 17:18:02 [INFO] GET /api/v1/analytics/aps 200 8ms 3 bytes
+2026-02-20 17:18:02 [INFO] GET /api/v1/analytics/congestion 200 4ms 3 bytes
+2026-02-20 17:18:02 [INFO] GET /api/v1/analytics/health 200 125ms 172 bytes
+2026-02-20 17:18:04 [INFO] GET /api/v1/alerts/active 200 1ms 5 bytes
+2026-02-20 17:18:05 [ERROR] Failed to send test alert: failed to persist alert history: pq: null value in column "alert_type" of relation "alerts" violates not-null constraint
+2026-02-20 17:18:05 [INFO] POST /api/v1/alerts/test 500 20ms 137 bytes
+2026-02-20 17:18:52 [INFO] GET /api/v1/alerts/active 200 2ms 5 bytes
+2026-02-20 17:19:49 [INFO] GET /api/v1/alerts/active 200 3ms 5 bytes
+2026-02-20 17:19:51 [ERROR] Failed to send test alert: failed to persist alert history: pq: insert or update on table "alerts" violates foreign key constraint "fk_alert_probe"
+2026-02-20 17:19:51 [INFO] POST /api/v1/alerts/test 500 18ms 137 bytes
+2026-02-20 17:22:50 [INFO] Shutting down server...
+2026-02-20 17:22:50 [INFO] WebSocket Hub shutting down...
+2026-02-20 17:22:50 [INFO] API server ready on http://0.0.0.0:9080
+2026-02-20 17:23:05 [INFO] Starting Campus Monitor API Server
+2026-02-20 17:23:05 [INFO] Database connected successfully
+2026-02-20 17:23:05 [INFO] Connecting to MQTT broker: localhost:1883
+2026-02-20 17:23:05 [INFO] MQTT connection established
+2026-02-20 17:23:05 [INFO] Successfully connected to MQTT broker
+2026-02-20 17:23:05 [INFO] Successfully subscribed to topic: campus/probes/telemetry
+2026-02-20 17:23:05 [INFO] Successfully subscribed to topic: campus/probes/telemetry/offline
+2026-02-20 17:23:05 [INFO] Successfully subscribed to topic: campus/probes/+/result
+2026-02-20 17:23:05 [INFO] MQTT subscriptions active
+2026-02-20 17:23:05 [INFO] Started background monitors
+2026-02-20 17:23:05 [INFO] Starting Probe Monitor
+2026-02-20 17:23:05 [INFO] Subscribing to status broadcasts: campus/probes/+/status
+2026-02-20 17:23:05 [INFO] Subscribing to config broadcasts: campus/probes/+/config
+2026-02-20 17:23:05 [INFO] Probe Monitor started successfully
+2026-02-20 17:23:05 [INFO] Successfully subscribed to topic with channel: campus/probes/+/config
+2026-02-20 17:23:05 [INFO] Successfully subscribed to topic with channel: campus/probes/+/status
+2026-02-20 17:23:05 [INFO] All handlers and WebSocket endpoint registered
+2026-02-20 17:23:05 [INFO] All handlers registered
+2026-02-20 17:23:05 [INFO] Starting HTTP server on 0.0.0.0:9080
+2026-02-20 17:23:05 [INFO] WebSocket Hub started
+2026-02-20 17:23:15 [INFO] GET /api/v1/alerts/active 200 10ms 5 bytes
+2026-02-20 17:23:16 [INFO] Simulation: Test alert triggered successfully
+2026-02-20 17:23:16 [INFO] POST /api/v1/alerts/test 200 0ms 81 bytes
+2026-02-20 17:23:21 [INFO] GET /api/v1/probes 200 1ms 285 bytes
+2026-02-20 17:23:21 [INFO] GET /api/v1/alerts/active 200 2ms 5 bytes
+2026-02-20 17:23:24 [INFO] Simulation: Test alert triggered successfully
+2026-02-20 17:23:24 [INFO] POST /api/v1/alerts/test 200 0ms 81 bytes
+2026-02-20 17:23:28 [INFO] Simulation: Test alert triggered successfully
+2026-02-20 17:23:28 [INFO] POST /api/v1/alerts/test 200 0ms 81 bytes
