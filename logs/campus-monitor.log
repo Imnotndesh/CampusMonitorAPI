@@ -6873,3 +6873,26 @@
 2026-02-17 18:11:36 [INFO] GET /api/v1/probes/Main/status 200 0ms 196 bytes
 2026-02-17 18:11:41 [INFO] GET /api/v1/probes/Main/status 200 0ms 196 bytes
 2026-02-17 18:11:46 [INFO] GET /api/v1/probes/Main/status 200 0ms 196 bytes
+2026-02-17 18:12:24 [INFO] GET /api/v1/probes 200 19ms 285 bytes
+2026-02-17 18:12:24 [INFO] GET /api/v1/probes/Main/status 200 0ms 205 bytes
+2026-02-17 18:12:24 [INFO] GET /api/v1/probes/Main/config 200 0ms 254 bytes
+2026-02-17 18:12:24 [INFO] GET /api/v1/commands/probe/Main 200 2ms 5877 bytes
+2026-02-17 18:12:34 [INFO] GET /api/v1/probes 200 1ms 285 bytes
+2026-02-17 18:12:35 [INFO] GET /api/v1/probes/Main/status 200 0ms 205 bytes
+2026-02-17 18:12:35 [INFO] GET /api/v1/probes/Main/config 200 0ms 254 bytes
+2026-02-17 18:12:35 [INFO] GET /api/v1/commands/probe/Main 200 6ms 5877 bytes
+2026-02-17 18:13:21 [INFO] GET /api/v1/probes/Main/config 200 0ms 254 bytes
+2026-02-17 18:13:21 [INFO] GET /api/v1/probes/Main/status 200 0ms 205 bytes
+2026-02-17 18:13:21 [INFO] GET /api/v1/commands/probe/Main 200 41ms 5877 bytes
+2026-02-17 18:13:21 [INFO] GET /api/v1/probes 200 65ms 285 bytes
+2026-02-17 18:13:25 [WARN] Shutdown signal received
+2026-02-17 18:13:25 [INFO] Shutting down Probe Monitor...
+2026-02-17 18:13:25 [INFO] Status broadcast subscriber stopping
+2026-02-17 18:13:25 [INFO] Stale data cleanup worker stopping
+2026-02-17 18:13:25 [INFO] Config broadcast subscriber stopping
+2026-02-17 18:13:25 [INFO] Probe Monitor stopped gracefully
+2026-02-17 18:13:25 [INFO] Shutting down HTTP server...
+2026-02-17 18:13:25 [INFO] HTTP server stopped
+2026-02-17 18:13:25 [INFO] Shutdown complete
+2026-02-17 18:13:25 [INFO] Disconnecting from MQTT broker
+2026-02-17 18:13:25 [INFO] Disconnected from MQTT broker
