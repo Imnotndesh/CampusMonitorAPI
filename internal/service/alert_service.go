@@ -25,7 +25,7 @@ type IAlertService interface {
 
 type AlertService struct {
 	repo repository.IAlertRepository
-	hub  *websocket.Hub // Added WebSocket Hub for real-time dispatch
+	hub  *websocket.Hub
 }
 
 func NewAlertService(repo repository.IAlertRepository, hub *websocket.Hub) *AlertService {
