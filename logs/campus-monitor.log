@@ -6896,3 +6896,28 @@
 2026-02-17 18:13:25 [INFO] Shutdown complete
 2026-02-17 18:13:25 [INFO] Disconnecting from MQTT broker
 2026-02-17 18:13:25 [INFO] Disconnected from MQTT broker
+2026-02-20 16:40:44 [INFO] Starting Campus Monitor API Server
+2026-02-20 16:40:44 [FATAL] Failed to connect to database: failed to ping database: dial tcp [::1]:5432: connect: connection refused
+2026-02-20 16:41:12 [INFO] Starting Campus Monitor API Server
+2026-02-20 16:41:12 [INFO] Database connected successfully
+2026-02-20 16:41:12 [INFO] Connecting to MQTT broker: localhost:1883
+2026-02-20 16:41:12 [INFO] Successfully connected to MQTT broker
+2026-02-20 16:41:12 [INFO] MQTT connection established
+2026-02-20 16:41:12 [INFO] Successfully subscribed to topic: campus/probes/telemetry
+2026-02-20 16:41:12 [INFO] Successfully subscribed to topic: campus/probes/telemetry/offline
+2026-02-20 16:41:12 [INFO] Successfully subscribed to topic: campus/probes/+/result
+2026-02-20 16:41:12 [INFO] MQTT subscriptions active
+2026-02-20 16:41:12 [INFO] Started background monitors
+2026-02-20 16:41:12 [INFO] Starting Probe Monitor
+2026-02-20 16:41:12 [INFO] Probe Monitor started successfully
+2026-02-20 16:41:12 [INFO] Subscribing to config broadcasts: campus/probes/+/config
+2026-02-20 16:41:12 [INFO] Subscribing to status broadcasts: campus/probes/+/status
+2026-02-20 16:41:12 [INFO] All handlers and WebSocket endpoint registered
+2026-02-20 16:41:12 [INFO] All handlers registered
+2026-02-20 16:41:12 [INFO] Successfully subscribed to topic with channel: campus/probes/+/config
+2026-02-20 16:41:12 [INFO] Starting HTTP server on 0.0.0.0:9080
+2026-02-20 16:41:12 [INFO] WebSocket Hub started
+2026-02-20 16:41:12 [INFO] Successfully subscribed to topic with channel: campus/probes/+/status
+2026-02-20 16:41:24 [INFO] Shutting down server...
+2026-02-20 16:41:24 [INFO] API server ready on http://0.0.0.0:9080
+2026-02-20 16:41:24 [INFO] WebSocket Hub shutting down...

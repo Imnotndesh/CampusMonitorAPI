@@ -1,7 +1,6 @@
 package service
 
 import (
-	"CampusMonitorAPI/internal/service"
 	"context"
 	"fmt"
 	"sync"
@@ -16,7 +15,6 @@ type MetricWindow struct {
 }
 
 func NewMetricWindow(size int) *MetricWindow {
-	// If size is 0 or 1, we treat it as 1 to avoid division/indexing issues
 	if size < 1 {
 		size = 1
 	}
@@ -76,11 +74,11 @@ type IAlertEvaluator interface {
 type AlertEvaluator struct {
 	config       models.AlertConfig
 	probeStates  map[string]*ProbeState
-	alertService service.IAlertService
+	alertService IAlertService
 	mu           sync.RWMutex
 }
 
-func NewAlertEvaluator(cfg models.AlertConfig, alertSvc service.IAlertService) *AlertEvaluator {
+func NewAlertEvaluator(cfg models.AlertConfig, alertSvc IAlertService) *AlertEvaluator {
 	return &AlertEvaluator{
 		config:       cfg,
 		probeStates:  make(map[string]*ProbeState),
@@ -139,8 +137,6 @@ func (e *AlertEvaluator) dispatch(ctx context.Context, t models.Telemetry, cat, 
 		Status:         models.StatusActive,
 		Occurrences:    e.config.RSSIOccurrences,
 	}
-
-	// Persist and Notify via WebSockets
 	return e.alertService.Dispatch(ctx, alert)
 }
 
