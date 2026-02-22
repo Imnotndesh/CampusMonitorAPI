@@ -3,6 +3,7 @@ package repository
 import (
 	"context"
 	"database/sql"
+	"encoding/json"
 	"fmt"
 	"time"
 
@@ -208,7 +209,58 @@ func (r *AlertRepository) Acknowledge(ctx context.Context, alertID int) error {
 
 	return nil
 }
+func (r *AlertRepository) GetActiveByProbe(ctx context.Context, probeID string) ([]models.Alert, error) {
+	// An alert is "Active" if it hasn't been resolved yet (resolved_at IS NULL)
+	query := `
+		SELECT id, probe_id, alert_type, severity, message, 
+		       threshold_value, actual_value, triggered_at, 
+		       resolved_at, acknowledged, metadata
+		FROM alerts
+		WHERE probe_id = $1 AND resolved_at IS NULL
+		ORDER BY triggered_at DESC
+	`
 
+	rows, err := r.db.QueryContext(ctx, query, probeID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var alerts []models.Alert
+	for rows.Next() {
+		var a models.Alert
+		var metadataJSON []byte
+
+		err := rows.Scan(
+			&a.ID,
+			&a.ProbeID,
+			&a.AlertType,
+			&a.Severity,
+			&a.Message,
+			&a.ThresholdValue,
+			&a.ActualValue,
+			&a.TriggeredAt,
+			&a.ResolvedAt,
+			&a.Acknowledged,
+			&metadataJSON,
+		)
+		if err != nil {
+			return nil, err
+		}
+
+		if len(metadataJSON) > 0 {
+			_ = json.Unmarshal(metadataJSON, &a.Metadata)
+		}
+
+		alerts = append(alerts, a)
+	}
+
+	if err = rows.Err(); err != nil {
+		return nil, err
+	}
+
+	return alerts, nil
+}
 func (r *AlertRepository) GetBySeverity(ctx context.Context, severity string, limit int) ([]models.Alert, error) {
 	query := `
 		SELECT id, probe_id, alert_type, severity, message,

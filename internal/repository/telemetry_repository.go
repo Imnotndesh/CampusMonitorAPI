@@ -15,8 +15,6 @@ type TelemetryRepository struct {
 	db *sql.DB
 }
 
-//TODO: WHEN BUILDING OUT THE UI PLEASE ADD AN INDUCTION SECTION IN ORDER TO INTEGRATE THE PROBE INTO THE PROBE DATABASE.
-
 func NewTelemetryRepository(db *sql.DB) *TelemetryRepository {
 	return &TelemetryRepository{db: db}
 }
@@ -75,6 +73,58 @@ func (r *TelemetryRepository) Insert(ctx context.Context, telemetry *models.Tele
 	}
 
 	return nil
+}
+
+// GetLatestByProbe retrieves the single most recent telemetry reading for a given probe.
+func (r *TelemetryRepository) GetLatestByProbe(ctx context.Context, probeID string) (*models.Telemetry, error) {
+	query := `
+		SELECT timestamp, probe_id, type, rssi, latency, packet_loss, dns_time, 
+		       channel, bssid, neighbors, overlap, congestion, snr, link_quality, 
+		       utilization, phy_mode, throughput, noise_floor, uptime, received_at, metadata
+		FROM telemetry
+		WHERE probe_id = $1
+		ORDER BY timestamp DESC
+		LIMIT 1
+	`
+
+	var t models.Telemetry
+	var metadataJSON []byte
+
+	err := r.db.QueryRowContext(ctx, query, probeID).Scan(
+		&t.Timestamp,
+		&t.ProbeID,
+		&t.Type,
+		&t.RSSI,
+		&t.Latency,
+		&t.PacketLoss,
+		&t.DNSTime,
+		&t.Channel,
+		&t.BSSID,
+		&t.Neighbors,
+		&t.Overlap,
+		&t.Congestion,
+		&t.SNR,
+		&t.LinkQuality,
+		&t.Utilization,
+		&t.PhyMode,
+		&t.Throughput,
+		&t.NoiseFloor,
+		&t.Uptime,
+		&t.ReceivedAt,
+		&metadataJSON,
+	)
+
+	if err != nil {
+		// sql.ErrNoRows is expected if a probe hasn't sent telemetry yet
+		return nil, err
+	}
+
+	// Parse the JSONB metadata
+	if len(metadataJSON) > 0 {
+		_ = json.Unmarshal(metadataJSON, &t.Metadata)
+	}
+
+	return &t, nil
 }
 
 func (r *TelemetryRepository) InsertBatch(ctx context.Context, telemetries []models.Telemetry) error {

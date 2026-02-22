@@ -378,6 +378,61 @@ func (r *ProbeRepository) GetStale(ctx context.Context, threshold time.Duration)
 	return probes, nil
 }
 
+// GetByBuildingAndFloor retrieves all probes assigned to a specific building and floor.
+func (r *ProbeRepository) GetByBuildingAndFloor(ctx context.Context, building string, floor string) ([]models.Probe, error) {
+	query := `
+		SELECT probe_id, location, building, floor, department, status, 
+		       firmware_version, last_seen, created_at, updated_at, metadata
+		FROM probes
+		WHERE building = $1 AND floor = $2
+	`
+
+	rows, err := r.db.QueryContext(ctx, query, building, floor)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var probes []models.Probe
+	for rows.Next() {
+		var p models.Probe
+		var metadataJSON []byte
+
+		err := rows.Scan(
+			&p.ProbeID,
+			&p.Location,
+			&p.Building,
+			&p.Floor,
+			&p.Department,
+			&p.Status,
+			&p.FirmwareVersion,
+			&p.LastSeen,
+			&p.CreatedAt,
+			&p.UpdatedAt,
+			&metadataJSON,
+		)
+		if err != nil {
+			return nil, err
+		}
+
+		// Parse the JSONB metadata back into the Go struct map
+		if len(metadataJSON) > 0 {
+			if err := json.Unmarshal(metadataJSON, &p.Metadata); err != nil {
+				// Log the error but continue; don't break the whole query for bad metadata
+				fmt.Printf("[Warning] Failed to parse metadata for probe %s: %v\n", p.ProbeID, err)
+			}
+		}
+
+		probes = append(probes, p)
+	}
+
+	if err = rows.Err(); err != nil {
+		return nil, err
+	}
+
+	return probes, nil
+}
+
 func (r *ProbeRepository) AutoDiscover(ctx context.Context, probeID string) error {
 	query := `
 		INSERT INTO probes (
