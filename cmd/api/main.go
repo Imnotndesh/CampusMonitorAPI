@@ -93,6 +93,7 @@ func main() {
 	commandService := service.NewCommandService(commandRepo, mqttClient, probeRepo, telemetryService, log)
 	topologyService := service.NewTopologyService(probeRepo, telemetryRepo, alertRepo)
 
+	// MQTT Subscriptions
 	// Telemetry
 	if err := mqttClient.Subscribe(cfg.MQTT.TelemetryTopic, handleTelemetry(telemetryService, log)); err != nil {
 		log.Fatal("Failed to subscribe to telemetry topic: %v", err)
