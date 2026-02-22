@@ -30,10 +30,11 @@ type Coordinates struct {
 }
 
 type FloorNode struct {
-	Level      int    `json:"level"`
-	FloorID    string `json:"floor_id"` // e.g., "Ground", "1st Floor"
-	ZIndex     int    `json:"z_index"`
-	ProbeCount int    `json:"probe_count"`
+	Level      int      `json:"level"`
+	FloorID    string   `json:"floor_id"` // e.g., "Ground", "1st Floor"
+	ZIndex     int      `json:"z_index"`
+	ProbeCount int      `json:"probe_count"`
+	Probes     []string `json:"probes"`
 }
 
 type HeatmapResponse struct {
@@ -100,7 +101,8 @@ func (s *TopologyService) GetLayout(ctx context.Context) (*TopologyLayout, error
 		return nil, fmt.Errorf("failed to fetch probes for layout: %w", err)
 	}
 
-	buildingMap := make(map[string]map[string]int) // Building -> Floor -> ProbeCount
+	// CHANGED: Map now stores an array of probe IDs instead of just an integer count
+	buildingMap := make(map[string]map[string][]string) // Building -> Floor -> []ProbeIDs
 
 	for _, p := range probes {
 		bName := p.Building
@@ -114,9 +116,11 @@ func (s *TopologyService) GetLayout(ctx context.Context) (*TopologyLayout, error
 		}
 
 		if _, exists := buildingMap[bName]; !exists {
-			buildingMap[bName] = make(map[string]int)
+			buildingMap[bName] = make(map[string][]string)
 		}
-		buildingMap[bName][fName]++
+
+		// Append the actual ProbeID to the floor's array
+		buildingMap[bName][fName] = append(buildingMap[bName][fName], p.ProbeID)
 	}
 
 	layout := &TopologyLayout{
@@ -124,7 +128,7 @@ func (s *TopologyService) GetLayout(ctx context.Context) (*TopologyLayout, error
 			ID:          "SERVER_ROOM",
 			Name:        "Core Network Operations",
 			Coordinates: Coordinates{X: 0, Y: 0},
-			Floors:      []FloorNode{{Level: 1, FloorID: "Ground", ZIndex: 0, ProbeCount: 0}},
+			Floors:      []FloorNode{{Level: 1, FloorID: "Ground", ZIndex: 0, ProbeCount: 0, Probes: []string{}}},
 		},
 		Buildings: []BuildingNode{},
 	}
@@ -149,12 +153,14 @@ func (s *TopologyService) GetLayout(ctx context.Context) (*TopologyLayout, error
 		}
 
 		zIdx := 0
-		for fName, count := range floors {
+		// 'pIDs' is now the array of Probe IDs for this specific floor
+		for fName, pIDs := range floors {
 			bNode.Floors = append(bNode.Floors, FloorNode{
 				Level:      parseFloorLevel(fName),
 				FloorID:    fName,
 				ZIndex:     zIdx,
-				ProbeCount: count,
+				ProbeCount: len(pIDs), // Count is now just the length of the array
+				Probes:     pIDs,      // Assign the array of IDs here!
 			})
 			zIdx++
 		}
