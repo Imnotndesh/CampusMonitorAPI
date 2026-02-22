@@ -6,6 +6,7 @@ import (
 	"CampusMonitorAPI/internal/logger"
 	"CampusMonitorAPI/internal/middleware"
 	"context"
+	"errors"
 	"fmt"
 	"net/http"
 
@@ -44,6 +45,7 @@ func (s *Server) RegisterHandlers(
 	commandHandler *handler.CommandHandler,
 	analyticsHandler *handler.AnalyticsHandler,
 	healthHandler *handler.HealthHandler,
+	topologyHandler *handler.TopologyHandler,
 ) {
 	api := s.router.PathPrefix("/api/v1").Subrouter()
 
@@ -60,6 +62,7 @@ func (s *Server) RegisterHandlers(
 	commandHandler.RegisterRoutes(api)
 	analyticsHandler.RegisterRoutes(api)
 	healthHandler.RegisterRoutes(s.router)
+	topologyHandler.RegisterRoutes(api)
 
 	s.log.Info("All handlers registered")
 }
@@ -67,7 +70,7 @@ func (s *Server) RegisterHandlers(
 func (s *Server) Start() error {
 	s.log.Info("Starting HTTP server on %s", s.httpServer.Addr)
 
-	if err := s.httpServer.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+	if err := s.httpServer.ListenAndServe(); err != nil && !errors.Is(err, http.ErrServerClosed) {
 		return fmt.Errorf("server failed to start: %w", err)
 	}
 

@@ -75,15 +75,15 @@ type ITopologyService interface {
 }
 
 type TopologyService struct {
-	probeRepo     repository.ProbeRepository
-	telemetryRepo repository.TelemetryRepository
-	alertRepo     repository.AlertRepository
+	probeRepo     *repository.ProbeRepository
+	telemetryRepo *repository.TelemetryRepository
+	alertRepo     *repository.AlertRepository
 }
 
 func NewTopologyService(
-	probeRepo repository.ProbeRepository,
-	telemetryRepo repository.TelemetryRepository,
-	alertRepo repository.AlertRepository,
+	probeRepo *repository.ProbeRepository,
+	telemetryRepo *repository.TelemetryRepository,
+	alertRepo *repository.AlertRepository,
 ) *TopologyService {
 	return &TopologyService{
 		probeRepo:     probeRepo,

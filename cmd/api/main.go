@@ -62,7 +62,7 @@ func main() {
 	probeRepo := repository.NewProbeRepository(db.DB)
 	telemetryRepo := repository.NewTelemetryRepository(db.DB)
 	commandRepo := repository.NewCommandRepository(db.DB)
-	repository.NewAlertRepository(db.DB)
+	alertRepo := repository.NewAlertRepository(db.DB)
 	analyticsRepo := repository.NewAnalyticsRepository(db.DB)
 
 	// 5. Initialize MQTT Client
@@ -88,8 +88,8 @@ func main() {
 	probeService := service.NewProbeService(probeRepo, log)
 	analyticsService := service.NewAnalyticsService(analyticsRepo, log)
 	commandService := service.NewCommandService(commandRepo, mqttClient, probeRepo, telemetryService, log)
+	topologyService := service.NewTopologyService(probeRepo, telemetryRepo, alertRepo)
 
-	// MQTT Subscriptions
 	// Telemetry
 	if err := mqttClient.Subscribe(cfg.MQTT.TelemetryTopic, handleTelemetry(telemetryService, log)); err != nil {
 		log.Fatal("Failed to subscribe to telemetry topic: %v", err)
@@ -116,12 +116,12 @@ func main() {
 	commandHandler := handler.NewCommandHandler(commandService, log)
 	analyticsHandler := handler.NewAnalyticsHandler(analyticsService, log)
 	healthHandler := handler.NewHealthHandler(db, mqttClient, log)
-
+	topologyHandler := handler.NewTopologyHandler(topologyService, log)
 	// Background pinging service
 
 	// 9. Start HTTP Server
 	srv := server.New(cfg, log)
-	srv.RegisterHandlers(probeHandler, telemetryHandler, commandHandler, analyticsHandler, healthHandler)
+	srv.RegisterHandlers(probeHandler, telemetryHandler, commandHandler, analyticsHandler, healthHandler, topologyHandler)
 
 	go func() {
 		if err := srv.Start(); err != nil {
