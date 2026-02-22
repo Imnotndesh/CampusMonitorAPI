@@ -7544,3 +7544,112 @@
 2026-02-22 17:00:33 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0001ec2b0
 2026-02-22 17:00:38 [INFO] GET /api/v1/topology/heatmap 200 8ms 320 bytes
 2026-02-22 17:00:48 [INFO] GET /api/v1/topology/heatmap 200 7ms 320 bytes
+2026-02-22 18:40:24 [INFO] Starting Campus Monitor API Server
+2026-02-22 18:40:24 [INFO] Database connected successfully
+2026-02-22 18:40:24 [INFO] Connecting to MQTT broker: localhost:1883
+2026-02-22 18:40:24 [INFO] Successfully connected to MQTT broker
+2026-02-22 18:40:24 [INFO] MQTT connection established
+2026-02-22 18:40:24 [INFO] Successfully subscribed to topic: campus/probes/telemetry
+2026-02-22 18:40:24 [INFO] Successfully subscribed to topic: campus/probes/telemetry/offline
+2026-02-22 18:40:24 [INFO] Successfully subscribed to topic: campus/probes/+/result
+2026-02-22 18:40:24 [INFO] MQTT subscriptions active
+2026-02-22 18:40:24 [INFO] Started background monitors
+2026-02-22 18:40:24 [INFO] Starting Probe Monitor
+2026-02-22 18:40:24 [INFO] Probe Monitor started successfully
+2026-02-22 18:40:24 [INFO] Subscribing to config broadcasts: campus/probes/+/config
+2026-02-22 18:40:24 [INFO] Subscribing to status broadcasts: campus/probes/+/status
+2026-02-22 18:40:24 [INFO] Successfully subscribed to topic with channel: campus/probes/+/status
+2026-02-22 18:40:24 [INFO] Successfully subscribed to topic with channel: campus/probes/+/config
+2026-02-22 18:40:24 [INFO] All handlers and WebSocket endpoint registered
+2026-02-22 18:40:24 [INFO] All handlers registered
+2026-02-22 18:40:24 [INFO] Starting HTTP server on 0.0.0.0:9080
+2026-02-22 18:40:24 [INFO] WebSocket Hub started
+2026-02-22 18:40:29 [INFO] New WS Client connected. Total: 1
+2026-02-22 18:40:29 [INFO] New WS Client connected. Total: 2
+2026-02-22 18:40:32 [INFO] Detecting anomalies: probe=Cabinet, hours=24
+2026-02-22 18:40:32 [INFO] GET /api/v1/analytics/timeseries/rssi 200 52ms 165 bytes
+2026-02-22 18:40:32 [INFO] GET /api/v1/commands/probe/Cabinet 200 7ms 3 bytes
+2026-02-22 18:40:32 [INFO] GET /api/v1/analytics/performance/Cabinet 200 93ms 341 bytes
+2026-02-22 18:40:32 [INFO] GET /api/v1/probes 200 92ms 559 bytes
+2026-02-22 18:40:32 [INFO] GET /api/v1/analytics/timeseries/latency 200 107ms 164 bytes
+2026-02-22 18:40:32 [INFO] GET /api/v1/analytics/anomalies/Cabinet 200 105ms 182 bytes
+2026-02-22 18:40:32 [INFO] GET /api/v1/analytics/roaming/Cabinet 200 133ms 169 bytes
+2026-02-22 18:40:37 [INFO] GET /api/v1/probes 200 4ms 559 bytes
+2026-02-22 18:40:37 [ERROR] Failed to get active alerts: failed to query alert history: pq: column "category" does not exist
+2026-02-22 18:40:37 [INFO] GET /api/v1/alerts/active 500 31ms 82 bytes
+2026-02-22 18:40:59 [INFO] GET /api/v1/topology/layout 200 3ms 408 bytes
+2026-02-22 18:40:59 [INFO] GET /api/v1/topology/heatmap 200 15ms 319 bytes
+2026-02-22 18:41:00 [ERROR] Failed to get active alerts: failed to query alert history: pq: column "category" does not exist
+2026-02-22 18:41:00 [INFO] GET /api/v1/alerts/active 500 0ms 82 bytes
+2026-02-22 18:45:25 [ERROR] Failed to get active alerts: failed to query alert history: pq: column "category" does not exist
+2026-02-22 18:45:25 [INFO] GET /api/v1/alerts/active 500 2ms 82 bytes
+2026-02-22 18:50:57 [INFO] Shutting down server...
+2026-02-22 18:50:57 [INFO] API server ready on http://0.0.0.0:9080
+2026-02-22 18:50:57 [INFO] WebSocket Hub shutting down...
+2026-02-22 18:51:14 [INFO] Starting Campus Monitor API Server
+2026-02-22 18:51:14 [INFO] Database connected successfully
+2026-02-22 18:51:14 [INFO] Connecting to MQTT broker: localhost:1883
+2026-02-22 18:51:14 [INFO] Successfully connected to MQTT broker
+2026-02-22 18:51:14 [INFO] MQTT connection established
+2026-02-22 18:51:14 [INFO] Successfully subscribed to topic: campus/probes/telemetry
+2026-02-22 18:51:14 [INFO] Successfully subscribed to topic: campus/probes/telemetry/offline
+2026-02-22 18:51:14 [INFO] Successfully subscribed to topic: campus/probes/+/result
+2026-02-22 18:51:14 [INFO] MQTT subscriptions active
+2026-02-22 18:51:14 [INFO] Started background monitors
+2026-02-22 18:51:14 [INFO] Starting Probe Monitor
+2026-02-22 18:51:14 [INFO] Probe Monitor started successfully
+2026-02-22 18:51:14 [INFO] All handlers and WebSocket endpoint registered
+2026-02-22 18:51:14 [INFO] All handlers registered
+2026-02-22 18:51:14 [INFO] Subscribing to config broadcasts: campus/probes/+/config
+2026-02-22 18:51:14 [INFO] Subscribing to status broadcasts: campus/probes/+/status
+2026-02-22 18:51:14 [INFO] Successfully subscribed to topic with channel: campus/probes/+/status
+2026-02-22 18:51:14 [INFO] Successfully subscribed to topic with channel: campus/probes/+/config
+2026-02-22 18:51:14 [INFO] Starting HTTP server on 0.0.0.0:9080
+2026-02-22 18:51:14 [INFO] WebSocket Hub started
+2026-02-22 18:51:14 [INFO] New WS Client connected. Total: 1
+2026-02-22 18:51:15 [INFO] New WS Client connected. Total: 2
+2026-02-22 18:51:17 [INFO] GET /api/v1/alerts/active 200 8ms 5 bytes
+2026-02-22 18:51:25 [INFO] GET /api/v1/topology/layout 200 3ms 408 bytes
+2026-02-22 18:51:25 [INFO] GET /api/v1/topology/heatmap 200 47ms 315 bytes
+2026-02-22 18:51:27 [INFO] GET /api/v1/alerts/active 200 1ms 5 bytes
+2026-02-22 18:51:30 [INFO] GET /api/v1/probes 200 1ms 559 bytes
+2026-02-22 18:51:30 [INFO] GET /api/v1/analytics/timeseries/rssi 200 24ms 181 bytes
+2026-02-22 18:51:30 [INFO] GET /api/v1/analytics/timeseries/latency 200 55ms 183 bytes
+2026-02-22 18:51:30 [INFO] GET /api/v1/analytics/health 200 85ms 171 bytes
+2026-02-22 18:51:30 [INFO] GET /api/v1/analytics/aps 200 89ms 369 bytes
+2026-02-22 18:51:30 [INFO] GET /api/v1/analytics/channels 200 113ms 78 bytes
+2026-02-22 18:51:30 [INFO] GET /api/v1/analytics/congestion 200 121ms 424 bytes
+2026-02-22 18:51:34 [INFO] Simulation: Test alert triggered successfully
+2026-02-22 18:51:34 [INFO] POST /api/v1/alerts/test 200 0ms 81 bytes
+2026-02-22 18:51:37 [INFO] GET /api/v1/alerts/active 200 2ms 5 bytes
+2026-02-22 18:51:42 [INFO] GET /api/v1/probes 200 1ms 559 bytes
+2026-02-22 18:51:43 [INFO] GET /api/v1/alerts/active 200 1ms 5 bytes
+2026-02-22 18:51:44 [INFO] GET /api/v1/probes 200 1ms 559 bytes
+2026-02-22 18:51:45 [INFO] GET /api/v1/alerts/active 200 1ms 5 bytes
+2026-02-22 18:51:46 [INFO] GET /api/v1/topology/layout 200 1ms 408 bytes
+2026-02-22 18:51:46 [INFO] GET /api/v1/topology/heatmap 200 11ms 315 bytes
+2026-02-22 18:51:47 [INFO] GET /api/v1/probes 200 2ms 559 bytes
+2026-02-22 18:51:47 [INFO] GET /api/v1/analytics/timeseries/rssi 200 16ms 181 bytes
+2026-02-22 18:51:47 [INFO] GET /api/v1/analytics/timeseries/latency 200 17ms 183 bytes
+2026-02-22 18:51:47 [INFO] GET /api/v1/analytics/health 200 17ms 172 bytes
+2026-02-22 18:51:47 [INFO] GET /api/v1/analytics/channels 200 28ms 78 bytes
+2026-02-22 18:51:47 [INFO] GET /api/v1/analytics/aps 200 34ms 369 bytes
+2026-02-22 18:51:47 [INFO] GET /api/v1/analytics/congestion 200 48ms 424 bytes
+2026-02-22 18:51:49 [INFO] GET /api/v1/probes 200 1ms 559 bytes
+2026-02-22 18:51:51 [INFO] GET /api/v1/probes 200 1ms 559 bytes
+2026-02-22 18:51:53 [INFO] GET /api/v1/probes/Cabinet/status 404 0ms 70 bytes
+2026-02-22 18:51:53 [INFO] GET /api/v1/probes/Cabinet/config 404 0ms 70 bytes
+2026-02-22 18:51:53 [INFO] GET /api/v1/commands/probe/Cabinet 200 2ms 3 bytes
+2026-02-22 18:51:54 [INFO] GET /api/v1/topology/layout 200 1ms 408 bytes
+2026-02-22 18:51:54 [INFO] GET /api/v1/topology/heatmap 200 9ms 315 bytes
+2026-02-22 18:51:58 [INFO] GET /api/v1/probes/Cabinet/status 404 0ms 70 bytes
+2026-02-22 18:52:03 [INFO] GET /api/v1/probes/Cabinet/status 404 0ms 70 bytes
+2026-02-22 18:52:08 [INFO] GET /api/v1/probes/Cabinet/status 404 0ms 70 bytes
+2026-02-22 18:52:13 [INFO] GET /api/v1/probes/Cabinet/status 404 0ms 70 bytes
+2026-02-22 18:52:18 [INFO] GET /api/v1/probes/Cabinet/status 404 0ms 70 bytes
+2026-02-22 18:52:23 [INFO] GET /api/v1/probes/Cabinet/status 404 0ms 70 bytes
+2026-02-22 18:52:28 [INFO] GET /api/v1/probes/Cabinet/status 404 0ms 70 bytes
+2026-02-22 18:52:33 [INFO] GET /api/v1/probes/Cabinet/status 404 0ms 70 bytes
+2026-02-22 18:52:38 [INFO] GET /api/v1/probes/Cabinet/status 404 0ms 70 bytes
+2026-02-22 18:52:43 [INFO] GET /api/v1/probes/Cabinet/status 404 0ms 70 bytes
+2026-02-22 18:52:48 [INFO] GET /api/v1/probes/Cabinet/status 404 0ms 70 bytes

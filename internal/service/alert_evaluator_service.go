@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"sync"
+	"time"
 
 	"CampusMonitorAPI/internal/models"
 )
@@ -126,17 +127,26 @@ func (e *AlertEvaluator) Evaluate(ctx context.Context, telemetry models.Telemetr
 
 // dispatch creates the Alert object and hands it to the AlertService for WS push and storage.
 func (e *AlertEvaluator) dispatch(ctx context.Context, t models.Telemetry, cat, sev, key string, thresh, actual float64, msg string) error {
+
+	// Because the actual and threshold values are pointers in the struct
+	// we create local variables so we can take their memory addresses.
+	thresholdPtr := thresh
+	actualPtr := actual
+
 	alert := &models.Alert{
 		ProbeID:        t.ProbeID,
-		Category:       cat,
+		AlertType:      key,
 		Severity:       sev,
-		MetricKey:      key,
-		ThresholdValue: thresh,
-		ActualValue:    actual,
 		Message:        msg,
-		Status:         models.StatusActive,
-		Occurrences:    e.config.RSSIOccurrences,
+		ThresholdValue: &thresholdPtr,
+		ActualValue:    &actualPtr,
+		TriggeredAt:    time.Now(),
+		Metadata: map[string]interface{}{
+			"category":    cat,
+			"occurrences": e.config.RSSIOccurrences,
+		},
 	}
+
 	return e.alertService.Dispatch(ctx, alert)
 }
 

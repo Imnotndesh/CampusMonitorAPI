@@ -1,6 +1,7 @@
 package main
 
 import (
+	"CampusMonitorAPI/internal/models"
 	"context"
 	"os"
 	"os/signal"
@@ -79,12 +80,14 @@ func main() {
 			log.Error("Failed to disconnect MQTT: %v", err)
 		}
 	}(mqttClient)
+	srv := server.New(cfg, log)
 
 	if err := mqttClient.Connect(); err != nil {
 		log.Fatal("Failed to connect to MQTT broker: %v", err)
 	}
-
-	telemetryService := service.NewTelemetryService(telemetryRepo, probeRepo, log)
+	alertService := service.NewAlertService(alertRepo, srv.GetHub())
+	alertEvaluator := service.NewAlertEvaluator(models.DEFAULT_ALERT_CONFIG, alertService)
+	telemetryService := service.NewTelemetryService(telemetryRepo, probeRepo, alertEvaluator, log)
 	probeService := service.NewProbeService(probeRepo, log)
 	analyticsService := service.NewAnalyticsService(analyticsRepo, log)
 	commandService := service.NewCommandService(commandRepo, mqttClient, probeRepo, telemetryService, log)
@@ -116,18 +119,25 @@ func main() {
 	commandHandler := handler.NewCommandHandler(commandService, log)
 	analyticsHandler := handler.NewAnalyticsHandler(analyticsService, log)
 	healthHandler := handler.NewHealthHandler(db, mqttClient, log)
+	alertHandler := handler.NewAlertHandler(alertService, log)
 	topologyHandler := handler.NewTopologyHandler(topologyService, log)
 	// Background pinging service
 
 	// 9. Start HTTP Server
-	srv := server.New(cfg, log)
-	srv.RegisterHandlers(probeHandler, telemetryHandler, commandHandler, analyticsHandler, healthHandler, topologyHandler)
-
-	go func() {
-		if err := srv.Start(); err != nil {
-			log.Fatal("Server failed: %v", err)
-		}
-	}()
+	srv.RegisterHandlers(
+		probeHandler,
+		telemetryHandler,
+		commandHandler,
+		analyticsHandler,
+		healthHandler,
+		topologyHandler,
+		alertHandler,
+	)
+	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
+	defer stop()
+	if err := srv.Start(ctx); err != nil {
+		log.Fatal("Server failed: %v", err)
+	}
 
 	log.Info("API server ready on http://%s:%d", cfg.Server.Host, cfg.Server.Port)
 

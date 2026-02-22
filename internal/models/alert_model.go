@@ -19,18 +19,17 @@ const (
 
 // Alert represents the persistent history of a network event
 type Alert struct {
-	ID             uint      `gorm:"primaryKey" json:"id"`
-	ProbeID        string    `gorm:"index" json:"probe_id"`
-	Category       string    `json:"category"`
-	Severity       string    `json:"severity"`
-	MetricKey      string    `json:"metric_key"` // e.g., "rssi", "latency"
-	ThresholdValue float64   `json:"threshold_value"`
-	ActualValue    float64   `json:"actual_value"`
-	Message        string    `json:"message"`
-	Status         string    `json:"status"`
-	Occurrences    int       `json:"occurrences"`
-	CreatedAt      time.Time `json:"created_at"`
-	UpdatedAt      time.Time `json:"updated_at"`
+	ID             int                    `json:"id" db:"id"`
+	ProbeID        string                 `json:"probe_id" db:"probe_id"`
+	AlertType      string                 `json:"alert_type" db:"alert_type"`
+	Severity       string                 `json:"severity" db:"severity"`
+	Message        string                 `json:"message" db:"message"`
+	ThresholdValue *float64               `json:"threshold_value" db:"threshold_value"`
+	ActualValue    *float64               `json:"actual_value" db:"actual_value"`
+	TriggeredAt    time.Time              `json:"triggered_at" db:"triggered_at"`
+	ResolvedAt     *time.Time             `json:"resolved_at" db:"resolved_at"`
+	Acknowledged   bool                   `json:"acknowledged" db:"acknowledged"`
+	Metadata       map[string]interface{} `json:"metadata" db:"metadata"`
 }
 
 // AlertConfig defines the program-defined defaults

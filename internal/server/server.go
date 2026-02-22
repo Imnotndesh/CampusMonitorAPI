@@ -5,8 +5,8 @@ import (
 	"CampusMonitorAPI/internal/handler"
 	"CampusMonitorAPI/internal/logger"
 	"CampusMonitorAPI/internal/middleware"
+	"CampusMonitorAPI/internal/websocket"
 	"context"
-	"errors"
 	"fmt"
 	"net/http"
 
@@ -18,15 +18,18 @@ type Server struct {
 	router     *mux.Router
 	cfg        *config.Config
 	log        *logger.Logger
+	wsHub      *websocket.Hub
 }
 
 func New(cfg *config.Config, log *logger.Logger) *Server {
 	router := mux.NewRouter()
+	wsHub := websocket.NewHub(log)
 
 	server := &Server{
 		router: router,
 		cfg:    cfg,
 		log:    log,
+		wsHub:  wsHub,
 		httpServer: &http.Server{
 			Addr:           fmt.Sprintf("%s:%d", cfg.Server.Host, cfg.Server.Port),
 			Handler:        router,
@@ -46,6 +49,7 @@ func (s *Server) RegisterHandlers(
 	analyticsHandler *handler.AnalyticsHandler,
 	healthHandler *handler.HealthHandler,
 	topologyHandler *handler.TopologyHandler,
+	alertHandler *handler.AlertHandler,
 ) {
 	api := s.router.PathPrefix("/api/v1").Subrouter()
 
@@ -63,18 +67,36 @@ func (s *Server) RegisterHandlers(
 	analyticsHandler.RegisterRoutes(api)
 	healthHandler.RegisterRoutes(s.router)
 	topologyHandler.RegisterRoutes(api)
+	alertHandler.RegisterRoutes(api)
 
+	s.router.HandleFunc("/api/v1/ws", func(w http.ResponseWriter, r *http.Request) {
+		websocket.ServeWs(s.wsHub, w, r, s.log)
+	}).Methods("GET")
+
+	s.log.Info("All handlers and WebSocket endpoint registered")
 	s.log.Info("All handlers registered")
 }
 
-func (s *Server) Start() error {
+func (s *Server) Start(ctx context.Context) error {
+	go s.wsHub.Run(ctx)
+
 	s.log.Info("Starting HTTP server on %s", s.httpServer.Addr)
+	errChan := make(chan error, 1)
+	go func() {
+		if err := s.httpServer.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+			errChan <- fmt.Errorf("server failed to start: %w", err)
+		}
+	}()
 
-	if err := s.httpServer.ListenAndServe(); err != nil && !errors.Is(err, http.ErrServerClosed) {
-		return fmt.Errorf("server failed to start: %w", err)
+	select {
+	case err := <-errChan:
+		return err
+	case <-ctx.Done():
+		s.log.Info("Shutting down server...")
+		shutdownCtx, cancel := context.WithTimeout(context.Background(), s.cfg.Server.ShutdownTimeout)
+		defer cancel()
+		return s.httpServer.Shutdown(shutdownCtx)
 	}
-
-	return nil
 }
 
 func (s *Server) Shutdown(ctx context.Context) error {
@@ -86,4 +108,7 @@ func (s *Server) Shutdown(ctx context.Context) error {
 
 	s.log.Info("HTTP server stopped")
 	return nil
+}
+func (s *Server) GetHub() *websocket.Hub {
+	return s.wsHub
 }
