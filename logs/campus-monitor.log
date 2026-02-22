@@ -7329,3 +7329,327 @@
 2026-02-20 17:57:00 [INFO] New WS Client connected. Total: 2
 2026-02-20 17:57:00 [INFO] New WS Client connected. Total: 3
 2026-02-20 17:57:00 [INFO] New WS Client connected. Total: 4
+2026-02-22 16:30:25 [INFO] Starting Campus Monitor API Server
+2026-02-22 16:30:25 [FATAL] Failed to connect to database: failed to ping database: dial tcp [::1]:5432: connect: connection refused
+2026-02-22 16:37:18 [INFO] Starting Campus Monitor API Server
+2026-02-22 16:37:18 [INFO] Database connected successfully
+2026-02-22 16:37:18 [INFO] Connecting to MQTT broker: localhost:1883
+2026-02-22 16:37:19 [INFO] Successfully connected to MQTT broker
+2026-02-22 16:37:19 [INFO] MQTT connection established
+2026-02-22 16:37:19 [INFO] Successfully subscribed to topic: campus/probes/telemetry
+2026-02-22 16:37:19 [INFO] Successfully subscribed to topic: campus/probes/telemetry/offline
+2026-02-22 16:37:19 [INFO] Successfully subscribed to topic: campus/probes/+/result
+2026-02-22 16:37:19 [INFO] MQTT subscriptions active
+2026-02-22 16:37:19 [INFO] Started background monitors
+2026-02-22 16:37:19 [INFO] Starting Probe Monitor
+2026-02-22 16:37:19 [INFO] Probe Monitor started successfully
+2026-02-22 16:37:19 [INFO] Subscribing to config broadcasts: campus/probes/+/config
+2026-02-22 16:37:19 [INFO] Subscribing to status broadcasts: campus/probes/+/status
+2026-02-22 16:37:19 [INFO] Successfully subscribed to topic with channel: campus/probes/+/config
+2026-02-22 16:37:19 [INFO] Successfully subscribed to topic with channel: campus/probes/+/status
+2026-02-22 16:37:19 [INFO] All handlers registered
+2026-02-22 16:37:19 [INFO] API server ready on http://0.0.0.0:9080
+2026-02-22 16:37:19 [INFO] Starting HTTP server on 0.0.0.0:9080
+2026-02-22 16:37:19 [INFO] GET /api/v1/topology/heatmap 200 10ms 86 bytes
+2026-02-22 16:37:30 [INFO] GET /api/v1/topology/layout 200 2ms 179 bytes
+2026-02-22 16:37:30 [INFO] GET /api/v1/topology/heatmap 200 29ms 86 bytes
+2026-02-22 16:37:35 [INFO] GET /api/v1/topology/heatmap 200 0ms 89 bytes
+2026-02-22 16:37:36 [INFO] GET /api/v1/topology/heatmap 200 0ms 93 bytes
+2026-02-22 16:37:38 [INFO] GET /api/v1/topology/heatmap 200 1ms 86 bytes
+2026-02-22 16:37:48 [INFO] GET /api/v1/topology/heatmap 200 0ms 86 bytes
+2026-02-22 16:37:58 [INFO] GET /api/v1/topology/heatmap 200 0ms 86 bytes
+2026-02-22 16:38:00 [INFO] GET /api/v1/probes 200 0ms 3 bytes
+2026-02-22 16:38:00 [INFO] GET /api/v1/analytics/timeseries/latency 200 13ms 3 bytes
+2026-02-22 16:38:00 [INFO] GET /api/v1/analytics/timeseries/rssi 200 14ms 3 bytes
+2026-02-22 16:38:00 [INFO] GET /api/v1/analytics/health 200 15ms 172 bytes
+2026-02-22 16:38:00 [INFO] GET /api/v1/analytics/aps 200 16ms 3 bytes
+2026-02-22 16:38:00 [INFO] GET /api/v1/analytics/channels 200 53ms 3 bytes
+2026-02-22 16:38:00 [INFO] GET /api/v1/analytics/congestion 200 58ms 3 bytes
+2026-02-22 16:39:17 [INFO] GET /api/v1/probes 200 8ms 3 bytes
+2026-02-22 16:39:17 [INFO] GET /api/v1/analytics/timeseries/latency 200 12ms 3 bytes
+2026-02-22 16:39:17 [INFO] GET /api/v1/analytics/channels 200 14ms 3 bytes
+2026-02-22 16:39:17 [INFO] GET /api/v1/analytics/timeseries/rssi 200 15ms 3 bytes
+2026-02-22 16:39:17 [INFO] GET /api/v1/analytics/health 200 15ms 170 bytes
+2026-02-22 16:39:17 [INFO] GET /api/v1/analytics/congestion 200 7ms 3 bytes
+2026-02-22 16:39:17 [INFO] GET /api/v1/analytics/aps 200 56ms 3 bytes
+2026-02-22 16:39:22 [INFO] GET /api/v1/probes 200 2ms 3 bytes
+2026-02-22 16:39:28 [INFO] GET /api/v1/probes 200 1ms 3 bytes
+2026-02-22 16:39:30 [INFO] GET /api/v1/probes 200 1ms 3 bytes
+2026-02-22 16:39:32 [INFO] GET /api/v1/probes 200 0ms 3 bytes
+2026-02-22 16:39:37 [INFO] GET /api/v1/probes 200 0ms 3 bytes
+2026-02-22 16:41:52 [INFO] Unknown probe detected: Main, auto-registering
+2026-02-22 16:41:52 [INFO] Auto-registered probe: Main with status 'unknown'
+2026-02-22 16:41:52 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc00037e190
+2026-02-22 16:42:33 [INFO] GET /api/v1/probes 200 1ms 287 bytes
+2026-02-22 16:42:37 [INFO] GET /api/v1/probes/Main/status 404 0ms 70 bytes
+2026-02-22 16:42:37 [INFO] GET /api/v1/probes/Main/config 404 0ms 70 bytes
+2026-02-22 16:42:37 [INFO] GET /api/v1/commands/probe/Main 200 345ms 3 bytes
+2026-02-22 16:42:42 [INFO] GET /api/v1/probes/Main/status 404 0ms 70 bytes
+2026-02-22 16:42:45 [INFO] GET /api/v1/probes 200 1ms 287 bytes
+2026-02-22 16:42:45 [INFO] GET /api/v1/analytics/timeseries/latency 200 15ms 51 bytes
+2026-02-22 16:42:45 [INFO] GET /api/v1/analytics/aps 200 12ms 169 bytes
+2026-02-22 16:42:45 [INFO] GET /api/v1/analytics/health 200 15ms 177 bytes
+2026-02-22 16:42:45 [INFO] GET /api/v1/analytics/channels 200 59ms 63 bytes
+2026-02-22 16:42:45 [INFO] GET /api/v1/analytics/timeseries/rssi 200 71ms 51 bytes
+2026-02-22 16:42:45 [INFO] GET /api/v1/analytics/congestion 200 79ms 130 bytes
+2026-02-22 16:42:48 [INFO] GET /api/v1/analytics/timeseries/rssi 200 2ms 51 bytes
+2026-02-22 16:42:48 [INFO] Detecting anomalies: probe=Main, hours=24
+2026-02-22 16:42:48 [INFO] GET /api/v1/analytics/timeseries/latency 200 8ms 51 bytes
+2026-02-22 16:42:48 [INFO] GET /api/v1/commands/probe/Main 200 7ms 3 bytes
+2026-02-22 16:42:48 [INFO] GET /api/v1/analytics/roaming/Main 200 11ms 169 bytes
+2026-02-22 16:42:48 [INFO] GET /api/v1/analytics/performance/Main 200 17ms 270 bytes
+2026-02-22 16:42:48 [INFO] GET /api/v1/analytics/anomalies/Main 200 20ms 3 bytes
+2026-02-22 16:42:49 [INFO] GET /api/v1/analytics/timeseries/rssi 200 2ms 51 bytes
+2026-02-22 16:42:49 [INFO] GET /api/v1/analytics/timeseries/latency 200 3ms 51 bytes
+2026-02-22 16:42:49 [INFO] GET /api/v1/analytics/congestion 200 2ms 130 bytes
+2026-02-22 16:42:49 [INFO] GET /api/v1/analytics/aps 200 5ms 169 bytes
+2026-02-22 16:42:49 [INFO] GET /api/v1/analytics/channels 200 9ms 63 bytes
+2026-02-22 16:42:49 [INFO] GET /api/v1/analytics/health 200 14ms 177 bytes
+2026-02-22 16:42:50 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc00028b630
+2026-02-22 16:42:51 [INFO] GET /api/v1/topology/layout 200 1ms 314 bytes
+2026-02-22 16:42:51 [INFO] GET /api/v1/topology/heatmap 200 5ms 211 bytes
+2026-02-22 16:43:01 [INFO] GET /api/v1/topology/heatmap 200 5ms 211 bytes
+2026-02-22 16:43:18 [INFO] GET /api/v1/probes 200 1ms 287 bytes
+2026-02-22 16:43:19 [INFO] GET /api/v1/probes/Main/status 200 0ms 204 bytes
+2026-02-22 16:43:19 [INFO] GET /api/v1/probes/Main/config 404 0ms 70 bytes
+2026-02-22 16:43:19 [INFO] GET /api/v1/commands/probe/Main 200 6ms 3 bytes
+2026-02-22 16:43:24 [INFO] GET /api/v1/probes/Main/status 200 0ms 204 bytes
+2026-02-22 16:43:29 [INFO] GET /api/v1/probes/Main/status 200 0ms 204 bytes
+2026-02-22 16:43:34 [INFO] GET /api/v1/probes/Main/status 200 0ms 204 bytes
+2026-02-22 16:43:39 [INFO] GET /api/v1/probes/Main/status 200 0ms 204 bytes
+2026-02-22 16:43:44 [INFO] GET /api/v1/probes/Main/status 200 0ms 204 bytes
+2026-02-22 16:43:45 [INFO] Updating probe: Main
+2026-02-22 16:43:45 [INFO] Probe updated successfully: Main
+2026-02-22 16:43:45 [INFO] PUT /api/v1/probes/Main 200 11ms 273 bytes
+2026-02-22 16:43:45 [INFO] GET /api/v1/probes 200 0ms 275 bytes
+2026-02-22 16:43:49 [INFO] GET /api/v1/probes/Main/status 200 0ms 204 bytes
+2026-02-22 16:43:51 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0003b7c00
+2026-02-22 16:43:54 [INFO] GET /api/v1/probes/Main/status 200 0ms 204 bytes
+2026-02-22 16:43:55 [INFO] GET /api/v1/topology/layout 200 0ms 302 bytes
+2026-02-22 16:43:55 [INFO] GET /api/v1/topology/heatmap 200 5ms 201 bytes
+2026-02-22 16:43:58 [INFO] GET /api/v1/topology/building/FLAT/floor/1 200 1ms 71 bytes
+2026-02-22 16:44:03 [INFO] GET /api/v1/topology/building/FLAT/floor/1 200 0ms 71 bytes
+2026-02-22 16:44:05 [INFO] GET /api/v1/topology/heatmap 200 3ms 202 bytes
+2026-02-22 16:44:06 [INFO] GET /api/v1/topology/heatmap 200 3ms 204 bytes
+2026-02-22 16:44:08 [INFO] GET /api/v1/topology/building/FLAT/floor/1 200 0ms 71 bytes
+2026-02-22 16:44:13 [INFO] GET /api/v1/topology/building/FLAT/floor/1 200 0ms 71 bytes
+2026-02-22 16:44:14 [INFO] GET /api/v1/topology/heatmap 200 2ms 207 bytes
+2026-02-22 16:44:16 [INFO] GET /api/v1/topology/heatmap 200 3ms 202 bytes
+2026-02-22 16:44:18 [INFO] GET /api/v1/topology/building/FLAT/floor/1 200 0ms 71 bytes
+2026-02-22 16:44:23 [INFO] GET /api/v1/topology/building/FLAT/floor/1 200 1ms 71 bytes
+2026-02-22 16:44:26 [INFO] GET /api/v1/topology/heatmap 200 2ms 202 bytes
+2026-02-22 16:44:36 [INFO] GET /api/v1/topology/heatmap 200 2ms 202 bytes
+2026-02-22 16:44:46 [INFO] GET /api/v1/topology/heatmap 200 2ms 202 bytes
+2026-02-22 16:44:51 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0003ecbd0
+2026-02-22 16:44:56 [INFO] GET /api/v1/topology/heatmap 200 3ms 202 bytes
+2026-02-22 16:45:06 [INFO] GET /api/v1/topology/heatmap 200 2ms 202 bytes
+2026-02-22 16:45:16 [INFO] GET /api/v1/topology/heatmap 200 2ms 202 bytes
+2026-02-22 16:45:26 [INFO] GET /api/v1/topology/heatmap 200 2ms 202 bytes
+2026-02-22 16:45:36 [INFO] GET /api/v1/topology/heatmap 200 2ms 202 bytes
+2026-02-22 16:45:46 [INFO] GET /api/v1/topology/heatmap 200 4ms 202 bytes
+2026-02-22 16:45:56 [INFO] GET /api/v1/topology/heatmap 200 2ms 202 bytes
+2026-02-22 16:46:06 [INFO] GET /api/v1/topology/heatmap 200 2ms 201 bytes
+2026-02-22 16:46:16 [INFO] GET /api/v1/topology/heatmap 200 4ms 202 bytes
+2026-02-22 16:46:26 [INFO] GET /api/v1/topology/heatmap 200 2ms 202 bytes
+2026-02-22 16:46:36 [INFO] GET /api/v1/topology/heatmap 200 2ms 201 bytes
+2026-02-22 16:46:46 [INFO] GET /api/v1/topology/heatmap 200 2ms 202 bytes
+2026-02-22 16:46:56 [INFO] GET /api/v1/topology/heatmap 200 2ms 202 bytes
+2026-02-22 16:47:06 [INFO] GET /api/v1/topology/heatmap 200 2ms 202 bytes
+2026-02-22 16:47:16 [INFO] GET /api/v1/topology/heatmap 200 2ms 202 bytes
+2026-02-22 16:47:26 [INFO] GET /api/v1/topology/heatmap 200 4ms 202 bytes
+2026-02-22 16:47:31 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000525080
+2026-02-22 16:47:36 [INFO] GET /api/v1/topology/heatmap 200 12ms 202 bytes
+2026-02-22 16:47:47 [INFO] GET /api/v1/topology/heatmap 200 83ms 202 bytes
+2026-02-22 16:47:57 [INFO] GET /api/v1/topology/heatmap 200 7ms 202 bytes
+2026-02-22 16:48:07 [INFO] GET /api/v1/topology/heatmap 200 5ms 200 bytes
+2026-02-22 16:48:18 [INFO] GET /api/v1/topology/heatmap 200 8ms 202 bytes
+2026-02-22 16:48:28 [INFO] GET /api/v1/topology/heatmap 200 8ms 202 bytes
+2026-02-22 16:48:31 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0000c4300
+2026-02-22 16:48:38 [INFO] GET /api/v1/topology/heatmap 200 3ms 202 bytes
+2026-02-22 16:48:48 [INFO] GET /api/v1/topology/heatmap 200 2ms 202 bytes
+2026-02-22 16:48:58 [INFO] GET /api/v1/topology/heatmap 200 3ms 202 bytes
+2026-02-22 16:49:08 [INFO] GET /api/v1/topology/heatmap 200 3ms 202 bytes
+2026-02-22 16:49:18 [INFO] GET /api/v1/topology/heatmap 200 2ms 202 bytes
+2026-02-22 16:49:28 [INFO] GET /api/v1/topology/heatmap 200 2ms 202 bytes
+2026-02-22 16:49:31 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000524510
+2026-02-22 16:49:39 [INFO] GET /api/v1/topology/heatmap 200 2ms 202 bytes
+2026-02-22 16:49:49 [INFO] GET /api/v1/topology/heatmap 200 2ms 202 bytes
+2026-02-22 16:49:59 [INFO] GET /api/v1/topology/heatmap 200 2ms 202 bytes
+2026-02-22 16:50:09 [INFO] GET /api/v1/topology/heatmap 200 3ms 202 bytes
+2026-02-22 16:50:19 [INFO] GET /api/v1/topology/heatmap 200 3ms 202 bytes
+2026-02-22 16:50:29 [INFO] GET /api/v1/topology/heatmap 200 3ms 202 bytes
+2026-02-22 16:50:31 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0004b2800
+2026-02-22 16:50:39 [INFO] GET /api/v1/topology/heatmap 200 2ms 202 bytes
+2026-02-22 16:50:49 [INFO] GET /api/v1/topology/heatmap 200 4ms 202 bytes
+2026-02-22 16:50:59 [INFO] GET /api/v1/topology/heatmap 200 2ms 202 bytes
+2026-02-22 16:51:09 [INFO] GET /api/v1/topology/heatmap 200 2ms 202 bytes
+2026-02-22 16:51:19 [INFO] GET /api/v1/topology/heatmap 200 3ms 202 bytes
+2026-02-22 16:51:29 [INFO] GET /api/v1/topology/heatmap 200 8ms 200 bytes
+2026-02-22 16:52:07 [INFO] GET /api/v1/topology/layout 200 2ms 302 bytes
+2026-02-22 16:52:52 [INFO] GET /api/v1/topology/layout 200 128ms 302 bytes
+2026-02-22 16:52:55 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000524610
+2026-02-22 16:53:33 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0000c4260
+2026-02-22 16:54:33 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000524180
+2026-02-22 16:55:33 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0000c4440
+2026-02-22 16:56:17 [INFO] GET /api/v1/topology/layout 200 2ms 302 bytes
+2026-02-22 16:56:33 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0001ec260
+2026-02-22 16:57:37 [INFO] GET /api/v1/topology/layout 200 1ms 302 bytes
+2026-02-22 16:58:01 [INFO] GET /api/v1/topology/layout 200 78ms 302 bytes
+2026-02-22 16:58:17 [INFO] GET /api/v1/topology/heatmap 200 39ms 202 bytes
+2026-02-22 16:58:21 [INFO] GET /api/v1/probes 200 15ms 280 bytes
+2026-02-22 16:58:25 [INFO] GET /api/v1/probes 200 1ms 280 bytes
+2026-02-22 16:58:28 [INFO] GET /api/v1/probes 200 0ms 280 bytes
+2026-02-22 16:58:33 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0003081a0
+2026-02-22 16:59:08 [INFO] Unknown probe detected: Cabinet, auto-registering
+2026-02-22 16:59:08 [INFO] Auto-registered probe: Cabinet with status 'unknown'
+2026-02-22 16:59:08 [INFO] Telemetry stored: probe=Cabinet, type=light, rssi=0xc000524420
+2026-02-22 16:59:11 [INFO] GET /api/v1/probes 200 3ms 571 bytes
+2026-02-22 16:59:13 [INFO] GET /api/v1/probes/Cabinet/status 404 0ms 70 bytes
+2026-02-22 16:59:13 [INFO] GET /api/v1/probes/Cabinet/config 404 0ms 70 bytes
+2026-02-22 16:59:13 [INFO] GET /api/v1/commands/probe/Cabinet 200 3ms 3 bytes
+2026-02-22 16:59:17 [INFO] GET /api/v1/commands/probe/Main 200 2ms 3 bytes
+2026-02-22 16:59:17 [INFO] GET /api/v1/probes/Main/status 200 0ms 204 bytes
+2026-02-22 16:59:17 [INFO] GET /api/v1/probes/Main/config 200 2ms 253 bytes
+2026-02-22 16:59:22 [INFO] GET /api/v1/probes/Main/status 200 0ms 204 bytes
+2026-02-22 16:59:23 [INFO] GET /api/v1/probes/Cabinet/status 404 0ms 70 bytes
+2026-02-22 16:59:23 [INFO] GET /api/v1/commands/probe/Cabinet 200 2ms 3 bytes
+2026-02-22 16:59:23 [INFO] GET /api/v1/probes/Cabinet/config 404 0ms 70 bytes
+2026-02-22 16:59:28 [INFO] GET /api/v1/probes/Cabinet/status 404 0ms 70 bytes
+2026-02-22 16:59:33 [INFO] GET /api/v1/probes/Cabinet/status 404 0ms 70 bytes
+2026-02-22 16:59:34 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000524e60
+2026-02-22 16:59:37 [INFO] Updating probe: Cabinet
+2026-02-22 16:59:37 [INFO] Probe updated successfully: Cabinet
+2026-02-22 16:59:37 [INFO] PUT /api/v1/probes/Cabinet 200 11ms 277 bytes
+2026-02-22 16:59:37 [INFO] GET /api/v1/probes 200 0ms 552 bytes
+2026-02-22 16:59:38 [INFO] GET /api/v1/probes/Cabinet/status 404 0ms 70 bytes
+2026-02-22 16:59:43 [INFO] GET /api/v1/probes/Cabinet/status 404 0ms 70 bytes
+2026-02-22 16:59:48 [INFO] GET /api/v1/probes/Cabinet/status 404 0ms 70 bytes
+2026-02-22 16:59:52 [INFO] GET /api/v1/topology/layout 200 0ms 357 bytes
+2026-02-22 16:59:52 [INFO] GET /api/v1/topology/heatmap 200 6ms 319 bytes
+2026-02-22 16:59:53 [INFO] GET /api/v1/topology/building/FLAT/floor/1 200 1ms 71 bytes
+2026-02-22 16:59:54 [INFO] GET /api/v1/topology/building/FLAT/floor/2 200 1ms 71 bytes
+2026-02-22 16:59:55 [INFO] GET /api/v1/topology/building/FLAT/floor/1 200 1ms 71 bytes
+2026-02-22 16:59:56 [INFO] GET /api/v1/topology/building/FLAT/floor/2 200 0ms 71 bytes
+2026-02-22 17:00:01 [INFO] GET /api/v1/topology/building/FLAT/floor/2 200 1ms 71 bytes
+2026-02-22 17:00:02 [INFO] GET /api/v1/topology/heatmap 200 5ms 319 bytes
+2026-02-22 17:00:02 [INFO] GET /api/v1/topology/building/SERVER_ROOM/floor/Ground 200 1ms 83 bytes
+2026-02-22 17:00:04 [INFO] GET /api/v1/topology/building/FLAT/floor/2 200 0ms 71 bytes
+2026-02-22 17:00:05 [INFO] GET /api/v1/topology/building/FLAT/floor/1 200 0ms 71 bytes
+2026-02-22 17:00:06 [INFO] Telemetry stored: probe=Cabinet, type=light, rssi=0xc000525e10
+2026-02-22 17:00:10 [INFO] GET /api/v1/topology/building/FLAT/floor/1 200 1ms 71 bytes
+2026-02-22 17:00:12 [INFO] GET /api/v1/topology/heatmap 200 4ms 319 bytes
+2026-02-22 17:00:16 [INFO] GET /api/v1/topology/heatmap 200 5ms 322 bytes
+2026-02-22 17:00:18 [INFO] GET /api/v1/topology/heatmap 200 5ms 320 bytes
+2026-02-22 17:00:28 [INFO] GET /api/v1/topology/heatmap 200 4ms 319 bytes
+2026-02-22 17:00:33 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0001ec2b0
+2026-02-22 17:00:38 [INFO] GET /api/v1/topology/heatmap 200 8ms 320 bytes
+2026-02-22 17:00:48 [INFO] GET /api/v1/topology/heatmap 200 7ms 320 bytes
+2026-02-22 18:40:24 [INFO] Starting Campus Monitor API Server
+2026-02-22 18:40:24 [INFO] Database connected successfully
+2026-02-22 18:40:24 [INFO] Connecting to MQTT broker: localhost:1883
+2026-02-22 18:40:24 [INFO] Successfully connected to MQTT broker
+2026-02-22 18:40:24 [INFO] MQTT connection established
+2026-02-22 18:40:24 [INFO] Successfully subscribed to topic: campus/probes/telemetry
+2026-02-22 18:40:24 [INFO] Successfully subscribed to topic: campus/probes/telemetry/offline
+2026-02-22 18:40:24 [INFO] Successfully subscribed to topic: campus/probes/+/result
+2026-02-22 18:40:24 [INFO] MQTT subscriptions active
+2026-02-22 18:40:24 [INFO] Started background monitors
+2026-02-22 18:40:24 [INFO] Starting Probe Monitor
+2026-02-22 18:40:24 [INFO] Probe Monitor started successfully
+2026-02-22 18:40:24 [INFO] Subscribing to config broadcasts: campus/probes/+/config
+2026-02-22 18:40:24 [INFO] Subscribing to status broadcasts: campus/probes/+/status
+2026-02-22 18:40:24 [INFO] Successfully subscribed to topic with channel: campus/probes/+/status
+2026-02-22 18:40:24 [INFO] Successfully subscribed to topic with channel: campus/probes/+/config
+2026-02-22 18:40:24 [INFO] All handlers and WebSocket endpoint registered
+2026-02-22 18:40:24 [INFO] All handlers registered
+2026-02-22 18:40:24 [INFO] Starting HTTP server on 0.0.0.0:9080
+2026-02-22 18:40:24 [INFO] WebSocket Hub started
+2026-02-22 18:40:29 [INFO] New WS Client connected. Total: 1
+2026-02-22 18:40:29 [INFO] New WS Client connected. Total: 2
+2026-02-22 18:40:32 [INFO] Detecting anomalies: probe=Cabinet, hours=24
+2026-02-22 18:40:32 [INFO] GET /api/v1/analytics/timeseries/rssi 200 52ms 165 bytes
+2026-02-22 18:40:32 [INFO] GET /api/v1/commands/probe/Cabinet 200 7ms 3 bytes
+2026-02-22 18:40:32 [INFO] GET /api/v1/analytics/performance/Cabinet 200 93ms 341 bytes
+2026-02-22 18:40:32 [INFO] GET /api/v1/probes 200 92ms 559 bytes
+2026-02-22 18:40:32 [INFO] GET /api/v1/analytics/timeseries/latency 200 107ms 164 bytes
+2026-02-22 18:40:32 [INFO] GET /api/v1/analytics/anomalies/Cabinet 200 105ms 182 bytes
+2026-02-22 18:40:32 [INFO] GET /api/v1/analytics/roaming/Cabinet 200 133ms 169 bytes
+2026-02-22 18:40:37 [INFO] GET /api/v1/probes 200 4ms 559 bytes
+2026-02-22 18:40:37 [ERROR] Failed to get active alerts: failed to query alert history: pq: column "category" does not exist
+2026-02-22 18:40:37 [INFO] GET /api/v1/alerts/active 500 31ms 82 bytes
+2026-02-22 18:40:59 [INFO] GET /api/v1/topology/layout 200 3ms 408 bytes
+2026-02-22 18:40:59 [INFO] GET /api/v1/topology/heatmap 200 15ms 319 bytes
+2026-02-22 18:41:00 [ERROR] Failed to get active alerts: failed to query alert history: pq: column "category" does not exist
+2026-02-22 18:41:00 [INFO] GET /api/v1/alerts/active 500 0ms 82 bytes
+2026-02-22 18:45:25 [ERROR] Failed to get active alerts: failed to query alert history: pq: column "category" does not exist
+2026-02-22 18:45:25 [INFO] GET /api/v1/alerts/active 500 2ms 82 bytes
+2026-02-22 18:50:57 [INFO] Shutting down server...
+2026-02-22 18:50:57 [INFO] API server ready on http://0.0.0.0:9080
+2026-02-22 18:50:57 [INFO] WebSocket Hub shutting down...
+2026-02-22 18:51:14 [INFO] Starting Campus Monitor API Server
+2026-02-22 18:51:14 [INFO] Database connected successfully
+2026-02-22 18:51:14 [INFO] Connecting to MQTT broker: localhost:1883
+2026-02-22 18:51:14 [INFO] Successfully connected to MQTT broker
+2026-02-22 18:51:14 [INFO] MQTT connection established
+2026-02-22 18:51:14 [INFO] Successfully subscribed to topic: campus/probes/telemetry
+2026-02-22 18:51:14 [INFO] Successfully subscribed to topic: campus/probes/telemetry/offline
+2026-02-22 18:51:14 [INFO] Successfully subscribed to topic: campus/probes/+/result
+2026-02-22 18:51:14 [INFO] MQTT subscriptions active
+2026-02-22 18:51:14 [INFO] Started background monitors
+2026-02-22 18:51:14 [INFO] Starting Probe Monitor
+2026-02-22 18:51:14 [INFO] Probe Monitor started successfully
+2026-02-22 18:51:14 [INFO] All handlers and WebSocket endpoint registered
+2026-02-22 18:51:14 [INFO] All handlers registered
+2026-02-22 18:51:14 [INFO] Subscribing to config broadcasts: campus/probes/+/config
+2026-02-22 18:51:14 [INFO] Subscribing to status broadcasts: campus/probes/+/status
+2026-02-22 18:51:14 [INFO] Successfully subscribed to topic with channel: campus/probes/+/status
+2026-02-22 18:51:14 [INFO] Successfully subscribed to topic with channel: campus/probes/+/config
+2026-02-22 18:51:14 [INFO] Starting HTTP server on 0.0.0.0:9080
+2026-02-22 18:51:14 [INFO] WebSocket Hub started
+2026-02-22 18:51:14 [INFO] New WS Client connected. Total: 1
+2026-02-22 18:51:15 [INFO] New WS Client connected. Total: 2
+2026-02-22 18:51:17 [INFO] GET /api/v1/alerts/active 200 8ms 5 bytes
+2026-02-22 18:51:25 [INFO] GET /api/v1/topology/layout 200 3ms 408 bytes
+2026-02-22 18:51:25 [INFO] GET /api/v1/topology/heatmap 200 47ms 315 bytes
+2026-02-22 18:51:27 [INFO] GET /api/v1/alerts/active 200 1ms 5 bytes
+2026-02-22 18:51:30 [INFO] GET /api/v1/probes 200 1ms 559 bytes
+2026-02-22 18:51:30 [INFO] GET /api/v1/analytics/timeseries/rssi 200 24ms 181 bytes
+2026-02-22 18:51:30 [INFO] GET /api/v1/analytics/timeseries/latency 200 55ms 183 bytes
+2026-02-22 18:51:30 [INFO] GET /api/v1/analytics/health 200 85ms 171 bytes
+2026-02-22 18:51:30 [INFO] GET /api/v1/analytics/aps 200 89ms 369 bytes
+2026-02-22 18:51:30 [INFO] GET /api/v1/analytics/channels 200 113ms 78 bytes
+2026-02-22 18:51:30 [INFO] GET /api/v1/analytics/congestion 200 121ms 424 bytes
+2026-02-22 18:51:34 [INFO] Simulation: Test alert triggered successfully
+2026-02-22 18:51:34 [INFO] POST /api/v1/alerts/test 200 0ms 81 bytes
+2026-02-22 18:51:37 [INFO] GET /api/v1/alerts/active 200 2ms 5 bytes
+2026-02-22 18:51:42 [INFO] GET /api/v1/probes 200 1ms 559 bytes
+2026-02-22 18:51:43 [INFO] GET /api/v1/alerts/active 200 1ms 5 bytes
+2026-02-22 18:51:44 [INFO] GET /api/v1/probes 200 1ms 559 bytes
+2026-02-22 18:51:45 [INFO] GET /api/v1/alerts/active 200 1ms 5 bytes
+2026-02-22 18:51:46 [INFO] GET /api/v1/topology/layout 200 1ms 408 bytes
+2026-02-22 18:51:46 [INFO] GET /api/v1/topology/heatmap 200 11ms 315 bytes
+2026-02-22 18:51:47 [INFO] GET /api/v1/probes 200 2ms 559 bytes
+2026-02-22 18:51:47 [INFO] GET /api/v1/analytics/timeseries/rssi 200 16ms 181 bytes
+2026-02-22 18:51:47 [INFO] GET /api/v1/analytics/timeseries/latency 200 17ms 183 bytes
+2026-02-22 18:51:47 [INFO] GET /api/v1/analytics/health 200 17ms 172 bytes
+2026-02-22 18:51:47 [INFO] GET /api/v1/analytics/channels 200 28ms 78 bytes
+2026-02-22 18:51:47 [INFO] GET /api/v1/analytics/aps 200 34ms 369 bytes
+2026-02-22 18:51:47 [INFO] GET /api/v1/analytics/congestion 200 48ms 424 bytes
+2026-02-22 18:51:49 [INFO] GET /api/v1/probes 200 1ms 559 bytes
+2026-02-22 18:51:51 [INFO] GET /api/v1/probes 200 1ms 559 bytes
+2026-02-22 18:51:53 [INFO] GET /api/v1/probes/Cabinet/status 404 0ms 70 bytes
+2026-02-22 18:51:53 [INFO] GET /api/v1/probes/Cabinet/config 404 0ms 70 bytes
+2026-02-22 18:51:53 [INFO] GET /api/v1/commands/probe/Cabinet 200 2ms 3 bytes
+2026-02-22 18:51:54 [INFO] GET /api/v1/topology/layout 200 1ms 408 bytes
+2026-02-22 18:51:54 [INFO] GET /api/v1/topology/heatmap 200 9ms 315 bytes
+2026-02-22 18:51:58 [INFO] GET /api/v1/probes/Cabinet/status 404 0ms 70 bytes
+2026-02-22 18:52:03 [INFO] GET /api/v1/probes/Cabinet/status 404 0ms 70 bytes
+2026-02-22 18:52:08 [INFO] GET /api/v1/probes/Cabinet/status 404 0ms 70 bytes
+2026-02-22 18:52:13 [INFO] GET /api/v1/probes/Cabinet/status 404 0ms 70 bytes
+2026-02-22 18:52:18 [INFO] GET /api/v1/probes/Cabinet/status 404 0ms 70 bytes
+2026-02-22 18:52:23 [INFO] GET /api/v1/probes/Cabinet/status 404 0ms 70 bytes
+2026-02-22 18:52:28 [INFO] GET /api/v1/probes/Cabinet/status 404 0ms 70 bytes
+2026-02-22 18:52:33 [INFO] GET /api/v1/probes/Cabinet/status 404 0ms 70 bytes
+2026-02-22 18:52:38 [INFO] GET /api/v1/probes/Cabinet/status 404 0ms 70 bytes
+2026-02-22 18:52:43 [INFO] GET /api/v1/probes/Cabinet/status 404 0ms 70 bytes
+2026-02-22 18:52:48 [INFO] GET /api/v1/probes/Cabinet/status 404 0ms 70 bytes

@@ -1,7 +1,6 @@
 package service
 
 import (
-	"CampusMonitorAPI/internal/logger"
 	"context"
 	"fmt"
 	"time"
@@ -35,84 +34,64 @@ func NewAlertService(repo repository.IAlertRepository, hub *websocket.Hub) *Aler
 	}
 }
 
-// Dispatch handles the "One-Shot" transition from a detected pattern to a stored/notified event.
 func (s *AlertService) Dispatch(ctx context.Context, alert *models.Alert) error {
 	err := s.repo.Create(ctx, alert)
 	if err != nil {
 		return fmt.Errorf("failed to persist alert history: %w", err)
 	}
 	s.notify(alert)
-	if alert.Severity == models.SeverityCritical {
-		fmt.Printf("[CRITICAL ALERT] %s: %s (Probe: %s)\n",
-			alert.Category, alert.Message, alert.ProbeID)
-	}
-
 	return nil
 }
 
-// Acknowledge marks an alert as "Read" by the user.
 func (s *AlertService) Acknowledge(ctx context.Context, id uint) error {
-	err := s.repo.Acknowledge(ctx, id)
-	if err != nil {
-		return fmt.Errorf("failed to acknowledge alert %d: %w", id, err)
-	}
-	return nil
+	return s.repo.Acknowledge(ctx, id)
 }
 
-// Resolve marks the underlying network issue as fixed.
 func (s *AlertService) Resolve(ctx context.Context, id uint) error {
-	err := s.repo.Resolve(ctx, id)
-	if err != nil {
-		return fmt.Errorf("failed to resolve alert %d: %w", id, err)
-	}
-	return nil
+	return s.repo.Resolve(ctx, id)
 }
 
-// DeleteAlert removes the alert from the system.
 func (s *AlertService) DeleteAlert(ctx context.Context, id uint) error {
 	return s.repo.Delete(ctx, id)
 }
 
-// GetActiveAlerts retrieves all alerts that haven't been resolved yet.
 func (s *AlertService) GetActiveAlerts(ctx context.Context) ([]models.Alert, error) {
-	return s.repo.GetHistory(ctx, 100, 0)
+	// FIX: Uses the new repository method specifically for active alerts
+	return s.repo.GetActive(ctx)
 }
 
-// GetProbeAlerts fetches current issues for a specific campus probe.
 func (s *AlertService) GetProbeAlerts(ctx context.Context, probeID string) ([]models.Alert, error) {
 	return s.repo.GetActiveByProbe(ctx, probeID)
 }
 
-// GetAlertHistory provides the full audit trail for reporting.
 func (s *AlertService) GetAlertHistory(ctx context.Context, limit, offset int) ([]models.Alert, error) {
 	return s.repo.GetHistory(ctx, limit, offset)
 }
 
-// notify handles the actual transmission of the alert to connected clients via WebSockets.
 func (s *AlertService) notify(alert *models.Alert) {
 	if s.hub != nil {
 		s.hub.Broadcast("ALERT", alert)
 	}
 }
 
-// CleanUpTask can be run as a background cron to remove ancient resolved alerts.
 func (s *AlertService) CleanUpTask(ctx context.Context) {
 	count, err := s.repo.DeleteOld(ctx, 30*24*time.Hour)
 	if err == nil && count > 0 {
 		fmt.Printf("[CLEANUP] Removed %d old resolved alerts from history\n", count)
 	}
 }
+
 func (s *AlertService) SendTestAlert(ctx context.Context) error {
+	// FIX: Replaced 'Category' with 'AlertType' to match the database and struct definition
 	testAlert := &models.Alert{
-		ID:        uint(time.Now().UnixNano() / 1e6),
-		Category:  models.CategorySystem,
-		Severity:  models.SeverityInfo,
-		MetricKey: "simulation",
-		Message:   "Simulation: This is an ephemeral test notification (not saved to DB).",
-		Status:    models.StatusActive,
-		CreatedAt: time.Now(),
+		ID:          int(time.Now().UnixNano() / 1e6),
+		ProbeID:     "TEST-PROBE-01",
+		AlertType:   "SYSTEM",
+		Severity:    "INFO",
+		Message:     "Simulation: This is a test alert to verify real-time notifications.",
+		TriggeredAt: time.Now(),
 	}
+
 	s.notify(testAlert)
-	logger.Info("Ephemeral test alert broadcasted to WebSocket hub.")
 	return nil
 }

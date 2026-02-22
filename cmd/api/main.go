@@ -91,6 +91,7 @@ func main() {
 	probeService := service.NewProbeService(probeRepo, log)
 	analyticsService := service.NewAnalyticsService(analyticsRepo, log)
 	commandService := service.NewCommandService(commandRepo, mqttClient, probeRepo, telemetryService, log)
+	topologyService := service.NewTopologyService(probeRepo, telemetryRepo, alertRepo)
 
 	// MQTT Subscriptions
 	// Telemetry
@@ -119,8 +120,8 @@ func main() {
 	commandHandler := handler.NewCommandHandler(commandService, log)
 	analyticsHandler := handler.NewAnalyticsHandler(analyticsService, log)
 	healthHandler := handler.NewHealthHandler(db, mqttClient, log)
-	alertHandler := handler.NewAlertHandler(alertService, log) // New
-
+	alertHandler := handler.NewAlertHandler(alertService, log)
+	topologyHandler := handler.NewTopologyHandler(topologyService, log)
 	// Background pinging service
 
 	// 9. Start HTTP Server
@@ -130,6 +131,7 @@ func main() {
 		commandHandler,
 		analyticsHandler,
 		healthHandler,
+		topologyHandler,
 		alertHandler,
 	)
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)

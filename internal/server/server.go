@@ -48,6 +48,7 @@ func (s *Server) RegisterHandlers(
 	commandHandler *handler.CommandHandler,
 	analyticsHandler *handler.AnalyticsHandler,
 	healthHandler *handler.HealthHandler,
+	topologyHandler *handler.TopologyHandler,
 	alertHandler *handler.AlertHandler,
 ) {
 	api := s.router.PathPrefix("/api/v1").Subrouter()
@@ -65,6 +66,7 @@ func (s *Server) RegisterHandlers(
 	commandHandler.RegisterRoutes(api)
 	analyticsHandler.RegisterRoutes(api)
 	healthHandler.RegisterRoutes(s.router)
+	topologyHandler.RegisterRoutes(api)
 	alertHandler.RegisterRoutes(api)
 
 	s.router.HandleFunc("/api/v1/ws", func(w http.ResponseWriter, r *http.Request) {
@@ -96,6 +98,7 @@ func (s *Server) Start(ctx context.Context) error {
 		return s.httpServer.Shutdown(shutdownCtx)
 	}
 }
+
 func (s *Server) Shutdown(ctx context.Context) error {
 	s.log.Info("Shutting down HTTP server...")
 

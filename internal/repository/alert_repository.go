@@ -3,6 +3,7 @@ package repository
 import (
 	"context"
 	"database/sql"
+	"encoding/json"
 	"fmt"
 	"time"
 
@@ -13,6 +14,7 @@ import (
 type IAlertRepository interface {
 	Create(ctx context.Context, alert *models.Alert) error
 	GetByID(ctx context.Context, id uint) (*models.Alert, error)
+	GetActive(ctx context.Context) ([]models.Alert, error) // Added this method!
 	GetActiveByProbe(ctx context.Context, probeID string) ([]models.Alert, error)
 	GetHistory(ctx context.Context, limit int, offset int) ([]models.Alert, error)
 	Acknowledge(ctx context.Context, id uint) error
@@ -30,85 +32,89 @@ func NewAlertRepository(db *sql.DB) *AlertRepository {
 	return &AlertRepository{db: db}
 }
 
-// Create inserts a new alert record and returns the generated ID and timestamp.
+// Create inserts a new alert record into the database.
 func (r *AlertRepository) Create(ctx context.Context, alert *models.Alert) error {
+	var metadataJSON []byte
+	var err error
+	if alert.Metadata != nil {
+		metadataJSON, err = json.Marshal(alert.Metadata)
+		if err != nil {
+			return err
+		}
+	}
+
 	query := `
 		INSERT INTO alerts (
-			probe_id, category, severity, metric_key, message, 
-			status, occurrences, threshold_value, actual_value, 
-			created_at, updated_at
-		) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
-		RETURNING id
+			probe_id, alert_type, severity, message, 
+			threshold_value, actual_value, triggered_at, 
+			resolved_at, acknowledged, metadata
+		) VALUES ($1, $2, $3, $4, $5, $6, COALESCE($7, now()), $8, $9, $10)
+		RETURNING id, triggered_at
 	`
 
-	now := time.Now()
-	alert.CreatedAt = now
-	alert.UpdatedAt = now
+	var triggeredAt time.Time
+	if alert.TriggeredAt.IsZero() {
+		triggeredAt = time.Now()
+	} else {
+		triggeredAt = alert.TriggeredAt
+	}
 
-	return r.db.QueryRowContext(
-		ctx, query,
+	err = r.db.QueryRowContext(ctx, query,
 		alert.ProbeID,
-		alert.Category,
+		alert.AlertType,
 		alert.Severity,
-		alert.MetricKey,
 		alert.Message,
-		alert.Status,
-		alert.Occurrences,
 		alert.ThresholdValue,
 		alert.ActualValue,
-		alert.CreatedAt,
-		alert.UpdatedAt,
-	).Scan(&alert.ID)
+		triggeredAt,
+		alert.ResolvedAt,
+		alert.Acknowledged,
+		metadataJSON,
+	).Scan(&alert.ID, &alert.TriggeredAt)
+
+	return err
 }
 
-// GetByID retrieves a single alert by its primary key.
 func (r *AlertRepository) GetByID(ctx context.Context, id uint) (*models.Alert, error) {
 	query := `
-		SELECT id, probe_id, category, severity, metric_key, message, 
-		       status, occurrences, threshold_value, actual_value, 
-		       created_at, updated_at
+		SELECT id, probe_id, alert_type, severity, message, 
+		       threshold_value, actual_value, triggered_at, 
+		       resolved_at, acknowledged, metadata
 		FROM alerts
 		WHERE id = $1
 	`
 
-	alert := &models.Alert{}
+	var a models.Alert
+	var metadataJSON []byte
+
 	err := r.db.QueryRowContext(ctx, query, id).Scan(
-		&alert.ID,
-		&alert.ProbeID,
-		&alert.Category,
-		&alert.Severity,
-		&alert.MetricKey,
-		&alert.Message,
-		&alert.Status,
-		&alert.Occurrences,
-		&alert.ThresholdValue,
-		&alert.ActualValue,
-		&alert.CreatedAt,
-		&alert.UpdatedAt,
+		&a.ID, &a.ProbeID, &a.AlertType, &a.Severity, &a.Message,
+		&a.ThresholdValue, &a.ActualValue, &a.TriggeredAt,
+		&a.ResolvedAt, &a.Acknowledged, &metadataJSON,
 	)
-
-	if err == sql.ErrNoRows {
-		return nil, nil
-	}
 	if err != nil {
-		return nil, fmt.Errorf("failed to get alert by id: %w", err)
+		return nil, err
 	}
 
-	return alert, nil
+	if len(metadataJSON) > 0 {
+		_ = json.Unmarshal(metadataJSON, &a.Metadata)
+	}
+
+	return &a, nil
 }
 
-// GetActiveByProbe returns all alerts for a probe that are not resolved.
-func (r *AlertRepository) GetActiveByProbe(ctx context.Context, probeID string) ([]models.Alert, error) {
+// GetActive fetches ALL unresolved alerts across the entire system
+func (r *AlertRepository) GetActive(ctx context.Context) ([]models.Alert, error) {
 	query := `
-		SELECT id, probe_id, category, severity, metric_key, message, 
-		       status, occurrences, threshold_value, actual_value, 
-		       created_at, updated_at
+		SELECT id, probe_id, alert_type, severity, message, 
+		       threshold_value, actual_value, triggered_at, 
+		       resolved_at, acknowledged, metadata
 		FROM alerts
-		WHERE probe_id = $1 AND status != $2
-		ORDER BY created_at DESC
+		WHERE resolved_at IS NULL
+		ORDER BY triggered_at DESC
 	`
 
-	rows, err := r.db.QueryContext(ctx, query, probeID, models.StatusResolved)
+	rows, err := r.db.QueryContext(ctx, query)
 	if err != nil {
 		return nil, fmt.Errorf("failed to query active alerts: %w", err)
 	}
@@ -117,28 +123,72 @@ func (r *AlertRepository) GetActiveByProbe(ctx context.Context, probeID string) 
 	var alerts []models.Alert
 	for rows.Next() {
 		var a models.Alert
+		var metadataJSON []byte
+
 		err := rows.Scan(
-			&a.ID, &a.ProbeID, &a.Category, &a.Severity, &a.MetricKey, &a.Message,
-			&a.Status, &a.Occurrences, &a.ThresholdValue, &a.ActualValue,
-			&a.CreatedAt, &a.UpdatedAt,
+			&a.ID, &a.ProbeID, &a.AlertType, &a.Severity, &a.Message,
+			&a.ThresholdValue, &a.ActualValue, &a.TriggeredAt,
+			&a.ResolvedAt, &a.Acknowledged, &metadataJSON,
 		)
 		if err != nil {
 			return nil, err
 		}
+
+		if len(metadataJSON) > 0 {
+			_ = json.Unmarshal(metadataJSON, &a.Metadata)
+		}
 		alerts = append(alerts, a)
 	}
-
-	return alerts, nil
+	return alerts, rows.Err()
 }
 
-// GetHistory returns a paginated list of all alerts.
+// GetActiveByProbe fetches unresolved alerts for a SPECIFIC probe
+func (r *AlertRepository) GetActiveByProbe(ctx context.Context, probeID string) ([]models.Alert, error) {
+	query := `
+		SELECT id, probe_id, alert_type, severity, message, 
+		       threshold_value, actual_value, triggered_at, 
+		       resolved_at, acknowledged, metadata
+		FROM alerts
+		WHERE probe_id = $1 AND resolved_at IS NULL
+		ORDER BY triggered_at DESC
+	`
+
+	rows, err := r.db.QueryContext(ctx, query, probeID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var alerts []models.Alert
+	for rows.Next() {
+		var a models.Alert
+		var metadataJSON []byte
+
+		err := rows.Scan(
+			&a.ID, &a.ProbeID, &a.AlertType, &a.Severity, &a.Message,
+			&a.ThresholdValue, &a.ActualValue, &a.TriggeredAt,
+			&a.ResolvedAt, &a.Acknowledged, &metadataJSON,
+		)
+		if err != nil {
+			return nil, err
+		}
+
+		if len(metadataJSON) > 0 {
+			_ = json.Unmarshal(metadataJSON, &a.Metadata)
+		}
+		alerts = append(alerts, a)
+	}
+	return alerts, rows.Err()
+}
+
+// GetHistory fetches all alerts (both active and resolved)
 func (r *AlertRepository) GetHistory(ctx context.Context, limit int, offset int) ([]models.Alert, error) {
 	query := `
-		SELECT id, probe_id, category, severity, metric_key, message, 
-		       status, occurrences, threshold_value, actual_value, 
-		       created_at, updated_at
+		SELECT id, probe_id, alert_type, severity, message, 
+		       threshold_value, actual_value, triggered_at, 
+		       resolved_at, acknowledged, metadata
 		FROM alerts
-		ORDER BY created_at DESC
+		ORDER BY triggered_at DESC
 		LIMIT $1 OFFSET $2
 	`
 
@@ -151,60 +201,62 @@ func (r *AlertRepository) GetHistory(ctx context.Context, limit int, offset int)
 	var alerts []models.Alert
 	for rows.Next() {
 		var a models.Alert
+		var metadataJSON []byte
+
 		err := rows.Scan(
-			&a.ID, &a.ProbeID, &a.Category, &a.Severity, &a.MetricKey, &a.Message,
-			&a.Status, &a.Occurrences, &a.ThresholdValue, &a.ActualValue,
-			&a.CreatedAt, &a.UpdatedAt,
+			&a.ID, &a.ProbeID, &a.AlertType, &a.Severity, &a.Message,
+			&a.ThresholdValue, &a.ActualValue, &a.TriggeredAt,
+			&a.ResolvedAt, &a.Acknowledged, &metadataJSON,
 		)
 		if err != nil {
 			return nil, err
 		}
+
+		if len(metadataJSON) > 0 {
+			_ = json.Unmarshal(metadataJSON, &a.Metadata)
+		}
 		alerts = append(alerts, a)
 	}
-	return alerts, nil
+	return alerts, rows.Err()
 }
 
-// Acknowledge marks an alert as acknowledged.
 func (r *AlertRepository) Acknowledge(ctx context.Context, id uint) error {
-	query := `UPDATE alerts SET status = $1, updated_at = $2 WHERE id = $3`
-	_, err := r.db.ExecContext(ctx, query, models.StatusAcknowledged, time.Now(), id)
+	query := `UPDATE alerts SET acknowledged = true WHERE id = $1`
+	_, err := r.db.ExecContext(ctx, query, id)
 	return err
 }
 
-// Resolve marks an alert as resolved.
 func (r *AlertRepository) Resolve(ctx context.Context, id uint) error {
-	query := `UPDATE alerts SET status = $1, updated_at = $2 WHERE id = $3`
-	_, err := r.db.ExecContext(ctx, query, models.StatusResolved, time.Now(), id)
+	// Instead of 'status = RESOLVED', we set the 'resolved_at' timestamp
+	query := `UPDATE alerts SET resolved_at = $1 WHERE id = $2`
+	_, err := r.db.ExecContext(ctx, query, time.Now(), id)
 	return err
 }
 
-// Delete removes an alert record from the database.
 func (r *AlertRepository) Delete(ctx context.Context, id uint) error {
 	query := `DELETE FROM alerts WHERE id = $1`
 	_, err := r.db.ExecContext(ctx, query, id)
 	return err
 }
 
-// DeleteOld removes resolved alerts older than the specified duration.
 func (r *AlertRepository) DeleteOld(ctx context.Context, olderThan time.Duration) (int64, error) {
-	query := `DELETE FROM alerts WHERE status = $1 AND updated_at < $2`
+	query := `DELETE FROM alerts WHERE resolved_at IS NOT NULL AND resolved_at < $1`
 	cutoff := time.Now().Add(-olderThan)
-	result, err := r.db.ExecContext(ctx, query, models.StatusResolved, cutoff)
+	result, err := r.db.ExecContext(ctx, query, cutoff)
 	if err != nil {
 		return 0, err
 	}
 	return result.RowsAffected()
 }
 
-// GetStatistics returns a count of active alerts grouped by severity.
 func (r *AlertRepository) GetStatistics(ctx context.Context) (map[string]int, error) {
 	query := `
 		SELECT severity, COUNT(*) 
 		FROM alerts 
-		WHERE status != $1 
+		WHERE resolved_at IS NULL 
 		GROUP BY severity
 	`
-	rows, err := r.db.QueryContext(ctx, query, models.StatusResolved)
+	rows, err := r.db.QueryContext(ctx, query)
 	if err != nil {
 		return nil, err
 	}
@@ -212,12 +264,12 @@ func (r *AlertRepository) GetStatistics(ctx context.Context) (map[string]int, er
 
 	stats := make(map[string]int)
 	for rows.Next() {
-		var sev string
+		var severity string
 		var count int
-		if err := rows.Scan(&sev, &count); err != nil {
+		if err := rows.Scan(&severity, &count); err != nil {
 			return nil, err
 		}
-		stats[sev] = count
+		stats[severity] = count
 	}
 	return stats, nil
 }
