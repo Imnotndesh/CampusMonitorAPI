@@ -50,6 +50,7 @@ func (s *Server) RegisterHandlers(
 	healthHandler *handler.HealthHandler,
 	topologyHandler *handler.TopologyHandler,
 	alertHandler *handler.AlertHandler,
+	fleethandler *handler.FleetHandler,
 ) {
 	api := s.router.PathPrefix("/api/v1").Subrouter()
 
@@ -68,6 +69,7 @@ func (s *Server) RegisterHandlers(
 	healthHandler.RegisterRoutes(s.router)
 	topologyHandler.RegisterRoutes(api)
 	alertHandler.RegisterRoutes(api)
+	fleethandler.RegisterRoutes(api)
 
 	s.router.HandleFunc("/api/v1/ws", func(w http.ResponseWriter, r *http.Request) {
 		websocket.ServeWs(s.wsHub, w, r, s.log)

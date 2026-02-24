@@ -17,6 +17,7 @@ import (
 type CommandService struct {
 	commandRepo      *repository.CommandRepository
 	probeRepo        *repository.ProbeRepository
+	fleetService     *FleetService
 	telemetryService *TelemetryService
 	mqttClient       *mqtt.Client
 	log              *logger.Logger
@@ -31,6 +32,7 @@ func NewCommandService(
 	mqttClient *mqtt.Client,
 	probeRepo *repository.ProbeRepository,
 	telemetryService *TelemetryService,
+	fleetService *FleetService,
 	log *logger.Logger,
 ) *CommandService {
 	return &CommandService{
@@ -38,6 +40,7 @@ func NewCommandService(
 		mqttClient:       mqttClient,
 		probeRepo:        probeRepo,
 		telemetryService: telemetryService,
+		fleetService:     fleetService,
 		log:              log,
 		pingStatus:       make(map[string]bool),
 	}
@@ -275,7 +278,15 @@ func (s *CommandService) ProcessCommandResult(ctx context.Context, payload []byt
 	}
 
 	s.log.Info("Processing result: Probe=%s Cmd=%s Status=%s CommandID=%s", result.ProbeID, result.Command, result.Status, result.CommandID)
-
+	// Find out if it is from fleet. Will try and do this another way
+	if s.fleetService != nil {
+		go func() {
+			err := s.fleetService.ProcessCommandResult(ctx, result.ProbeID, result.CommandID, result.Status, result.Result)
+			if err != nil {
+				return
+			}
+		}()
+	}
 	if result.CommandID != "" {
 		cmdID := 0
 		if _, err := fmt.Sscanf(result.CommandID, "%d", &cmdID); err == nil && cmdID > 0 {

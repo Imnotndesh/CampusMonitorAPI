@@ -7653,3 +7653,57 @@
 2026-02-22 18:52:38 [INFO] GET /api/v1/probes/Cabinet/status 404 0ms 70 bytes
 2026-02-22 18:52:43 [INFO] GET /api/v1/probes/Cabinet/status 404 0ms 70 bytes
 2026-02-22 18:52:48 [INFO] GET /api/v1/probes/Cabinet/status 404 0ms 70 bytes
+2026-02-22 19:10:46 [INFO] Starting Campus Monitor API Server
+2026-02-22 19:10:46 [INFO] Database connected successfully
+2026-02-22 19:10:46 [INFO] Connecting to MQTT broker: localhost:1883
+2026-02-22 19:10:46 [INFO] Successfully connected to MQTT broker
+2026-02-22 19:10:46 [INFO] MQTT connection established
+2026-02-22 19:10:46 [INFO] Successfully subscribed to topic: campus/probes/telemetry
+2026-02-22 19:10:46 [INFO] Successfully subscribed to topic: campus/probes/telemetry/offline
+2026-02-22 19:10:46 [INFO] Successfully subscribed to topic: campus/probes/+/result
+2026-02-22 19:10:46 [INFO] MQTT subscriptions active
+2026-02-22 19:10:46 [INFO] Started background monitors
+2026-02-22 19:10:46 [INFO] Starting Probe Monitor
+2026-02-22 19:10:46 [INFO] Subscribing to status broadcasts: campus/probes/+/status
+2026-02-22 19:10:46 [INFO] Successfully subscribed to topic with channel: campus/probes/+/status
+2026-02-22 19:10:46 [INFO] Subscribing to config broadcasts: campus/probes/+/config
+2026-02-22 19:10:46 [INFO] Successfully subscribed to topic with channel: campus/probes/+/config
+2026-02-22 19:10:46 [INFO] Probe Monitor started successfully
+2026-02-22 19:10:46 [INFO] All handlers and WebSocket endpoint registered
+2026-02-22 19:10:46 [INFO] All handlers registered
+2026-02-22 19:10:46 [INFO] Starting HTTP server on 0.0.0.0:9080
+2026-02-22 19:10:46 [INFO] WebSocket Hub started
+2026-02-22 19:14:04 [INFO] New WS Client connected. Total: 1
+2026-02-22 19:14:04 [INFO] GET /api/v1/probes 200 13ms 559 bytes
+2026-02-22 19:14:04 [INFO] New WS Client connected. Total: 1
+2026-02-22 19:14:06 [INFO] GET /api/v1/topology/layout 200 1ms 408 bytes
+2026-02-22 19:14:06 [INFO] GET /api/v1/topology/heatmap 200 45ms 315 bytes
+2026-02-22 19:14:07 [INFO] GET /api/v1/alerts/active 200 1ms 5 bytes
+2026-02-22 19:14:07 [INFO] New WS Client connected. Total: 2
+2026-02-22 19:14:08 [INFO] GET /api/v1/probes 200 1ms 559 bytes
+2026-02-22 19:14:10 [INFO] GET /api/v1/probes/Main/status 404 0ms 70 bytes
+2026-02-22 19:14:10 [INFO] GET /api/v1/commands/probe/Main 200 3ms 3 bytes
+2026-02-22 19:14:10 [INFO] GET /api/v1/probes/Main/config 404 9ms 70 bytes
+2026-02-22 19:14:11 [INFO] GET /api/v1/topology/layout 200 0ms 408 bytes
+2026-02-22 19:14:11 [INFO] GET /api/v1/topology/heatmap 200 12ms 314 bytes
+2026-02-22 19:14:15 [INFO] GET /api/v1/probes/Main/status 404 0ms 70 bytes
+2026-02-22 19:14:20 [INFO] GET /api/v1/probes/Main/status 404 0ms 70 bytes
+2026-02-22 19:14:21 [INFO] GET /api/v1/topology/layout 200 1ms 408 bytes
+2026-02-22 19:14:21 [INFO] GET /api/v1/topology/heatmap 200 18ms 315 bytes
+2026-02-22 19:14:23 [INFO] GET /api/v1/alerts/active 200 0ms 5 bytes
+2026-02-22 19:14:24 [INFO] GET /api/v1/probes 200 0ms 559 bytes
+2026-02-22 19:14:24 [INFO] GET /api/v1/analytics/timeseries/rssi 200 13ms 181 bytes
+2026-02-22 19:14:24 [INFO] GET /api/v1/analytics/timeseries/latency 200 18ms 183 bytes
+2026-02-22 19:14:24 [INFO] GET /api/v1/analytics/aps 200 11ms 369 bytes
+2026-02-22 19:14:24 [INFO] GET /api/v1/analytics/channels 200 51ms 78 bytes
+2026-02-22 19:14:24 [INFO] GET /api/v1/analytics/health 200 75ms 172 bytes
+2026-02-22 19:14:24 [INFO] GET /api/v1/analytics/congestion 200 85ms 424 bytes
+2026-02-22 19:14:26 [INFO] GET /api/v1/analytics/timeseries/rssi 200 4ms 696 bytes
+2026-02-22 19:14:26 [INFO] GET /api/v1/analytics/channels 200 9ms 78 bytes
+2026-02-22 19:14:26 [INFO] GET /api/v1/analytics/timeseries/latency 200 11ms 684 bytes
+2026-02-22 19:14:26 [INFO] GET /api/v1/analytics/aps 200 7ms 369 bytes
+2026-02-22 19:14:26 [INFO] GET /api/v1/analytics/health 200 18ms 171 bytes
+2026-02-22 19:14:26 [INFO] GET /api/v1/analytics/congestion 200 13ms 424 bytes
+2026-02-22 19:26:04 [INFO] WebSocket Hub shutting down...
+2026-02-22 19:26:04 [INFO] Shutting down server...
+2026-02-22 19:26:04 [INFO] API server ready on http://0.0.0.0:9080
