@@ -266,30 +266,33 @@ func (s *CommandService) DeleteOldCommands(ctx context.Context, days int) (int, 
 func (s *CommandService) ProcessCommandResult(ctx context.Context, payload []byte) error {
 	var result struct {
 		ProbeID   string                 `json:"probe_id"`
-		Command   string                 `json:"command"`
+		Command   string                 `json:"cmd"`
 		Status    string                 `json:"status"`
 		Result    map[string]interface{} `json:"result"`
-		CommandID string                 `json:"command_id"`
+		CommandID string                 `json:"id"`
 	}
 
 	if err := json.Unmarshal(payload, &result); err != nil {
 		s.log.Error("Failed to unmarshal command result: %v", err)
 		return err
 	}
+	cmdIDStr := fmt.Sprintf("%v", result.CommandID)
 
-	s.log.Info("Processing result: Probe=%s Cmd=%s Status=%s CommandID=%s", result.ProbeID, result.Command, result.Status, result.CommandID)
-	// Find out if it is from fleet. Will try and do this another way
-	if s.fleetService != nil {
+	s.log.Info("Processing result: Probe=%s Cmd=%s Status=%s CommandID=%s", result.ProbeID, result.Command, result.Status, cmdIDStr)
+	if s.fleetService != nil && len(cmdIDStr) > 4 && cmdIDStr[:4] == "cmd_" {
 		go func() {
-			err := s.fleetService.ProcessCommandResult(ctx, result.ProbeID, result.CommandID, result.Status, result.Result)
+			err := s.fleetService.ProcessCommandResult(ctx, result.ProbeID, cmdIDStr, result.Status, result.Result)
 			if err != nil {
-				return
+				s.log.Error("Fleet processing failed: %v", err)
 			}
 		}()
+		return nil
 	}
-	if result.CommandID != "" {
+
+	// Handle standard Probe Commands (Integer IDs)
+	if cmdIDStr != "" && cmdIDStr != "<nil>" {
 		cmdID := 0
-		if _, err := fmt.Sscanf(result.CommandID, "%d", &cmdID); err == nil && cmdID > 0 {
+		if _, err := fmt.Sscanf(cmdIDStr, "%d", &cmdID); err == nil && cmdID > 0 {
 			err := s.commandRepo.UpdateStatus(ctx, cmdID, result.Status, result.Result)
 			if err != nil {
 				s.log.Warn("Failed to update command %d: %v", cmdID, err)
