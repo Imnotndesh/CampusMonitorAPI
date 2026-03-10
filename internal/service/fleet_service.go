@@ -56,7 +56,7 @@ func (s *FleetService) EnrollProbe(ctx context.Context, probeID string, req *mod
 	s.log.Info("Enrolling probe %s into fleet management", probeID)
 
 	// Verify probe exists
-	probe, err := s.probeRepo.GetByID(ctx, probeID)
+	_, err := s.probeRepo.GetByID(ctx, probeID)
 	if err != nil {
 		return fmt.Errorf("probe not found: %w", err)
 	}
@@ -576,7 +576,7 @@ func (s *FleetService) maintenanceRollout(ctx context.Context, cmd *models.Fleet
 
 func (s *FleetService) sendCommandToProbe(ctx context.Context, cmd *models.FleetCommand, req *models.FleetCommandRequest, probeID, user string) {
 	// Create individual command
-	commandReq := &models.CommandRequest{
+	_ = &models.CommandRequest{
 		ProbeID:     probeID,
 		CommandType: req.CommandType,
 		Payload:     req.Payload,
@@ -606,7 +606,10 @@ func (s *FleetService) sendCommandToProbe(ctx context.Context, cmd *models.Fleet
 		probeStatus.ErrorMessage = err.Error()
 	}
 
-	s.fleetRepo.SaveProbeCommandStatus(ctx, probeStatus)
+	err = s.fleetRepo.SaveProbeCommandStatus(ctx, probeStatus)
+	if err != nil {
+		return
+	}
 
 	// Update rollout progress
 	s.updateRolloutProgress(cmd.ID)
@@ -620,7 +623,10 @@ func (s *FleetService) updateFleetCommandProbeStatus(ctx context.Context, comman
 		Result:    result,
 	}
 
-	s.fleetRepo.SaveProbeCommandStatus(ctx, probeStatus)
+	err := s.fleetRepo.SaveProbeCommandStatus(ctx, probeStatus)
+	if err != nil {
+		return
+	}
 	s.updateRolloutProgress(commandID)
 }
 
@@ -635,9 +641,9 @@ func (s *FleetService) updateRolloutProgress(commandID string) {
 
 	ctx := context.Background()
 
-	// Get updated stats from DB
+	// Get updated stats from DB using a direct query since we don't have a repo method
 	var acks, completed, failed int
-	s.fleetRepo.db.QueryRowContext(ctx, `
+	err := s.fleetRepo.DB().QueryRowContext(ctx, `
 		SELECT 
 			COUNT(CASE WHEN status IN ('acknowledged', 'processing', 'completed') THEN 1 END) as acks,
 			COUNT(CASE WHEN status = 'completed' THEN 1 END) as completed,
@@ -645,6 +651,11 @@ func (s *FleetService) updateRolloutProgress(commandID string) {
 		FROM fleet_command_probes
 		WHERE command_id = $1
 	`, commandID).Scan(&acks, &completed, &failed)
+
+	if err != nil {
+		s.log.Error("Failed to get rollout stats: %v", err)
+		return
+	}
 
 	// Update rollout
 	s.rolloutMux.Lock()
@@ -658,11 +669,14 @@ func (s *FleetService) updateRolloutProgress(commandID string) {
 	s.rolloutMux.Unlock()
 
 	// Update DB
-	s.fleetRepo.UpdateFleetCommandStatus(ctx, commandID, map[string]int{
+	err = s.fleetRepo.UpdateFleetCommandStatus(ctx, commandID, map[string]int{
 		"acks_received": acks,
 		"completed":     completed,
 		"failed":        failed,
 	})
+	if err != nil {
+		return
+	}
 
 	// Check if complete
 	if completed+failed >= rollout.Progress.Total {
@@ -673,7 +687,9 @@ func (s *FleetService) updateRolloutProgress(commandID string) {
 		s.rolloutMux.Unlock()
 	}
 }
-
+func (s *FleetService) GetUnenrolledProbes(ctx context.Context) ([]models.Probe, error) {
+	return s.fleetRepo.GetUnenrolledProbes(ctx)
+}
 func (s *FleetService) applyTemplate(ctx context.Context, probeID string, templateID int, req *models.FleetEnrollRequest) error {
 	template, err := s.fleetRepo.GetTemplate(ctx, templateID)
 	if err != nil {
@@ -754,7 +770,7 @@ func (s *FleetService) scheduleForMaintenanceWindow(cmd *models.FleetCommand, re
 	}
 
 	startTime := parts[0]
-	endTime := parts[1]
+	_ = parts[1]
 
 	// Calculate next occurrence
 	now := time.Now()

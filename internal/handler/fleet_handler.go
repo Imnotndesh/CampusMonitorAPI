@@ -54,6 +54,7 @@ func (h *FleetHandler) RegisterRoutes(r *mux.Router) {
 	r.HandleFunc("/fleet/templates/{id}", h.GetTemplate).Methods("GET")
 	r.HandleFunc("/fleet/templates/{id}/apply", h.ApplyTemplate).Methods("POST")
 	r.HandleFunc("/fleet/templates/{id}", h.DeleteTemplate).Methods("DELETE")
+	r.HandleFunc("/fleet/unenrolled-probes", h.ListUnenrolledProbes).Methods("GET")
 
 	// Group management
 	r.HandleFunc("/fleet/groups", h.CreateGroup).Methods("POST")
@@ -100,7 +101,15 @@ func (h *FleetHandler) EnrollProbe(w http.ResponseWriter, r *http.Request) {
 		"probe_id": probeID,
 	})
 }
-
+func (h *FleetHandler) ListUnenrolledProbes(w http.ResponseWriter, r *http.Request) {
+	probes, err := h.fleetService.GetUnenrolledProbes(r.Context())
+	if err != nil {
+		h.log.Error("Failed to list unenrolled probes: %v", err)
+		respondError(w, http.StatusInternalServerError, "Failed to fetch unenrolled probes")
+		return
+	}
+	respondJSON(w, http.StatusOK, probes)
+}
 func (h *FleetHandler) UnenrollProbe(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	probeID := vars["id"]

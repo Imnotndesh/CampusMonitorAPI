@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"strings"
 	"time"
@@ -17,11 +18,12 @@ type FleetRepository struct {
 	db *sql.DB
 }
 
+func (r *FleetRepository) DB() *sql.DB {
+	return r.db
+}
 func NewFleetRepository(db *sql.DB) *FleetRepository {
 	return &FleetRepository{db: db}
 }
-
-// Fleet Probe Management
 
 func (r *FleetRepository) EnrollProbe(ctx context.Context, probeID string, req *models.FleetEnrollRequest, user string) error {
 	query := `
@@ -30,7 +32,8 @@ func (r *FleetRepository) EnrollProbe(ctx context.Context, probeID string, req *
 			config_template_id, maintenance_window, auto_update_enabled,
 			current_firmware, created_at, updated_at
 		) VALUES ($1, true, NOW(), $2, $3, $4, $5, $6, $7, $8, 
-			COALESCE((SELECT firmware_version FROM probes WHERE probe_id = $1), 'unknown'),
+			-- FIX: Changed $1 to $9 to completely isolate the parameter inference
+			COALESCE((SELECT firmware_version FROM probes WHERE probe_id = $9), 'unknown'),
 			NOW(), NOW())
 		ON CONFLICT (probe_id) DO UPDATE SET
 			managed = true,
@@ -50,14 +53,15 @@ func (r *FleetRepository) EnrollProbe(ctx context.Context, probeID string, req *
 	maintWindowJSON, _ := json.Marshal(req.MaintenanceWindow)
 
 	_, err := r.db.ExecContext(ctx, query,
-		probeID,
-		user,
-		groupsJSON,
-		req.Location,
-		tagsJSON,
-		req.ConfigTemplateID,
-		maintWindowJSON,
-		req.AutoUpdateEnabled,
+		probeID,               // $1
+		user,                  // $2
+		groupsJSON,            // $3
+		req.Location,          // $4
+		tagsJSON,              // $5
+		req.ConfigTemplateID,  // $6
+		maintWindowJSON,       // $7
+		req.AutoUpdateEnabled, // $8
+		probeID,               // $9
 	)
 
 	return err
@@ -88,24 +92,38 @@ func (r *FleetRepository) GetFleetProbe(ctx context.Context, probeID string) (*m
 	var fp models.FleetProbe
 	var groupsJSON, tagsJSON, maintWindowJSON []byte
 	var configTemplateID sql.NullInt64
-	var lastCommandTime, lastOTA pq.NullTime
+	var lastCommandTime, lastOTA, lastSeen pq.NullTime
+	var status sql.NullString
+	var lastCmdID, lastCmdStatus, currFw, targetFw sql.NullString
 
 	err := r.db.QueryRowContext(ctx, query, probeID).Scan(
 		&fp.ProbeID, &fp.Managed, &fp.ManagedSince, &fp.ManagedBy,
 		&groupsJSON, &fp.Location, &tagsJSON, &fp.ConfigVersion,
 		&configTemplateID, &maintWindowJSON, &fp.AutoUpdateEnabled,
-		&fp.LastCommandID, &fp.LastCommandStatus, &lastCommandTime,
+		&lastCmdID, &lastCmdStatus, &lastCommandTime,
 		&fp.CommandsReceived, &fp.CommandsCompleted, &fp.CommandsFailed,
-		&fp.ConsecutiveFailures, &fp.CurrentFirmware, &fp.TargetFirmware,
+		&fp.ConsecutiveFailures, &currFw, &targetFw,
 		&lastOTA, &fp.OTAAttempts, &fp.CreatedAt, &fp.UpdatedAt,
-		&fp.Status, &fp.LastSeen,
+		&status, &lastSeen,
 	)
 
 	if err != nil {
-		if err == sql.ErrNoRows {
+		if errors.Is(err, sql.ErrNoRows) {
 			return nil, fmt.Errorf("fleet probe not found")
 		}
 		return nil, err
+	}
+	if lastCmdID.Valid {
+		fp.LastCommandID = lastCmdID.String
+	}
+	if lastCmdStatus.Valid {
+		fp.LastCommandStatus = lastCmdStatus.String
+	}
+	if currFw.Valid {
+		fp.CurrentFirmware = currFw.String
+	}
+	if targetFw.Valid {
+		fp.TargetFirmware = targetFw.String
 	}
 
 	if configTemplateID.Valid {
@@ -118,10 +136,25 @@ func (r *FleetRepository) GetFleetProbe(ctx context.Context, probeID string) (*m
 	if lastOTA.Valid {
 		fp.LastOTAAttempt = &lastOTA.Time
 	}
+	if lastSeen.Valid {
+		fp.LastSeen = lastSeen.Time
+	}
+	if status.Valid {
+		fp.Status = status.String
+	}
 
-	json.Unmarshal(groupsJSON, &fp.Groups)
-	json.Unmarshal(tagsJSON, &fp.Tags)
-	json.Unmarshal(maintWindowJSON, &fp.MaintenanceWindow)
+	err = json.Unmarshal(groupsJSON, &fp.Groups)
+	if err != nil {
+		return nil, err
+	}
+	err = json.Unmarshal(tagsJSON, &fp.Tags)
+	if err != nil {
+		return nil, err
+	}
+	err = json.Unmarshal(maintWindowJSON, &fp.MaintenanceWindow)
+	if err != nil {
+		return nil, err
+	}
 
 	return &fp, nil
 }
@@ -169,20 +202,35 @@ func (r *FleetRepository) ListFleetProbes(ctx context.Context, managedOnly bool,
 		var fp models.FleetProbe
 		var groupsJSON, tagsJSON, maintWindowJSON []byte
 		var configTemplateID sql.NullInt64
-		var lastCommandTime, lastOTA pq.NullTime
+		var lastCommandTime, lastOTA, lastSeen pq.NullTime
+		var status sql.NullString
+		var lastCmdID, lastCmdStatus, currFw, targetFw sql.NullString
 
 		err := rows.Scan(
 			&fp.ProbeID, &fp.Managed, &fp.ManagedSince, &fp.ManagedBy,
 			&groupsJSON, &fp.Location, &tagsJSON, &fp.ConfigVersion,
 			&configTemplateID, &maintWindowJSON, &fp.AutoUpdateEnabled,
-			&fp.LastCommandID, &fp.LastCommandStatus, &lastCommandTime,
+			&lastCmdID, &lastCmdStatus, &lastCommandTime,
 			&fp.CommandsReceived, &fp.CommandsCompleted, &fp.CommandsFailed,
-			&fp.ConsecutiveFailures, &fp.CurrentFirmware, &fp.TargetFirmware,
+			&fp.ConsecutiveFailures, &currFw, &targetFw,
 			&lastOTA, &fp.OTAAttempts, &fp.CreatedAt, &fp.UpdatedAt,
-			&fp.Status, &fp.LastSeen,
+			&status, &lastSeen,
 		)
 		if err != nil {
 			return nil, err
+		}
+
+		if lastCmdID.Valid {
+			fp.LastCommandID = lastCmdID.String
+		}
+		if lastCmdStatus.Valid {
+			fp.LastCommandStatus = lastCmdStatus.String
+		}
+		if currFw.Valid {
+			fp.CurrentFirmware = currFw.String
+		}
+		if targetFw.Valid {
+			fp.TargetFirmware = targetFw.String
 		}
 
 		if configTemplateID.Valid {
@@ -195,8 +243,17 @@ func (r *FleetRepository) ListFleetProbes(ctx context.Context, managedOnly bool,
 		if lastOTA.Valid {
 			fp.LastOTAAttempt = &lastOTA.Time
 		}
+		if lastSeen.Valid {
+			fp.LastSeen = lastSeen.Time
+		}
+		if status.Valid {
+			fp.Status = status.String
+		}
 
-		json.Unmarshal(groupsJSON, &fp.Groups)
+		err = json.Unmarshal(groupsJSON, &fp.Groups)
+		if err != nil {
+			return nil, err
+		}
 		json.Unmarshal(tagsJSON, &fp.Tags)
 		json.Unmarshal(maintWindowJSON, &fp.MaintenanceWindow)
 
@@ -452,10 +509,22 @@ func (r *FleetRepository) GetFleetCommand(ctx context.Context, commandID string)
 		return nil, err
 	}
 
-	json.Unmarshal(payloadJSON, &cmd.Payload)
-	json.Unmarshal(groupsJSON, &cmd.TargetGroups)
-	json.Unmarshal(probesJSON, &cmd.TargetProbes)
-	json.Unmarshal(metadataJSON, &cmd.Metadata)
+	err = json.Unmarshal(payloadJSON, &cmd.Payload)
+	if err != nil {
+		return nil, err
+	}
+	err = json.Unmarshal(groupsJSON, &cmd.TargetGroups)
+	if err != nil {
+		return nil, err
+	}
+	err = json.Unmarshal(probesJSON, &cmd.TargetProbes)
+	if err != nil {
+		return nil, err
+	}
+	err = json.Unmarshal(metadataJSON, &cmd.Metadata)
+	if err != nil {
+		return nil, err
+	}
 
 	if scheduledFor.Valid {
 		cmd.ScheduledFor = &scheduledFor.Time
@@ -614,7 +683,7 @@ func (r *FleetRepository) ListProbeCommands(ctx context.Context, probeID string,
 	query := `
 		SELECT fcp.command_id, fcp.probe_id, fcp.status, fcp.result,
 		       fcp.error_message, fcp.sent_at, fcp.acknowledged_at, fcp.completed_at,
-		       fc.command_type, fc.issued_at
+		       fc.command_type, fc.issued_at, fcp.retry_count
 		FROM fleet_command_probes fcp
 		JOIN fleet_commands fc ON fcp.command_id = fc.id
 		WHERE fcp.probe_id = $1
@@ -637,7 +706,7 @@ func (r *FleetRepository) ListProbeCommands(ctx context.Context, probeID string,
 		err := rows.Scan(
 			&status.CommandID, &status.ProbeID, &status.Status, &resultJSON,
 			&status.ErrorMessage, &sentAt, &acknowledgedAt, &completedAt,
-			&status.CommandType, &status.IssuedAt,
+			&status.CommandType, &status.IssuedAt, &status.RetryCount,
 		)
 		if err != nil {
 			return nil, err
@@ -842,4 +911,37 @@ func calculateFleetHealthScore(status *models.FleetStatusResponse) float64 {
 	}
 
 	return score
+}
+
+// GetUnenrolledProbes returns probes that are not currently in the fleet_probes table.
+func (r *FleetRepository) GetUnenrolledProbes(ctx context.Context) ([]models.Probe, error) {
+	query := `
+		SELECT p.probe_id, p.location, p.building, p.floor, p.department, 
+			   p.status, p.firmware_version, p.last_seen, p.created_at, p.updated_at
+		FROM probes p
+		WHERE NOT EXISTS (
+			SELECT 1 FROM fleet_probes fp WHERE fp.probe_id = p.probe_id
+		)
+		ORDER BY p.last_seen DESC
+	`
+
+	rows, err := r.db.QueryContext(ctx, query)
+	if err != nil {
+		return nil, fmt.Errorf("failed to query unenrolled probes: %w", err)
+	}
+	defer rows.Close()
+
+	var probes []models.Probe
+	for rows.Next() {
+		var p models.Probe
+		err := rows.Scan(
+			&p.ProbeID, &p.Location, &p.Building, &p.Floor, &p.Department,
+			&p.Status, &p.FirmwareVersion, &p.LastSeen, &p.CreatedAt, &p.UpdatedAt,
+		)
+		if err != nil {
+			return nil, fmt.Errorf("failed to scan probe: %w", err)
+		}
+		probes = append(probes, p)
+	}
+	return probes, nil
 }

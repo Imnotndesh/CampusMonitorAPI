@@ -30,12 +30,16 @@ type FleetProbe struct {
 	OTAAttempts         int                    `json:"ota_attempts" db:"ota_attempts"`
 	CreatedAt           time.Time              `json:"created_at" db:"created_at"`
 	UpdatedAt           time.Time              `json:"updated_at" db:"updated_at"`
+
+	// Fields from probes table (joined)
+	Status   string    `json:"status" db:"status"`
+	LastSeen time.Time `json:"last_seen" db:"last_seen"`
 }
 
 type MaintenanceWindow struct {
-	Start    string `json:"start"` // "02:00"
-	End      string `json:"end"`   // "04:00"
-	Timezone string `json:"timezone"`
+	Start    string `json:"start" db:"start"` // "02:00"
+	End      string `json:"end" db:"end"`     // "04:00"
+	Timezone string `json:"timezone" db:"timezone"`
 }
 
 // FleetConfigTemplate represents a reusable configuration template
@@ -133,10 +137,12 @@ type FleetCommand struct {
 type FleetCommandProbeStatus struct {
 	CommandID      string                 `json:"command_id" db:"command_id"`
 	ProbeID        string                 `json:"probe_id" db:"probe_id"`
+	CommandType    string                 `json:"command_type" db:"command_type"`
 	Status         string                 `json:"status" db:"status"`
 	SentAt         *time.Time             `json:"sent_at,omitempty" db:"sent_at"`
 	AcknowledgedAt *time.Time             `json:"acknowledged_at,omitempty" db:"acknowledged_at"`
 	CompletedAt    *time.Time             `json:"completed_at,omitempty" db:"completed_at"`
+	IssuedAt       time.Time              `json:"issued_at" db:"issued_at"`
 	Result         map[string]interface{} `json:"result,omitempty" db:"result"`
 	ErrorMessage   string                 `json:"error_message,omitempty" db:"error_message"`
 	RetryCount     int                    `json:"retry_count" db:"retry_count"`
@@ -224,7 +230,7 @@ type RolloutTimeline struct {
 
 // FleetBroadcastMessage for real-time fleet updates
 type FleetBroadcastMessage struct {
-	Type      string      `json:"type"` // "command", "status", "alert"
+	Type      string      `json:"type"`
 	CommandID string      `json:"command_id,omitempty"`
 	ProbeID   string      `json:"probe_id,omitempty"`
 	Timestamp time.Time   `json:"timestamp"`

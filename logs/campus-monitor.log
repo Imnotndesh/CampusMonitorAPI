@@ -7707,3 +7707,2225 @@
 2026-02-22 19:26:04 [INFO] WebSocket Hub shutting down...
 2026-02-22 19:26:04 [INFO] Shutting down server...
 2026-02-22 19:26:04 [INFO] API server ready on http://0.0.0.0:9080
+2026-02-24 21:50:24 [INFO] Starting Campus Monitor API Server
+2026-02-24 21:50:24 [INFO] Database connected successfully
+2026-02-24 21:50:24 [INFO] Connecting to MQTT broker: localhost:1883
+2026-02-24 21:50:24 [INFO] Successfully connected to MQTT broker
+2026-02-24 21:50:24 [INFO] MQTT connection established
+2026-02-24 21:50:24 [INFO] Successfully subscribed to topic: campus/probes/telemetry
+2026-02-24 21:50:24 [INFO] Successfully subscribed to topic: campus/probes/telemetry/offline
+2026-02-24 21:50:24 [INFO] Successfully subscribed to topic: campus/probes/+/result
+2026-02-24 21:50:24 [INFO] MQTT subscriptions active
+2026-02-24 21:50:24 [INFO] Started background monitors
+2026-02-24 21:50:24 [INFO] Starting Probe Monitor
+2026-02-24 21:50:24 [INFO] Probe Monitor started successfully
+2026-02-24 21:50:24 [INFO] Subscribing to config broadcasts: campus/probes/+/config
+2026-02-24 21:50:24 [INFO] Subscribing to status broadcasts: campus/probes/+/status
+2026-02-24 21:50:24 [INFO] Successfully subscribed to topic with channel: campus/probes/+/status
+2026-02-24 21:50:24 [INFO] Successfully subscribed to topic with channel: campus/probes/+/config
+2026-02-24 21:50:24 [INFO] All handlers and WebSocket endpoint registered
+2026-02-24 21:50:24 [INFO] All handlers registered
+2026-02-24 21:50:24 [INFO] Starting HTTP server on 0.0.0.0:9080
+2026-02-24 21:50:24 [INFO] WebSocket Hub started
+2026-02-24 22:23:18 [INFO] New WS Client connected. Total: 1
+2026-02-24 22:23:18 [INFO] New WS Client connected. Total: 1
+2026-02-24 22:23:18 [INFO] GET /api/v1/probes 200 353ms 559 bytes
+2026-02-24 22:23:23 [INFO] New WS Client connected. Total: 1
+2026-02-24 22:23:23 [INFO] GET /api/v1/probes 200 1ms 559 bytes
+2026-02-24 22:23:24 [INFO] New WS Client connected. Total: 1
+2026-02-24 22:23:26 [INFO] GET /api/v1/fleet/templates 200 394ms 5 bytes
+2026-02-24 22:23:26 [INFO] New WS Client connected. Total: 1
+2026-02-24 22:23:27 [INFO] GET /api/v1/fleet/commands 200 604ms 5 bytes
+2026-02-24 22:23:27 [INFO] GET /api/v1/fleet/probes 200 653ms 5 bytes
+2026-02-24 22:23:27 [INFO] GET /api/v1/fleet/groups 200 652ms 5 bytes
+2026-02-24 22:23:27 [INFO] GET /api/v1/fleet/status 200 689ms 222 bytes
+2026-02-24 22:23:29 [INFO] New WS Client connected. Total: 2
+2026-02-24 22:23:32 [INFO] GET /api/v1/fleet/status 200 4ms 221 bytes
+2026-02-24 22:23:32 [INFO] GET /api/v1/fleet/templates 200 3ms 5 bytes
+2026-02-24 22:23:32 [INFO] GET /api/v1/fleet/commands 200 8ms 5 bytes
+2026-02-24 22:23:32 [INFO] New WS Client connected. Total: 1
+2026-02-24 22:23:32 [INFO] GET /api/v1/fleet/probes 200 22ms 5 bytes
+2026-02-24 22:23:32 [INFO] GET /api/v1/fleet/groups 200 22ms 5 bytes
+2026-02-24 22:23:35 [INFO] New WS Client connected. Total: 1
+2026-02-24 22:23:36 [INFO] New WS Client connected. Total: 2
+2026-02-24 22:23:56 [INFO] GET /api/v1/fleet/probes 200 3ms 5 bytes
+2026-02-24 22:23:56 [INFO] GET /api/v1/fleet/groups 200 4ms 5 bytes
+2026-02-24 22:23:56 [INFO] New WS Client connected. Total: 1
+2026-02-24 22:23:56 [INFO] GET /api/v1/fleet/templates 200 6ms 5 bytes
+2026-02-24 22:23:56 [INFO] GET /api/v1/fleet/commands 200 7ms 5 bytes
+2026-02-24 22:23:56 [INFO] GET /api/v1/fleet/status 200 25ms 221 bytes
+2026-02-24 22:23:59 [INFO] New WS Client connected. Total: 1
+2026-02-24 22:23:59 [INFO] New WS Client connected. Total: 2
+2026-02-24 22:26:00 [INFO] New WS Client connected. Total: 3
+2026-02-24 22:26:00 [INFO] GET /api/v1/fleet/probes 200 5ms 5 bytes
+2026-02-24 22:26:00 [INFO] GET /api/v1/fleet/status 200 8ms 222 bytes
+2026-02-24 22:26:00 [INFO] GET /api/v1/fleet/groups 200 1ms 5 bytes
+2026-02-24 22:26:00 [INFO] GET /api/v1/fleet/templates 200 4ms 5 bytes
+2026-02-24 22:26:00 [INFO] GET /api/v1/fleet/commands 200 2ms 5 bytes
+2026-02-24 22:26:03 [INFO] New WS Client connected. Total: 4
+2026-02-24 22:26:05 [INFO] GET /api/v1/fleet/commands 200 0ms 5 bytes
+2026-02-24 22:26:10 [INFO] GET /api/v1/fleet/probes 200 1ms 5 bytes
+2026-02-24 22:26:10 [INFO] GET /api/v1/fleet/commands 200 0ms 5 bytes
+2026-02-24 22:26:15 [INFO] GET /api/v1/fleet/status 200 3ms 222 bytes
+2026-02-24 22:26:16 [INFO] GET /api/v1/fleet/commands 200 1ms 5 bytes
+2026-02-24 22:26:20 [INFO] GET /api/v1/fleet/probes 200 1ms 5 bytes
+2026-02-24 22:26:21 [INFO] GET /api/v1/fleet/commands 200 1ms 5 bytes
+2026-02-24 22:26:26 [INFO] GET /api/v1/fleet/commands 200 1ms 5 bytes
+2026-02-24 22:26:30 [INFO] GET /api/v1/fleet/status 200 3ms 222 bytes
+2026-02-24 22:26:31 [INFO] GET /api/v1/fleet/probes 200 1ms 5 bytes
+2026-02-24 22:26:31 [INFO] GET /api/v1/fleet/commands 200 0ms 5 bytes
+2026-02-24 22:26:36 [INFO] GET /api/v1/fleet/commands 200 1ms 5 bytes
+2026-02-24 22:26:41 [INFO] GET /api/v1/fleet/probes 200 1ms 5 bytes
+2026-02-24 22:26:41 [INFO] GET /api/v1/fleet/commands 200 0ms 5 bytes
+2026-02-24 22:26:45 [INFO] GET /api/v1/fleet/status 200 4ms 222 bytes
+2026-02-24 22:26:46 [INFO] GET /api/v1/fleet/commands 200 1ms 5 bytes
+2026-02-24 22:26:47 [INFO] GET /api/v1/alerts/active 200 0ms 5 bytes
+2026-02-24 22:26:48 [INFO] GET /api/v1/topology/layout 200 2ms 408 bytes
+2026-02-24 22:26:48 [INFO] GET /api/v1/topology/heatmap 200 28ms 315 bytes
+2026-02-24 22:26:49 [INFO] GET /api/v1/analytics/timeseries/latency 200 14ms 3 bytes
+2026-02-24 22:26:49 [INFO] GET /api/v1/analytics/timeseries/rssi 200 22ms 3 bytes
+2026-02-24 22:26:49 [INFO] GET /api/v1/analytics/channels 200 24ms 3 bytes
+2026-02-24 22:26:49 [INFO] GET /api/v1/analytics/health 200 29ms 172 bytes
+2026-02-24 22:26:49 [INFO] GET /api/v1/analytics/congestion 200 10ms 3 bytes
+2026-02-24 22:26:49 [INFO] GET /api/v1/analytics/aps 200 53ms 3 bytes
+2026-02-24 22:26:49 [INFO] GET /api/v1/probes 200 81ms 559 bytes
+2026-02-24 22:26:50 [INFO] GET /api/v1/alerts/active 200 2ms 5 bytes
+2026-02-24 22:26:51 [INFO] GET /api/v1/fleet/commands 200 2ms 5 bytes
+2026-02-24 22:26:51 [INFO] GET /api/v1/fleet/templates 200 7ms 5 bytes
+2026-02-24 22:26:51 [INFO] GET /api/v1/fleet/groups 200 16ms 5 bytes
+2026-02-24 22:26:51 [INFO] GET /api/v1/fleet/status 200 21ms 222 bytes
+2026-02-24 22:26:51 [INFO] GET /api/v1/fleet/probes 200 23ms 5 bytes
+2026-02-24 22:26:54 [INFO] GET /api/v1/fleet/commands 200 3ms 5 bytes
+2026-02-24 22:26:54 [INFO] GET /api/v1/fleet/commands 200 1ms 5 bytes
+2026-02-24 22:26:55 [INFO] GET /api/v1/fleet/commands 200 1ms 5 bytes
+2026-02-24 22:26:55 [INFO] GET /api/v1/fleet/commands 200 1ms 5 bytes
+2026-02-24 22:26:56 [INFO] GET /api/v1/fleet/commands 200 1ms 5 bytes
+2026-02-24 22:27:01 [INFO] GET /api/v1/fleet/probes 200 2ms 5 bytes
+2026-02-24 22:27:01 [INFO] GET /api/v1/fleet/commands 200 1ms 5 bytes
+2026-02-24 22:27:06 [INFO] GET /api/v1/fleet/status 200 7ms 222 bytes
+2026-02-24 22:27:06 [INFO] GET /api/v1/fleet/commands 200 0ms 5 bytes
+2026-02-24 22:27:11 [INFO] GET /api/v1/fleet/probes 200 1ms 5 bytes
+2026-02-24 22:27:11 [INFO] GET /api/v1/fleet/commands 200 0ms 5 bytes
+2026-02-24 22:27:16 [INFO] GET /api/v1/fleet/commands 200 1ms 5 bytes
+2026-02-24 22:27:19 [INFO] Sending fleet command: type=fleet_status, strategy=immediate
+2026-02-24 22:27:19 [ERROR] Failed to send fleet command: no probes match targeting criteria
+2026-02-24 22:27:19 [INFO] POST /api/v1/fleet/commands 500 1ms 47 bytes
+2026-02-24 22:27:21 [INFO] GET /api/v1/fleet/status 200 6ms 221 bytes
+2026-02-24 22:27:21 [INFO] GET /api/v1/fleet/probes 200 2ms 5 bytes
+2026-02-24 22:27:22 [INFO] GET /api/v1/fleet/commands 200 0ms 5 bytes
+2026-02-24 22:27:23 [INFO] GET /api/v1/fleet/commands 200 1ms 5 bytes
+2026-02-24 22:27:23 [INFO] GET /api/v1/fleet/commands 200 1ms 5 bytes
+2026-02-24 22:27:24 [INFO] GET /api/v1/fleet/commands 200 2ms 5 bytes
+2026-02-24 22:27:24 [INFO] GET /api/v1/fleet/commands 200 2ms 5 bytes
+2026-02-24 22:27:29 [INFO] GET /api/v1/fleet/commands 200 1ms 5 bytes
+2026-02-24 22:27:31 [INFO] GET /api/v1/fleet/probes 200 10ms 5 bytes
+2026-02-24 22:27:34 [INFO] GET /api/v1/fleet/commands 200 0ms 5 bytes
+2026-02-24 22:27:36 [INFO] GET /api/v1/fleet/status 200 3ms 222 bytes
+2026-02-24 22:27:38 [INFO] Shutting down server...
+2026-02-24 22:27:38 [INFO] API server ready on http://0.0.0.0:9080
+2026-02-24 22:27:38 [INFO] WebSocket Hub shutting down...
+2026-02-24 22:44:14 [INFO] Starting Campus Monitor API Server
+2026-02-24 22:44:14 [INFO] Database connected successfully
+2026-02-24 22:44:14 [INFO] Connecting to MQTT broker: localhost:1883
+2026-02-24 22:44:14 [INFO] MQTT connection established
+2026-02-24 22:44:14 [INFO] Successfully connected to MQTT broker
+2026-02-24 22:44:14 [INFO] Successfully subscribed to topic: campus/probes/telemetry
+2026-02-24 22:44:14 [INFO] Successfully subscribed to topic: campus/probes/telemetry/offline
+2026-02-24 22:44:14 [INFO] Successfully subscribed to topic: campus/probes/+/result
+2026-02-24 22:44:14 [INFO] MQTT subscriptions active
+2026-02-24 22:44:14 [INFO] Started background monitors
+2026-02-24 22:44:14 [INFO] Starting Probe Monitor
+2026-02-24 22:44:14 [INFO] Probe Monitor started successfully
+2026-02-24 22:44:14 [INFO] Subscribing to config broadcasts: campus/probes/+/config
+2026-02-24 22:44:14 [INFO] Successfully subscribed to topic with channel: campus/probes/+/config
+2026-02-24 22:44:14 [INFO] Subscribing to status broadcasts: campus/probes/+/status
+2026-02-24 22:44:14 [INFO] Successfully subscribed to topic with channel: campus/probes/+/status
+2026-02-24 22:44:14 [INFO] All handlers and WebSocket endpoint registered
+2026-02-24 22:44:14 [INFO] All handlers registered
+2026-02-24 22:44:14 [INFO] Starting HTTP server on 0.0.0.0:9080
+2026-02-24 22:44:14 [INFO] WebSocket Hub started
+2026-02-24 22:49:56 [INFO] GET /api/v1/analytics/health 200 87ms 172 bytes
+2026-02-24 22:49:56 [INFO] GET /api/v1/analytics/health 200 70ms 172 bytes
+2026-02-24 22:49:56 [INFO] New WS Client connected. Total: 1
+2026-02-24 22:49:56 [INFO] GET /api/v1/alerts/active 200 11ms 5 bytes
+2026-02-24 22:49:56 [INFO] GET /api/v1/alerts/active 200 21ms 5 bytes
+2026-02-24 22:49:56 [INFO] GET /api/v1/analytics/timeseries/rssi 200 115ms 3 bytes
+2026-02-24 22:49:56 [INFO] GET /api/v1/analytics/timeseries/latency 200 126ms 3 bytes
+2026-02-24 22:49:56 [INFO] GET /api/v1/analytics/health 200 131ms 172 bytes
+2026-02-24 22:49:56 [INFO] GET /api/v1/fleet/status 200 78ms 222 bytes
+2026-02-24 22:49:56 [INFO] GET /api/v1/analytics/health 200 172ms 172 bytes
+2026-02-24 22:49:59 [INFO] New WS Client connected. Total: 2
+2026-02-24 22:50:06 [INFO] GET /api/v1/alerts/active 200 1ms 5 bytes
+2026-02-24 22:50:06 [INFO] GET /api/v1/alerts/active 200 6ms 5 bytes
+2026-02-24 22:50:17 [INFO] GET /api/v1/analytics/health 200 22ms 172 bytes
+2026-02-24 22:50:17 [INFO] GET /api/v1/analytics/timeseries/rssi 200 10ms 3 bytes
+2026-02-24 22:50:17 [INFO] GET /api/v1/alerts/active 200 25ms 5 bytes
+2026-02-24 22:50:17 [INFO] GET /api/v1/analytics/timeseries/latency 200 28ms 3 bytes
+2026-02-24 22:50:17 [INFO] GET /api/v1/fleet/status 200 41ms 222 bytes
+2026-02-24 22:50:17 [INFO] GET /api/v1/alerts/active 200 2ms 5 bytes
+2026-02-24 22:50:17 [INFO] GET /api/v1/analytics/health 200 15ms 172 bytes
+2026-02-24 22:50:17 [INFO] GET /api/v1/analytics/health 200 3ms 172 bytes
+2026-02-24 22:50:17 [INFO] GET /api/v1/analytics/health 200 3ms 172 bytes
+2026-02-24 22:50:27 [INFO] GET /api/v1/alerts/active 200 9ms 5 bytes
+2026-02-24 22:50:27 [INFO] GET /api/v1/alerts/active 200 1ms 5 bytes
+2026-02-24 22:50:32 [INFO] GET /api/v1/fleet/status 200 3ms 222 bytes
+2026-02-24 22:50:38 [INFO] GET /api/v1/alerts/active 200 1ms 5 bytes
+2026-02-24 22:50:38 [INFO] GET /api/v1/alerts/active 200 1ms 5 bytes
+2026-02-24 22:50:47 [INFO] GET /api/v1/fleet/status 200 3ms 222 bytes
+2026-02-24 22:50:48 [INFO] GET /api/v1/alerts/active 200 0ms 5 bytes
+2026-02-24 22:50:48 [INFO] GET /api/v1/alerts/active 200 0ms 5 bytes
+2026-02-24 22:50:58 [INFO] GET /api/v1/alerts/active 200 2ms 5 bytes
+2026-02-24 22:50:58 [INFO] GET /api/v1/alerts/active 200 0ms 5 bytes
+2026-02-24 22:51:02 [INFO] GET /api/v1/fleet/status 200 5ms 222 bytes
+2026-02-24 22:51:08 [INFO] GET /api/v1/alerts/active 200 0ms 5 bytes
+2026-02-24 22:51:08 [INFO] GET /api/v1/alerts/active 200 0ms 5 bytes
+2026-02-24 22:51:18 [INFO] GET /api/v1/fleet/status 200 2ms 222 bytes
+2026-02-24 22:51:18 [INFO] GET /api/v1/alerts/active 200 0ms 5 bytes
+2026-02-24 22:51:18 [INFO] GET /api/v1/alerts/active 200 0ms 5 bytes
+2026-02-24 22:51:28 [INFO] GET /api/v1/alerts/active 200 0ms 5 bytes
+2026-02-24 22:51:28 [INFO] GET /api/v1/alerts/active 200 1ms 5 bytes
+2026-02-24 22:51:33 [INFO] GET /api/v1/fleet/status 200 7ms 222 bytes
+2026-02-24 22:51:38 [INFO] GET /api/v1/alerts/active 200 0ms 5 bytes
+2026-02-24 22:51:38 [INFO] GET /api/v1/alerts/active 200 0ms 5 bytes
+2026-02-24 22:51:48 [INFO] GET /api/v1/fleet/status 200 11ms 222 bytes
+2026-02-24 22:51:48 [INFO] GET /api/v1/alerts/active 200 0ms 5 bytes
+2026-02-24 22:51:48 [INFO] GET /api/v1/alerts/active 200 0ms 5 bytes
+2026-02-24 22:51:58 [INFO] GET /api/v1/alerts/active 200 1ms 5 bytes
+2026-02-24 22:51:58 [INFO] GET /api/v1/alerts/active 200 0ms 5 bytes
+2026-02-24 22:52:03 [INFO] GET /api/v1/fleet/status 200 3ms 222 bytes
+2026-02-24 22:52:08 [INFO] GET /api/v1/alerts/active 200 1ms 5 bytes
+2026-02-24 22:52:08 [INFO] GET /api/v1/alerts/active 200 0ms 5 bytes
+2026-02-24 22:52:18 [INFO] GET /api/v1/fleet/status 200 3ms 222 bytes
+2026-02-24 22:52:18 [INFO] GET /api/v1/alerts/active 200 0ms 5 bytes
+2026-02-24 22:52:18 [INFO] GET /api/v1/alerts/active 200 0ms 5 bytes
+2026-02-24 22:52:28 [INFO] GET /api/v1/alerts/active 200 1ms 5 bytes
+2026-02-24 22:52:28 [INFO] GET /api/v1/alerts/active 200 0ms 5 bytes
+2026-02-24 22:52:33 [INFO] GET /api/v1/fleet/status 200 4ms 222 bytes
+2026-02-24 22:52:38 [INFO] GET /api/v1/alerts/active 200 0ms 5 bytes
+2026-02-24 22:52:38 [INFO] GET /api/v1/alerts/active 200 0ms 5 bytes
+2026-02-24 22:52:48 [INFO] GET /api/v1/alerts/active 200 1ms 5 bytes
+2026-02-24 22:52:48 [INFO] GET /api/v1/fleet/status 200 9ms 221 bytes
+2026-02-24 22:52:48 [INFO] GET /api/v1/alerts/active 200 0ms 5 bytes
+2026-02-24 22:52:55 [INFO] GET /api/v1/analytics/health 200 2ms 172 bytes
+2026-02-24 22:52:58 [INFO] GET /api/v1/alerts/active 200 0ms 5 bytes
+2026-02-24 22:52:58 [INFO] GET /api/v1/alerts/active 200 1ms 5 bytes
+2026-02-24 22:53:03 [INFO] GET /api/v1/fleet/status 200 3ms 222 bytes
+2026-02-24 22:53:06 [INFO] GET /api/v1/analytics/health 200 4ms 171 bytes
+2026-02-24 22:53:08 [INFO] GET /api/v1/alerts/active 200 0ms 5 bytes
+2026-02-24 22:53:08 [INFO] GET /api/v1/alerts/active 200 0ms 5 bytes
+2026-02-24 22:53:18 [INFO] GET /api/v1/alerts/active 200 0ms 5 bytes
+2026-02-24 22:53:18 [INFO] GET /api/v1/fleet/status 200 3ms 222 bytes
+2026-02-24 22:53:18 [INFO] GET /api/v1/alerts/active 200 0ms 5 bytes
+2026-02-24 22:53:24 [INFO] GET /api/v1/analytics/timeseries/latency 200 2ms 3 bytes
+2026-02-24 22:53:28 [INFO] GET /api/v1/alerts/active 200 0ms 5 bytes
+2026-02-24 22:53:28 [INFO] GET /api/v1/alerts/active 200 0ms 5 bytes
+2026-02-24 22:53:33 [INFO] GET /api/v1/fleet/status 200 3ms 222 bytes
+2026-02-24 22:53:38 [INFO] GET /api/v1/alerts/active 200 0ms 5 bytes
+2026-02-24 22:53:38 [INFO] GET /api/v1/alerts/active 200 1ms 5 bytes
+2026-02-24 22:53:48 [INFO] GET /api/v1/alerts/active 200 0ms 5 bytes
+2026-02-24 22:53:48 [INFO] GET /api/v1/fleet/status 200 4ms 222 bytes
+2026-02-24 22:53:48 [INFO] GET /api/v1/alerts/active 200 0ms 5 bytes
+2026-02-24 22:53:48 [INFO] GET /api/v1/analytics/timeseries/rssi 200 1ms 3 bytes
+2026-02-24 22:53:58 [INFO] GET /api/v1/topology/layout 200 4ms 408 bytes
+2026-02-24 22:53:58 [INFO] GET /api/v1/topology/heatmap 200 18ms 315 bytes
+2026-02-24 22:53:59 [INFO] GET /api/v1/alerts/active 200 1ms 5 bytes
+2026-02-24 22:54:01 [INFO] GET /api/v1/analytics/timeseries/rssi 200 3ms 3 bytes
+2026-02-24 22:54:01 [INFO] GET /api/v1/analytics/timeseries/latency 200 1ms 3 bytes
+2026-02-24 22:54:01 [INFO] GET /api/v1/analytics/health 200 2ms 171 bytes
+2026-02-24 22:54:01 [INFO] GET /api/v1/analytics/channels 200 3ms 3 bytes
+2026-02-24 22:54:01 [INFO] GET /api/v1/probes 200 5ms 559 bytes
+2026-02-24 22:54:01 [INFO] GET /api/v1/analytics/aps 200 7ms 3 bytes
+2026-02-24 22:54:01 [INFO] GET /api/v1/analytics/congestion 200 4ms 3 bytes
+2026-02-24 22:54:06 [INFO] GET /api/v1/analytics/health 200 7ms 172 bytes
+2026-02-24 22:54:06 [INFO] GET /api/v1/analytics/channels 200 13ms 78 bytes
+2026-02-24 22:54:06 [INFO] GET /api/v1/analytics/timeseries/rssi 200 20ms 66 bytes
+2026-02-24 22:54:06 [INFO] GET /api/v1/analytics/timeseries/latency 200 21ms 66 bytes
+2026-02-24 22:54:06 [INFO] GET /api/v1/analytics/aps 200 6ms 3 bytes
+2026-02-24 22:54:06 [INFO] GET /api/v1/analytics/congestion 200 7ms 3 bytes
+2026-02-24 22:54:14 [INFO] GET /api/v1/analytics/timeseries/rssi 200 2ms 67 bytes
+2026-02-24 22:54:14 [INFO] Detecting anomalies: probe=Cabinet, hours=168
+2026-02-24 22:54:14 [INFO] GET /api/v1/analytics/timeseries/latency 200 6ms 66 bytes
+2026-02-24 22:54:14 [INFO] GET /api/v1/commands/probe/Cabinet 200 7ms 3 bytes
+2026-02-24 22:54:14 [INFO] GET /api/v1/analytics/roaming/Cabinet 200 13ms 3 bytes
+2026-02-24 22:54:14 [INFO] GET /api/v1/analytics/anomalies/Cabinet 200 27ms 3 bytes
+2026-02-24 22:54:14 [INFO] GET /api/v1/analytics/performance/Cabinet 200 44ms 341 bytes
+2026-02-24 22:54:15 [INFO] Detecting anomalies: probe=Main, hours=168
+2026-02-24 22:54:15 [INFO] GET /api/v1/analytics/performance/Main 200 13ms 326 bytes
+2026-02-24 22:54:15 [INFO] GET /api/v1/analytics/timeseries/latency 200 20ms 66 bytes
+2026-02-24 22:54:15 [INFO] GET /api/v1/analytics/timeseries/rssi 200 22ms 66 bytes
+2026-02-24 22:54:15 [INFO] GET /api/v1/analytics/anomalies/Main 200 17ms 3 bytes
+2026-02-24 22:54:15 [INFO] GET /api/v1/analytics/roaming/Main 200 14ms 3 bytes
+2026-02-24 22:54:15 [INFO] GET /api/v1/commands/probe/Main 200 39ms 3 bytes
+2026-02-24 22:54:16 [INFO] GET /api/v1/analytics/timeseries/rssi 200 2ms 3 bytes
+2026-02-24 22:54:16 [INFO] GET /api/v1/analytics/timeseries/latency 200 1ms 3 bytes
+2026-02-24 22:54:16 [INFO] Detecting anomalies: probe=Main, hours=1
+2026-02-24 22:54:16 [INFO] GET /api/v1/analytics/performance/Main 200 4ms 249 bytes
+2026-02-24 22:54:16 [INFO] GET /api/v1/analytics/roaming/Main 200 4ms 3 bytes
+2026-02-24 22:54:16 [INFO] GET /api/v1/analytics/anomalies/Main 200 8ms 3 bytes
+2026-02-24 22:54:19 [INFO] GET /api/v1/analytics/health 200 3ms 172 bytes
+2026-02-24 22:54:19 [INFO] GET /api/v1/analytics/timeseries/rssi 200 2ms 3 bytes
+2026-02-24 22:54:19 [INFO] GET /api/v1/analytics/timeseries/latency 200 1ms 3 bytes
+2026-02-24 22:54:19 [INFO] GET /api/v1/alerts/active 200 1ms 5 bytes
+2026-02-24 22:54:19 [INFO] GET /api/v1/analytics/health 200 12ms 171 bytes
+2026-02-24 22:54:19 [INFO] GET /api/v1/analytics/health 200 6ms 171 bytes
+2026-02-24 22:54:19 [INFO] GET /api/v1/fleet/status 200 29ms 222 bytes
+2026-02-24 22:54:19 [INFO] GET /api/v1/alerts/active 200 14ms 5 bytes
+2026-02-24 22:54:19 [INFO] GET /api/v1/analytics/health 200 3ms 172 bytes
+2026-02-24 22:54:29 [INFO] GET /api/v1/alerts/active 200 0ms 5 bytes
+2026-02-24 22:54:29 [INFO] GET /api/v1/alerts/active 200 0ms 5 bytes
+2026-02-24 22:54:34 [INFO] GET /api/v1/alerts/active 200 0ms 5 bytes
+2026-02-24 22:54:34 [INFO] GET /api/v1/fleet/status 200 5ms 222 bytes
+2026-02-24 22:54:39 [INFO] GET /api/v1/alerts/active 200 0ms 5 bytes
+2026-02-24 22:55:23 [INFO] GET /api/v1/probes 200 34ms 559 bytes
+2026-02-24 22:55:23 [INFO] GET /api/v1/fleet/status 200 43ms 222 bytes
+2026-02-24 22:55:23 [INFO] GET /api/v1/fleet/templates 200 46ms 5 bytes
+2026-02-24 22:55:23 [INFO] GET /api/v1/fleet/groups 200 48ms 5 bytes
+2026-02-24 22:55:23 [INFO] GET /api/v1/fleet/commands 200 68ms 5 bytes
+2026-02-24 22:55:23 [INFO] GET /api/v1/fleet/probes 200 93ms 5 bytes
+2026-02-24 22:55:25 [INFO] GET /api/v1/probes 200 2ms 559 bytes
+2026-02-24 22:55:26 [INFO] GET /api/v1/analytics/health 200 14ms 172 bytes
+2026-02-24 22:55:26 [INFO] GET /api/v1/analytics/timeseries/rssi 200 8ms 3 bytes
+2026-02-24 22:55:26 [INFO] GET /api/v1/analytics/timeseries/latency 200 13ms 3 bytes
+2026-02-24 22:55:26 [INFO] GET /api/v1/analytics/health 200 7ms 172 bytes
+2026-02-24 22:55:26 [INFO] GET /api/v1/analytics/health 200 2ms 172 bytes
+2026-02-24 22:55:26 [INFO] GET /api/v1/analytics/health 200 14ms 172 bytes
+2026-02-24 22:58:18 [INFO] GET /api/v1/analytics/health 200 164ms 172 bytes
+2026-02-24 22:58:18 [INFO] GET /api/v1/analytics/timeseries/latency 200 169ms 3 bytes
+2026-02-24 22:58:18 [INFO] GET /api/v1/analytics/timeseries/rssi 200 168ms 3 bytes
+2026-02-24 22:58:18 [INFO] GET /api/v1/analytics/health 200 183ms 172 bytes
+2026-02-24 22:58:18 [INFO] GET /api/v1/analytics/health 200 197ms 172 bytes
+2026-02-24 22:58:19 [INFO] GET /api/v1/analytics/health 200 323ms 172 bytes
+2026-02-24 22:58:22 [INFO] GET /api/v1/analytics/health 200 65ms 172 bytes
+2026-02-24 22:58:22 [INFO] GET /api/v1/analytics/timeseries/rssi 200 66ms 3 bytes
+2026-02-24 22:58:22 [INFO] GET /api/v1/analytics/health 200 66ms 172 bytes
+2026-02-24 22:58:22 [INFO] GET /api/v1/analytics/health 200 66ms 172 bytes
+2026-02-24 22:58:22 [INFO] GET /api/v1/analytics/health 200 66ms 172 bytes
+2026-02-24 22:58:22 [INFO] New WS Client connected. Total: 1
+2026-02-24 22:58:22 [INFO] GET /api/v1/analytics/timeseries/latency 200 111ms 3 bytes
+2026-02-24 22:58:25 [INFO] New WS Client connected. Total: 2
+2026-02-24 22:59:07 [INFO] GET /api/v1/analytics/health 200 3ms 172 bytes
+2026-02-24 22:59:07 [INFO] GET /api/v1/analytics/timeseries/rssi 200 2ms 3 bytes
+2026-02-24 22:59:07 [INFO] GET /api/v1/analytics/timeseries/latency 200 2ms 3 bytes
+2026-02-24 22:59:07 [INFO] GET /api/v1/analytics/health 200 5ms 172 bytes
+2026-02-24 22:59:07 [INFO] GET /api/v1/analytics/health 200 3ms 172 bytes
+2026-02-24 22:59:07 [INFO] GET /api/v1/analytics/health 200 8ms 172 bytes
+2026-02-24 22:59:13 [INFO] Shutting down server...
+2026-02-24 22:59:13 [INFO] WebSocket Hub shutting down...
+2026-02-24 22:59:13 [INFO] API server ready on http://0.0.0.0:9080
+2026-02-24 23:07:28 [INFO] Starting Campus Monitor API Server
+2026-02-24 23:07:28 [INFO] Database connected successfully
+2026-02-24 23:07:29 [INFO] Connecting to MQTT broker: localhost:1883
+2026-02-24 23:07:29 [INFO] Successfully connected to MQTT broker
+2026-02-24 23:07:29 [INFO] MQTT connection established
+2026-02-24 23:07:29 [INFO] Successfully subscribed to topic: campus/probes/telemetry
+2026-02-24 23:07:29 [INFO] Successfully subscribed to topic: campus/probes/telemetry/offline
+2026-02-24 23:07:29 [INFO] Successfully subscribed to topic: campus/probes/+/result
+2026-02-24 23:07:29 [INFO] MQTT subscriptions active
+2026-02-24 23:07:29 [INFO] Started background monitors
+2026-02-24 23:07:29 [INFO] Starting Probe Monitor
+2026-02-24 23:07:29 [INFO] Probe Monitor started successfully
+2026-02-24 23:07:29 [INFO] Subscribing to config broadcasts: campus/probes/+/config
+2026-02-24 23:07:29 [INFO] Subscribing to status broadcasts: campus/probes/+/status
+2026-02-24 23:07:29 [INFO] Successfully subscribed to topic with channel: campus/probes/+/status
+2026-02-24 23:07:29 [INFO] Successfully subscribed to topic with channel: campus/probes/+/config
+2026-02-24 23:07:29 [INFO] All handlers and WebSocket endpoint registered
+2026-02-24 23:07:29 [INFO] All handlers registered
+2026-02-24 23:07:29 [INFO] Starting HTTP server on 0.0.0.0:9080
+2026-02-24 23:07:29 [INFO] WebSocket Hub started
+2026-02-24 23:07:40 [INFO] GET /api/v1/analytics/health 200 19ms 172 bytes
+2026-02-24 23:07:40 [INFO] GET /api/v1/analytics/timeseries/rssi 200 12ms 3 bytes
+2026-02-24 23:07:40 [INFO] New WS Client connected. Total: 1
+2026-02-24 23:07:40 [INFO] GET /api/v1/analytics/health 200 54ms 172 bytes
+2026-02-24 23:07:40 [INFO] GET /api/v1/analytics/timeseries/latency 200 61ms 3 bytes
+2026-02-24 23:07:40 [INFO] GET /api/v1/analytics/health 200 72ms 172 bytes
+2026-02-24 23:07:40 [INFO] GET /api/v1/analytics/health 200 73ms 172 bytes
+2026-02-24 23:07:40 [INFO] New WS Client connected. Total: 1
+2026-02-24 23:07:43 [INFO] New WS Client connected. Total: 2
+2026-02-24 23:07:45 [INFO] GET /api/v1/analytics/health 200 2ms 172 bytes
+2026-02-24 23:07:45 [INFO] GET /api/v1/analytics/timeseries/rssi 200 7ms 3 bytes
+2026-02-24 23:07:45 [INFO] GET /api/v1/analytics/timeseries/latency 200 3ms 3 bytes
+2026-02-24 23:07:45 [INFO] GET /api/v1/analytics/health 200 6ms 172 bytes
+2026-02-24 23:07:45 [INFO] New WS Client connected. Total: 1
+2026-02-24 23:07:45 [INFO] GET /api/v1/analytics/health 200 3ms 172 bytes
+2026-02-24 23:07:45 [INFO] GET /api/v1/analytics/health 200 6ms 172 bytes
+2026-02-24 23:07:45 [INFO] New WS Client connected. Total: 1
+2026-02-24 23:07:48 [INFO] New WS Client connected. Total: 2
+2026-02-24 23:07:51 [INFO] GET /api/v1/analytics/health 200 3ms 172 bytes
+2026-02-24 23:07:51 [INFO] GET /api/v1/analytics/timeseries/latency 200 4ms 3 bytes
+2026-02-24 23:07:51 [INFO] GET /api/v1/analytics/timeseries/rssi 200 7ms 3 bytes
+2026-02-24 23:07:51 [INFO] GET /api/v1/analytics/health 200 2ms 172 bytes
+2026-02-24 23:07:51 [INFO] New WS Client connected. Total: 1
+2026-02-24 23:07:51 [INFO] GET /api/v1/analytics/health 200 2ms 172 bytes
+2026-02-24 23:07:51 [INFO] GET /api/v1/analytics/health 200 1ms 172 bytes
+2026-02-24 23:07:51 [INFO] New WS Client connected. Total: 1
+2026-02-24 23:07:54 [INFO] New WS Client connected. Total: 2
+2026-02-24 23:08:08 [INFO] GET /api/v1/analytics/health 200 3ms 172 bytes
+2026-02-24 23:08:08 [INFO] GET /api/v1/analytics/timeseries/latency 200 3ms 3 bytes
+2026-02-24 23:08:08 [INFO] GET /api/v1/analytics/health 200 7ms 172 bytes
+2026-02-24 23:08:08 [INFO] GET /api/v1/analytics/health 200 4ms 171 bytes
+2026-02-24 23:08:08 [INFO] GET /api/v1/analytics/health 200 11ms 172 bytes
+2026-02-24 23:08:08 [INFO] GET /api/v1/analytics/timeseries/rssi 200 21ms 3 bytes
+2026-02-24 23:08:08 [INFO] New WS Client connected. Total: 1
+2026-02-24 23:08:11 [INFO] New WS Client connected. Total: 2
+2026-02-24 23:08:44 [INFO] GET /api/v1/analytics/health 200 3ms 172 bytes
+2026-02-24 23:08:44 [INFO] GET /api/v1/analytics/health 200 3ms 172 bytes
+2026-02-24 23:08:44 [INFO] GET /api/v1/analytics/health 200 4ms 171 bytes
+2026-02-24 23:08:44 [INFO] GET /api/v1/analytics/timeseries/latency 200 3ms 3 bytes
+2026-02-24 23:08:44 [INFO] GET /api/v1/analytics/timeseries/rssi 200 12ms 3 bytes
+2026-02-24 23:08:44 [INFO] GET /api/v1/analytics/health 200 11ms 171 bytes
+2026-02-24 23:08:44 [INFO] New WS Client connected. Total: 1
+2026-02-24 23:08:44 [INFO] New WS Client connected. Total: 1
+2026-02-24 23:08:47 [INFO] New WS Client connected. Total: 2
+2026-02-24 23:08:53 [INFO] GET /api/v1/analytics/health 200 5ms 172 bytes
+2026-02-24 23:08:54 [INFO] GET /api/v1/analytics/health 200 4ms 171 bytes
+2026-02-24 23:08:54 [INFO] GET /api/v1/analytics/health 200 4ms 172 bytes
+2026-02-24 23:08:54 [INFO] GET /api/v1/analytics/timeseries/latency 200 3ms 3 bytes
+2026-02-24 23:08:54 [INFO] GET /api/v1/analytics/health 200 18ms 172 bytes
+2026-02-24 23:08:54 [INFO] GET /api/v1/analytics/timeseries/rssi 200 8ms 3 bytes
+2026-02-24 23:08:54 [INFO] New WS Client connected. Total: 1
+2026-02-24 23:08:54 [INFO] New WS Client connected. Total: 1
+2026-02-24 23:08:55 [INFO] GET /api/v1/analytics/health 200 2ms 172 bytes
+2026-02-24 23:08:55 [INFO] GET /api/v1/analytics/timeseries/rssi 200 1ms 3 bytes
+2026-02-24 23:08:55 [INFO] GET /api/v1/analytics/timeseries/latency 200 2ms 3 bytes
+2026-02-24 23:08:55 [INFO] GET /api/v1/analytics/health 200 4ms 172 bytes
+2026-02-24 23:08:55 [INFO] New WS Client connected. Total: 1
+2026-02-24 23:08:55 [INFO] GET /api/v1/analytics/health 200 3ms 172 bytes
+2026-02-24 23:08:55 [INFO] GET /api/v1/analytics/health 200 2ms 172 bytes
+2026-02-24 23:08:56 [INFO] New WS Client connected. Total: 1
+2026-02-24 23:08:58 [INFO] New WS Client connected. Total: 2
+2026-02-24 23:09:07 [INFO] GET /api/v1/alerts/active 200 1ms 5 bytes
+2026-02-24 23:09:17 [INFO] GET /api/v1/alerts/active 200 0ms 5 bytes
+2026-02-24 23:09:27 [INFO] GET /api/v1/alerts/active 200 1ms 5 bytes
+2026-02-24 23:09:37 [INFO] GET /api/v1/alerts/active 200 1ms 5 bytes
+2026-02-24 23:09:47 [INFO] GET /api/v1/alerts/active 200 0ms 5 bytes
+2026-02-24 23:09:57 [INFO] GET /api/v1/alerts/active 200 1ms 5 bytes
+2026-02-24 23:10:01 [INFO] GET /api/v1/analytics/health 200 4ms 172 bytes
+2026-02-24 23:10:01 [INFO] GET /api/v1/analytics/timeseries/latency 200 1ms 3 bytes
+2026-02-24 23:10:01 [INFO] GET /api/v1/analytics/timeseries/rssi 200 3ms 3 bytes
+2026-02-24 23:10:01 [INFO] GET /api/v1/analytics/health 200 5ms 172 bytes
+2026-02-24 23:10:01 [INFO] GET /api/v1/alerts/active 200 12ms 5 bytes
+2026-02-24 23:10:01 [INFO] GET /api/v1/analytics/health 200 5ms 172 bytes
+2026-02-24 23:10:01 [INFO] GET /api/v1/analytics/health 200 7ms 172 bytes
+2026-02-24 23:10:01 [INFO] New WS Client connected. Total: 1
+2026-02-24 23:10:04 [INFO] New WS Client connected. Total: 2
+2026-02-24 23:10:11 [INFO] GET /api/v1/alerts/active 200 2ms 5 bytes
+2026-02-24 23:10:14 [INFO] Shutting down server...
+2026-02-24 23:10:14 [INFO] API server ready on http://0.0.0.0:9080
+2026-02-24 23:10:14 [INFO] WebSocket Hub shutting down...
+2026-03-10 14:29:11 [INFO] Starting Campus Monitor API Server
+2026-03-10 14:29:11 [INFO] Database connected successfully
+2026-03-10 14:29:12 [INFO] Connecting to MQTT broker: localhost:1883
+2026-03-10 14:29:12 [INFO] Successfully connected to MQTT broker
+2026-03-10 14:29:12 [INFO] MQTT connection established
+2026-03-10 14:29:12 [INFO] Successfully subscribed to topic: campus/probes/telemetry
+2026-03-10 14:29:12 [INFO] Successfully subscribed to topic: campus/probes/telemetry/offline
+2026-03-10 14:29:12 [INFO] Successfully subscribed to topic: campus/probes/+/result
+2026-03-10 14:29:12 [INFO] MQTT subscriptions active
+2026-03-10 14:29:12 [INFO] Started background monitors
+2026-03-10 14:29:12 [INFO] Starting Probe Monitor
+2026-03-10 14:29:12 [INFO] Probe Monitor started successfully
+2026-03-10 14:29:12 [INFO] Subscribing to config broadcasts: campus/probes/+/config
+2026-03-10 14:29:12 [INFO] Subscribing to status broadcasts: campus/probes/+/status
+2026-03-10 14:29:12 [INFO] Successfully subscribed to topic with channel: campus/probes/+/status
+2026-03-10 14:29:12 [INFO] Successfully subscribed to topic with channel: campus/probes/+/config
+2026-03-10 14:29:12 [INFO] All handlers and WebSocket endpoint registered
+2026-03-10 14:29:12 [INFO] All handlers registered
+2026-03-10 14:29:12 [INFO] Starting HTTP server on 0.0.0.0:9080
+2026-03-10 14:29:12 [INFO] WebSocket Hub started
+2026-03-10 14:29:22 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0002943a0
+2026-03-10 14:30:22 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000294540
+2026-03-10 14:31:15 [INFO] GET /api/v1/analytics/timeseries/rssi 200 29ms 3 bytes
+2026-03-10 14:31:15 [INFO] GET /api/v1/analytics/timeseries/latency 200 90ms 3 bytes
+2026-03-10 14:31:15 [INFO] GET /api/v1/alerts/active 200 150ms 5 bytes
+2026-03-10 14:31:15 [INFO] GET /api/v1/analytics/health 200 173ms 175 bytes
+2026-03-10 14:31:15 [INFO] New WS Client connected. Total: 1
+2026-03-10 14:31:15 [INFO] GET /api/v1/analytics/health 200 177ms 175 bytes
+2026-03-10 14:31:15 [INFO] GET /api/v1/analytics/health 200 182ms 175 bytes
+2026-03-10 14:31:15 [INFO] GET /api/v1/analytics/health 200 2ms 175 bytes
+2026-03-10 14:31:15 [INFO] New WS Client connected. Total: 1
+2026-03-10 14:31:18 [INFO] New WS Client connected. Total: 2
+2026-03-10 14:31:22 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0000153f0
+2026-03-10 14:31:27 [INFO] New WS Client connected. Total: 2
+2026-03-10 14:32:22 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0003890f0
+2026-03-10 14:33:22 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0003893c0
+2026-03-10 14:34:22 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000389680
+2026-03-10 14:35:22 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000389a00
+2026-03-10 14:36:22 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000389ba0
+2026-03-10 14:37:22 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0000baf40
+2026-03-10 14:38:22 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000015bf0
+2026-03-10 14:39:22 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0000bb0a8
+2026-03-10 14:39:41 [INFO] GET /api/v1/fleet/commands 200 191ms 5 bytes
+2026-03-10 14:39:41 [INFO] New WS Client connected. Total: 1
+2026-03-10 14:39:41 [INFO] GET /api/v1/fleet/status 200 247ms 222 bytes
+2026-03-10 14:39:41 [INFO] GET /api/v1/fleet/groups 200 246ms 5 bytes
+2026-03-10 14:39:41 [INFO] GET /api/v1/fleet/unenrolled-probes 200 291ms 563 bytes
+2026-03-10 14:39:41 [INFO] GET /api/v1/fleet/templates 200 290ms 5 bytes
+2026-03-10 14:39:41 [INFO] GET /api/v1/fleet/probes 200 303ms 5 bytes
+2026-03-10 14:39:44 [INFO] New WS Client connected. Total: 2
+2026-03-10 14:39:46 [INFO] GET /api/v1/fleet/commands 200 21ms 5 bytes
+2026-03-10 14:39:51 [INFO] GET /api/v1/fleet/commands 200 2ms 5 bytes
+2026-03-10 14:39:51 [INFO] GET /api/v1/fleet/probes 200 10ms 5 bytes
+2026-03-10 14:39:56 [INFO] GET /api/v1/fleet/unenrolled-probes 200 9ms 563 bytes
+2026-03-10 14:39:56 [INFO] GET /api/v1/fleet/status 200 65ms 222 bytes
+2026-03-10 14:39:56 [INFO] GET /api/v1/fleet/commands 200 0ms 5 bytes
+2026-03-10 14:40:01 [INFO] GET /api/v1/fleet/probes 200 4ms 5 bytes
+2026-03-10 14:40:01 [INFO] GET /api/v1/fleet/commands 200 2ms 5 bytes
+2026-03-10 14:40:05 [INFO] GET /api/v1/fleet/status 200 7ms 222 bytes
+2026-03-10 14:40:05 [INFO] GET /api/v1/fleet/unenrolled-probes 200 3ms 563 bytes
+2026-03-10 14:40:05 [INFO] GET /api/v1/fleet/probes 200 8ms 5 bytes
+2026-03-10 14:40:05 [INFO] GET /api/v1/fleet/templates 200 11ms 5 bytes
+2026-03-10 14:40:05 [INFO] GET /api/v1/fleet/commands 200 9ms 5 bytes
+2026-03-10 14:40:05 [INFO] GET /api/v1/fleet/groups 200 13ms 5 bytes
+2026-03-10 14:40:06 [INFO] New WS Client connected. Total: 1
+2026-03-10 14:40:09 [INFO] New WS Client connected. Total: 2
+2026-03-10 14:40:11 [INFO] GET /api/v1/fleet/commands 200 10ms 5 bytes
+2026-03-10 14:40:16 [INFO] GET /api/v1/fleet/probes 200 3ms 5 bytes
+2026-03-10 14:40:16 [INFO] GET /api/v1/fleet/commands 200 5ms 5 bytes
+2026-03-10 14:40:21 [INFO] GET /api/v1/fleet/unenrolled-probes 200 3ms 563 bytes
+2026-03-10 14:40:21 [INFO] GET /api/v1/fleet/status 200 12ms 222 bytes
+2026-03-10 14:40:21 [INFO] GET /api/v1/fleet/commands 200 5ms 5 bytes
+2026-03-10 14:40:22 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000206270
+2026-03-10 14:40:26 [INFO] GET /api/v1/fleet/probes 200 2ms 5 bytes
+2026-03-10 14:40:26 [INFO] GET /api/v1/fleet/commands 200 1ms 5 bytes
+2026-03-10 14:41:10 [INFO] GET /api/v1/fleet/unenrolled-probes 200 2ms 570 bytes
+2026-03-10 14:41:10 [INFO] GET /api/v1/fleet/probes 200 1ms 5 bytes
+2026-03-10 14:41:10 [INFO] GET /api/v1/fleet/status 200 8ms 222 bytes
+2026-03-10 14:41:10 [INFO] GET /api/v1/fleet/groups 200 2ms 5 bytes
+2026-03-10 14:41:10 [INFO] GET /api/v1/fleet/templates 200 3ms 5 bytes
+2026-03-10 14:41:10 [INFO] GET /api/v1/fleet/commands 200 2ms 5 bytes
+2026-03-10 14:41:11 [INFO] GET /api/v1/alerts/active 200 1ms 5 bytes
+2026-03-10 14:41:12 [INFO] GET /api/v1/probes 200 1ms 566 bytes
+2026-03-10 14:41:13 [INFO] GET /api/v1/analytics/health 200 27ms 179 bytes
+2026-03-10 14:41:13 [INFO] GET /api/v1/alerts/active 200 5ms 5 bytes
+2026-03-10 14:41:13 [INFO] GET /api/v1/analytics/timeseries/latency 200 6ms 3 bytes
+2026-03-10 14:41:13 [INFO] GET /api/v1/analytics/timeseries/rssi 200 26ms 3 bytes
+2026-03-10 14:41:13 [INFO] GET /api/v1/analytics/health 200 26ms 179 bytes
+2026-03-10 14:41:13 [INFO] GET /api/v1/analytics/health 200 55ms 179 bytes
+2026-03-10 14:41:13 [INFO] GET /api/v1/analytics/health 200 71ms 179 bytes
+2026-03-10 14:41:22 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000273190
+2026-03-10 14:41:24 [INFO] GET /api/v1/alerts/active 200 10ms 5 bytes
+2026-03-10 14:41:26 [INFO] GET /api/v1/analytics/timeseries/latency 200 2ms 3 bytes
+2026-03-10 14:41:33 [INFO] GET /api/v1/analytics/timeseries/rssi 200 1ms 3 bytes
+2026-03-10 14:41:34 [INFO] GET /api/v1/alerts/active 200 3ms 5 bytes
+2026-03-10 14:41:39 [INFO] GET /api/v1/analytics/health 200 6ms 179 bytes
+2026-03-10 14:41:39 [INFO] GET /api/v1/analytics/health 200 5ms 179 bytes
+2026-03-10 14:41:39 [INFO] GET /api/v1/analytics/health 200 8ms 179 bytes
+2026-03-10 14:41:39 [INFO] GET /api/v1/analytics/health 200 4ms 179 bytes
+2026-03-10 14:41:39 [INFO] GET /api/v1/analytics/timeseries/rssi 200 4ms 3 bytes
+2026-03-10 14:41:39 [INFO] GET /api/v1/analytics/timeseries/latency 200 2ms 3 bytes
+2026-03-10 14:41:39 [INFO] GET /api/v1/alerts/active 200 1ms 5 bytes
+2026-03-10 14:41:39 [INFO] New WS Client connected. Total: 1
+2026-03-10 14:41:40 [INFO] New WS Client connected. Total: 1
+2026-03-10 14:41:43 [INFO] New WS Client connected. Total: 2
+2026-03-10 14:41:49 [INFO] GET /api/v1/alerts/active 200 0ms 5 bytes
+2026-03-10 14:42:00 [INFO] GET /api/v1/alerts/active 200 2ms 5 bytes
+2026-03-10 14:42:07 [INFO] GET /api/v1/topology/layout 200 1ms 408 bytes
+2026-03-10 14:42:07 [INFO] GET /api/v1/topology/heatmap 200 18ms 317 bytes
+2026-03-10 14:42:08 [INFO] GET /api/v1/analytics/timeseries/rssi 200 9ms 67 bytes
+2026-03-10 14:42:08 [INFO] GET /api/v1/probes 200 11ms 559 bytes
+2026-03-10 14:42:08 [INFO] GET /api/v1/analytics/timeseries/latency 200 10ms 65 bytes
+2026-03-10 14:42:08 [INFO] GET /api/v1/analytics/health 200 12ms 179 bytes
+2026-03-10 14:42:08 [INFO] GET /api/v1/analytics/channels 200 16ms 79 bytes
+2026-03-10 14:42:08 [INFO] GET /api/v1/analytics/aps 200 19ms 186 bytes
+2026-03-10 14:42:09 [INFO] GET /api/v1/analytics/congestion 200 6ms 146 bytes
+2026-03-10 14:42:13 [INFO] Detecting anomalies: probe=Cabinet, hours=24
+2026-03-10 14:42:13 [INFO] GET /api/v1/analytics/timeseries/rssi 200 13ms 3 bytes
+2026-03-10 14:42:13 [INFO] GET /api/v1/analytics/timeseries/latency 200 6ms 3 bytes
+2026-03-10 14:42:13 [INFO] GET /api/v1/analytics/roaming/Cabinet 200 20ms 3 bytes
+2026-03-10 14:42:13 [INFO] GET /api/v1/analytics/performance/Cabinet 200 28ms 249 bytes
+2026-03-10 14:42:13 [INFO] GET /api/v1/commands/probe/Cabinet 200 24ms 3 bytes
+2026-03-10 14:42:13 [INFO] GET /api/v1/analytics/anomalies/Cabinet 200 74ms 3 bytes
+2026-03-10 14:42:15 [INFO] GET /api/v1/analytics/timeseries/rssi 200 7ms 67 bytes
+2026-03-10 14:42:15 [INFO] GET /api/v1/analytics/timeseries/latency 200 2ms 65 bytes
+2026-03-10 14:42:15 [INFO] GET /api/v1/analytics/channels 200 8ms 79 bytes
+2026-03-10 14:42:15 [INFO] GET /api/v1/analytics/aps 200 8ms 186 bytes
+2026-03-10 14:42:15 [INFO] GET /api/v1/analytics/health 200 22ms 179 bytes
+2026-03-10 14:42:15 [INFO] GET /api/v1/analytics/congestion 200 19ms 146 bytes
+2026-03-10 14:42:16 [INFO] GET /api/v1/analytics/timeseries/rssi 200 2ms 639 bytes
+2026-03-10 14:42:16 [INFO] GET /api/v1/analytics/timeseries/latency 200 2ms 626 bytes
+2026-03-10 14:42:16 [INFO] GET /api/v1/analytics/health 200 4ms 179 bytes
+2026-03-10 14:42:16 [INFO] GET /api/v1/analytics/channels 200 2ms 79 bytes
+2026-03-10 14:42:16 [INFO] GET /api/v1/analytics/aps 200 6ms 186 bytes
+2026-03-10 14:42:16 [INFO] GET /api/v1/analytics/congestion 200 5ms 146 bytes
+2026-03-10 14:42:18 [INFO] GET /api/v1/analytics/health 200 5ms 179 bytes
+2026-03-10 14:42:18 [INFO] GET /api/v1/analytics/timeseries/latency 200 2ms 3 bytes
+2026-03-10 14:42:18 [INFO] GET /api/v1/alerts/active 200 1ms 5 bytes
+2026-03-10 14:42:18 [INFO] GET /api/v1/analytics/timeseries/rssi 200 2ms 3 bytes
+2026-03-10 14:42:18 [INFO] GET /api/v1/analytics/health 200 4ms 179 bytes
+2026-03-10 14:42:18 [INFO] GET /api/v1/analytics/health 200 4ms 179 bytes
+2026-03-10 14:42:18 [INFO] GET /api/v1/analytics/health 200 7ms 179 bytes
+2026-03-10 14:42:22 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0001d3de0
+2026-03-10 14:43:22 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000348180
+2026-03-10 14:44:23 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000348100
+2026-03-10 14:45:23 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000316240
+2026-03-10 14:46:23 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0000ba1b0
+2026-03-10 14:47:23 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000348630
+2026-03-10 14:48:23 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000272110
+2026-03-10 14:49:23 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0000ba300
+2026-03-10 14:50:23 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000348120
+2026-03-10 14:51:12 [INFO] GET /api/v1/analytics/health 200 38ms 179 bytes
+2026-03-10 14:51:12 [INFO] GET /api/v1/analytics/health 200 13ms 179 bytes
+2026-03-10 14:51:12 [INFO] GET /api/v1/analytics/timeseries/latency 200 67ms 3 bytes
+2026-03-10 14:51:12 [INFO] GET /api/v1/analytics/timeseries/rssi 200 79ms 3 bytes
+2026-03-10 14:51:12 [INFO] GET /api/v1/alerts/active 200 83ms 5 bytes
+2026-03-10 14:51:12 [INFO] GET /api/v1/analytics/health 200 95ms 179 bytes
+2026-03-10 14:51:13 [INFO] GET /api/v1/analytics/health 200 108ms 179 bytes
+2026-03-10 14:51:15 [INFO] GET /api/v1/fleet/unenrolled-probes 200 4ms 570 bytes
+2026-03-10 14:51:15 [INFO] GET /api/v1/fleet/groups 200 16ms 5 bytes
+2026-03-10 14:51:15 [INFO] GET /api/v1/fleet/templates 200 8ms 5 bytes
+2026-03-10 14:51:15 [INFO] GET /api/v1/fleet/commands 200 10ms 5 bytes
+2026-03-10 14:51:15 [INFO] GET /api/v1/fleet/status 200 23ms 222 bytes
+2026-03-10 14:51:15 [INFO] GET /api/v1/fleet/probes 200 24ms 5 bytes
+2026-03-10 14:51:20 [INFO] GET /api/v1/fleet/commands 200 10ms 5 bytes
+2026-03-10 14:51:23 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000273140
+2026-03-10 14:51:24 [INFO] GET /api/v1/fleet/status 200 19ms 222 bytes
+2026-03-10 14:51:24 [INFO] GET /api/v1/fleet/unenrolled-probes 200 11ms 563 bytes
+2026-03-10 14:51:24 [INFO] GET /api/v1/fleet/groups 200 13ms 5 bytes
+2026-03-10 14:51:24 [INFO] GET /api/v1/fleet/templates 200 15ms 5 bytes
+2026-03-10 14:51:24 [INFO] GET /api/v1/fleet/probes 200 29ms 5 bytes
+2026-03-10 14:51:24 [INFO] GET /api/v1/fleet/commands 200 50ms 5 bytes
+2026-03-10 14:52:23 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0000ba190
+2026-03-10 14:53:23 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0000ba5a0
+2026-03-10 14:54:23 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000316050
+2026-03-10 14:55:23 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000316390
+2026-03-10 14:56:23 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0003160c0
+2026-03-10 14:57:24 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0000ba450
+2026-03-10 14:58:18 [INFO] New WS Client connected. Total: 2
+2026-03-10 14:58:24 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0003164f0
+2026-03-10 14:59:03 [INFO] GET /api/v1/fleet/unenrolled-probes 200 9ms 563 bytes
+2026-03-10 14:59:04 [INFO] New WS Client connected. Total: 1
+2026-03-10 14:59:04 [INFO] GET /api/v1/fleet/status 200 76ms 222 bytes
+2026-03-10 14:59:04 [INFO] GET /api/v1/fleet/groups 200 88ms 5 bytes
+2026-03-10 14:59:04 [INFO] GET /api/v1/fleet/templates 200 110ms 5 bytes
+2026-03-10 14:59:04 [INFO] GET /api/v1/fleet/commands 200 112ms 5 bytes
+2026-03-10 14:59:04 [INFO] GET /api/v1/fleet/probes 200 124ms 5 bytes
+2026-03-10 14:59:04 [INFO] New WS Client connected. Total: 1
+2026-03-10 14:59:07 [INFO] New WS Client connected. Total: 2
+2026-03-10 14:59:09 [INFO] GET /api/v1/fleet/commands 200 11ms 5 bytes
+2026-03-10 14:59:14 [INFO] GET /api/v1/fleet/unenrolled-probes 200 17ms 569 bytes
+2026-03-10 14:59:14 [INFO] GET /api/v1/fleet/probes 200 6ms 5 bytes
+2026-03-10 14:59:14 [INFO] GET /api/v1/fleet/commands 200 5ms 5 bytes
+2026-03-10 14:59:19 [INFO] GET /api/v1/fleet/status 200 15ms 222 bytes
+2026-03-10 14:59:19 [INFO] GET /api/v1/fleet/commands 200 0ms 5 bytes
+2026-03-10 14:59:24 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000316bf0
+2026-03-10 14:59:24 [INFO] GET /api/v1/fleet/unenrolled-probes 200 11ms 569 bytes
+2026-03-10 14:59:24 [INFO] GET /api/v1/fleet/probes 200 2ms 5 bytes
+2026-03-10 14:59:24 [INFO] GET /api/v1/fleet/commands 200 1ms 5 bytes
+2026-03-10 14:59:29 [INFO] GET /api/v1/fleet/commands 200 1ms 5 bytes
+2026-03-10 14:59:34 [INFO] GET /api/v1/fleet/unenrolled-probes 200 1ms 563 bytes
+2026-03-10 14:59:34 [INFO] GET /api/v1/fleet/status 200 2ms 222 bytes
+2026-03-10 14:59:34 [INFO] GET /api/v1/fleet/probes 200 1ms 5 bytes
+2026-03-10 14:59:34 [INFO] GET /api/v1/fleet/commands 200 1ms 5 bytes
+2026-03-10 14:59:39 [INFO] GET /api/v1/fleet/commands 200 1ms 5 bytes
+2026-03-10 14:59:42 [INFO] GET /api/v1/fleet/unenrolled-probes 200 1ms 563 bytes
+2026-03-10 14:59:44 [INFO] GET /api/v1/fleet/probes 200 6ms 5 bytes
+2026-03-10 14:59:44 [INFO] GET /api/v1/fleet/commands 200 2ms 5 bytes
+2026-03-10 14:59:49 [INFO] GET /api/v1/fleet/status 200 6ms 222 bytes
+2026-03-10 14:59:50 [INFO] GET /api/v1/fleet/commands 200 4ms 5 bytes
+2026-03-10 14:59:54 [INFO] GET /api/v1/fleet/probes 200 1ms 5 bytes
+2026-03-10 14:59:55 [INFO] GET /api/v1/fleet/commands 200 0ms 5 bytes
+2026-03-10 14:59:57 [INFO] GET /api/v1/fleet/unenrolled-probes 200 5ms 563 bytes
+2026-03-10 15:00:00 [INFO] GET /api/v1/fleet/commands 200 1ms 5 bytes
+2026-03-10 15:00:02 [INFO] POST /api/v1/fleet/groups 201 13ms 172 bytes
+2026-03-10 15:00:02 [INFO] GET /api/v1/fleet/groups 200 1ms 181 bytes
+2026-03-10 15:00:04 [INFO] GET /api/v1/fleet/unenrolled-probes 200 3ms 563 bytes
+2026-03-10 15:00:04 [INFO] GET /api/v1/fleet/status 200 3ms 304 bytes
+2026-03-10 15:00:07 [INFO] GET /api/v1/fleet/templates 200 2ms 5 bytes
+2026-03-10 15:00:07 [INFO] GET /api/v1/fleet/unenrolled-probes 200 4ms 563 bytes
+2026-03-10 15:00:07 [INFO] GET /api/v1/fleet/commands 200 4ms 5 bytes
+2026-03-10 15:00:07 [INFO] GET /api/v1/fleet/status 200 8ms 304 bytes
+2026-03-10 15:00:07 [INFO] GET /api/v1/fleet/probes 200 8ms 5 bytes
+2026-03-10 15:00:07 [INFO] New WS Client connected. Total: 1
+2026-03-10 15:00:07 [INFO] GET /api/v1/fleet/groups 200 42ms 181 bytes
+2026-03-10 15:00:10 [INFO] New WS Client connected. Total: 1
+2026-03-10 15:00:10 [INFO] New WS Client connected. Total: 2
+2026-03-10 15:00:24 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0000bb990
+2026-03-10 15:00:26 [INFO] GET /api/v1/fleet/unenrolled-probes 200 4ms 563 bytes
+2026-03-10 15:00:26 [INFO] GET /api/v1/fleet/probes 200 1ms 5 bytes
+2026-03-10 15:00:26 [INFO] GET /api/v1/fleet/groups 200 2ms 181 bytes
+2026-03-10 15:00:26 [INFO] New WS Client connected. Total: 1
+2026-03-10 15:00:26 [INFO] GET /api/v1/fleet/status 200 23ms 304 bytes
+2026-03-10 15:00:26 [INFO] GET /api/v1/fleet/templates 200 17ms 5 bytes
+2026-03-10 15:00:26 [INFO] GET /api/v1/fleet/commands 200 15ms 5 bytes
+2026-03-10 15:00:29 [INFO] New WS Client connected. Total: 1
+2026-03-10 15:00:29 [INFO] New WS Client connected. Total: 2
+2026-03-10 15:01:24 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000316490
+2026-03-10 15:01:43 [INFO] GET /api/v1/fleet/unenrolled-probes 200 1ms 563 bytes
+2026-03-10 15:01:43 [INFO] GET /api/v1/fleet/templates 200 1ms 5 bytes
+2026-03-10 15:01:43 [INFO] GET /api/v1/fleet/probes 200 7ms 5 bytes
+2026-03-10 15:01:43 [INFO] GET /api/v1/fleet/groups 200 7ms 181 bytes
+2026-03-10 15:01:43 [INFO] GET /api/v1/fleet/status 200 12ms 304 bytes
+2026-03-10 15:01:43 [INFO] GET /api/v1/fleet/commands 200 10ms 5 bytes
+2026-03-10 15:01:43 [INFO] New WS Client connected. Total: 1
+2026-03-10 15:01:46 [INFO] New WS Client connected. Total: 1
+2026-03-10 15:01:46 [INFO] New WS Client connected. Total: 2
+2026-03-10 15:02:24 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000316040
+2026-03-10 15:03:24 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000316470
+2026-03-10 15:04:24 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0000ba1c0
+2026-03-10 15:05:24 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0000ba560
+2026-03-10 15:06:24 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000316250
+2026-03-10 15:07:13 [INFO] GET /api/v1/fleet/unenrolled-probes 200 13ms 570 bytes
+2026-03-10 15:07:13 [INFO] New WS Client connected. Total: 3
+2026-03-10 15:07:13 [INFO] GET /api/v1/fleet/status 200 54ms 304 bytes
+2026-03-10 15:07:13 [INFO] GET /api/v1/fleet/probes 200 59ms 5 bytes
+2026-03-10 15:07:13 [INFO] GET /api/v1/fleet/templates 200 67ms 5 bytes
+2026-03-10 15:07:13 [INFO] GET /api/v1/fleet/commands 200 81ms 5 bytes
+2026-03-10 15:07:13 [INFO] GET /api/v1/fleet/groups 200 93ms 181 bytes
+2026-03-10 15:07:14 [INFO] GET /api/v1/fleet/templates 200 17ms 5 bytes
+2026-03-10 15:07:14 [INFO] GET /api/v1/fleet/unenrolled-probes 200 33ms 570 bytes
+2026-03-10 15:07:14 [INFO] GET /api/v1/fleet/probes 200 34ms 5 bytes
+2026-03-10 15:07:14 [INFO] GET /api/v1/fleet/groups 200 35ms 181 bytes
+2026-03-10 15:07:14 [INFO] GET /api/v1/fleet/status 200 56ms 304 bytes
+2026-03-10 15:07:14 [INFO] GET /api/v1/fleet/commands 200 63ms 5 bytes
+2026-03-10 15:07:16 [INFO] New WS Client connected. Total: 4
+2026-03-10 15:07:19 [INFO] GET /api/v1/fleet/commands 200 4ms 5 bytes
+2026-03-10 15:07:24 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0002078c0
+2026-03-10 15:07:27 [INFO] New WS Client connected. Total: 4
+2026-03-10 15:07:38 [INFO] GET /api/v1/analytics/health 200 17ms 179 bytes
+2026-03-10 15:07:38 [INFO] GET /api/v1/analytics/health 200 23ms 179 bytes
+2026-03-10 15:07:38 [INFO] GET /api/v1/analytics/timeseries/latency 200 10ms 3 bytes
+2026-03-10 15:07:38 [INFO] GET /api/v1/analytics/timeseries/rssi 200 13ms 3 bytes
+2026-03-10 15:07:38 [INFO] GET /api/v1/alerts/active 200 15ms 5 bytes
+2026-03-10 15:07:38 [INFO] GET /api/v1/analytics/health 200 29ms 179 bytes
+2026-03-10 15:07:38 [INFO] New WS Client connected. Total: 1
+2026-03-10 15:07:38 [INFO] GET /api/v1/analytics/health 200 39ms 179 bytes
+2026-03-10 15:07:39 [INFO] New WS Client connected. Total: 1
+2026-03-10 15:07:42 [INFO] New WS Client connected. Total: 2
+2026-03-10 15:07:42 [INFO] GET /api/v1/fleet/unenrolled-probes 200 1ms 562 bytes
+2026-03-10 15:07:42 [INFO] GET /api/v1/fleet/templates 200 4ms 5 bytes
+2026-03-10 15:07:42 [INFO] GET /api/v1/fleet/groups 200 10ms 181 bytes
+2026-03-10 15:07:42 [INFO] GET /api/v1/fleet/commands 200 12ms 5 bytes
+2026-03-10 15:07:42 [INFO] GET /api/v1/fleet/probes 200 20ms 5 bytes
+2026-03-10 15:07:42 [INFO] GET /api/v1/fleet/status 200 28ms 304 bytes
+2026-03-10 15:07:48 [INFO] GET /api/v1/fleet/commands 200 3ms 5 bytes
+2026-03-10 15:07:53 [INFO] GET /api/v1/fleet/unenrolled-probes 200 6ms 562 bytes
+2026-03-10 15:07:53 [INFO] GET /api/v1/fleet/probes 200 6ms 5 bytes
+2026-03-10 15:07:53 [INFO] GET /api/v1/fleet/commands 200 2ms 5 bytes
+2026-03-10 15:07:58 [INFO] GET /api/v1/fleet/status 200 17ms 304 bytes
+2026-03-10 15:07:58 [INFO] GET /api/v1/fleet/commands 200 0ms 5 bytes
+2026-03-10 15:08:01 [INFO] New WS Client connected. Total: 2
+2026-03-10 15:08:24 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc00035eb90
+2026-03-10 15:09:24 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0003480f0
+2026-03-10 15:10:24 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc00035e300
+2026-03-10 15:11:26 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc00035e410
+2026-03-10 15:12:25 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000388560
+2026-03-10 15:12:35 [INFO] GET /api/v1/fleet/unenrolled-probes 200 68ms 563 bytes
+2026-03-10 15:12:35 [INFO] New WS Client connected. Total: 3
+2026-03-10 15:12:35 [INFO] GET /api/v1/fleet/status 200 44ms 304 bytes
+2026-03-10 15:12:35 [INFO] GET /api/v1/fleet/probes 200 281ms 5 bytes
+2026-03-10 15:12:35 [INFO] GET /api/v1/fleet/commands 200 292ms 5 bytes
+2026-03-10 15:12:35 [INFO] GET /api/v1/fleet/groups 200 294ms 181 bytes
+2026-03-10 15:12:35 [INFO] GET /api/v1/fleet/templates 200 324ms 5 bytes
+2026-03-10 15:12:38 [INFO] New WS Client connected. Total: 4
+2026-03-10 15:12:40 [INFO] GET /api/v1/fleet/commands 200 37ms 5 bytes
+2026-03-10 15:12:45 [INFO] GET /api/v1/fleet/unenrolled-probes 200 27ms 563 bytes
+2026-03-10 15:12:45 [INFO] GET /api/v1/fleet/probes 200 7ms 5 bytes
+2026-03-10 15:12:45 [INFO] GET /api/v1/fleet/commands 200 4ms 5 bytes
+2026-03-10 15:12:50 [INFO] GET /api/v1/fleet/status 200 38ms 304 bytes
+2026-03-10 15:12:50 [INFO] GET /api/v1/fleet/commands 200 4ms 5 bytes
+2026-03-10 15:12:55 [INFO] GET /api/v1/fleet/unenrolled-probes 200 1ms 563 bytes
+2026-03-10 15:12:55 [INFO] GET /api/v1/fleet/probes 200 4ms 5 bytes
+2026-03-10 15:12:55 [INFO] GET /api/v1/fleet/commands 200 9ms 5 bytes
+2026-03-10 15:13:00 [INFO] GET /api/v1/fleet/commands 200 5ms 5 bytes
+2026-03-10 15:13:05 [INFO] GET /api/v1/fleet/unenrolled-probes 200 9ms 563 bytes
+2026-03-10 15:13:05 [INFO] GET /api/v1/fleet/status 200 48ms 304 bytes
+2026-03-10 15:13:05 [INFO] GET /api/v1/fleet/probes 200 1ms 5 bytes
+2026-03-10 15:13:05 [INFO] GET /api/v1/fleet/commands 200 5ms 5 bytes
+2026-03-10 15:13:10 [INFO] GET /api/v1/fleet/commands 200 8ms 5 bytes
+2026-03-10 15:13:15 [INFO] GET /api/v1/fleet/unenrolled-probes 200 12ms 570 bytes
+2026-03-10 15:13:15 [INFO] GET /api/v1/fleet/probes 200 1ms 5 bytes
+2026-03-10 15:13:16 [INFO] GET /api/v1/fleet/commands 200 5ms 5 bytes
+2026-03-10 15:13:20 [INFO] GET /api/v1/fleet/status 200 16ms 304 bytes
+2026-03-10 15:13:21 [INFO] GET /api/v1/fleet/commands 200 4ms 5 bytes
+2026-03-10 15:13:25 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0000baef0
+2026-03-10 15:13:25 [INFO] GET /api/v1/fleet/unenrolled-probes 200 6ms 563 bytes
+2026-03-10 15:13:25 [INFO] GET /api/v1/fleet/probes 200 1ms 5 bytes
+2026-03-10 15:13:26 [INFO] GET /api/v1/fleet/commands 200 1ms 5 bytes
+2026-03-10 15:13:31 [INFO] GET /api/v1/fleet/commands 200 4ms 5 bytes
+2026-03-10 15:13:35 [INFO] GET /api/v1/fleet/unenrolled-probes 200 6ms 563 bytes
+2026-03-10 15:13:35 [INFO] GET /api/v1/fleet/status 200 25ms 303 bytes
+2026-03-10 15:13:35 [INFO] GET /api/v1/fleet/probes 200 2ms 5 bytes
+2026-03-10 15:13:36 [INFO] GET /api/v1/fleet/commands 200 5ms 5 bytes
+2026-03-10 15:13:41 [INFO] GET /api/v1/fleet/commands 200 1ms 5 bytes
+2026-03-10 15:13:45 [INFO] GET /api/v1/fleet/unenrolled-probes 200 4ms 563 bytes
+2026-03-10 15:13:45 [INFO] GET /api/v1/fleet/probes 200 1ms 5 bytes
+2026-03-10 15:13:46 [INFO] GET /api/v1/fleet/commands 200 2ms 5 bytes
+2026-03-10 15:13:50 [INFO] GET /api/v1/fleet/status 200 3ms 304 bytes
+2026-03-10 15:13:51 [INFO] GET /api/v1/fleet/commands 200 3ms 5 bytes
+2026-03-10 15:13:55 [INFO] GET /api/v1/fleet/unenrolled-probes 200 3ms 563 bytes
+2026-03-10 15:13:55 [INFO] GET /api/v1/fleet/probes 200 1ms 5 bytes
+2026-03-10 15:13:56 [INFO] GET /api/v1/fleet/commands 200 5ms 5 bytes
+2026-03-10 15:14:01 [INFO] GET /api/v1/fleet/commands 200 13ms 5 bytes
+2026-03-10 15:14:05 [INFO] GET /api/v1/fleet/unenrolled-probes 200 7ms 563 bytes
+2026-03-10 15:14:05 [INFO] GET /api/v1/fleet/probes 200 3ms 5 bytes
+2026-03-10 15:14:06 [INFO] GET /api/v1/fleet/status 200 6ms 304 bytes
+2026-03-10 15:14:06 [INFO] GET /api/v1/fleet/commands 200 5ms 5 bytes
+2026-03-10 15:14:11 [INFO] GET /api/v1/fleet/commands 200 8ms 5 bytes
+2026-03-10 15:14:15 [INFO] GET /api/v1/fleet/unenrolled-probes 200 1ms 563 bytes
+2026-03-10 15:14:16 [INFO] GET /api/v1/fleet/probes 200 1ms 5 bytes
+2026-03-10 15:14:16 [INFO] GET /api/v1/fleet/commands 200 4ms 5 bytes
+2026-03-10 15:14:18 [INFO] GET /api/v1/fleet/unenrolled-probes 200 1ms 563 bytes
+2026-03-10 15:14:21 [INFO] GET /api/v1/fleet/status 200 15ms 304 bytes
+2026-03-10 15:14:21 [INFO] GET /api/v1/fleet/commands 200 1ms 5 bytes
+2026-03-10 15:14:24 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0000bbc30
+2026-03-10 15:14:26 [INFO] GET /api/v1/fleet/probes 200 6ms 5 bytes
+2026-03-10 15:14:26 [INFO] GET /api/v1/fleet/commands 200 4ms 5 bytes
+2026-03-10 15:14:28 [INFO] GET /api/v1/fleet/unenrolled-probes 200 1ms 563 bytes
+2026-03-10 15:15:00 [INFO] GET /api/v1/fleet/unenrolled-probes 200 4ms 563 bytes
+2026-03-10 15:15:00 [INFO] GET /api/v1/fleet/groups 200 3ms 181 bytes
+2026-03-10 15:15:00 [INFO] GET /api/v1/fleet/status 200 14ms 304 bytes
+2026-03-10 15:15:00 [INFO] GET /api/v1/fleet/probes 200 4ms 5 bytes
+2026-03-10 15:15:00 [INFO] GET /api/v1/fleet/templates 200 2ms 5 bytes
+2026-03-10 15:15:00 [INFO] GET /api/v1/fleet/commands 200 2ms 5 bytes
+2026-03-10 15:15:25 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000388660
+2026-03-10 15:16:24 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000388a20
+2026-03-10 15:17:25 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000388380
+2026-03-10 15:18:25 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000206b10
+2026-03-10 15:19:03 [INFO] GET /api/v1/fleet/status 200 76ms 304 bytes
+2026-03-10 15:19:03 [INFO] GET /api/v1/fleet/commands 200 43ms 5 bytes
+2026-03-10 15:19:03 [INFO] GET /api/v1/fleet/groups 200 88ms 181 bytes
+2026-03-10 15:19:03 [INFO] GET /api/v1/fleet/templates 200 95ms 5 bytes
+2026-03-10 15:19:03 [INFO] GET /api/v1/fleet/probes 200 110ms 5 bytes
+2026-03-10 15:19:03 [INFO] GET /api/v1/fleet/unenrolled-probes 200 121ms 563 bytes
+2026-03-10 15:19:25 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0000ba5b0
+2026-03-10 15:19:52 [INFO] GET /api/v1/fleet/unenrolled-probes 200 7ms 563 bytes
+2026-03-10 15:19:52 [INFO] GET /api/v1/fleet/probes 200 5ms 5 bytes
+2026-03-10 15:19:52 [INFO] GET /api/v1/fleet/groups 200 6ms 181 bytes
+2026-03-10 15:19:52 [INFO] GET /api/v1/fleet/templates 200 6ms 5 bytes
+2026-03-10 15:19:52 [INFO] GET /api/v1/fleet/commands 200 9ms 5 bytes
+2026-03-10 15:19:52 [INFO] GET /api/v1/fleet/status 200 52ms 304 bytes
+2026-03-10 15:19:55 [INFO] GET /api/v1/fleet/unenrolled-probes 200 3ms 563 bytes
+2026-03-10 15:19:55 [INFO] GET /api/v1/fleet/templates 200 1ms 5 bytes
+2026-03-10 15:19:55 [INFO] GET /api/v1/fleet/probes 200 3ms 5 bytes
+2026-03-10 15:19:55 [INFO] GET /api/v1/fleet/groups 200 8ms 181 bytes
+2026-03-10 15:19:55 [INFO] GET /api/v1/fleet/commands 200 8ms 5 bytes
+2026-03-10 15:19:55 [INFO] GET /api/v1/fleet/status 200 20ms 304 bytes
+2026-03-10 15:20:00 [INFO] GET /api/v1/fleet/commands 200 2ms 5 bytes
+2026-03-10 15:20:08 [INFO] New WS Client connected. Total: 4
+2026-03-10 15:20:25 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0000bb100
+2026-03-10 15:21:25 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0002069a0
+2026-03-10 15:22:22 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0000ba1e0
+2026-03-10 15:22:40 [INFO] GET /api/v1/fleet/unenrolled-probes 200 1ms 563 bytes
+2026-03-10 15:22:40 [INFO] GET /api/v1/fleet/templates 200 56ms 5 bytes
+2026-03-10 15:22:40 [INFO] GET /api/v1/fleet/probes 200 58ms 5 bytes
+2026-03-10 15:22:40 [INFO] New WS Client connected. Total: 5
+2026-03-10 15:22:40 [INFO] GET /api/v1/fleet/groups 200 58ms 181 bytes
+2026-03-10 15:22:40 [INFO] GET /api/v1/fleet/status 200 72ms 304 bytes
+2026-03-10 15:22:40 [INFO] GET /api/v1/fleet/commands 200 97ms 5 bytes
+2026-03-10 15:22:41 [INFO] New WS Client connected. Total: 5
+2026-03-10 15:22:43 [INFO] New WS Client connected. Total: 6
+2026-03-10 15:22:48 [INFO] GET /api/v1/fleet/unenrolled-probes 200 3ms 563 bytes
+2026-03-10 15:22:48 [INFO] GET /api/v1/fleet/probes 200 3ms 5 bytes
+2026-03-10 15:22:48 [INFO] GET /api/v1/fleet/groups 200 2ms 181 bytes
+2026-03-10 15:22:48 [INFO] GET /api/v1/fleet/status 200 21ms 304 bytes
+2026-03-10 15:22:48 [INFO] GET /api/v1/fleet/commands 200 1ms 5 bytes
+2026-03-10 15:22:48 [INFO] GET /api/v1/fleet/templates 200 6ms 5 bytes
+2026-03-10 15:22:53 [INFO] GET /api/v1/fleet/commands 200 3ms 5 bytes
+2026-03-10 15:22:58 [INFO] GET /api/v1/fleet/probes 200 7ms 5 bytes
+2026-03-10 15:22:58 [INFO] GET /api/v1/fleet/unenrolled-probes 200 36ms 563 bytes
+2026-03-10 15:22:58 [INFO] GET /api/v1/fleet/commands 200 6ms 5 bytes
+2026-03-10 15:23:03 [INFO] GET /api/v1/fleet/status 200 17ms 304 bytes
+2026-03-10 15:23:03 [INFO] GET /api/v1/fleet/commands 200 1ms 5 bytes
+2026-03-10 15:23:08 [INFO] GET /api/v1/fleet/probes 200 11ms 5 bytes
+2026-03-10 15:23:08 [INFO] GET /api/v1/fleet/unenrolled-probes 200 3ms 563 bytes
+2026-03-10 15:23:08 [INFO] GET /api/v1/fleet/commands 200 1ms 5 bytes
+2026-03-10 15:23:13 [INFO] GET /api/v1/fleet/commands 200 3ms 5 bytes
+2026-03-10 15:23:18 [INFO] GET /api/v1/fleet/status 200 3ms 304 bytes
+2026-03-10 15:23:18 [INFO] GET /api/v1/fleet/probes 200 1ms 5 bytes
+2026-03-10 15:23:18 [INFO] GET /api/v1/fleet/unenrolled-probes 200 1ms 570 bytes
+2026-03-10 15:23:18 [INFO] GET /api/v1/fleet/commands 200 1ms 5 bytes
+2026-03-10 15:23:20 [WARN] Invalid enroll request: EOF
+2026-03-10 15:23:20 [INFO] POST /api/v1/fleet/probes/Main/enroll 400 13ms 33 bytes
+2026-03-10 15:23:23 [INFO] GET /api/v1/fleet/commands 200 3ms 5 bytes
+2026-03-10 15:23:25 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc00035fa20
+2026-03-10 15:23:28 [INFO] GET /api/v1/fleet/probes 200 8ms 5 bytes
+2026-03-10 15:23:28 [INFO] GET /api/v1/fleet/unenrolled-probes 200 7ms 563 bytes
+2026-03-10 15:23:28 [INFO] GET /api/v1/fleet/commands 200 1ms 5 bytes
+2026-03-10 15:23:33 [INFO] GET /api/v1/fleet/status 200 7ms 304 bytes
+2026-03-10 15:23:33 [INFO] GET /api/v1/fleet/commands 200 1ms 5 bytes
+2026-03-10 15:24:25 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000206b00
+2026-03-10 15:25:25 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0002064a0
+2026-03-10 15:26:25 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000348440
+2026-03-10 15:26:42 [INFO] GET /api/v1/fleet/unenrolled-probes 200 38ms 563 bytes
+2026-03-10 15:26:42 [INFO] GET /api/v1/fleet/probes 200 5ms 5 bytes
+2026-03-10 15:26:42 [INFO] GET /api/v1/fleet/templates 200 7ms 5 bytes
+2026-03-10 15:26:42 [INFO] GET /api/v1/fleet/groups 200 44ms 181 bytes
+2026-03-10 15:26:42 [INFO] GET /api/v1/fleet/commands 200 42ms 5 bytes
+2026-03-10 15:26:42 [INFO] GET /api/v1/fleet/status 200 194ms 304 bytes
+2026-03-10 15:26:47 [INFO] GET /api/v1/fleet/status 200 8ms 304 bytes
+2026-03-10 15:26:47 [INFO] GET /api/v1/fleet/unenrolled-probes 200 5ms 563 bytes
+2026-03-10 15:26:47 [INFO] GET /api/v1/fleet/templates 200 3ms 5 bytes
+2026-03-10 15:26:47 [INFO] GET /api/v1/fleet/probes 200 7ms 5 bytes
+2026-03-10 15:26:47 [INFO] GET /api/v1/fleet/commands 200 7ms 5 bytes
+2026-03-10 15:26:47 [INFO] GET /api/v1/fleet/groups 200 15ms 181 bytes
+2026-03-10 15:26:52 [INFO] GET /api/v1/fleet/commands 200 0ms 5 bytes
+2026-03-10 15:26:56 [INFO] Enrolling probe Main into fleet management
+2026-03-10 15:26:56 [ERROR] Failed to enroll probe Main: pq: inconsistent types deduced for parameter $1
+2026-03-10 15:26:56 [INFO] POST /api/v1/fleet/probes/Main/enroll 500 53ms 60 bytes
+2026-03-10 15:26:57 [INFO] GET /api/v1/fleet/unenrolled-probes 200 4ms 563 bytes
+2026-03-10 15:26:57 [INFO] GET /api/v1/fleet/probes 200 1ms 5 bytes
+2026-03-10 15:26:57 [INFO] GET /api/v1/fleet/commands 200 1ms 5 bytes
+2026-03-10 15:27:02 [INFO] GET /api/v1/fleet/status 200 11ms 304 bytes
+2026-03-10 15:27:02 [INFO] GET /api/v1/fleet/commands 200 2ms 5 bytes
+2026-03-10 15:27:07 [INFO] GET /api/v1/fleet/unenrolled-probes 200 3ms 563 bytes
+2026-03-10 15:27:07 [INFO] GET /api/v1/fleet/probes 200 2ms 5 bytes
+2026-03-10 15:27:07 [INFO] GET /api/v1/fleet/commands 200 1ms 5 bytes
+2026-03-10 15:27:12 [INFO] GET /api/v1/fleet/commands 200 3ms 5 bytes
+2026-03-10 15:27:17 [INFO] GET /api/v1/fleet/status 200 12ms 304 bytes
+2026-03-10 15:27:17 [INFO] GET /api/v1/fleet/unenrolled-probes 200 1ms 570 bytes
+2026-03-10 15:27:17 [INFO] GET /api/v1/fleet/probes 200 2ms 5 bytes
+2026-03-10 15:27:17 [INFO] GET /api/v1/fleet/commands 200 1ms 5 bytes
+2026-03-10 15:27:22 [INFO] GET /api/v1/fleet/commands 200 1ms 5 bytes
+2026-03-10 15:27:25 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000206e20
+2026-03-10 15:27:27 [INFO] GET /api/v1/fleet/unenrolled-probes 200 1ms 563 bytes
+2026-03-10 15:27:27 [INFO] GET /api/v1/fleet/probes 200 2ms 5 bytes
+2026-03-10 15:27:27 [INFO] GET /api/v1/fleet/commands 200 5ms 5 bytes
+2026-03-10 15:27:32 [INFO] GET /api/v1/fleet/status 200 8ms 304 bytes
+2026-03-10 15:27:32 [INFO] GET /api/v1/fleet/commands 200 2ms 5 bytes
+2026-03-10 15:27:37 [INFO] GET /api/v1/fleet/groups 200 18ms 181 bytes
+2026-03-10 15:27:37 [INFO] GET /api/v1/fleet/unenrolled-probes 200 25ms 563 bytes
+2026-03-10 15:27:37 [INFO] GET /api/v1/fleet/status 200 55ms 304 bytes
+2026-03-10 15:27:37 [INFO] GET /api/v1/fleet/probes 200 22ms 5 bytes
+2026-03-10 15:27:37 [INFO] GET /api/v1/fleet/templates 200 116ms 5 bytes
+2026-03-10 15:27:37 [INFO] GET /api/v1/fleet/commands 200 146ms 5 bytes
+2026-03-10 15:27:45 [INFO] New WS Client connected. Total: 6
+2026-03-10 15:27:53 [INFO] GET /api/v1/fleet/unenrolled-probes 200 47ms 563 bytes
+2026-03-10 15:27:53 [INFO] GET /api/v1/fleet/templates 200 40ms 5 bytes
+2026-03-10 15:27:53 [INFO] New WS Client connected. Total: 7
+2026-03-10 15:27:53 [INFO] GET /api/v1/fleet/probes 200 96ms 5 bytes
+2026-03-10 15:27:53 [INFO] GET /api/v1/fleet/commands 200 97ms 5 bytes
+2026-03-10 15:27:53 [INFO] GET /api/v1/fleet/status 200 202ms 304 bytes
+2026-03-10 15:27:54 [INFO] GET /api/v1/fleet/groups 200 271ms 181 bytes
+2026-03-10 15:27:54 [INFO] New WS Client connected. Total: 7
+2026-03-10 15:27:56 [INFO] New WS Client connected. Total: 8
+2026-03-10 15:27:59 [INFO] GET /api/v1/fleet/commands 200 1ms 5 bytes
+2026-03-10 15:28:04 [INFO] GET /api/v1/fleet/unenrolled-probes 200 2ms 563 bytes
+2026-03-10 15:28:04 [INFO] GET /api/v1/fleet/probes 200 1ms 5 bytes
+2026-03-10 15:28:04 [INFO] GET /api/v1/fleet/commands 200 1ms 5 bytes
+2026-03-10 15:28:09 [INFO] GET /api/v1/fleet/status 200 12ms 304 bytes
+2026-03-10 15:28:09 [INFO] GET /api/v1/fleet/commands 200 1ms 5 bytes
+2026-03-10 15:28:14 [INFO] GET /api/v1/fleet/unenrolled-probes 200 1ms 563 bytes
+2026-03-10 15:28:14 [INFO] GET /api/v1/fleet/probes 200 1ms 5 bytes
+2026-03-10 15:28:14 [INFO] GET /api/v1/fleet/commands 200 1ms 5 bytes
+2026-03-10 15:28:19 [INFO] GET /api/v1/fleet/commands 200 3ms 5 bytes
+2026-03-10 15:28:19 [INFO] Enrolling probe Main into fleet management
+2026-03-10 15:28:19 [ERROR] Failed to enroll probe Main: pq: inconsistent types deduced for parameter $1
+2026-03-10 15:28:19 [INFO] POST /api/v1/fleet/probes/Main/enroll 500 22ms 60 bytes
+2026-03-10 15:28:24 [INFO] GET /api/v1/fleet/unenrolled-probes 200 1ms 563 bytes
+2026-03-10 15:28:24 [INFO] GET /api/v1/fleet/probes 200 1ms 5 bytes
+2026-03-10 15:28:24 [INFO] GET /api/v1/fleet/status 200 3ms 304 bytes
+2026-03-10 15:28:24 [INFO] GET /api/v1/fleet/commands 200 2ms 5 bytes
+2026-03-10 15:28:25 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc00035ee40
+2026-03-10 15:28:29 [INFO] GET /api/v1/fleet/commands 200 4ms 5 bytes
+2026-03-10 15:29:12 [INFO] GET /api/v1/fleet/unenrolled-probes 200 9ms 570 bytes
+2026-03-10 15:29:12 [INFO] GET /api/v1/fleet/probes 200 8ms 5 bytes
+2026-03-10 15:29:12 [INFO] GET /api/v1/fleet/templates 200 4ms 5 bytes
+2026-03-10 15:29:12 [INFO] GET /api/v1/fleet/status 200 26ms 304 bytes
+2026-03-10 15:29:12 [INFO] GET /api/v1/fleet/groups 200 25ms 181 bytes
+2026-03-10 15:29:12 [INFO] GET /api/v1/fleet/commands 200 45ms 5 bytes
+2026-03-10 15:29:17 [INFO] GET /api/v1/fleet/commands 200 2ms 5 bytes
+2026-03-10 15:29:18 [INFO] GET /api/v1/fleet/unenrolled-probes 200 1ms 570 bytes
+2026-03-10 15:29:21 [INFO] GET /api/v1/fleet/probes 200 2ms 5 bytes
+2026-03-10 15:29:22 [INFO] GET /api/v1/fleet/probes 200 4ms 5 bytes
+2026-03-10 15:29:22 [INFO] GET /api/v1/fleet/commands 200 2ms 5 bytes
+2026-03-10 15:29:23 [INFO] GET /api/v1/fleet/probes 200 1ms 5 bytes
+2026-03-10 15:29:25 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0001d2d80
+2026-03-10 15:29:27 [INFO] GET /api/v1/fleet/status 200 13ms 304 bytes
+2026-03-10 15:29:27 [INFO] GET /api/v1/fleet/commands 200 5ms 5 bytes
+2026-03-10 15:29:31 [INFO] GET /api/v1/fleet/unenrolled-probes 200 3ms 563 bytes
+2026-03-10 15:29:33 [INFO] GET /api/v1/fleet/commands 200 6ms 5 bytes
+2026-03-10 15:29:33 [INFO] GET /api/v1/fleet/probes 200 3ms 5 bytes
+2026-03-10 15:30:13 [INFO] GET /api/v1/fleet/unenrolled-probes 200 2ms 563 bytes
+2026-03-10 15:30:13 [INFO] GET /api/v1/fleet/commands 200 9ms 5 bytes
+2026-03-10 15:30:13 [INFO] GET /api/v1/fleet/groups 200 11ms 181 bytes
+2026-03-10 15:30:13 [INFO] GET /api/v1/fleet/status 200 22ms 304 bytes
+2026-03-10 15:30:13 [INFO] GET /api/v1/fleet/probes 200 30ms 5 bytes
+2026-03-10 15:30:13 [INFO] GET /api/v1/fleet/templates 200 52ms 5 bytes
+2026-03-10 15:30:26 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc00035ef30
+2026-03-10 15:31:26 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc00035e450
+2026-03-10 15:32:26 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0001d2110
+2026-03-10 15:33:07 [INFO] Shutting down server...
+2026-03-10 15:33:07 [INFO] API server ready on http://0.0.0.0:9080
+2026-03-10 15:33:07 [INFO] WebSocket Hub shutting down...
+2026-03-10 18:39:09 [INFO] Starting Campus Monitor API Server
+2026-03-10 18:39:09 [FATAL] Failed to connect to database: failed to ping database: dial tcp [::1]:5432: connect: connection refused
+2026-03-10 18:41:21 [INFO] Starting Campus Monitor API Server
+2026-03-10 18:41:21 [INFO] Database connected successfully
+2026-03-10 18:41:21 [INFO] Connecting to MQTT broker: localhost:1883
+2026-03-10 18:41:21 [INFO] Successfully connected to MQTT broker
+2026-03-10 18:41:21 [INFO] MQTT connection established
+2026-03-10 18:41:21 [INFO] Successfully subscribed to topic: campus/probes/telemetry
+2026-03-10 18:41:21 [INFO] Successfully subscribed to topic: campus/probes/telemetry/offline
+2026-03-10 18:41:21 [INFO] Successfully subscribed to topic: campus/probes/+/result
+2026-03-10 18:41:21 [INFO] MQTT subscriptions active
+2026-03-10 18:41:21 [INFO] Started background monitors
+2026-03-10 18:41:21 [INFO] Starting Probe Monitor
+2026-03-10 18:41:21 [INFO] Probe Monitor started successfully
+2026-03-10 18:41:21 [INFO] Subscribing to status broadcasts: campus/probes/+/status
+2026-03-10 18:41:21 [INFO] Successfully subscribed to topic with channel: campus/probes/+/status
+2026-03-10 18:41:21 [INFO] Subscribing to config broadcasts: campus/probes/+/config
+2026-03-10 18:41:21 [INFO] Successfully subscribed to topic with channel: campus/probes/+/config
+2026-03-10 18:41:21 [INFO] All handlers and WebSocket endpoint registered
+2026-03-10 18:41:21 [INFO] All handlers registered
+2026-03-10 18:41:21 [INFO] Starting HTTP server on 0.0.0.0:9080
+2026-03-10 18:41:21 [INFO] WebSocket Hub started
+2026-03-10 18:42:00 [INFO] GET /api/v1/fleet/commands 200 85ms 5 bytes
+2026-03-10 18:42:00 [INFO] GET /api/v1/fleet/probes 200 97ms 5 bytes
+2026-03-10 18:42:00 [INFO] GET /api/v1/fleet/groups 200 105ms 181 bytes
+2026-03-10 18:42:00 [INFO] GET /api/v1/fleet/status 200 136ms 304 bytes
+2026-03-10 18:42:00 [INFO] GET /api/v1/fleet/templates 200 147ms 5 bytes
+2026-03-10 18:42:00 [INFO] GET /api/v1/fleet/unenrolled-probes 200 160ms 563 bytes
+2026-03-10 18:42:03 [INFO] New WS Client connected. Total: 1
+2026-03-10 18:42:03 [INFO] New WS Client connected. Total: 2
+2026-03-10 18:42:09 [INFO] GET /api/v1/fleet/unenrolled-probes 200 9ms 563 bytes
+2026-03-10 18:42:09 [INFO] GET /api/v1/fleet/probes 200 3ms 5 bytes
+2026-03-10 18:42:09 [INFO] GET /api/v1/fleet/groups 200 8ms 181 bytes
+2026-03-10 18:42:09 [INFO] GET /api/v1/fleet/commands 200 10ms 5 bytes
+2026-03-10 18:42:09 [INFO] GET /api/v1/fleet/templates 200 16ms 5 bytes
+2026-03-10 18:42:09 [INFO] GET /api/v1/fleet/status 200 24ms 304 bytes
+2026-03-10 18:42:09 [INFO] New WS Client connected. Total: 1
+2026-03-10 18:42:12 [INFO] New WS Client connected. Total: 2
+2026-03-10 18:42:14 [INFO] GET /api/v1/fleet/commands 200 2ms 5 bytes
+2026-03-10 18:42:19 [INFO] GET /api/v1/fleet/unenrolled-probes 200 5ms 563 bytes
+2026-03-10 18:42:19 [INFO] GET /api/v1/fleet/commands 200 3ms 5 bytes
+2026-03-10 18:42:19 [INFO] GET /api/v1/fleet/probes 200 38ms 5 bytes
+2026-03-10 18:42:24 [INFO] GET /api/v1/fleet/status 200 12ms 304 bytes
+2026-03-10 18:42:24 [INFO] GET /api/v1/fleet/commands 200 1ms 5 bytes
+2026-03-10 18:42:28 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000408830
+2026-03-10 18:42:29 [INFO] GET /api/v1/fleet/probes 200 1ms 5 bytes
+2026-03-10 18:42:29 [INFO] GET /api/v1/fleet/unenrolled-probes 200 4ms 563 bytes
+2026-03-10 18:42:29 [INFO] GET /api/v1/fleet/commands 200 0ms 5 bytes
+2026-03-10 18:42:34 [INFO] GET /api/v1/fleet/commands 200 4ms 5 bytes
+2026-03-10 18:42:39 [INFO] GET /api/v1/fleet/status 200 15ms 304 bytes
+2026-03-10 18:42:39 [INFO] GET /api/v1/fleet/probes 200 6ms 5 bytes
+2026-03-10 18:42:39 [INFO] GET /api/v1/fleet/unenrolled-probes 200 5ms 563 bytes
+2026-03-10 18:42:39 [INFO] GET /api/v1/fleet/commands 200 1ms 5 bytes
+2026-03-10 18:42:44 [INFO] GET /api/v1/fleet/commands 200 1ms 5 bytes
+2026-03-10 18:42:49 [INFO] GET /api/v1/fleet/probes 200 6ms 5 bytes
+2026-03-10 18:42:49 [INFO] GET /api/v1/fleet/unenrolled-probes 200 7ms 563 bytes
+2026-03-10 18:42:49 [INFO] GET /api/v1/fleet/commands 200 5ms 5 bytes
+2026-03-10 18:42:54 [INFO] GET /api/v1/fleet/status 200 15ms 303 bytes
+2026-03-10 18:42:54 [INFO] GET /api/v1/fleet/commands 200 2ms 5 bytes
+2026-03-10 18:42:59 [INFO] GET /api/v1/fleet/unenrolled-probes 200 5ms 563 bytes
+2026-03-10 18:42:59 [INFO] GET /api/v1/fleet/probes 200 6ms 5 bytes
+2026-03-10 18:42:59 [INFO] Enrolling probe Main into fleet management
+2026-03-10 18:42:59 [ERROR] Failed to enroll probe Main: pq: inconsistent types deduced for parameter $1
+2026-03-10 18:42:59 [INFO] POST /api/v1/fleet/probes/Main/enroll 500 8ms 60 bytes
+2026-03-10 18:42:59 [INFO] GET /api/v1/fleet/commands 200 0ms 5 bytes
+2026-03-10 18:43:05 [INFO] GET /api/v1/fleet/unenrolled-probes 200 1ms 563 bytes
+2026-03-10 18:43:05 [INFO] GET /api/v1/fleet/status 200 6ms 304 bytes
+2026-03-10 18:43:05 [INFO] GET /api/v1/fleet/probes 200 2ms 5 bytes
+2026-03-10 18:43:05 [INFO] GET /api/v1/fleet/groups 200 2ms 181 bytes
+2026-03-10 18:43:05 [INFO] GET /api/v1/fleet/templates 200 1ms 5 bytes
+2026-03-10 18:43:05 [INFO] New WS Client connected. Total: 1
+2026-03-10 18:43:05 [INFO] GET /api/v1/fleet/commands 200 2ms 5 bytes
+2026-03-10 18:43:05 [INFO] New WS Client connected. Total: 1
+2026-03-10 18:43:08 [INFO] New WS Client connected. Total: 2
+2026-03-10 18:43:10 [INFO] GET /api/v1/fleet/commands 200 6ms 5 bytes
+2026-03-10 18:43:15 [INFO] GET /api/v1/fleet/unenrolled-probes 200 2ms 563 bytes
+2026-03-10 18:43:15 [INFO] GET /api/v1/fleet/probes 200 2ms 5 bytes
+2026-03-10 18:43:15 [INFO] GET /api/v1/fleet/commands 200 4ms 5 bytes
+2026-03-10 18:43:20 [INFO] GET /api/v1/fleet/status 200 15ms 304 bytes
+2026-03-10 18:43:21 [INFO] GET /api/v1/fleet/commands 200 6ms 5 bytes
+2026-03-10 18:43:26 [INFO] GET /api/v1/fleet/unenrolled-probes 200 4ms 569 bytes
+2026-03-10 18:43:26 [INFO] GET /api/v1/fleet/probes 200 3ms 5 bytes
+2026-03-10 18:43:26 [INFO] GET /api/v1/fleet/commands 200 2ms 5 bytes
+2026-03-10 18:43:28 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc00051a6e0
+2026-03-10 18:43:31 [INFO] GET /api/v1/fleet/commands 200 5ms 5 bytes
+2026-03-10 18:43:31 [INFO] Enrolling probe Main into fleet management
+2026-03-10 18:43:31 [ERROR] Failed to enroll probe Main: pq: inconsistent types deduced for parameter $1
+2026-03-10 18:43:31 [INFO] POST /api/v1/fleet/probes/Main/enroll 500 14ms 60 bytes
+2026-03-10 18:43:35 [INFO] GET /api/v1/fleet/status 200 11ms 303 bytes
+2026-03-10 18:43:36 [INFO] GET /api/v1/fleet/unenrolled-probes 200 3ms 563 bytes
+2026-03-10 18:43:36 [INFO] GET /api/v1/fleet/probes 200 1ms 5 bytes
+2026-03-10 18:43:36 [INFO] GET /api/v1/fleet/commands 200 0ms 5 bytes
+2026-03-10 18:44:28 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc00051a360
+2026-03-10 18:45:28 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc00019ec40
+2026-03-10 18:46:28 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0004081d0
+2026-03-10 18:47:29 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000408590
+2026-03-10 18:48:02 [INFO] WebSocket Hub shutting down...
+2026-03-10 18:48:02 [INFO] Shutting down server...
+2026-03-10 18:48:02 [INFO] API server ready on http://0.0.0.0:9080
+2026-03-10 18:48:08 [INFO] Starting Campus Monitor API Server
+2026-03-10 18:48:08 [INFO] Database connected successfully
+2026-03-10 18:48:08 [INFO] Connecting to MQTT broker: localhost:1883
+2026-03-10 18:48:08 [INFO] MQTT connection established
+2026-03-10 18:48:08 [INFO] Successfully connected to MQTT broker
+2026-03-10 18:48:08 [INFO] Successfully subscribed to topic: campus/probes/telemetry
+2026-03-10 18:48:08 [INFO] Successfully subscribed to topic: campus/probes/telemetry/offline
+2026-03-10 18:48:08 [INFO] Successfully subscribed to topic: campus/probes/+/result
+2026-03-10 18:48:08 [INFO] MQTT subscriptions active
+2026-03-10 18:48:08 [INFO] Started background monitors
+2026-03-10 18:48:08 [INFO] Starting Probe Monitor
+2026-03-10 18:48:08 [INFO] Subscribing to status broadcasts: campus/probes/+/status
+2026-03-10 18:48:08 [INFO] Subscribing to config broadcasts: campus/probes/+/config
+2026-03-10 18:48:08 [INFO] Probe Monitor started successfully
+2026-03-10 18:48:08 [INFO] Successfully subscribed to topic with channel: campus/probes/+/status
+2026-03-10 18:48:08 [INFO] Successfully subscribed to topic with channel: campus/probes/+/config
+2026-03-10 18:48:08 [INFO] All handlers and WebSocket endpoint registered
+2026-03-10 18:48:08 [INFO] All handlers registered
+2026-03-10 18:48:08 [INFO] Starting HTTP server on 0.0.0.0:9080
+2026-03-10 18:48:08 [INFO] WebSocket Hub started
+2026-03-10 18:48:11 [INFO] New WS Client connected. Total: 1
+2026-03-10 18:48:11 [INFO] New WS Client connected. Total: 2
+2026-03-10 18:48:29 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0003a25f0
+2026-03-10 18:49:29 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000298330
+2026-03-10 18:50:29 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0002985e0
+2026-03-10 18:51:29 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0002987f0
+2026-03-10 18:52:29 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0003a2c70
+2026-03-10 18:53:29 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000015300
+2026-03-10 18:54:29 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0003a32e0
+2026-03-10 18:55:29 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000298ae0
+2026-03-10 18:56:29 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000298da0
+2026-03-10 18:57:29 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000015860
+2026-03-10 18:58:04 [INFO] GET /api/v1/fleet/status 200 28ms 303 bytes
+2026-03-10 18:58:04 [INFO] GET /api/v1/fleet/templates 200 48ms 5 bytes
+2026-03-10 18:58:04 [INFO] GET /api/v1/fleet/probes 200 66ms 5 bytes
+2026-03-10 18:58:04 [INFO] GET /api/v1/fleet/unenrolled-probes 200 78ms 563 bytes
+2026-03-10 18:58:04 [INFO] GET /api/v1/fleet/commands 200 91ms 5 bytes
+2026-03-10 18:58:04 [INFO] GET /api/v1/fleet/groups 200 102ms 181 bytes
+2026-03-10 18:58:09 [INFO] GET /api/v1/fleet/commands 200 2ms 5 bytes
+2026-03-10 18:58:14 [INFO] GET /api/v1/fleet/probes 200 26ms 5 bytes
+2026-03-10 18:58:14 [INFO] GET /api/v1/fleet/unenrolled-probes 200 3ms 563 bytes
+2026-03-10 18:58:14 [INFO] GET /api/v1/fleet/commands 200 4ms 5 bytes
+2026-03-10 18:58:17 [INFO] Enrolling probe Main into fleet management
+2026-03-10 18:58:17 [INFO] Sending fleet command: type=fleet_enroll, strategy=immediate
+2026-03-10 18:58:17 [INFO] POST /api/v1/fleet/probes/Main/enroll 200 79ms 67 bytes
+2026-03-10 18:58:17 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 18:58:17 [INFO] GET /api/v1/fleet/probes 500 5ms 115 bytes
+2026-03-10 18:58:17 [INFO] GET /api/v1/fleet/status 200 15ms 305 bytes
+2026-03-10 18:58:17 [INFO] Processing result: Probe=Main Cmd=fleet_enroll Status=failed CommandID=cmd_1773158297181260319
+2026-03-10 18:58:18 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 18:58:18 [INFO] GET /api/v1/fleet/probes 500 4ms 115 bytes
+2026-03-10 18:58:19 [INFO] GET /api/v1/fleet/commands 200 2ms 322 bytes
+2026-03-10 18:58:20 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 18:58:20 [INFO] GET /api/v1/fleet/probes 500 2ms 115 bytes
+2026-03-10 18:58:24 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 18:58:24 [INFO] GET /api/v1/fleet/probes 500 1ms 115 bytes
+2026-03-10 18:58:24 [INFO] GET /api/v1/fleet/unenrolled-probes 200 1ms 288 bytes
+2026-03-10 18:58:25 [INFO] GET /api/v1/fleet/commands 200 1ms 322 bytes
+2026-03-10 18:58:29 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0004ac1f0
+2026-03-10 18:58:30 [INFO] GET /api/v1/fleet/commands 200 4ms 322 bytes
+2026-03-10 18:58:32 [INFO] GET /api/v1/fleet/status 200 6ms 305 bytes
+2026-03-10 18:58:34 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 18:58:34 [INFO] GET /api/v1/fleet/probes 500 11ms 115 bytes
+2026-03-10 18:58:34 [INFO] GET /api/v1/fleet/unenrolled-probes 200 2ms 288 bytes
+2026-03-10 18:58:35 [INFO] GET /api/v1/fleet/commands 200 1ms 322 bytes
+2026-03-10 18:58:35 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 18:58:35 [INFO] GET /api/v1/fleet/probes 500 1ms 115 bytes
+2026-03-10 18:58:37 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 18:58:37 [INFO] GET /api/v1/fleet/probes 500 9ms 115 bytes
+2026-03-10 18:58:40 [INFO] GET /api/v1/fleet/commands 200 1ms 322 bytes
+2026-03-10 18:58:41 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 18:58:41 [INFO] GET /api/v1/fleet/probes 500 4ms 115 bytes
+2026-03-10 18:58:44 [INFO] GET /api/v1/fleet/unenrolled-probes 200 2ms 288 bytes
+2026-03-10 18:58:45 [INFO] GET /api/v1/fleet/commands 200 5ms 322 bytes
+2026-03-10 18:58:47 [INFO] GET /api/v1/fleet/status 200 13ms 305 bytes
+2026-03-10 18:58:50 [INFO] GET /api/v1/fleet/commands 200 4ms 322 bytes
+2026-03-10 18:58:52 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 18:58:52 [INFO] GET /api/v1/fleet/probes 500 7ms 115 bytes
+2026-03-10 18:58:53 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 18:58:53 [INFO] GET /api/v1/fleet/probes 500 4ms 115 bytes
+2026-03-10 18:58:54 [INFO] GET /api/v1/fleet/unenrolled-probes 200 1ms 288 bytes
+2026-03-10 18:58:55 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 18:58:55 [INFO] GET /api/v1/fleet/probes 500 1ms 115 bytes
+2026-03-10 18:58:55 [INFO] GET /api/v1/fleet/commands 200 1ms 322 bytes
+2026-03-10 18:58:59 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 18:58:59 [INFO] GET /api/v1/fleet/probes 500 1ms 115 bytes
+2026-03-10 18:59:00 [INFO] GET /api/v1/fleet/commands 200 6ms 322 bytes
+2026-03-10 18:59:02 [INFO] GET /api/v1/fleet/status 200 15ms 305 bytes
+2026-03-10 18:59:05 [INFO] GET /api/v1/fleet/unenrolled-probes 200 6ms 288 bytes
+2026-03-10 18:59:05 [INFO] GET /api/v1/fleet/commands 200 5ms 322 bytes
+2026-03-10 18:59:09 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 18:59:09 [INFO] GET /api/v1/fleet/probes 500 5ms 115 bytes
+2026-03-10 18:59:10 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 18:59:10 [INFO] GET /api/v1/fleet/probes 500 6ms 115 bytes
+2026-03-10 18:59:10 [INFO] GET /api/v1/fleet/commands 200 4ms 322 bytes
+2026-03-10 18:59:12 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 18:59:12 [INFO] GET /api/v1/fleet/probes 500 6ms 115 bytes
+2026-03-10 18:59:15 [INFO] GET /api/v1/fleet/unenrolled-probes 200 5ms 288 bytes
+2026-03-10 18:59:15 [INFO] GET /api/v1/fleet/commands 200 4ms 322 bytes
+2026-03-10 18:59:16 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 18:59:16 [INFO] GET /api/v1/fleet/probes 500 6ms 115 bytes
+2026-03-10 18:59:17 [INFO] GET /api/v1/fleet/status 200 3ms 305 bytes
+2026-03-10 18:59:20 [INFO] GET /api/v1/fleet/commands 200 4ms 322 bytes
+2026-03-10 18:59:25 [INFO] GET /api/v1/fleet/unenrolled-probes 200 6ms 288 bytes
+2026-03-10 18:59:25 [INFO] GET /api/v1/fleet/commands 200 5ms 322 bytes
+2026-03-10 18:59:26 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 18:59:26 [INFO] GET /api/v1/fleet/probes 500 5ms 115 bytes
+2026-03-10 18:59:27 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 18:59:27 [INFO] GET /api/v1/fleet/probes 500 7ms 115 bytes
+2026-03-10 18:59:29 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 18:59:29 [INFO] GET /api/v1/fleet/probes 500 5ms 115 bytes
+2026-03-10 18:59:29 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0004403c0
+2026-03-10 18:59:30 [INFO] GET /api/v1/fleet/commands 200 1ms 322 bytes
+2026-03-10 18:59:32 [INFO] GET /api/v1/fleet/status 200 16ms 304 bytes
+2026-03-10 18:59:33 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 18:59:33 [INFO] GET /api/v1/fleet/probes 500 5ms 115 bytes
+2026-03-10 18:59:35 [INFO] GET /api/v1/fleet/unenrolled-probes 200 3ms 288 bytes
+2026-03-10 18:59:35 [INFO] GET /api/v1/fleet/commands 200 5ms 322 bytes
+2026-03-10 18:59:40 [INFO] GET /api/v1/fleet/commands 200 4ms 322 bytes
+2026-03-10 18:59:43 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 18:59:43 [INFO] GET /api/v1/fleet/probes 500 2ms 115 bytes
+2026-03-10 18:59:44 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 18:59:44 [INFO] GET /api/v1/fleet/probes 500 10ms 115 bytes
+2026-03-10 18:59:45 [INFO] GET /api/v1/fleet/unenrolled-probes 200 5ms 288 bytes
+2026-03-10 18:59:45 [INFO] GET /api/v1/fleet/commands 200 0ms 322 bytes
+2026-03-10 18:59:46 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 18:59:46 [INFO] GET /api/v1/fleet/probes 500 5ms 115 bytes
+2026-03-10 18:59:47 [INFO] GET /api/v1/fleet/status 200 20ms 305 bytes
+2026-03-10 18:59:50 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 18:59:50 [INFO] GET /api/v1/fleet/probes 500 5ms 115 bytes
+2026-03-10 18:59:50 [INFO] GET /api/v1/fleet/commands 200 1ms 322 bytes
+2026-03-10 18:59:55 [INFO] GET /api/v1/fleet/unenrolled-probes 200 1ms 288 bytes
+2026-03-10 18:59:55 [INFO] GET /api/v1/fleet/commands 200 4ms 322 bytes
+2026-03-10 19:00:00 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 19:00:00 [INFO] GET /api/v1/fleet/probes 500 6ms 115 bytes
+2026-03-10 19:00:00 [INFO] GET /api/v1/fleet/commands 200 1ms 322 bytes
+2026-03-10 19:00:01 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 19:00:01 [INFO] GET /api/v1/fleet/probes 500 5ms 115 bytes
+2026-03-10 19:00:02 [INFO] GET /api/v1/fleet/status 200 15ms 304 bytes
+2026-03-10 19:00:03 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 19:00:03 [INFO] GET /api/v1/fleet/probes 500 7ms 115 bytes
+2026-03-10 19:00:05 [INFO] GET /api/v1/fleet/unenrolled-probes 200 2ms 288 bytes
+2026-03-10 19:00:05 [INFO] GET /api/v1/fleet/commands 200 4ms 322 bytes
+2026-03-10 19:00:07 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 19:00:07 [INFO] GET /api/v1/fleet/probes 500 5ms 115 bytes
+2026-03-10 19:00:11 [INFO] GET /api/v1/fleet/commands 200 4ms 322 bytes
+2026-03-10 19:00:15 [INFO] GET /api/v1/fleet/unenrolled-probes 200 5ms 288 bytes
+2026-03-10 19:00:16 [INFO] GET /api/v1/fleet/commands 200 1ms 322 bytes
+2026-03-10 19:00:17 [INFO] GET /api/v1/fleet/status 200 14ms 305 bytes
+2026-03-10 19:00:17 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 19:00:17 [INFO] GET /api/v1/fleet/probes 500 5ms 115 bytes
+2026-03-10 19:00:18 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 19:00:18 [INFO] GET /api/v1/fleet/probes 500 4ms 115 bytes
+2026-03-10 19:00:21 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 19:00:21 [INFO] GET /api/v1/fleet/probes 500 6ms 115 bytes
+2026-03-10 19:00:21 [INFO] GET /api/v1/fleet/commands 200 5ms 322 bytes
+2026-03-10 19:00:25 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 19:00:25 [INFO] GET /api/v1/fleet/probes 500 2ms 115 bytes
+2026-03-10 19:00:25 [INFO] GET /api/v1/fleet/unenrolled-probes 200 1ms 288 bytes
+2026-03-10 19:00:26 [INFO] GET /api/v1/fleet/commands 200 1ms 322 bytes
+2026-03-10 19:00:29 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000441bc0
+2026-03-10 19:00:31 [INFO] GET /api/v1/fleet/commands 200 5ms 322 bytes
+2026-03-10 19:00:32 [INFO] GET /api/v1/fleet/status 200 15ms 305 bytes
+2026-03-10 19:00:35 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 19:00:35 [INFO] GET /api/v1/fleet/probes 500 5ms 115 bytes
+2026-03-10 19:00:35 [INFO] GET /api/v1/fleet/unenrolled-probes 200 1ms 288 bytes
+2026-03-10 19:00:36 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 19:00:36 [INFO] GET /api/v1/fleet/probes 500 6ms 115 bytes
+2026-03-10 19:00:36 [INFO] GET /api/v1/fleet/commands 200 5ms 322 bytes
+2026-03-10 19:00:38 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 19:00:38 [INFO] GET /api/v1/fleet/probes 500 6ms 115 bytes
+2026-03-10 19:00:41 [INFO] GET /api/v1/fleet/commands 200 4ms 322 bytes
+2026-03-10 19:00:42 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 19:00:42 [INFO] GET /api/v1/fleet/probes 500 1ms 115 bytes
+2026-03-10 19:00:45 [INFO] GET /api/v1/fleet/unenrolled-probes 200 4ms 288 bytes
+2026-03-10 19:00:46 [INFO] GET /api/v1/fleet/commands 200 4ms 322 bytes
+2026-03-10 19:00:47 [INFO] GET /api/v1/fleet/status 200 15ms 305 bytes
+2026-03-10 19:00:51 [INFO] GET /api/v1/fleet/commands 200 4ms 322 bytes
+2026-03-10 19:00:52 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 19:00:52 [INFO] GET /api/v1/fleet/probes 500 5ms 115 bytes
+2026-03-10 19:00:53 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 19:00:53 [INFO] GET /api/v1/fleet/probes 500 6ms 115 bytes
+2026-03-10 19:00:55 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 19:00:55 [INFO] GET /api/v1/fleet/probes 500 1ms 115 bytes
+2026-03-10 19:00:55 [INFO] GET /api/v1/fleet/unenrolled-probes 200 2ms 288 bytes
+2026-03-10 19:00:56 [INFO] GET /api/v1/fleet/commands 200 4ms 322 bytes
+2026-03-10 19:00:59 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 19:00:59 [INFO] GET /api/v1/fleet/probes 500 5ms 115 bytes
+2026-03-10 19:01:01 [INFO] GET /api/v1/fleet/commands 200 3ms 322 bytes
+2026-03-10 19:01:03 [INFO] GET /api/v1/fleet/status 200 8ms 305 bytes
+2026-03-10 19:01:05 [INFO] GET /api/v1/fleet/unenrolled-probes 200 3ms 288 bytes
+2026-03-10 19:01:06 [INFO] GET /api/v1/fleet/commands 200 5ms 322 bytes
+2026-03-10 19:01:09 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 19:01:09 [INFO] GET /api/v1/fleet/probes 500 6ms 115 bytes
+2026-03-10 19:01:10 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 19:01:10 [INFO] GET /api/v1/fleet/probes 500 5ms 115 bytes
+2026-03-10 19:01:11 [INFO] GET /api/v1/fleet/commands 200 5ms 322 bytes
+2026-03-10 19:01:12 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 19:01:12 [INFO] GET /api/v1/fleet/probes 500 5ms 115 bytes
+2026-03-10 19:01:15 [INFO] GET /api/v1/fleet/unenrolled-probes 200 6ms 288 bytes
+2026-03-10 19:01:16 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 19:01:16 [INFO] GET /api/v1/fleet/probes 500 9ms 115 bytes
+2026-03-10 19:01:16 [INFO] GET /api/v1/fleet/commands 200 7ms 322 bytes
+2026-03-10 19:01:18 [INFO] GET /api/v1/fleet/status 200 3ms 305 bytes
+2026-03-10 19:01:21 [INFO] GET /api/v1/fleet/commands 200 5ms 322 bytes
+2026-03-10 19:01:25 [INFO] GET /api/v1/fleet/unenrolled-probes 200 4ms 288 bytes
+2026-03-10 19:01:26 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 19:01:26 [INFO] GET /api/v1/fleet/probes 500 5ms 115 bytes
+2026-03-10 19:01:26 [INFO] GET /api/v1/fleet/commands 200 2ms 322 bytes
+2026-03-10 19:01:27 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 19:01:27 [INFO] GET /api/v1/fleet/probes 500 7ms 115 bytes
+2026-03-10 19:01:29 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0004ac210
+2026-03-10 19:01:29 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 19:01:29 [INFO] GET /api/v1/fleet/probes 500 3ms 115 bytes
+2026-03-10 19:01:31 [INFO] GET /api/v1/fleet/commands 200 4ms 322 bytes
+2026-03-10 19:01:33 [INFO] GET /api/v1/fleet/status 200 3ms 305 bytes
+2026-03-10 19:01:33 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 19:01:33 [INFO] GET /api/v1/fleet/probes 500 5ms 115 bytes
+2026-03-10 19:01:35 [INFO] GET /api/v1/fleet/unenrolled-probes 200 4ms 288 bytes
+2026-03-10 19:01:36 [INFO] GET /api/v1/fleet/commands 200 5ms 322 bytes
+2026-03-10 19:01:41 [INFO] GET /api/v1/fleet/commands 200 4ms 322 bytes
+2026-03-10 19:01:43 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 19:01:43 [INFO] GET /api/v1/fleet/probes 500 4ms 115 bytes
+2026-03-10 19:01:44 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 19:01:44 [INFO] GET /api/v1/fleet/probes 500 1ms 115 bytes
+2026-03-10 19:01:46 [INFO] GET /api/v1/fleet/unenrolled-probes 200 5ms 288 bytes
+2026-03-10 19:01:46 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 19:01:46 [INFO] GET /api/v1/fleet/probes 500 6ms 115 bytes
+2026-03-10 19:01:46 [INFO] GET /api/v1/fleet/commands 200 4ms 322 bytes
+2026-03-10 19:01:48 [INFO] GET /api/v1/fleet/status 200 4ms 305 bytes
+2026-03-10 19:01:50 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 19:01:50 [INFO] GET /api/v1/fleet/probes 500 6ms 115 bytes
+2026-03-10 19:01:52 [INFO] GET /api/v1/fleet/commands 200 5ms 322 bytes
+2026-03-10 19:01:56 [INFO] GET /api/v1/fleet/unenrolled-probes 200 4ms 288 bytes
+2026-03-10 19:01:57 [INFO] GET /api/v1/fleet/commands 200 5ms 322 bytes
+2026-03-10 19:02:00 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 19:02:00 [INFO] GET /api/v1/fleet/probes 500 7ms 115 bytes
+2026-03-10 19:02:02 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 19:02:02 [INFO] GET /api/v1/fleet/probes 500 6ms 115 bytes
+2026-03-10 19:02:02 [INFO] GET /api/v1/fleet/commands 200 1ms 322 bytes
+2026-03-10 19:02:03 [INFO] GET /api/v1/fleet/status 200 10ms 305 bytes
+2026-03-10 19:02:04 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 19:02:04 [INFO] GET /api/v1/fleet/probes 500 5ms 115 bytes
+2026-03-10 19:02:06 [INFO] GET /api/v1/fleet/unenrolled-probes 200 5ms 288 bytes
+2026-03-10 19:02:07 [INFO] GET /api/v1/fleet/commands 200 5ms 322 bytes
+2026-03-10 19:02:08 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 19:02:08 [INFO] GET /api/v1/fleet/probes 500 5ms 115 bytes
+2026-03-10 19:02:12 [INFO] GET /api/v1/fleet/commands 200 1ms 322 bytes
+2026-03-10 19:02:16 [INFO] GET /api/v1/fleet/unenrolled-probes 200 5ms 288 bytes
+2026-03-10 19:02:17 [INFO] GET /api/v1/fleet/commands 200 2ms 322 bytes
+2026-03-10 19:02:18 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 19:02:18 [INFO] GET /api/v1/fleet/probes 500 5ms 115 bytes
+2026-03-10 19:02:18 [INFO] GET /api/v1/fleet/status 200 6ms 305 bytes
+2026-03-10 19:02:19 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 19:02:19 [INFO] GET /api/v1/fleet/probes 500 5ms 115 bytes
+2026-03-10 19:02:21 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 19:02:21 [INFO] GET /api/v1/fleet/probes 500 5ms 115 bytes
+2026-03-10 19:02:22 [INFO] GET /api/v1/fleet/commands 200 5ms 322 bytes
+2026-03-10 19:02:25 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 19:02:25 [INFO] GET /api/v1/fleet/probes 500 8ms 115 bytes
+2026-03-10 19:02:26 [INFO] GET /api/v1/fleet/unenrolled-probes 200 5ms 288 bytes
+2026-03-10 19:02:27 [INFO] GET /api/v1/fleet/commands 200 4ms 322 bytes
+2026-03-10 19:02:30 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000505350
+2026-03-10 19:02:32 [INFO] GET /api/v1/fleet/commands 200 5ms 322 bytes
+2026-03-10 19:02:33 [INFO] GET /api/v1/fleet/status 200 15ms 305 bytes
+2026-03-10 19:02:35 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 19:02:35 [INFO] GET /api/v1/fleet/probes 500 6ms 115 bytes
+2026-03-10 19:02:36 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 19:02:36 [INFO] GET /api/v1/fleet/probes 500 5ms 115 bytes
+2026-03-10 19:02:36 [INFO] GET /api/v1/fleet/unenrolled-probes 200 6ms 288 bytes
+2026-03-10 19:02:37 [INFO] GET /api/v1/fleet/commands 200 5ms 322 bytes
+2026-03-10 19:02:38 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 19:02:38 [INFO] GET /api/v1/fleet/probes 500 5ms 115 bytes
+2026-03-10 19:02:42 [INFO] GET /api/v1/fleet/commands 200 6ms 322 bytes
+2026-03-10 19:02:42 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 19:02:42 [INFO] GET /api/v1/fleet/probes 500 3ms 115 bytes
+2026-03-10 19:02:46 [INFO] GET /api/v1/fleet/unenrolled-probes 200 2ms 288 bytes
+2026-03-10 19:02:47 [INFO] GET /api/v1/fleet/commands 200 4ms 322 bytes
+2026-03-10 19:02:48 [INFO] GET /api/v1/fleet/status 200 15ms 305 bytes
+2026-03-10 19:02:52 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 19:02:52 [INFO] GET /api/v1/fleet/probes 500 7ms 115 bytes
+2026-03-10 19:02:52 [INFO] GET /api/v1/fleet/commands 200 1ms 322 bytes
+2026-03-10 19:02:53 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 19:02:53 [INFO] GET /api/v1/fleet/probes 500 6ms 115 bytes
+2026-03-10 19:02:55 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 19:02:55 [INFO] GET /api/v1/fleet/probes 500 1ms 115 bytes
+2026-03-10 19:02:56 [INFO] GET /api/v1/fleet/unenrolled-probes 200 4ms 288 bytes
+2026-03-10 19:02:57 [INFO] GET /api/v1/fleet/commands 200 5ms 322 bytes
+2026-03-10 19:02:59 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 19:02:59 [INFO] GET /api/v1/fleet/probes 500 7ms 115 bytes
+2026-03-10 19:03:02 [INFO] GET /api/v1/fleet/commands 200 4ms 322 bytes
+2026-03-10 19:03:03 [INFO] GET /api/v1/fleet/status 200 7ms 305 bytes
+2026-03-10 19:03:06 [INFO] GET /api/v1/fleet/unenrolled-probes 200 89ms 288 bytes
+2026-03-10 19:03:07 [INFO] GET /api/v1/fleet/commands 200 12ms 322 bytes
+2026-03-10 19:03:09 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 19:03:09 [INFO] GET /api/v1/fleet/probes 500 7ms 115 bytes
+2026-03-10 19:03:10 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 19:03:10 [INFO] GET /api/v1/fleet/probes 500 6ms 115 bytes
+2026-03-10 19:03:12 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 19:03:12 [INFO] GET /api/v1/fleet/probes 500 8ms 115 bytes
+2026-03-10 19:03:12 [INFO] GET /api/v1/fleet/commands 200 6ms 322 bytes
+2026-03-10 19:03:16 [INFO] GET /api/v1/fleet/unenrolled-probes 200 2ms 288 bytes
+2026-03-10 19:03:17 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 19:03:17 [INFO] GET /api/v1/fleet/probes 500 1ms 115 bytes
+2026-03-10 19:03:18 [INFO] GET /api/v1/fleet/commands 200 4ms 322 bytes
+2026-03-10 19:03:18 [INFO] GET /api/v1/fleet/status 200 13ms 305 bytes
+2026-03-10 19:03:23 [INFO] GET /api/v1/fleet/commands 200 0ms 322 bytes
+2026-03-10 19:03:23 [INFO] GET /api/v1/analytics/timeseries/rssi 200 12ms 3 bytes
+2026-03-10 19:03:23 [INFO] GET /api/v1/analytics/timeseries/latency 200 52ms 3 bytes
+2026-03-10 19:03:23 [INFO] GET /api/v1/analytics/health 200 47ms 177 bytes
+2026-03-10 19:03:23 [INFO] GET /api/v1/alerts/active 200 85ms 5 bytes
+2026-03-10 19:03:23 [INFO] GET /api/v1/analytics/health 200 106ms 177 bytes
+2026-03-10 19:03:23 [INFO] GET /api/v1/analytics/health 200 180ms 177 bytes
+2026-03-10 19:03:23 [INFO] GET /api/v1/analytics/health 200 188ms 177 bytes
+2026-03-10 19:03:29 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0003321c0
+2026-03-10 19:03:33 [INFO] GET /api/v1/alerts/active 200 4ms 5 bytes
+2026-03-10 19:03:39 [INFO] GET /api/v1/fleet/unenrolled-probes 200 10ms 288 bytes
+2026-03-10 19:03:39 [INFO] GET /api/v1/fleet/groups 200 4ms 181 bytes
+2026-03-10 19:03:39 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 19:03:39 [INFO] GET /api/v1/fleet/probes 500 18ms 115 bytes
+2026-03-10 19:03:39 [INFO] GET /api/v1/fleet/commands 200 18ms 322 bytes
+2026-03-10 19:03:39 [INFO] GET /api/v1/fleet/templates 200 8ms 5 bytes
+2026-03-10 19:03:39 [INFO] GET /api/v1/fleet/status 200 38ms 305 bytes
+2026-03-10 19:03:40 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 19:03:40 [INFO] GET /api/v1/fleet/probes 500 6ms 115 bytes
+2026-03-10 19:03:42 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 19:03:42 [INFO] GET /api/v1/fleet/probes 500 1ms 115 bytes
+2026-03-10 19:03:44 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 19:03:44 [INFO] GET /api/v1/fleet/probes 500 2ms 115 bytes
+2026-03-10 19:03:44 [INFO] GET /api/v1/fleet/commands 200 2ms 322 bytes
+2026-03-10 19:03:45 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 19:03:45 [INFO] GET /api/v1/fleet/probes 500 2ms 115 bytes
+2026-03-10 19:03:47 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 19:03:47 [INFO] GET /api/v1/fleet/probes 500 1ms 115 bytes
+2026-03-10 19:03:47 [ERROR] Failed to list fleet probes: sql: Scan error on column index 11, name "last_command_id": converting NULL to string is unsupported
+2026-03-10 19:03:47 [INFO] GET /api/v1/fleet/probes 500 10ms 115 bytes
+2026-03-10 19:03:49 [INFO] GET /api/v1/fleet/unenrolled-probes 200 2ms 288 bytes
+2026-03-10 19:03:49 [INFO] GET /api/v1/fleet/commands 200 1ms 322 bytes
+2026-03-10 19:04:29 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000361270
+2026-03-10 19:05:30 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0003601f0
+2026-03-10 19:06:29 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0003604b0
+2026-03-10 19:07:30 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000360650
+2026-03-10 19:08:30 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000360730
+2026-03-10 19:09:30 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000360ae0
+2026-03-10 19:10:30 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000310260
+2026-03-10 19:11:30 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000310890
+2026-03-10 19:12:30 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000332110
+2026-03-10 19:13:30 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000332770
+2026-03-10 19:14:30 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000310230
+2026-03-10 19:15:30 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000332130
+2026-03-10 19:16:30 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0005042b0
+2026-03-10 19:17:31 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0003602d0
+2026-03-10 19:18:31 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000504220
+2026-03-10 19:19:31 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0000c6160
+2026-03-10 19:20:31 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0000c6140
+2026-03-10 19:21:31 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000332320
+2026-03-10 19:21:50 [INFO] Shutting down server...
+2026-03-10 19:21:50 [INFO] API server ready on http://0.0.0.0:9080
+2026-03-10 19:21:50 [INFO] WebSocket Hub shutting down...
+2026-03-10 19:21:55 [INFO] Starting Campus Monitor API Server
+2026-03-10 19:21:55 [INFO] Database connected successfully
+2026-03-10 19:21:55 [INFO] Connecting to MQTT broker: localhost:1883
+2026-03-10 19:21:55 [INFO] Successfully connected to MQTT broker
+2026-03-10 19:21:55 [INFO] MQTT connection established
+2026-03-10 19:21:55 [INFO] Successfully subscribed to topic: campus/probes/telemetry
+2026-03-10 19:21:55 [INFO] Successfully subscribed to topic: campus/probes/telemetry/offline
+2026-03-10 19:21:55 [INFO] Successfully subscribed to topic: campus/probes/+/result
+2026-03-10 19:21:55 [INFO] MQTT subscriptions active
+2026-03-10 19:21:55 [INFO] Started background monitors
+2026-03-10 19:21:55 [INFO] Starting Probe Monitor
+2026-03-10 19:21:55 [INFO] Probe Monitor started successfully
+2026-03-10 19:21:55 [INFO] Subscribing to config broadcasts: campus/probes/+/config
+2026-03-10 19:21:55 [INFO] Subscribing to status broadcasts: campus/probes/+/status
+2026-03-10 19:21:55 [INFO] Successfully subscribed to topic with channel: campus/probes/+/config
+2026-03-10 19:21:55 [INFO] Successfully subscribed to topic with channel: campus/probes/+/status
+2026-03-10 19:21:55 [INFO] All handlers and WebSocket endpoint registered
+2026-03-10 19:21:55 [INFO] All handlers registered
+2026-03-10 19:21:55 [INFO] Starting HTTP server on 0.0.0.0:9080
+2026-03-10 19:21:55 [INFO] WebSocket Hub started
+2026-03-10 19:21:55 [INFO] New WS Client connected. Total: 1
+2026-03-10 19:21:59 [INFO] New WS Client connected. Total: 2
+2026-03-10 19:22:31 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000318440
+2026-03-10 19:23:31 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0002d6510
+2026-03-10 19:24:31 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0000b1170
+2026-03-10 19:25:31 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0002d6810
+2026-03-10 19:26:14 [INFO] GET /api/v1/fleet/status 200 29ms 304 bytes
+2026-03-10 19:26:14 [INFO] GET /api/v1/fleet/probes 200 15ms 491 bytes
+2026-03-10 19:26:14 [INFO] GET /api/v1/fleet/unenrolled-probes 200 65ms 288 bytes
+2026-03-10 19:26:14 [INFO] GET /api/v1/fleet/commands 200 59ms 322 bytes
+2026-03-10 19:26:14 [INFO] GET /api/v1/fleet/groups 200 89ms 181 bytes
+2026-03-10 19:26:14 [INFO] GET /api/v1/fleet/probes 200 90ms 491 bytes
+2026-03-10 19:26:14 [INFO] GET /api/v1/fleet/templates 200 111ms 5 bytes
+2026-03-10 19:26:19 [INFO] Sending fleet command: type=fleet_status, strategy=immediate
+2026-03-10 19:26:19 [INFO] POST /api/v1/fleet/commands 202 29ms 324 bytes
+2026-03-10 19:26:19 [INFO] Processing result: Probe=Main Cmd=fleet_status Status=failed CommandID=cmd_1773159979410393552
+2026-03-10 19:26:19 [INFO] GET /api/v1/fleet/commands 200 3ms 642 bytes
+2026-03-10 19:26:19 [INFO] GET /api/v1/fleet/commands/cmd_1773159979410393552 200 0ms 333 bytes
+2026-03-10 19:26:22 [INFO] GET /api/v1/fleet/commands/cmd_1773159979410393552 200 0ms 333 bytes
+2026-03-10 19:26:23 [INFO] GET /api/v1/fleet/probes/Main 200 4ms 489 bytes
+2026-03-10 19:26:24 [INFO] GET /api/v1/fleet/probes 200 11ms 491 bytes
+2026-03-10 19:26:24 [INFO] GET /api/v1/fleet/probes 200 9ms 491 bytes
+2026-03-10 19:26:24 [INFO] GET /api/v1/fleet/commands 200 3ms 642 bytes
+2026-03-10 19:26:25 [INFO] GET /api/v1/fleet/commands/cmd_1773159979410393552 200 0ms 333 bytes
+2026-03-10 19:26:28 [INFO] GET /api/v1/fleet/commands/cmd_1773159979410393552 200 0ms 333 bytes
+2026-03-10 19:26:29 [INFO] GET /api/v1/fleet/status 200 8ms 304 bytes
+2026-03-10 19:26:29 [INFO] GET /api/v1/fleet/unenrolled-probes 200 13ms 288 bytes
+2026-03-10 19:26:29 [INFO] GET /api/v1/fleet/commands 200 0ms 642 bytes
+2026-03-10 19:26:31 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000432020
+2026-03-10 19:26:31 [INFO] GET /api/v1/fleet/commands/cmd_1773159979410393552 200 0ms 333 bytes
+2026-03-10 19:26:34 [INFO] GET /api/v1/fleet/probes 200 11ms 491 bytes
+2026-03-10 19:26:34 [INFO] GET /api/v1/fleet/probes 200 6ms 491 bytes
+2026-03-10 19:26:34 [INFO] GET /api/v1/fleet/commands 200 7ms 642 bytes
+2026-03-10 19:26:34 [INFO] GET /api/v1/fleet/commands/cmd_1773159979410393552 200 0ms 333 bytes
+2026-03-10 19:26:37 [INFO] GET /api/v1/fleet/commands/cmd_1773159979410393552 200 0ms 333 bytes
+2026-03-10 19:26:38 [INFO] Sending fleet command: type=fleet_reboot, strategy=immediate
+2026-03-10 19:26:38 [INFO] POST /api/v1/fleet/commands 202 16ms 323 bytes
+2026-03-10 19:26:38 [INFO] GET /api/v1/fleet/commands 200 1ms 961 bytes
+2026-03-10 19:26:38 [INFO] GET /api/v1/fleet/commands/cmd_1773159998228095397 200 0ms 332 bytes
+2026-03-10 19:26:38 [INFO] Processing result: Probe=Main Cmd=fleet_reboot Status=failed CommandID=cmd_1773159998228095397
+2026-03-10 19:26:41 [INFO] GET /api/v1/fleet/commands/cmd_1773159998228095397 200 0ms 332 bytes
+2026-03-10 19:26:43 [INFO] GET /api/v1/fleet/commands 200 9ms 961 bytes
+2026-03-10 19:26:44 [INFO] GET /api/v1/fleet/commands/cmd_1773159998228095397 200 0ms 332 bytes
+2026-03-10 19:26:44 [INFO] GET /api/v1/fleet/status 200 4ms 305 bytes
+2026-03-10 19:26:44 [INFO] GET /api/v1/fleet/unenrolled-probes 200 2ms 288 bytes
+2026-03-10 19:26:44 [INFO] GET /api/v1/fleet/probes 200 9ms 491 bytes
+2026-03-10 19:26:44 [INFO] GET /api/v1/fleet/probes 200 5ms 491 bytes
+2026-03-10 19:26:47 [INFO] GET /api/v1/fleet/commands/cmd_1773159998228095397 200 0ms 332 bytes
+2026-03-10 19:26:48 [INFO] GET /api/v1/fleet/commands 200 4ms 961 bytes
+2026-03-10 19:26:50 [INFO] GET /api/v1/fleet/commands/cmd_1773159998228095397 200 0ms 332 bytes
+2026-03-10 19:26:53 [INFO] GET /api/v1/fleet/commands 200 2ms 961 bytes
+2026-03-10 19:26:53 [INFO] GET /api/v1/fleet/commands/cmd_1773159998228095397 200 0ms 332 bytes
+2026-03-10 19:26:54 [INFO] GET /api/v1/fleet/probes 200 7ms 491 bytes
+2026-03-10 19:26:55 [INFO] GET /api/v1/fleet/probes 200 5ms 491 bytes
+2026-03-10 19:26:56 [INFO] GET /api/v1/fleet/commands/cmd_1773159998228095397 200 0ms 332 bytes
+2026-03-10 19:26:58 [INFO] GET /api/v1/fleet/commands 200 4ms 961 bytes
+2026-03-10 19:26:59 [INFO] GET /api/v1/fleet/commands/cmd_1773159998228095397 200 0ms 332 bytes
+2026-03-10 19:26:59 [INFO] GET /api/v1/fleet/status 200 17ms 305 bytes
+2026-03-10 19:26:59 [INFO] GET /api/v1/fleet/unenrolled-probes 200 1ms 288 bytes
+2026-03-10 19:27:00 [INFO] GET /api/v1/fleet/unenrolled-probes 200 1ms 288 bytes
+2026-03-10 19:27:02 [INFO] GET /api/v1/fleet/probes/Main 200 2ms 489 bytes
+2026-03-10 19:27:02 [INFO] GET /api/v1/fleet/commands/cmd_1773159998228095397 200 0ms 332 bytes
+2026-03-10 19:27:03 [INFO] GET /api/v1/fleet/unenrolled-probes 200 1ms 288 bytes
+2026-03-10 19:27:03 [INFO] GET /api/v1/fleet/commands 200 4ms 961 bytes
+2026-03-10 19:27:03 [INFO] GET /api/v1/fleet/probes/Main 200 1ms 489 bytes
+2026-03-10 19:27:05 [INFO] GET /api/v1/fleet/probes 200 8ms 491 bytes
+2026-03-10 19:27:05 [INFO] GET /api/v1/fleet/probes 200 2ms 491 bytes
+2026-03-10 19:27:05 [INFO] GET /api/v1/fleet/commands/cmd_1773159998228095397 200 0ms 332 bytes
+2026-03-10 19:27:08 [INFO] GET /api/v1/fleet/commands/cmd_1773159998228095397 200 0ms 332 bytes
+2026-03-10 19:27:08 [INFO] GET /api/v1/fleet/commands 200 1ms 961 bytes
+2026-03-10 19:27:11 [INFO] GET /api/v1/fleet/commands/cmd_1773159998228095397 200 0ms 332 bytes
+2026-03-10 19:27:13 [INFO] GET /api/v1/fleet/commands 200 11ms 961 bytes
+2026-03-10 19:27:31 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000432ed0
+2026-03-10 19:28:31 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc00052a040
+2026-03-10 19:28:58 [INFO] GET /api/v1/fleet/unenrolled-probes 200 3ms 288 bytes
+2026-03-10 19:28:58 [INFO] GET /api/v1/fleet/status 200 6ms 305 bytes
+2026-03-10 19:28:58 [INFO] GET /api/v1/fleet/probes 200 8ms 491 bytes
+2026-03-10 19:28:58 [INFO] GET /api/v1/fleet/groups 200 8ms 181 bytes
+2026-03-10 19:28:58 [INFO] GET /api/v1/fleet/commands 200 7ms 961 bytes
+2026-03-10 19:28:58 [INFO] GET /api/v1/fleet/commands/cmd_1773159998228095397 200 0ms 332 bytes
+2026-03-10 19:28:58 [INFO] GET /api/v1/fleet/probes 200 8ms 491 bytes
+2026-03-10 19:28:58 [INFO] GET /api/v1/fleet/templates 200 16ms 5 bytes
+2026-03-10 19:28:58 [INFO] GET /api/v1/fleet/probes/Main 200 39ms 489 bytes
+2026-03-10 19:29:01 [INFO] GET /api/v1/fleet/commands/cmd_1773159998228095397 200 0ms 332 bytes
+2026-03-10 19:29:03 [INFO] GET /api/v1/fleet/commands 200 11ms 961 bytes
+2026-03-10 19:29:04 [INFO] GET /api/v1/fleet/commands/cmd_1773159998228095397 200 0ms 332 bytes
+2026-03-10 19:29:31 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0001a6a40
+2026-03-10 19:29:34 [INFO] GET /api/v1/fleet/status 200 16ms 304 bytes
+2026-03-10 19:29:34 [INFO] GET /api/v1/fleet/probes 200 11ms 491 bytes
+2026-03-10 19:29:34 [INFO] GET /api/v1/fleet/groups 200 9ms 181 bytes
+2026-03-10 19:29:34 [INFO] GET /api/v1/fleet/unenrolled-probes 200 11ms 288 bytes
+2026-03-10 19:29:34 [INFO] GET /api/v1/fleet/commands 200 4ms 961 bytes
+2026-03-10 19:29:34 [INFO] GET /api/v1/fleet/commands/cmd_1773159998228095397 200 0ms 332 bytes
+2026-03-10 19:29:34 [INFO] GET /api/v1/fleet/probes 200 2ms 491 bytes
+2026-03-10 19:29:34 [INFO] GET /api/v1/fleet/probes/Main 200 5ms 489 bytes
+2026-03-10 19:29:34 [INFO] GET /api/v1/fleet/templates 200 38ms 5 bytes
+2026-03-10 19:29:36 [INFO] Sending fleet command: type=fleet_status, strategy=immediate
+2026-03-10 19:29:36 [INFO] POST /api/v1/fleet/commands 202 11ms 324 bytes
+2026-03-10 19:29:36 [INFO] GET /api/v1/fleet/commands 200 2ms 1281 bytes
+2026-03-10 19:29:36 [INFO] GET /api/v1/fleet/commands/cmd_1773160176074312954 200 0ms 333 bytes
+2026-03-10 19:29:36 [INFO] Processing result: Probe=Main Cmd=fleet_status Status=failed CommandID=cmd_1773160176074312954
+2026-03-10 19:29:39 [INFO] GET /api/v1/fleet/commands/cmd_1773160176074312954 200 0ms 333 bytes
+2026-03-10 19:29:41 [INFO] GET /api/v1/fleet/commands 200 5ms 1281 bytes
+2026-03-10 19:29:42 [INFO] GET /api/v1/fleet/commands/cmd_1773160176074312954 200 0ms 333 bytes
+2026-03-10 19:29:44 [INFO] GET /api/v1/fleet/probes 200 8ms 491 bytes
+2026-03-10 19:29:44 [INFO] GET /api/v1/fleet/probes 200 6ms 491 bytes
+2026-03-10 19:29:45 [INFO] GET /api/v1/fleet/commands/cmd_1773160176074312954 200 0ms 333 bytes
+2026-03-10 19:29:46 [INFO] GET /api/v1/fleet/commands 200 1ms 1281 bytes
+2026-03-10 19:29:48 [INFO] GET /api/v1/fleet/commands/cmd_1773160176074312954 200 0ms 333 bytes
+2026-03-10 19:29:49 [INFO] Sending fleet command: type=fleet_status, strategy=immediate
+2026-03-10 19:29:49 [INFO] POST /api/v1/fleet/commands 202 18ms 324 bytes
+2026-03-10 19:29:49 [INFO] GET /api/v1/fleet/unenrolled-probes 200 2ms 288 bytes
+2026-03-10 19:29:49 [INFO] GET /api/v1/fleet/status 200 11ms 305 bytes
+2026-03-10 19:29:49 [INFO] Processing result: Probe=Main Cmd=fleet_status Status=failed CommandID=cmd_1773160189286946085
+2026-03-10 19:29:49 [INFO] GET /api/v1/fleet/commands 200 2ms 1601 bytes
+2026-03-10 19:29:49 [INFO] GET /api/v1/fleet/commands/cmd_1773160189286946085 200 0ms 333 bytes
+2026-03-10 19:29:52 [INFO] GET /api/v1/fleet/commands/cmd_1773160189286946085 200 0ms 333 bytes
+2026-03-10 19:29:54 [INFO] GET /api/v1/fleet/probes 200 4ms 491 bytes
+2026-03-10 19:29:54 [INFO] GET /api/v1/fleet/probes 200 7ms 491 bytes
+2026-03-10 19:29:54 [INFO] GET /api/v1/fleet/commands 200 4ms 1601 bytes
+2026-03-10 19:29:55 [INFO] GET /api/v1/fleet/commands/cmd_1773160189286946085 200 0ms 333 bytes
+2026-03-10 19:29:58 [INFO] GET /api/v1/fleet/commands/cmd_1773160189286946085 200 0ms 333 bytes
+2026-03-10 19:29:59 [INFO] GET /api/v1/fleet/commands 200 3ms 1601 bytes
+2026-03-10 19:30:01 [INFO] GET /api/v1/fleet/commands/cmd_1773160189286946085 200 0ms 333 bytes
+2026-03-10 19:30:01 [INFO] Sending fleet command: type=fleet_ota, strategy=immediate
+2026-03-10 19:30:01 [INFO] POST /api/v1/fleet/commands 202 15ms 321 bytes
+2026-03-10 19:30:01 [INFO] Processing result: Probe=Main Cmd=fleet_ota Status=failed CommandID=cmd_1773160201929233700
+2026-03-10 19:30:02 [INFO] GET /api/v1/fleet/commands 200 1ms 1918 bytes
+2026-03-10 19:30:02 [INFO] GET /api/v1/fleet/commands/cmd_1773160201929233700 200 0ms 330 bytes
+2026-03-10 19:30:04 [INFO] GET /api/v1/fleet/probes 200 7ms 491 bytes
+2026-03-10 19:30:04 [INFO] GET /api/v1/fleet/unenrolled-probes 200 15ms 288 bytes
+2026-03-10 19:30:04 [INFO] GET /api/v1/fleet/status 200 22ms 305 bytes
+2026-03-10 19:30:04 [INFO] GET /api/v1/fleet/probes 200 5ms 491 bytes
+2026-03-10 19:30:05 [INFO] GET /api/v1/fleet/commands/cmd_1773160201929233700 200 0ms 330 bytes
+2026-03-10 19:30:05 [INFO] Sending fleet command: type=fleet_ota, strategy=immediate
+2026-03-10 19:30:05 [INFO] POST /api/v1/fleet/commands 202 15ms 321 bytes
+2026-03-10 19:30:05 [INFO] GET /api/v1/fleet/commands 200 1ms 2235 bytes
+2026-03-10 19:30:05 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:30:05 [INFO] Processing result: Probe=Main Cmd=fleet_ota Status=failed CommandID=cmd_1773160205287312032
+2026-03-10 19:30:08 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:30:10 [INFO] GET /api/v1/fleet/commands 200 1ms 2235 bytes
+2026-03-10 19:30:11 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:30:14 [INFO] GET /api/v1/fleet/probes 200 7ms 491 bytes
+2026-03-10 19:30:14 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:30:14 [INFO] GET /api/v1/fleet/probes 200 5ms 491 bytes
+2026-03-10 19:30:15 [INFO] GET /api/v1/fleet/commands 200 5ms 2235 bytes
+2026-03-10 19:30:17 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:30:19 [INFO] GET /api/v1/fleet/unenrolled-probes 200 2ms 288 bytes
+2026-03-10 19:30:19 [INFO] GET /api/v1/fleet/status 200 8ms 305 bytes
+2026-03-10 19:30:20 [INFO] GET /api/v1/fleet/commands 200 5ms 2235 bytes
+2026-03-10 19:30:20 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:30:23 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:30:24 [INFO] GET /api/v1/fleet/probes 200 5ms 491 bytes
+2026-03-10 19:30:24 [INFO] GET /api/v1/fleet/probes 200 3ms 491 bytes
+2026-03-10 19:30:25 [INFO] GET /api/v1/fleet/unenrolled-probes 200 1ms 288 bytes
+2026-03-10 19:30:25 [INFO] GET /api/v1/fleet/commands 200 10ms 2235 bytes
+2026-03-10 19:30:26 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:30:29 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:30:30 [INFO] GET /api/v1/fleet/commands 200 5ms 2235 bytes
+2026-03-10 19:30:31 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0002980e0
+2026-03-10 19:30:33 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:30:34 [INFO] GET /api/v1/fleet/probes 200 7ms 491 bytes
+2026-03-10 19:30:34 [INFO] GET /api/v1/fleet/status 200 13ms 305 bytes
+2026-03-10 19:30:34 [INFO] GET /api/v1/fleet/probes 200 1ms 491 bytes
+2026-03-10 19:30:35 [INFO] GET /api/v1/fleet/unenrolled-probes 200 1ms 288 bytes
+2026-03-10 19:30:35 [INFO] GET /api/v1/fleet/commands 200 1ms 2235 bytes
+2026-03-10 19:30:36 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:30:39 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:30:40 [INFO] GET /api/v1/fleet/commands 200 2ms 2235 bytes
+2026-03-10 19:30:42 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:30:44 [INFO] GET /api/v1/fleet/probes 200 5ms 491 bytes
+2026-03-10 19:30:44 [INFO] GET /api/v1/fleet/probes 200 6ms 491 bytes
+2026-03-10 19:30:45 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:30:45 [INFO] GET /api/v1/fleet/unenrolled-probes 200 1ms 288 bytes
+2026-03-10 19:30:45 [INFO] GET /api/v1/fleet/commands 200 5ms 2235 bytes
+2026-03-10 19:30:48 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:30:49 [INFO] GET /api/v1/fleet/status 200 5ms 304 bytes
+2026-03-10 19:30:50 [INFO] GET /api/v1/fleet/commands 200 5ms 2235 bytes
+2026-03-10 19:30:51 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:30:54 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:30:54 [INFO] GET /api/v1/fleet/probes 200 6ms 491 bytes
+2026-03-10 19:30:54 [INFO] GET /api/v1/fleet/probes 200 6ms 491 bytes
+2026-03-10 19:30:55 [INFO] GET /api/v1/fleet/unenrolled-probes 200 4ms 288 bytes
+2026-03-10 19:30:56 [INFO] GET /api/v1/fleet/commands 200 1ms 2235 bytes
+2026-03-10 19:30:57 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:30:57 [INFO] GET /api/v1/fleet/probes/Main 200 1ms 489 bytes
+2026-03-10 19:31:00 [INFO] GET /api/v1/fleet/unenrolled-probes 200 1ms 288 bytes
+2026-03-10 19:31:00 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:31:01 [INFO] GET /api/v1/fleet/commands 200 4ms 2235 bytes
+2026-03-10 19:31:03 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:31:04 [INFO] GET /api/v1/fleet/status 200 6ms 305 bytes
+2026-03-10 19:31:04 [INFO] GET /api/v1/fleet/probes 200 2ms 491 bytes
+2026-03-10 19:31:05 [INFO] GET /api/v1/fleet/probes 200 5ms 491 bytes
+2026-03-10 19:31:06 [INFO] GET /api/v1/fleet/commands 200 1ms 2235 bytes
+2026-03-10 19:31:06 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:31:09 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:31:10 [INFO] GET /api/v1/fleet/unenrolled-probes 200 2ms 288 bytes
+2026-03-10 19:31:11 [INFO] GET /api/v1/fleet/commands 200 3ms 2235 bytes
+2026-03-10 19:31:12 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:31:15 [INFO] GET /api/v1/fleet/probes 200 9ms 491 bytes
+2026-03-10 19:31:15 [INFO] GET /api/v1/fleet/probes 200 3ms 491 bytes
+2026-03-10 19:31:15 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:31:16 [INFO] GET /api/v1/fleet/commands 200 2ms 2235 bytes
+2026-03-10 19:31:18 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:31:19 [INFO] GET /api/v1/fleet/status 200 6ms 305 bytes
+2026-03-10 19:31:20 [INFO] GET /api/v1/fleet/unenrolled-probes 200 2ms 288 bytes
+2026-03-10 19:31:21 [INFO] GET /api/v1/fleet/commands 200 1ms 2235 bytes
+2026-03-10 19:31:21 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:31:24 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:31:25 [INFO] GET /api/v1/fleet/probes 200 1ms 498 bytes
+2026-03-10 19:31:25 [INFO] GET /api/v1/fleet/probes 200 3ms 498 bytes
+2026-03-10 19:31:26 [INFO] GET /api/v1/fleet/commands 200 1ms 2235 bytes
+2026-03-10 19:31:27 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:31:30 [INFO] GET /api/v1/fleet/unenrolled-probes 200 12ms 288 bytes
+2026-03-10 19:31:31 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:31:31 [INFO] GET /api/v1/fleet/commands 200 4ms 2235 bytes
+2026-03-10 19:31:31 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0001a73c0
+2026-03-10 19:31:34 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:31:34 [INFO] GET /api/v1/fleet/status 200 15ms 305 bytes
+2026-03-10 19:31:35 [INFO] GET /api/v1/fleet/probes 200 3ms 491 bytes
+2026-03-10 19:31:35 [INFO] GET /api/v1/fleet/probes 200 3ms 491 bytes
+2026-03-10 19:31:36 [INFO] GET /api/v1/fleet/commands 200 6ms 2235 bytes
+2026-03-10 19:31:37 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:31:40 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:31:40 [INFO] GET /api/v1/fleet/unenrolled-probes 200 7ms 288 bytes
+2026-03-10 19:31:41 [INFO] GET /api/v1/fleet/commands 200 4ms 2235 bytes
+2026-03-10 19:31:43 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:31:45 [INFO] GET /api/v1/fleet/probes 200 7ms 491 bytes
+2026-03-10 19:31:45 [INFO] GET /api/v1/fleet/probes 200 8ms 491 bytes
+2026-03-10 19:31:46 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:31:46 [INFO] GET /api/v1/fleet/commands 200 7ms 2235 bytes
+2026-03-10 19:31:49 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:31:49 [INFO] GET /api/v1/fleet/status 200 9ms 305 bytes
+2026-03-10 19:31:51 [INFO] GET /api/v1/fleet/unenrolled-probes 200 3ms 288 bytes
+2026-03-10 19:31:51 [INFO] GET /api/v1/fleet/commands 200 5ms 2235 bytes
+2026-03-10 19:31:52 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:31:55 [INFO] GET /api/v1/fleet/probes 200 7ms 491 bytes
+2026-03-10 19:31:55 [INFO] GET /api/v1/fleet/probes 200 6ms 491 bytes
+2026-03-10 19:31:55 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:31:56 [INFO] GET /api/v1/fleet/commands 200 4ms 2235 bytes
+2026-03-10 19:31:58 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:32:01 [INFO] GET /api/v1/fleet/unenrolled-probes 200 5ms 288 bytes
+2026-03-10 19:32:01 [INFO] GET /api/v1/fleet/commands 200 4ms 2235 bytes
+2026-03-10 19:32:01 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:32:05 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:32:05 [INFO] GET /api/v1/fleet/status 200 19ms 305 bytes
+2026-03-10 19:32:05 [INFO] GET /api/v1/fleet/probes 200 7ms 491 bytes
+2026-03-10 19:32:05 [INFO] GET /api/v1/fleet/probes 200 8ms 491 bytes
+2026-03-10 19:32:06 [INFO] GET /api/v1/fleet/commands 200 5ms 2235 bytes
+2026-03-10 19:32:08 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:32:11 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:32:11 [INFO] GET /api/v1/fleet/unenrolled-probes 200 3ms 288 bytes
+2026-03-10 19:32:11 [INFO] GET /api/v1/fleet/commands 200 4ms 2235 bytes
+2026-03-10 19:32:14 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:32:15 [INFO] GET /api/v1/fleet/probes 200 6ms 491 bytes
+2026-03-10 19:32:15 [INFO] GET /api/v1/fleet/probes 200 7ms 491 bytes
+2026-03-10 19:32:16 [INFO] GET /api/v1/fleet/commands 200 5ms 2235 bytes
+2026-03-10 19:32:17 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:32:20 [INFO] GET /api/v1/fleet/status 200 7ms 304 bytes
+2026-03-10 19:32:20 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:32:21 [INFO] GET /api/v1/fleet/unenrolled-probes 200 1ms 288 bytes
+2026-03-10 19:32:21 [INFO] GET /api/v1/fleet/commands 200 9ms 2235 bytes
+2026-03-10 19:32:23 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:32:25 [INFO] GET /api/v1/fleet/probes 200 7ms 491 bytes
+2026-03-10 19:32:25 [INFO] GET /api/v1/fleet/probes 200 14ms 491 bytes
+2026-03-10 19:32:26 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:32:26 [INFO] GET /api/v1/fleet/commands 200 5ms 2235 bytes
+2026-03-10 19:32:29 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:32:31 [INFO] GET /api/v1/fleet/unenrolled-probes 200 5ms 288 bytes
+2026-03-10 19:32:31 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0002aefb0
+2026-03-10 19:32:31 [INFO] GET /api/v1/fleet/commands 200 5ms 2235 bytes
+2026-03-10 19:32:32 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:32:35 [INFO] GET /api/v1/fleet/status 200 17ms 305 bytes
+2026-03-10 19:32:35 [INFO] GET /api/v1/fleet/probes 200 8ms 491 bytes
+2026-03-10 19:32:35 [INFO] GET /api/v1/fleet/probes 200 4ms 491 bytes
+2026-03-10 19:32:35 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:32:36 [INFO] GET /api/v1/fleet/commands 200 5ms 2235 bytes
+2026-03-10 19:32:38 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:32:41 [INFO] GET /api/v1/fleet/unenrolled-probes 200 5ms 288 bytes
+2026-03-10 19:32:41 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:32:41 [INFO] GET /api/v1/fleet/commands 200 6ms 2235 bytes
+2026-03-10 19:32:44 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:32:45 [INFO] GET /api/v1/fleet/probes 200 6ms 491 bytes
+2026-03-10 19:32:45 [INFO] GET /api/v1/fleet/probes 200 4ms 491 bytes
+2026-03-10 19:32:47 [INFO] GET /api/v1/fleet/commands 200 5ms 2235 bytes
+2026-03-10 19:32:47 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:32:50 [INFO] GET /api/v1/fleet/status 200 7ms 305 bytes
+2026-03-10 19:32:50 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:32:51 [INFO] GET /api/v1/fleet/unenrolled-probes 200 1ms 288 bytes
+2026-03-10 19:32:52 [INFO] GET /api/v1/fleet/commands 200 2ms 2235 bytes
+2026-03-10 19:32:53 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:32:55 [INFO] GET /api/v1/fleet/probes 200 5ms 491 bytes
+2026-03-10 19:32:55 [INFO] GET /api/v1/fleet/probes 200 12ms 491 bytes
+2026-03-10 19:32:57 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:32:57 [INFO] GET /api/v1/fleet/commands 200 4ms 2235 bytes
+2026-03-10 19:33:00 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:33:01 [INFO] GET /api/v1/fleet/unenrolled-probes 200 4ms 288 bytes
+2026-03-10 19:33:02 [INFO] GET /api/v1/fleet/commands 200 5ms 2235 bytes
+2026-03-10 19:33:03 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:33:05 [INFO] GET /api/v1/fleet/status 200 17ms 305 bytes
+2026-03-10 19:33:05 [INFO] GET /api/v1/fleet/probes 200 9ms 491 bytes
+2026-03-10 19:33:05 [INFO] GET /api/v1/fleet/probes 200 12ms 491 bytes
+2026-03-10 19:33:06 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:33:07 [INFO] GET /api/v1/fleet/commands 200 6ms 2235 bytes
+2026-03-10 19:33:09 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:33:11 [INFO] GET /api/v1/fleet/unenrolled-probes 200 6ms 288 bytes
+2026-03-10 19:33:12 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:33:12 [INFO] GET /api/v1/fleet/commands 200 1ms 2235 bytes
+2026-03-10 19:33:15 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:33:15 [INFO] GET /api/v1/fleet/probes 200 8ms 491 bytes
+2026-03-10 19:33:15 [INFO] GET /api/v1/fleet/probes 200 4ms 491 bytes
+2026-03-10 19:33:17 [INFO] GET /api/v1/fleet/commands 200 5ms 2235 bytes
+2026-03-10 19:33:18 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:33:20 [INFO] GET /api/v1/fleet/status 200 16ms 305 bytes
+2026-03-10 19:33:21 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:33:21 [INFO] GET /api/v1/fleet/unenrolled-probes 200 1ms 288 bytes
+2026-03-10 19:33:22 [INFO] GET /api/v1/fleet/commands 200 1ms 2235 bytes
+2026-03-10 19:33:24 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:33:25 [INFO] GET /api/v1/fleet/probes 200 5ms 498 bytes
+2026-03-10 19:33:25 [INFO] GET /api/v1/fleet/probes 200 4ms 498 bytes
+2026-03-10 19:33:27 [INFO] GET /api/v1/fleet/commands 200 5ms 2235 bytes
+2026-03-10 19:33:27 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:33:30 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:33:31 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0004a5b00
+2026-03-10 19:33:31 [INFO] GET /api/v1/fleet/unenrolled-probes 200 4ms 288 bytes
+2026-03-10 19:33:32 [INFO] GET /api/v1/fleet/commands 200 5ms 2235 bytes
+2026-03-10 19:33:33 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:33:35 [INFO] GET /api/v1/fleet/status 200 16ms 305 bytes
+2026-03-10 19:33:35 [INFO] GET /api/v1/fleet/probes 200 5ms 491 bytes
+2026-03-10 19:33:35 [INFO] GET /api/v1/fleet/probes 200 7ms 491 bytes
+2026-03-10 19:33:36 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:33:37 [INFO] GET /api/v1/fleet/commands 200 1ms 2235 bytes
+2026-03-10 19:33:39 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:33:41 [INFO] GET /api/v1/fleet/unenrolled-probes 200 4ms 288 bytes
+2026-03-10 19:33:42 [INFO] GET /api/v1/fleet/commands 200 5ms 2235 bytes
+2026-03-10 19:33:42 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:33:45 [INFO] GET /api/v1/fleet/probes 200 3ms 491 bytes
+2026-03-10 19:33:45 [INFO] GET /api/v1/fleet/probes 200 3ms 491 bytes
+2026-03-10 19:33:46 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:33:47 [INFO] GET /api/v1/fleet/commands 200 7ms 2235 bytes
+2026-03-10 19:33:49 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:33:50 [INFO] GET /api/v1/fleet/status 200 20ms 305 bytes
+2026-03-10 19:33:52 [INFO] GET /api/v1/fleet/unenrolled-probes 200 3ms 288 bytes
+2026-03-10 19:33:52 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:33:52 [INFO] GET /api/v1/fleet/commands 200 1ms 2235 bytes
+2026-03-10 19:33:55 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:33:55 [INFO] GET /api/v1/fleet/probes 200 6ms 491 bytes
+2026-03-10 19:33:55 [INFO] GET /api/v1/fleet/probes 200 8ms 491 bytes
+2026-03-10 19:33:57 [INFO] GET /api/v1/fleet/commands 200 4ms 2235 bytes
+2026-03-10 19:33:58 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:34:01 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:34:02 [INFO] GET /api/v1/fleet/unenrolled-probes 200 5ms 288 bytes
+2026-03-10 19:34:02 [INFO] GET /api/v1/fleet/commands 200 5ms 2235 bytes
+2026-03-10 19:34:04 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:34:05 [INFO] GET /api/v1/fleet/status 200 16ms 305 bytes
+2026-03-10 19:34:06 [INFO] GET /api/v1/fleet/probes 200 5ms 491 bytes
+2026-03-10 19:34:06 [INFO] GET /api/v1/fleet/probes 200 6ms 491 bytes
+2026-03-10 19:34:07 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:34:07 [INFO] GET /api/v1/fleet/commands 200 5ms 2235 bytes
+2026-03-10 19:34:10 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:34:12 [INFO] GET /api/v1/fleet/unenrolled-probes 200 2ms 288 bytes
+2026-03-10 19:34:12 [INFO] GET /api/v1/fleet/commands 200 2ms 2235 bytes
+2026-03-10 19:34:13 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:34:16 [INFO] GET /api/v1/fleet/probes 200 6ms 491 bytes
+2026-03-10 19:34:16 [INFO] GET /api/v1/fleet/probes 200 8ms 491 bytes
+2026-03-10 19:34:16 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:34:17 [INFO] GET /api/v1/fleet/commands 200 5ms 2235 bytes
+2026-03-10 19:34:19 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:34:20 [INFO] GET /api/v1/fleet/status 200 15ms 305 bytes
+2026-03-10 19:34:22 [INFO] GET /api/v1/fleet/unenrolled-probes 200 5ms 288 bytes
+2026-03-10 19:34:22 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:34:22 [INFO] GET /api/v1/fleet/commands 200 5ms 2235 bytes
+2026-03-10 19:34:25 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:34:26 [INFO] GET /api/v1/fleet/probes 200 7ms 491 bytes
+2026-03-10 19:34:26 [INFO] GET /api/v1/fleet/probes 200 24ms 491 bytes
+2026-03-10 19:34:27 [INFO] GET /api/v1/fleet/commands 200 5ms 2235 bytes
+2026-03-10 19:34:28 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:34:31 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000432a30
+2026-03-10 19:34:31 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:34:32 [INFO] GET /api/v1/fleet/unenrolled-probes 200 6ms 288 bytes
+2026-03-10 19:34:32 [INFO] GET /api/v1/fleet/commands 200 1ms 2235 bytes
+2026-03-10 19:34:34 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:34:35 [INFO] GET /api/v1/fleet/status 200 87ms 305 bytes
+2026-03-10 19:34:36 [INFO] GET /api/v1/fleet/probes 200 15ms 491 bytes
+2026-03-10 19:34:36 [INFO] GET /api/v1/fleet/probes 200 7ms 491 bytes
+2026-03-10 19:34:37 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:34:38 [INFO] GET /api/v1/fleet/commands 200 4ms 2235 bytes
+2026-03-10 19:34:40 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:34:42 [INFO] GET /api/v1/fleet/unenrolled-probes 200 11ms 288 bytes
+2026-03-10 19:34:43 [INFO] GET /api/v1/fleet/commands 200 5ms 2235 bytes
+2026-03-10 19:34:44 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:34:46 [INFO] GET /api/v1/fleet/probes 200 6ms 491 bytes
+2026-03-10 19:34:46 [INFO] GET /api/v1/fleet/probes 200 17ms 491 bytes
+2026-03-10 19:34:47 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:34:48 [INFO] GET /api/v1/fleet/commands 200 5ms 2235 bytes
+2026-03-10 19:34:50 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:34:50 [INFO] GET /api/v1/fleet/status 200 15ms 305 bytes
+2026-03-10 19:34:52 [INFO] GET /api/v1/fleet/unenrolled-probes 200 1ms 288 bytes
+2026-03-10 19:34:53 [INFO] GET /api/v1/fleet/commands 200 6ms 2235 bytes
+2026-03-10 19:34:53 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:34:56 [INFO] GET /api/v1/fleet/probes 200 2ms 491 bytes
+2026-03-10 19:34:56 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:34:56 [INFO] GET /api/v1/fleet/probes 200 1ms 491 bytes
+2026-03-10 19:34:58 [INFO] GET /api/v1/fleet/commands 200 2ms 2235 bytes
+2026-03-10 19:34:59 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:35:02 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:35:02 [INFO] GET /api/v1/fleet/unenrolled-probes 200 1ms 288 bytes
+2026-03-10 19:35:03 [INFO] GET /api/v1/fleet/commands 200 5ms 2235 bytes
+2026-03-10 19:35:05 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:35:05 [INFO] GET /api/v1/fleet/status 200 5ms 305 bytes
+2026-03-10 19:35:06 [INFO] GET /api/v1/fleet/probes 200 3ms 491 bytes
+2026-03-10 19:35:06 [INFO] GET /api/v1/fleet/probes 200 2ms 491 bytes
+2026-03-10 19:35:08 [INFO] GET /api/v1/fleet/commands 200 1ms 2235 bytes
+2026-03-10 19:35:08 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:35:11 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:35:12 [INFO] GET /api/v1/fleet/unenrolled-probes 200 4ms 288 bytes
+2026-03-10 19:35:13 [INFO] GET /api/v1/fleet/commands 200 1ms 2235 bytes
+2026-03-10 19:35:14 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:35:16 [INFO] GET /api/v1/fleet/probes 200 7ms 491 bytes
+2026-03-10 19:35:16 [INFO] GET /api/v1/fleet/probes 200 9ms 491 bytes
+2026-03-10 19:35:17 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:35:18 [INFO] GET /api/v1/fleet/commands 200 5ms 2235 bytes
+2026-03-10 19:35:20 [INFO] GET /api/v1/fleet/status 200 11ms 305 bytes
+2026-03-10 19:35:20 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:35:22 [INFO] GET /api/v1/fleet/unenrolled-probes 200 1ms 288 bytes
+2026-03-10 19:35:23 [INFO] GET /api/v1/fleet/commands 200 7ms 2235 bytes
+2026-03-10 19:35:23 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:35:26 [INFO] GET /api/v1/fleet/probes 200 6ms 498 bytes
+2026-03-10 19:35:26 [INFO] GET /api/v1/fleet/probes 200 9ms 498 bytes
+2026-03-10 19:35:26 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:35:28 [INFO] GET /api/v1/fleet/commands 200 6ms 2235 bytes
+2026-03-10 19:35:30 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:35:31 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000433df0
+2026-03-10 19:35:32 [INFO] GET /api/v1/fleet/unenrolled-probes 200 4ms 288 bytes
+2026-03-10 19:35:33 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:35:33 [INFO] GET /api/v1/fleet/commands 200 5ms 2235 bytes
+2026-03-10 19:35:35 [INFO] GET /api/v1/fleet/status 200 14ms 304 bytes
+2026-03-10 19:35:36 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:35:36 [INFO] GET /api/v1/fleet/probes 200 7ms 491 bytes
+2026-03-10 19:35:36 [INFO] GET /api/v1/fleet/probes 200 7ms 491 bytes
+2026-03-10 19:35:38 [INFO] GET /api/v1/fleet/commands 200 5ms 2235 bytes
+2026-03-10 19:35:39 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:35:42 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:35:42 [INFO] GET /api/v1/fleet/unenrolled-probes 200 4ms 288 bytes
+2026-03-10 19:35:43 [INFO] GET /api/v1/fleet/commands 200 5ms 2235 bytes
+2026-03-10 19:35:45 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:35:46 [INFO] GET /api/v1/fleet/probes 200 7ms 491 bytes
+2026-03-10 19:35:46 [INFO] GET /api/v1/fleet/probes 200 4ms 491 bytes
+2026-03-10 19:35:48 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:35:48 [INFO] GET /api/v1/fleet/commands 200 2ms 2235 bytes
+2026-03-10 19:35:50 [INFO] GET /api/v1/fleet/status 200 7ms 305 bytes
+2026-03-10 19:35:51 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:35:52 [INFO] GET /api/v1/fleet/unenrolled-probes 200 1ms 288 bytes
+2026-03-10 19:35:53 [INFO] GET /api/v1/fleet/commands 200 5ms 2235 bytes
+2026-03-10 19:35:54 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:35:56 [INFO] GET /api/v1/fleet/probes 200 9ms 491 bytes
+2026-03-10 19:35:56 [INFO] GET /api/v1/fleet/probes 200 6ms 491 bytes
+2026-03-10 19:35:57 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:35:58 [INFO] GET /api/v1/fleet/commands 200 0ms 2235 bytes
+2026-03-10 19:36:00 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:36:02 [INFO] GET /api/v1/fleet/unenrolled-probes 200 5ms 288 bytes
+2026-03-10 19:36:03 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:36:03 [INFO] GET /api/v1/fleet/commands 200 2ms 2235 bytes
+2026-03-10 19:36:05 [INFO] GET /api/v1/fleet/status 200 15ms 305 bytes
+2026-03-10 19:36:06 [INFO] GET /api/v1/fleet/probes 200 3ms 491 bytes
+2026-03-10 19:36:06 [INFO] GET /api/v1/fleet/probes 200 3ms 491 bytes
+2026-03-10 19:36:06 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:36:08 [INFO] GET /api/v1/fleet/commands 200 4ms 2235 bytes
+2026-03-10 19:36:09 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:36:12 [INFO] GET /api/v1/fleet/unenrolled-probes 200 3ms 288 bytes
+2026-03-10 19:36:13 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:36:14 [INFO] GET /api/v1/fleet/commands 200 2ms 2235 bytes
+2026-03-10 19:36:16 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:36:16 [INFO] GET /api/v1/fleet/probes 200 3ms 491 bytes
+2026-03-10 19:36:16 [INFO] GET /api/v1/fleet/probes 200 2ms 491 bytes
+2026-03-10 19:36:19 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:36:19 [INFO] GET /api/v1/fleet/commands 200 1ms 2235 bytes
+2026-03-10 19:36:20 [INFO] GET /api/v1/fleet/status 200 11ms 305 bytes
+2026-03-10 19:36:22 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:36:22 [INFO] GET /api/v1/fleet/unenrolled-probes 200 5ms 288 bytes
+2026-03-10 19:36:24 [INFO] GET /api/v1/fleet/commands 200 2ms 2235 bytes
+2026-03-10 19:36:25 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:36:26 [INFO] GET /api/v1/fleet/probes 200 4ms 491 bytes
+2026-03-10 19:36:26 [INFO] GET /api/v1/fleet/probes 200 4ms 491 bytes
+2026-03-10 19:36:28 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:36:29 [INFO] GET /api/v1/fleet/commands 200 10ms 2235 bytes
+2026-03-10 19:36:31 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:36:31 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0004a5800
+2026-03-10 19:36:32 [INFO] GET /api/v1/fleet/unenrolled-probes 200 6ms 288 bytes
+2026-03-10 19:36:34 [INFO] GET /api/v1/fleet/commands 200 4ms 2235 bytes
+2026-03-10 19:36:34 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:36:35 [INFO] GET /api/v1/fleet/status 200 16ms 305 bytes
+2026-03-10 19:36:36 [INFO] GET /api/v1/fleet/probes 200 12ms 491 bytes
+2026-03-10 19:36:36 [INFO] GET /api/v1/fleet/probes 200 11ms 491 bytes
+2026-03-10 19:36:37 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:36:39 [INFO] GET /api/v1/fleet/commands 200 5ms 2235 bytes
+2026-03-10 19:36:40 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:36:43 [INFO] GET /api/v1/fleet/unenrolled-probes 200 2ms 288 bytes
+2026-03-10 19:36:43 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:36:44 [INFO] GET /api/v1/fleet/commands 200 5ms 2235 bytes
+2026-03-10 19:36:46 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:36:46 [INFO] GET /api/v1/fleet/probes 200 2ms 491 bytes
+2026-03-10 19:36:46 [INFO] GET /api/v1/fleet/probes 200 5ms 491 bytes
+2026-03-10 19:36:49 [INFO] GET /api/v1/fleet/commands 200 6ms 2235 bytes
+2026-03-10 19:36:49 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:36:51 [INFO] GET /api/v1/fleet/status 200 16ms 305 bytes
+2026-03-10 19:36:52 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:36:53 [INFO] GET /api/v1/fleet/unenrolled-probes 200 4ms 288 bytes
+2026-03-10 19:36:54 [INFO] GET /api/v1/fleet/commands 200 6ms 2235 bytes
+2026-03-10 19:36:55 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:36:56 [INFO] GET /api/v1/fleet/probes 200 6ms 491 bytes
+2026-03-10 19:36:56 [INFO] GET /api/v1/fleet/probes 200 11ms 491 bytes
+2026-03-10 19:36:58 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:36:59 [INFO] GET /api/v1/fleet/commands 200 2ms 2235 bytes
+2026-03-10 19:37:01 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:37:03 [INFO] GET /api/v1/fleet/unenrolled-probes 200 1ms 288 bytes
+2026-03-10 19:37:04 [INFO] GET /api/v1/fleet/commands 200 3ms 2235 bytes
+2026-03-10 19:37:04 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:37:06 [INFO] GET /api/v1/fleet/status 200 15ms 305 bytes
+2026-03-10 19:37:06 [INFO] GET /api/v1/fleet/probes 200 1ms 491 bytes
+2026-03-10 19:37:07 [INFO] GET /api/v1/fleet/probes 200 1ms 491 bytes
+2026-03-10 19:37:08 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:37:09 [INFO] GET /api/v1/fleet/commands 200 4ms 2235 bytes
+2026-03-10 19:37:11 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:37:13 [INFO] GET /api/v1/fleet/unenrolled-probes 200 4ms 288 bytes
+2026-03-10 19:37:14 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:37:14 [INFO] GET /api/v1/fleet/commands 200 4ms 2235 bytes
+2026-03-10 19:37:17 [INFO] GET /api/v1/fleet/probes 200 10ms 491 bytes
+2026-03-10 19:37:17 [INFO] GET /api/v1/fleet/probes 200 74ms 491 bytes
+2026-03-10 19:37:17 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:37:19 [INFO] GET /api/v1/fleet/commands 200 10ms 2235 bytes
+2026-03-10 19:37:20 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:37:21 [INFO] GET /api/v1/fleet/status 200 18ms 305 bytes
+2026-03-10 19:37:23 [INFO] GET /api/v1/fleet/unenrolled-probes 200 4ms 288 bytes
+2026-03-10 19:37:23 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:37:25 [INFO] GET /api/v1/fleet/commands 200 7ms 2235 bytes
+2026-03-10 19:37:26 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:37:27 [INFO] GET /api/v1/fleet/probes 200 7ms 498 bytes
+2026-03-10 19:37:27 [INFO] GET /api/v1/fleet/probes 200 1ms 498 bytes
+2026-03-10 19:37:29 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:37:30 [INFO] GET /api/v1/fleet/commands 200 4ms 2235 bytes
+2026-03-10 19:37:31 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0004a5f10
+2026-03-10 19:37:32 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:37:33 [INFO] GET /api/v1/fleet/unenrolled-probes 200 5ms 288 bytes
+2026-03-10 19:37:35 [INFO] GET /api/v1/fleet/commands 200 5ms 2235 bytes
+2026-03-10 19:37:35 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:37:36 [INFO] GET /api/v1/fleet/status 200 16ms 305 bytes
+2026-03-10 19:37:37 [INFO] GET /api/v1/fleet/probes 200 8ms 491 bytes
+2026-03-10 19:37:37 [INFO] GET /api/v1/fleet/probes 200 3ms 491 bytes
+2026-03-10 19:37:38 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:37:40 [INFO] GET /api/v1/fleet/commands 200 5ms 2235 bytes
+2026-03-10 19:37:41 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:37:43 [INFO] GET /api/v1/fleet/unenrolled-probes 200 4ms 288 bytes
+2026-03-10 19:37:44 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:37:45 [INFO] GET /api/v1/fleet/commands 200 1ms 2235 bytes
+2026-03-10 19:37:47 [INFO] GET /api/v1/fleet/probes 200 5ms 491 bytes
+2026-03-10 19:37:47 [INFO] GET /api/v1/fleet/probes 200 3ms 491 bytes
+2026-03-10 19:37:47 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:37:50 [INFO] GET /api/v1/fleet/commands 200 5ms 2235 bytes
+2026-03-10 19:37:51 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:37:51 [INFO] GET /api/v1/fleet/status 200 12ms 305 bytes
+2026-03-10 19:37:53 [INFO] GET /api/v1/fleet/unenrolled-probes 200 4ms 288 bytes
+2026-03-10 19:37:54 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:37:55 [INFO] GET /api/v1/fleet/commands 200 2ms 2235 bytes
+2026-03-10 19:37:57 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:37:57 [INFO] GET /api/v1/fleet/probes 200 7ms 491 bytes
+2026-03-10 19:37:57 [INFO] GET /api/v1/fleet/probes 200 7ms 491 bytes
+2026-03-10 19:38:00 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:38:00 [INFO] GET /api/v1/fleet/commands 200 0ms 2235 bytes
+2026-03-10 19:38:03 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:38:03 [INFO] GET /api/v1/fleet/unenrolled-probes 200 6ms 288 bytes
+2026-03-10 19:38:05 [INFO] GET /api/v1/fleet/commands 200 4ms 2235 bytes
+2026-03-10 19:38:06 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:38:06 [INFO] GET /api/v1/fleet/status 200 6ms 305 bytes
+2026-03-10 19:38:07 [INFO] GET /api/v1/fleet/probes 200 3ms 491 bytes
+2026-03-10 19:38:07 [INFO] GET /api/v1/fleet/probes 200 2ms 491 bytes
+2026-03-10 19:38:09 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:38:10 [INFO] GET /api/v1/fleet/commands 200 4ms 2235 bytes
+2026-03-10 19:38:12 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:38:13 [INFO] GET /api/v1/fleet/unenrolled-probes 200 4ms 288 bytes
+2026-03-10 19:38:15 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:38:15 [INFO] GET /api/v1/fleet/commands 200 1ms 2235 bytes
+2026-03-10 19:38:17 [INFO] GET /api/v1/fleet/probes 200 4ms 491 bytes
+2026-03-10 19:38:17 [INFO] GET /api/v1/fleet/probes 200 3ms 491 bytes
+2026-03-10 19:38:18 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:38:20 [INFO] GET /api/v1/fleet/commands 200 6ms 2235 bytes
+2026-03-10 19:38:21 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:38:21 [INFO] GET /api/v1/fleet/status 200 17ms 305 bytes
+2026-03-10 19:38:23 [INFO] GET /api/v1/fleet/unenrolled-probes 200 5ms 288 bytes
+2026-03-10 19:38:24 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:38:25 [INFO] GET /api/v1/fleet/commands 200 4ms 2235 bytes
+2026-03-10 19:38:27 [INFO] GET /api/v1/fleet/probes 200 12ms 491 bytes
+2026-03-10 19:38:27 [INFO] GET /api/v1/fleet/probes 200 5ms 491 bytes
+2026-03-10 19:38:27 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:38:30 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:38:30 [INFO] GET /api/v1/fleet/commands 200 2ms 2235 bytes
+2026-03-10 19:38:31 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000247a00
+2026-03-10 19:38:33 [INFO] GET /api/v1/fleet/unenrolled-probes 200 5ms 288 bytes
+2026-03-10 19:38:33 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:38:35 [INFO] GET /api/v1/fleet/commands 200 5ms 2235 bytes
+2026-03-10 19:38:36 [INFO] GET /api/v1/fleet/status 200 15ms 304 bytes
+2026-03-10 19:38:36 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:38:37 [INFO] GET /api/v1/fleet/probes 200 6ms 491 bytes
+2026-03-10 19:38:37 [INFO] GET /api/v1/fleet/probes 200 7ms 491 bytes
+2026-03-10 19:38:39 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:38:40 [INFO] GET /api/v1/fleet/commands 200 4ms 2235 bytes
+2026-03-10 19:38:42 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:38:43 [INFO] GET /api/v1/fleet/unenrolled-probes 200 4ms 288 bytes
+2026-03-10 19:38:45 [INFO] GET /api/v1/fleet/commands 200 10ms 2235 bytes
+2026-03-10 19:38:45 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:38:47 [INFO] GET /api/v1/fleet/probes 200 7ms 491 bytes
+2026-03-10 19:38:47 [INFO] GET /api/v1/fleet/probes 200 5ms 491 bytes
+2026-03-10 19:38:48 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:38:50 [INFO] GET /api/v1/fleet/commands 200 4ms 2235 bytes
+2026-03-10 19:38:51 [INFO] GET /api/v1/fleet/status 200 15ms 305 bytes
+2026-03-10 19:38:51 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:38:53 [INFO] GET /api/v1/fleet/unenrolled-probes 200 6ms 288 bytes
+2026-03-10 19:38:54 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:38:55 [INFO] GET /api/v1/fleet/commands 200 5ms 2235 bytes
+2026-03-10 19:38:57 [INFO] GET /api/v1/fleet/probes 200 6ms 491 bytes
+2026-03-10 19:38:57 [INFO] GET /api/v1/fleet/probes 200 5ms 491 bytes
+2026-03-10 19:38:57 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:39:00 [INFO] GET /api/v1/fleet/commands 200 4ms 2235 bytes
+2026-03-10 19:39:01 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:39:03 [INFO] GET /api/v1/fleet/unenrolled-probes 200 6ms 288 bytes
+2026-03-10 19:39:04 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:39:06 [INFO] GET /api/v1/fleet/commands 200 5ms 2235 bytes
+2026-03-10 19:39:06 [INFO] GET /api/v1/fleet/status 200 15ms 305 bytes
+2026-03-10 19:39:07 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:39:07 [INFO] GET /api/v1/fleet/probes 200 5ms 491 bytes
+2026-03-10 19:39:07 [INFO] GET /api/v1/fleet/probes 200 14ms 491 bytes
+2026-03-10 19:39:10 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:39:11 [INFO] GET /api/v1/fleet/commands 200 9ms 2235 bytes
+2026-03-10 19:39:13 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:39:13 [INFO] GET /api/v1/fleet/unenrolled-probes 200 4ms 288 bytes
+2026-03-10 19:39:16 [INFO] GET /api/v1/fleet/commands 200 5ms 2235 bytes
+2026-03-10 19:39:16 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:39:17 [INFO] GET /api/v1/fleet/probes 200 6ms 491 bytes
+2026-03-10 19:39:17 [INFO] GET /api/v1/fleet/probes 200 3ms 491 bytes
+2026-03-10 19:39:19 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:39:21 [INFO] GET /api/v1/fleet/commands 200 7ms 2235 bytes
+2026-03-10 19:39:21 [INFO] GET /api/v1/fleet/status 200 10ms 305 bytes
+2026-03-10 19:39:22 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:39:23 [INFO] GET /api/v1/fleet/unenrolled-probes 200 4ms 288 bytes
+2026-03-10 19:39:25 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:39:26 [INFO] GET /api/v1/fleet/commands 200 4ms 2235 bytes
+2026-03-10 19:39:27 [INFO] GET /api/v1/fleet/probes 200 2ms 498 bytes
+2026-03-10 19:39:27 [INFO] GET /api/v1/fleet/probes 200 2ms 498 bytes
+2026-03-10 19:39:28 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:39:31 [INFO] GET /api/v1/fleet/commands 200 3ms 2235 bytes
+2026-03-10 19:39:31 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:39:31 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0004a44c0
+2026-03-10 19:40:18 [INFO] GET /api/v1/fleet/status 200 15ms 305 bytes
+2026-03-10 19:40:18 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:40:18 [INFO] GET /api/v1/fleet/commands 200 5ms 2235 bytes
+2026-03-10 19:40:18 [INFO] GET /api/v1/fleet/groups 200 15ms 181 bytes
+2026-03-10 19:40:18 [INFO] GET /api/v1/fleet/unenrolled-probes 200 87ms 288 bytes
+2026-03-10 19:40:18 [INFO] GET /api/v1/fleet/probes 200 96ms 491 bytes
+2026-03-10 19:40:18 [INFO] GET /api/v1/fleet/templates 200 66ms 5 bytes
+2026-03-10 19:40:18 [INFO] GET /api/v1/fleet/probes 200 102ms 491 bytes
+2026-03-10 19:40:19 [INFO] GET /api/v1/fleet/probes/Main 200 2ms 489 bytes
+2026-03-10 19:40:21 [INFO] GET /api/v1/fleet/commands/cmd_1773160205287312032 200 0ms 330 bytes
+2026-03-10 19:40:23 [INFO] GET /api/v1/fleet/commands 200 13ms 2235 bytes
+2026-03-10 19:40:31 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0002aecd0
+2026-03-10 19:41:31 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0001a63c0
+2026-03-10 19:42:32 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000432140
+2026-03-10 19:43:31 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0004321e0
+2026-03-10 19:44:33 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0004a41b0
+2026-03-10 19:45:32 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0001a6240
+2026-03-10 19:46:32 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000432490
+2026-03-10 19:47:32 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0004a4310
+2026-03-10 19:48:32 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000432170
+2026-03-10 19:49:32 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0004321d0
+2026-03-10 19:50:32 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0004a4430
+2026-03-10 19:51:32 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0004a4480
+2026-03-10 19:52:32 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0004a4740
+2026-03-10 19:53:32 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000246100
+2026-03-10 19:54:33 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0001a6220
+2026-03-10 19:55:33 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0002460e0
+2026-03-10 19:56:33 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0001a65c0
+2026-03-10 19:57:32 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0001a62f0
+2026-03-10 19:58:33 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000246300
+2026-03-10 19:59:33 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0004321d0
+2026-03-10 20:00:33 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000432720
+2026-03-10 20:01:33 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000246110
+2026-03-10 20:02:34 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000432530
+2026-03-10 20:03:33 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000432320
+2026-03-10 20:04:18 [INFO] New WS Client connected. Total: 2
+2026-03-10 20:04:33 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0001a62e0
+2026-03-10 20:05:17 [INFO] GET /api/v1/fleet/unenrolled-probes 200 8ms 288 bytes
+2026-03-10 20:05:17 [INFO] GET /api/v1/fleet/status 200 20ms 304 bytes
+2026-03-10 20:05:17 [INFO] GET /api/v1/fleet/groups 200 6ms 181 bytes
+2026-03-10 20:05:17 [INFO] New WS Client connected. Total: 3
+2026-03-10 20:05:17 [INFO] GET /api/v1/fleet/commands 200 51ms 2235 bytes
+2026-03-10 20:05:17 [INFO] GET /api/v1/fleet/templates 200 71ms 5 bytes
+2026-03-10 20:05:17 [INFO] GET /api/v1/fleet/probes 200 93ms 491 bytes
+2026-03-10 20:05:18 [INFO] New WS Client connected. Total: 3
+2026-03-10 20:05:22 [INFO] New WS Client connected. Total: 4
+2026-03-10 20:05:33 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000246f60
+2026-03-10 20:06:31 [INFO] GET /api/v1/fleet/status 200 23ms 305 bytes
+2026-03-10 20:06:31 [INFO] GET /api/v1/fleet/probes 200 2ms 491 bytes
+2026-03-10 20:06:31 [INFO] GET /api/v1/fleet/unenrolled-probes 200 16ms 288 bytes
+2026-03-10 20:06:31 [INFO] GET /api/v1/fleet/groups 200 7ms 181 bytes
+2026-03-10 20:06:31 [INFO] GET /api/v1/fleet/templates 200 19ms 5 bytes
+2026-03-10 20:06:31 [INFO] GET /api/v1/fleet/commands 200 40ms 2235 bytes
+2026-03-10 20:06:33 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0001a7400
+2026-03-10 20:07:08 [INFO] New WS Client connected. Total: 1
+2026-03-10 20:07:08 [INFO] New WS Client connected. Total: 2
+2026-03-10 20:07:09 [INFO] New WS Client connected. Total: 3
+2026-03-10 20:07:09 [INFO] New WS Client connected. Total: 4
+2026-03-10 20:07:33 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0004320f0
+2026-03-10 20:08:33 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0001a63d0
+2026-03-10 20:08:44 [INFO] GET /api/v1/fleet/probes 200 16ms 491 bytes
+2026-03-10 20:08:44 [INFO] GET /api/v1/fleet/groups 200 21ms 181 bytes
+2026-03-10 20:08:44 [INFO] GET /api/v1/fleet/unenrolled-probes 200 36ms 288 bytes
+2026-03-10 20:08:44 [INFO] GET /api/v1/fleet/status 200 48ms 305 bytes
+2026-03-10 20:08:44 [INFO] GET /api/v1/fleet/templates 200 89ms 5 bytes
+2026-03-10 20:08:44 [INFO] GET /api/v1/fleet/commands 200 91ms 2235 bytes
+2026-03-10 20:08:49 [INFO] GET /api/v1/fleet/unenrolled-probes 200 9ms 288 bytes
+2026-03-10 20:08:49 [INFO] GET /api/v1/fleet/probes 200 4ms 491 bytes
+2026-03-10 20:08:49 [INFO] New WS Client connected. Total: 1
+2026-03-10 20:08:49 [INFO] GET /api/v1/fleet/groups 200 15ms 181 bytes
+2026-03-10 20:08:49 [INFO] GET /api/v1/fleet/status 200 26ms 305 bytes
+2026-03-10 20:08:49 [INFO] GET /api/v1/fleet/templates 200 12ms 5 bytes
+2026-03-10 20:08:49 [INFO] GET /api/v1/fleet/commands 200 15ms 2235 bytes
+2026-03-10 20:08:49 [INFO] New WS Client connected. Total: 1
+2026-03-10 20:08:52 [INFO] New WS Client connected. Total: 1
+2026-03-10 20:08:54 [INFO] New WS Client connected. Total: 2
+2026-03-10 20:09:08 [INFO] GET /api/v1/fleet/unenrolled-probes 200 1ms 288 bytes
+2026-03-10 20:09:08 [INFO] GET /api/v1/fleet/probes 200 3ms 491 bytes
+2026-03-10 20:09:08 [INFO] GET /api/v1/fleet/groups 200 3ms 181 bytes
+2026-03-10 20:09:08 [INFO] GET /api/v1/fleet/commands 200 2ms 2235 bytes
+2026-03-10 20:09:08 [INFO] GET /api/v1/fleet/templates 200 5ms 5 bytes
+2026-03-10 20:09:08 [INFO] GET /api/v1/fleet/status 200 17ms 305 bytes
+2026-03-10 20:09:08 [INFO] New WS Client connected. Total: 3
+2026-03-10 20:09:08 [INFO] New WS Client connected. Total: 3
+2026-03-10 20:09:10 [INFO] GET /api/v1/probes/Main/status 200 3ms 206 bytes
+2026-03-10 20:09:10 [INFO] GET /api/v1/fleet/probes/Main 200 2ms 489 bytes
+2026-03-10 20:09:11 [INFO] New WS Client connected. Total: 4
+2026-03-10 20:09:13 [INFO] GET /api/v1/fleet/commands 200 7ms 2235 bytes
+2026-03-10 20:09:15 [INFO] GET /api/v1/probes/Main/status 200 0ms 206 bytes
+2026-03-10 20:09:18 [INFO] GET /api/v1/fleet/probes 200 5ms 491 bytes
+2026-03-10 20:09:18 [INFO] GET /api/v1/fleet/commands 200 1ms 2235 bytes
+2026-03-10 20:09:20 [INFO] GET /api/v1/probes/Main/status 200 0ms 197 bytes
+2026-03-10 20:09:23 [INFO] GET /api/v1/fleet/unenrolled-probes 200 3ms 288 bytes
+2026-03-10 20:09:23 [INFO] GET /api/v1/fleet/status 200 9ms 305 bytes
+2026-03-10 20:09:23 [INFO] GET /api/v1/fleet/commands 200 1ms 2235 bytes
+2026-03-10 20:09:25 [INFO] GET /api/v1/probes/Main/status 200 0ms 197 bytes
+2026-03-10 20:09:28 [INFO] GET /api/v1/fleet/probes 200 9ms 498 bytes
+2026-03-10 20:09:28 [INFO] GET /api/v1/fleet/commands 200 12ms 2235 bytes
+2026-03-10 20:09:28 [INFO] GET /api/v1/fleet/unenrolled-probes 200 1ms 288 bytes
+2026-03-10 20:09:30 [INFO] GET /api/v1/probes/Main/status 200 0ms 197 bytes
+2026-03-10 20:09:30 [INFO] GET /api/v1/fleet/probes/Main 200 1ms 496 bytes
+2026-03-10 20:09:33 [INFO] GET /api/v1/fleet/unenrolled-probes 200 1ms 288 bytes
+2026-03-10 20:09:33 [INFO] GET /api/v1/fleet/commands 200 2ms 2235 bytes
+2026-03-10 20:09:33 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0004324e0
+2026-03-10 20:09:38 [INFO] GET /api/v1/fleet/status 200 17ms 305 bytes
+2026-03-10 20:09:38 [INFO] GET /api/v1/fleet/probes 200 1ms 491 bytes
+2026-03-10 20:09:38 [INFO] GET /api/v1/fleet/commands 200 2ms 2235 bytes
+2026-03-10 20:09:40 [INFO] Sending fleet command: type=fleet_reboot, strategy=immediate
+2026-03-10 20:09:40 [INFO] POST /api/v1/fleet/commands 202 23ms 333 bytes
+2026-03-10 20:09:40 [INFO] GET /api/v1/fleet/commands 200 1ms 2555 bytes
+2026-03-10 20:09:40 [INFO] GET /api/v1/fleet/commands/cmd_1773162580812482035 200 0ms 332 bytes
+2026-03-10 20:09:41 [INFO] Processing result: Probe=Main Cmd=fleet_reboot Status=failed CommandID=cmd_1773162580812482035
+2026-03-10 20:09:43 [INFO] GET /api/v1/fleet/unenrolled-probes 200 5ms 288 bytes
+2026-03-10 20:09:43 [INFO] GET /api/v1/fleet/commands/cmd_1773162580812482035 200 0ms 332 bytes
+2026-03-10 20:09:45 [INFO] GET /api/v1/fleet/commands 200 1ms 2555 bytes
+2026-03-10 20:09:47 [INFO] GET /api/v1/fleet/commands/cmd_1773162580812482035 200 0ms 332 bytes
+2026-03-10 20:09:48 [INFO] GET /api/v1/fleet/probes 200 1ms 491 bytes
+2026-03-10 20:09:50 [INFO] GET /api/v1/fleet/commands/cmd_1773162580812482035 200 0ms 332 bytes
+2026-03-10 20:09:51 [INFO] GET /api/v1/fleet/commands 200 2ms 2555 bytes
+2026-03-10 20:09:53 [INFO] GET /api/v1/fleet/commands/cmd_1773162580812482035 200 0ms 332 bytes
+2026-03-10 20:09:53 [INFO] GET /api/v1/fleet/status 200 8ms 305 bytes
+2026-03-10 20:09:53 [INFO] GET /api/v1/fleet/unenrolled-probes 200 11ms 288 bytes
+2026-03-10 20:09:56 [INFO] GET /api/v1/fleet/commands 200 2ms 2555 bytes
+2026-03-10 20:09:56 [INFO] GET /api/v1/fleet/commands/cmd_1773162580812482035 200 0ms 332 bytes
+2026-03-10 20:09:58 [INFO] GET /api/v1/fleet/probes 200 4ms 491 bytes
+2026-03-10 20:09:59 [INFO] GET /api/v1/fleet/commands/cmd_1773162580812482035 200 0ms 332 bytes
+2026-03-10 20:10:01 [INFO] GET /api/v1/fleet/commands 200 6ms 2555 bytes
+2026-03-10 20:10:02 [INFO] GET /api/v1/fleet/commands/cmd_1773162580812482035 200 0ms 332 bytes
+2026-03-10 20:10:03 [INFO] GET /api/v1/fleet/unenrolled-probes 200 1ms 288 bytes
+2026-03-10 20:10:05 [INFO] GET /api/v1/fleet/commands/cmd_1773162580812482035 200 0ms 332 bytes
+2026-03-10 20:10:06 [INFO] GET /api/v1/fleet/commands 200 6ms 2555 bytes
+2026-03-10 20:10:08 [INFO] GET /api/v1/fleet/probes 200 1ms 491 bytes
+2026-03-10 20:10:08 [INFO] GET /api/v1/fleet/status 200 5ms 305 bytes
+2026-03-10 20:10:08 [INFO] GET /api/v1/fleet/commands/cmd_1773162580812482035 200 0ms 332 bytes
+2026-03-10 20:10:11 [INFO] GET /api/v1/fleet/commands 200 4ms 2555 bytes
+2026-03-10 20:10:11 [INFO] GET /api/v1/fleet/commands/cmd_1773162580812482035 200 0ms 332 bytes
+2026-03-10 20:10:13 [INFO] GET /api/v1/fleet/unenrolled-probes 200 7ms 288 bytes
+2026-03-10 20:10:14 [INFO] GET /api/v1/fleet/commands/cmd_1773162580812482035 200 0ms 332 bytes
+2026-03-10 20:10:16 [INFO] GET /api/v1/fleet/commands 200 2ms 2555 bytes
+2026-03-10 20:10:18 [INFO] GET /api/v1/fleet/commands/cmd_1773162580812482035 200 0ms 332 bytes
+2026-03-10 20:10:18 [INFO] GET /api/v1/fleet/probes 200 42ms 491 bytes
+2026-03-10 20:10:21 [INFO] GET /api/v1/fleet/commands/cmd_1773162580812482035 200 0ms 332 bytes
+2026-03-10 20:10:21 [INFO] GET /api/v1/fleet/commands 200 6ms 2555 bytes
+2026-03-10 20:10:23 [INFO] GET /api/v1/fleet/unenrolled-probes 200 35ms 288 bytes
+2026-03-10 20:10:23 [INFO] GET /api/v1/fleet/status 200 100ms 305 bytes
+2026-03-10 20:10:24 [INFO] GET /api/v1/fleet/commands/cmd_1773162580812482035 200 0ms 332 bytes
+2026-03-10 20:10:26 [INFO] GET /api/v1/fleet/commands 200 1ms 2555 bytes
+2026-03-10 20:10:27 [INFO] GET /api/v1/fleet/commands/cmd_1773162580812482035 200 0ms 332 bytes
+2026-03-10 20:10:28 [INFO] GET /api/v1/fleet/probes 200 1ms 491 bytes
+2026-03-10 20:10:34 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000299980
+2026-03-10 20:11:33 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0002982b0
+2026-03-10 20:12:34 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0001a6290
