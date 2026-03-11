@@ -7,6 +7,7 @@ import (
 	"CampusMonitorAPI/internal/middleware"
 	"CampusMonitorAPI/internal/websocket"
 	"context"
+	"errors"
 	"fmt"
 	"net/http"
 
@@ -50,7 +51,8 @@ func (s *Server) RegisterHandlers(
 	healthHandler *handler.HealthHandler,
 	topologyHandler *handler.TopologyHandler,
 	alertHandler *handler.AlertHandler,
-	fleethandler *handler.FleetHandler,
+	fleetHandler *handler.FleetHandler,
+	scheduleHandler *handler.ScheduleHandler,
 ) {
 	api := s.router.PathPrefix("/api/v1").Subrouter()
 
@@ -69,7 +71,8 @@ func (s *Server) RegisterHandlers(
 	healthHandler.RegisterRoutes(s.router)
 	topologyHandler.RegisterRoutes(api)
 	alertHandler.RegisterRoutes(api)
-	fleethandler.RegisterRoutes(api)
+	fleetHandler.RegisterRoutes(api)
+	scheduleHandler.RegisterRoutes(api)
 
 	s.router.HandleFunc("/api/v1/ws", func(w http.ResponseWriter, r *http.Request) {
 		websocket.ServeWs(s.wsHub, w, r, s.log)
@@ -85,7 +88,7 @@ func (s *Server) Start(ctx context.Context) error {
 	s.log.Info("Starting HTTP server on %s", s.httpServer.Addr)
 	errChan := make(chan error, 1)
 	go func() {
-		if err := s.httpServer.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+		if err := s.httpServer.ListenAndServe(); err != nil && !errors.Is(err, http.ErrServerClosed) {
 			errChan <- fmt.Errorf("server failed to start: %w", err)
 		}
 	}()

@@ -1,4 +1,3 @@
-// internal/service/command_service.go
 package service
 
 import (
@@ -19,6 +18,7 @@ type CommandService struct {
 	probeRepo        *repository.ProbeRepository
 	fleetService     *FleetService
 	telemetryService *TelemetryService
+	scheduleService  *ScheduleService
 	mqttClient       *mqtt.Client
 	log              *logger.Logger
 	pingStatus       map[string]bool
@@ -33,6 +33,7 @@ func NewCommandService(
 	probeRepo *repository.ProbeRepository,
 	telemetryService *TelemetryService,
 	fleetService *FleetService,
+	scheduleService *ScheduleService,
 	log *logger.Logger,
 ) *CommandService {
 	return &CommandService{
@@ -41,6 +42,7 @@ func NewCommandService(
 		probeRepo:        probeRepo,
 		telemetryService: telemetryService,
 		fleetService:     fleetService,
+		scheduleService:  scheduleService,
 		log:              log,
 		pingStatus:       make(map[string]bool),
 	}
@@ -286,8 +288,6 @@ func (s *CommandService) ProcessCommandResult(ctx context.Context, payload []byt
 
 	s.log.Info("Processing result: Probe=%s Cmd=%s Status=%s CommandID=%s", result.ProbeID, result.Command, result.Status, cmdIDStr)
 
-	// Determine routing: per-probe commands have integer IDs; fleet commands have UUID string IDs.
-	// Try to parse as integer first. If that fails and the ID is non-empty, it's a fleet command.
 	cmdID := 0
 	isIntID := false
 	if cmdIDStr != "" && cmdIDStr != "<nil>" {
@@ -295,9 +295,8 @@ func (s *CommandService) ProcessCommandResult(ctx context.Context, payload []byt
 			isIntID = true
 		}
 	}
-
+	// Fleet commands
 	if !isIntID && s.fleetService != nil && cmdIDStr != "" && cmdIDStr != "<nil>" {
-		// Non-integer ID → this is a fleet command result
 		go func() {
 			err := s.fleetService.ProcessCommandResult(ctx, result.ProbeID, cmdIDStr, result.Status, result.Result)
 			if err != nil {
@@ -306,8 +305,11 @@ func (s *CommandService) ProcessCommandResult(ctx context.Context, payload []byt
 		}()
 		return nil
 	}
-
-	// Standard per-probe command (integer ID)
+	// Schedule tasks
+	if s.scheduleService != nil {
+		s.scheduleService.HandleCommandResult(ctx, result.CommandID, result.Status, result.Result)
+	}
+	// Standard per-probe command
 	if isIntID {
 		err := s.commandRepo.UpdateStatus(ctx, cmdID, result.Status, result.Result)
 		if err != nil {

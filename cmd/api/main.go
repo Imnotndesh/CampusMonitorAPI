@@ -66,7 +66,7 @@ func main() {
 	alertRepo := repository.NewAlertRepository(db.DB)
 	analyticsRepo := repository.NewAnalyticsRepository(db.DB)
 	fleetRepo := repository.NewFleetRepository(db.DB)
-
+	scheduleRepo := repository.NewScheduleRepository(db.DB)
 	// 5. Initialize MQTT Client
 	mqttClient, err := mqtt.NewClient(mqtt.ClientConfig{
 		MQTT:   &cfg.MQTT,
@@ -88,6 +88,7 @@ func main() {
 	}
 	alertService := service.NewAlertService(alertRepo, srv.GetHub())
 	alertEvaluator := service.NewAlertEvaluator(models.DEFAULT_ALERT_CONFIG, alertService)
+	scheduleService := service.NewScheduleService(scheduleRepo, probeRepo, mqttClient, log)
 	telemetryService := service.NewTelemetryService(telemetryRepo, probeRepo, alertEvaluator, log)
 	probeService := service.NewProbeService(probeRepo, log)
 	analyticsService := service.NewAnalyticsService(analyticsRepo, log)
@@ -100,7 +101,7 @@ func main() {
 		mqttClient,
 		log,
 	)
-	commandService := service.NewCommandService(commandRepo, mqttClient, probeRepo, telemetryService, fleetService, log)
+	commandService := service.NewCommandService(commandRepo, mqttClient, probeRepo, telemetryService, fleetService, scheduleService, log)
 	topologyService := service.NewTopologyService(probeRepo, telemetryRepo, alertRepo)
 
 	// MQTT Subscriptions
@@ -138,6 +139,7 @@ func main() {
 		commandService,
 		log,
 	)
+	scheduleHandler := handler.NewScheduleHandler(scheduleService, log)
 	// Background pinging service
 
 	// 9. Start HTTP Server
@@ -150,6 +152,7 @@ func main() {
 		topologyHandler,
 		alertHandler,
 		fleetHandler,
+		scheduleHandler,
 	)
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
 	defer stop()
