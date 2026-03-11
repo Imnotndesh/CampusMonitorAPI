@@ -83,12 +83,12 @@ func (r *FleetRepository) GetFleetProbe(ctx context.Context, probeID string) (*m
 			fp.commands_received, fp.commands_completed, fp.commands_failed,
 			fp.consecutive_failures, fp.current_firmware, fp.target_firmware,
 			fp.last_ota_attempt, fp.ota_attempts, fp.created_at, fp.updated_at,
-			p.status, p.last_seen
+			p.status, p.last_seen,p.last_seen > NOW() - INTERVAL '5 minutes' as mqtt_connected
 		FROM fleet_probes fp
 		JOIN probes p ON fp.probe_id = p.probe_id
 		WHERE fp.probe_id = $1
 	`
-
+	var mqttConnected bool
 	var fp models.FleetProbe
 	var groupsJSON, tagsJSON, maintWindowJSON []byte
 	var configTemplateID sql.NullInt64
@@ -104,7 +104,7 @@ func (r *FleetRepository) GetFleetProbe(ctx context.Context, probeID string) (*m
 		&fp.CommandsReceived, &fp.CommandsCompleted, &fp.CommandsFailed,
 		&fp.ConsecutiveFailures, &currFw, &targetFw,
 		&lastOTA, &fp.OTAAttempts, &fp.CreatedAt, &fp.UpdatedAt,
-		&status, &lastSeen,
+		&status, &lastSeen, &mqttConnected,
 	)
 
 	if err != nil {
@@ -142,6 +142,7 @@ func (r *FleetRepository) GetFleetProbe(ctx context.Context, probeID string) (*m
 	if status.Valid {
 		fp.Status = status.String
 	}
+	fp.MQTTConnected = mqttConnected
 
 	err = json.Unmarshal(groupsJSON, &fp.Groups)
 	if err != nil {
@@ -169,7 +170,7 @@ func (r *FleetRepository) ListFleetProbes(ctx context.Context, managedOnly bool,
 			fp.commands_received, fp.commands_completed, fp.commands_failed,
 			fp.consecutive_failures, fp.current_firmware, fp.target_firmware,
 			fp.last_ota_attempt, fp.ota_attempts, fp.created_at, fp.updated_at,
-			p.status, p.last_seen
+			p.status, p.last_seen,p.last_seen > NOW() - INTERVAL '5 minutes' as mqtt_connected
 		FROM fleet_probes fp
 		JOIN probes p ON fp.probe_id = p.probe_id
 		WHERE 1=1
@@ -200,6 +201,7 @@ func (r *FleetRepository) ListFleetProbes(ctx context.Context, managedOnly bool,
 	var probes []models.FleetProbe
 	for rows.Next() {
 		var fp models.FleetProbe
+		var mqttConnected bool
 		var groupsJSON, tagsJSON, maintWindowJSON []byte
 		var configTemplateID sql.NullInt64
 		var lastCommandTime, lastOTA, lastSeen pq.NullTime
@@ -214,12 +216,12 @@ func (r *FleetRepository) ListFleetProbes(ctx context.Context, managedOnly bool,
 			&fp.CommandsReceived, &fp.CommandsCompleted, &fp.CommandsFailed,
 			&fp.ConsecutiveFailures, &currFw, &targetFw,
 			&lastOTA, &fp.OTAAttempts, &fp.CreatedAt, &fp.UpdatedAt,
-			&status, &lastSeen,
+			&status, &lastSeen, &mqttConnected,
 		)
 		if err != nil {
 			return nil, err
 		}
-
+		fp.MQTTConnected = mqttConnected
 		if lastCmdID.Valid {
 			fp.LastCommandID = lastCmdID.String
 		}

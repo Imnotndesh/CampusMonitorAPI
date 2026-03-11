@@ -32,8 +32,9 @@ type FleetProbe struct {
 	UpdatedAt           time.Time              `json:"updated_at" db:"updated_at"`
 
 	// Fields from probes table (joined)
-	Status   string    `json:"status" db:"status"`
-	LastSeen time.Time `json:"last_seen" db:"last_seen"`
+	Status        string    `json:"status" db:"status"`
+	LastSeen      time.Time `json:"last_seen" db:"last_seen"`
+	MQTTConnected bool      `json:"mqtt_connected"`
 }
 
 type MaintenanceWindow struct {
