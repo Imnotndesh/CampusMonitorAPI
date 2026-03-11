@@ -195,15 +195,22 @@ type GroupSummary struct {
 
 // FleetRolloutStatus tracks the progress of a fleet rollout
 type FleetRolloutStatus struct {
-	CommandID      string               `json:"command_id"`
-	CommandType    string               `json:"command_type"`
-	IssuedAt       time.Time            `json:"issued_at"`
-	Status         string               `json:"status"`
-	Progress       RolloutProgress      `json:"progress"`
-	PerGroupStatus []GroupRolloutStatus `json:"per_group_status"`
-	Timeline       RolloutTimeline      `json:"timeline"`
+	CommandID   string                     `json:"command_id"`
+	CommandType string                     `json:"command_type"`
+	IssuedAt    time.Time                  `json:"issued_at"`
+	Status      string                     `json:"status"`
+	Payload     map[string]interface{}     `json:"payload,omitempty"`
+	Progress    RolloutProgress            `json:"progress"`
+	Timeline    RolloutTimeline            `json:"timeline"`
+	Targets     []FleetCommandTargetStatus `json:"targets,omitempty"` // <-- add this
 }
-
+type FleetCommandTargetStatus struct {
+	ProbeID         string                 `json:"probe_id" db:"probe_id"`
+	Status          string                 `json:"status" db:"status"`
+	ResponsePayload map[string]interface{} `json:"response_payload,omitempty" db:"result"`
+	Error           string                 `json:"error,omitempty" db:"error_message"`
+	UpdatedAt       *time.Time             `json:"updated_at,omitempty" db:"completed_at"` // or whichever timestamp is most recent
+}
 type RolloutProgress struct {
 	Total        int     `json:"total"`
 	Sent         int     `json:"sent"`

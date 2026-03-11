@@ -304,12 +304,12 @@ func (r *FleetRepository) UpdateFleetCommandStats(ctx context.Context, probeID s
 	query := `
 		UPDATE fleet_probes SET
 			last_command_id = $2,
-			last_command_status = $3,
+			last_command_status = $3::text,               -- explicit cast
 			last_command_time = NOW(),
 			commands_received = commands_received + 1,
-			consecutive_failures = CASE WHEN $3 = 'failed' THEN consecutive_failures + 1 ELSE 0 END,
-			commands_completed = CASE WHEN $3 = 'completed' THEN commands_completed + 1 ELSE commands_completed END,
-			commands_failed = CASE WHEN $3 = 'failed' THEN commands_failed + 1 ELSE commands_failed END,
+			consecutive_failures = CASE WHEN $3::text = 'failed' THEN consecutive_failures + 1 ELSE 0 END,
+			commands_completed = CASE WHEN $3::text = 'completed' THEN commands_completed + 1 ELSE commands_completed END,
+			commands_failed = CASE WHEN $3::text = 'failed' THEN commands_failed + 1 ELSE commands_failed END,
 			updated_at = NOW()
 		WHERE probe_id = $1
 	`
@@ -594,12 +594,12 @@ func (r *FleetRepository) UpdateFleetCommandStatus(ctx context.Context, commandI
 			completed_count = $3,
 			failed_count = $4,
 			status = CASE 
-				WHEN $3 + $4 >= total_targets THEN 'completed'
-				WHEN $2 > 0 THEN 'in_progress'
+				WHEN $3::int + $4::int >= total_targets THEN 'completed'
+				WHEN $2::int > 0 THEN 'in_progress'
 				ELSE status
 			END,
 			completed_at = CASE 
-				WHEN $3 + $4 >= total_targets THEN NOW()
+				WHEN $3::int + $4::int >= total_targets THEN NOW()
 				ELSE completed_at
 			END
 		WHERE id = $1
@@ -664,7 +664,10 @@ func (r *FleetRepository) GetProbeCommandStatus(ctx context.Context, commandID, 
 		return nil, err
 	}
 
-	json.Unmarshal(resultJSON, &status.Result)
+	err = json.Unmarshal(resultJSON, &status.Result)
+	if err != nil {
+		return nil, err
+	}
 
 	if sentAt.Valid {
 		status.SentAt = &sentAt.Time
@@ -944,4 +947,50 @@ func (r *FleetRepository) GetUnenrolledProbes(ctx context.Context) ([]models.Pro
 		probes = append(probes, p)
 	}
 	return probes, nil
+}
+
+// GetProbeCommandStatuses retrieves the per‑probe statuses for a given fleet command.
+func (r *FleetRepository) GetProbeCommandStatuses(ctx context.Context, commandID string) ([]models.FleetCommandTargetStatus, error) {
+	query := `
+        SELECT probe_id, status, result, error_message, 
+               COALESCE(completed_at, acknowledged_at, sent_at) as last_update
+        FROM fleet_command_probes
+        WHERE command_id = $1
+        ORDER BY probe_id
+    `
+	rows, err := r.db.QueryContext(ctx, query, commandID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var targets []models.FleetCommandTargetStatus
+	for rows.Next() {
+		var t models.FleetCommandTargetStatus
+		var resultJSON []byte
+		var lastUpdate pq.NullTime
+
+		err := rows.Scan(
+			&t.ProbeID,
+			&t.Status,
+			&resultJSON,
+			&t.Error,
+			&lastUpdate,
+		)
+		if err != nil {
+			return nil, err
+		}
+
+		if len(resultJSON) > 0 && string(resultJSON) != "null" {
+			if err := json.Unmarshal(resultJSON, &t.ResponsePayload); err != nil {
+
+			}
+		}
+		if lastUpdate.Valid {
+			t.UpdatedAt = &lastUpdate.Time
+		}
+
+		targets = append(targets, t)
+	}
+	return targets, nil
 }

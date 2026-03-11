@@ -215,6 +215,7 @@ func (s *FleetService) GetFleetCommandStatus(ctx context.Context, commandID stri
 		CommandType: cmd.CommandType,
 		IssuedAt:    cmd.IssuedAt,
 		Status:      cmd.Status,
+		Payload:     cmd.Payload,
 		Progress: models.RolloutProgress{
 			Total:        cmd.TotalTargets,
 			Acknowledged: cmd.AcksReceived,
@@ -230,6 +231,15 @@ func (s *FleetService) GetFleetCommandStatus(ctx context.Context, commandID stri
 
 	if status.Progress.Total > 0 {
 		status.Progress.Percentage = float64(status.Progress.Completed+status.Progress.Failed) / float64(status.Progress.Total) * 100
+	}
+
+	// NEW: fetch per-probe statuses
+	targets, err := s.fleetRepo.GetProbeCommandStatuses(ctx, commandID)
+	if err != nil {
+		s.log.Warn("Failed to fetch probe statuses for command %s: %v", commandID, err)
+		// Return status without targets rather than failing
+	} else {
+		status.Targets = targets
 	}
 
 	return status, nil
@@ -341,23 +351,33 @@ func (s *FleetService) GetFleetStatus(ctx context.Context) (*models.FleetStatusR
 }
 
 // ProcessCommandResult handles command results from probes (called by CommandService for fleet commands).
-// At this point routing has already confirmed commandID is a non-integer (UUID) fleet command ID.
-// NOTE: this may be called from a goroutine launched after the originating HTTP request has
-// completed, so we always use a fresh background context rather than the passed ctx to avoid
-// "context canceled" failures on DB operations.
 func (s *FleetService) ProcessCommandResult(ctx context.Context, probeID, commandID, status string, result map[string]interface{}) error {
-	// Use a background context with a generous timeout so DB ops succeed even when
-	// the caller's request context has already been cancelled.
+	s.log.Info("ProcessCommandResult: probe=%s, cmd=%s, status=%s", probeID, commandID, status)
+
 	dbCtx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()
-
-	s.log.Debug("Processing fleet command result: probe=%s, cmd=%s, status=%s", probeID, commandID, status)
-
-	// Update probe-level fleet stats (last_seen, command count, etc.)
-	s.fleetRepo.UpdateFleetCommandStats(dbCtx, probeID, commandID, status)
+	if err := s.fleetRepo.UpdateFleetCommandStats(dbCtx, probeID, commandID, status); err != nil {
+		s.log.Error("UpdateFleetCommandStats failed for probe %s, cmd %s: %v", probeID, commandID, err)
+		return err
+	}
+	s.log.Info("Updated fleet_probes stats for probe %s, cmd %s", probeID, commandID)
 
 	// Update per-probe status row inside the fleet command
-	s.updateFleetCommandProbeStatus(dbCtx, commandID, probeID, status, result)
+	probeStatus := &models.FleetCommandProbeStatus{
+		CommandID: commandID,
+		ProbeID:   probeID,
+		Status:    status,
+		Result:    result,
+	}
+	if err := s.fleetRepo.SaveProbeCommandStatus(dbCtx, probeStatus); err != nil {
+		s.log.Error("SaveProbeCommandStatus failed for probe %s, cmd %s: %v", probeID, commandID, err)
+		return err
+	}
+	s.log.Info("Saved per-probe status for probe %s, cmd %s", probeID, commandID)
+
+	// Recalculate aggregated counts and update the parent fleet command
+	s.updateRolloutProgress(commandID)
+	s.log.Info("Rollout progress updated for command %s", commandID)
 
 	// Handle side-effects for specific fleet command types.
 	// We look up the command type from the DB because the result payload only carries the command ID.
@@ -451,11 +471,14 @@ func (s *FleetService) executeRollout(cmd *models.FleetCommand, req *models.Flee
 	s.rolloutMux.Unlock()
 
 	// Update command status
-	s.fleetRepo.UpdateFleetCommandStatus(ctx, cmd.ID, map[string]int{
+	err := s.fleetRepo.UpdateFleetCommandStatus(ctx, cmd.ID, map[string]int{
 		"acks_received": 0,
 		"completed":     0,
 		"failed":        0,
 	})
+	if err != nil {
+		return
+	}
 
 	// Determine which probes to target based on rollout percentage
 	targetProbes := cmd.TargetProbes
@@ -649,38 +672,37 @@ func (s *FleetService) updateRolloutProgress(commandID string) {
 	rollout, exists := s.activeRollouts[commandID]
 	s.rolloutMux.RUnlock()
 
-	if !exists {
-		return
-	}
-
 	ctx := context.Background()
 
 	// Get updated stats from DB using a direct query since we don't have a repo method
 	var acks, completed, failed int
 	err := s.fleetRepo.DB().QueryRowContext(ctx, `
-		SELECT 
-			COUNT(CASE WHEN status IN ('acknowledged', 'processing', 'completed') THEN 1 END) as acks,
-			COUNT(CASE WHEN status = 'completed' THEN 1 END) as completed,
-			COUNT(CASE WHEN status = 'failed' THEN 1 END) as failed
-		FROM fleet_command_probes
-		WHERE command_id = $1
-	`, commandID).Scan(&acks, &completed, &failed)
+        SELECT 
+            COUNT(CASE WHEN status IN ('acknowledged', 'processing', 'completed') THEN 1 END) as acks,
+            COUNT(CASE WHEN status = 'completed' THEN 1 END) as completed,
+            COUNT(CASE WHEN status = 'failed' THEN 1 END) as failed
+        FROM fleet_command_probes
+        WHERE command_id = $1
+    `, commandID).Scan(&acks, &completed, &failed)
 
 	if err != nil {
-		s.log.Error("Failed to get rollout stats: %v", err)
+		s.log.Error("Failed to get rollout stats for command %s: %v", commandID, err)
 		return
 	}
+	s.log.Info("Rollout stats for command %s: acks=%d, completed=%d, failed=%d", commandID, acks, completed, failed)
 
-	// Update rollout
-	s.rolloutMux.Lock()
-	rollout.Progress.Acknowledged = acks
-	rollout.Progress.Completed = completed
-	rollout.Progress.Failed = failed
-	rollout.Progress.Pending = rollout.Progress.Total - (acks + completed + failed)
-	if rollout.Progress.Total > 0 {
-		rollout.Progress.Percentage = float64(completed+failed) / float64(rollout.Progress.Total) * 100
+	// Update in-memory rollout if it exists
+	if exists {
+		s.rolloutMux.Lock()
+		rollout.Progress.Acknowledged = acks
+		rollout.Progress.Completed = completed
+		rollout.Progress.Failed = failed
+		rollout.Progress.Pending = rollout.Progress.Total - (acks + completed + failed)
+		if rollout.Progress.Total > 0 {
+			rollout.Progress.Percentage = float64(completed+failed) / float64(rollout.Progress.Total) * 100
+		}
+		s.rolloutMux.Unlock()
 	}
-	s.rolloutMux.Unlock()
 
 	// Update DB
 	err = s.fleetRepo.UpdateFleetCommandStatus(ctx, commandID, map[string]int{
@@ -689,16 +711,21 @@ func (s *FleetService) updateRolloutProgress(commandID string) {
 		"failed":        failed,
 	})
 	if err != nil {
+		s.log.Error("UpdateFleetCommandStatus failed for command %s: %v", commandID, err)
 		return
 	}
+	s.log.Info("Fleet command %s status updated in DB", commandID)
 
-	// Check if complete
-	if completed+failed >= rollout.Progress.Total {
+	// Check if complete (only if we have the in-memory rollout)
+	if exists {
 		s.rolloutMux.Lock()
-		rollout.Status = "completed"
-		now := time.Now()
-		rollout.Timeline.CompletedAt = &now
-		s.rolloutMux.Unlock()
+		defer s.rolloutMux.Unlock()
+		if rollout.Progress.Completed+rollout.Progress.Failed >= rollout.Progress.Total {
+			rollout.Status = "completed"
+			now := time.Now()
+			rollout.Timeline.CompletedAt = &now
+			s.log.Info("Rollout for command %s marked as completed", commandID)
+		}
 	}
 }
 func (s *FleetService) GetUnenrolledProbes(ctx context.Context) ([]models.Probe, error) {
