@@ -46,6 +46,7 @@ func (h *ProbeHandler) RegisterRoutes(r *mux.Router) {
 	r.HandleFunc("/probes/{probe_id}/status", h.GetProbeStatus).Methods("GET")
 	r.HandleFunc("/probes/{probe_id}/config", h.GetProbeConfig).Methods("GET")
 	r.HandleFunc("/probes/{probe_id}/ping-status", h.GetPingStatus).Methods("GET")
+	r.HandleFunc("/probes/locations", h.GetLocationOptions).Methods("GET")
 }
 
 func (h *ProbeHandler) CreateProbe(w http.ResponseWriter, r *http.Request) {
@@ -150,6 +151,17 @@ func (h *ProbeHandler) GetProbesByBuilding(w http.ResponseWriter, r *http.Reques
 	respondJSON(w, http.StatusOK, probes)
 }
 
+// GetLocationOptions handles GET /api/v1/probes/locations
+func (h *ProbeHandler) GetLocationOptions(w http.ResponseWriter, r *http.Request) {
+	ctx := r.Context()
+	opts, err := h.probeService.GetDistinctLocations(ctx)
+	if err != nil {
+		h.log.Error("Failed to get location options: %v", err)
+		respondError(w, http.StatusInternalServerError, "Failed to fetch location options")
+		return
+	}
+	respondJSON(w, http.StatusOK, opts)
+}
 func (h *ProbeHandler) SendCommand(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	probeID := vars["id"]

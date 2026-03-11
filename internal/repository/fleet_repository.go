@@ -345,19 +345,35 @@ func (r *FleetRepository) SetTargetFirmware(ctx context.Context, probeID, versio
 	_, err := r.db.ExecContext(ctx, query, probeID, version)
 	return err
 }
+func (r *FleetRepository) ensureGroupExists(ctx context.Context, name string) error {
+	id := strings.ToLower(strings.ReplaceAll(name, " ", "_"))
+	query := `
+        INSERT INTO fleet_groups (id, name, description)
+        VALUES ($1, $2, '')
+        ON CONFLICT (id) DO NOTHING
+    `
+	_, err := r.db.ExecContext(ctx, query, id, name)
+	return err
+}
 
-// Config Templates
-
+// CreateTemplate Config Templates
 func (r *FleetRepository) CreateTemplate(ctx context.Context, template *models.FleetConfigTemplate) error {
 	query := `
-		INSERT INTO fleet_templates (
-			name, description, config, variables, created_by
-		) VALUES ($1, $2, $3, $4, $5)
-		RETURNING id, created_at
-	`
+        INSERT INTO fleet_templates (
+            name, description, config, variables, created_by,
+            wifi, mqtt, scan_settings, default_tags, default_groups, default_location
+        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+        RETURNING id, created_at
+    `
 
 	configJSON, _ := json.Marshal(template.Config)
 	variablesJSON, _ := json.Marshal(template.Variables)
+
+	wifiJSON, _ := json.Marshal(template.WiFi)
+	mqttJSON, _ := json.Marshal(template.MQTT)
+	scanJSON, _ := json.Marshal(template.ScanSettings)
+	tagsJSON, _ := json.Marshal(template.DefaultTags)
+	groupsJSON, _ := json.Marshal(template.DefaultGroups)
 
 	err := r.db.QueryRowContext(ctx, query,
 		template.Name,
@@ -365,6 +381,12 @@ func (r *FleetRepository) CreateTemplate(ctx context.Context, template *models.F
 		configJSON,
 		variablesJSON,
 		template.CreatedBy,
+		wifiJSON,
+		mqttJSON,
+		scanJSON,
+		tagsJSON,
+		groupsJSON,
+		template.DefaultLocation,
 	).Scan(&template.ID, &template.CreatedAt)
 
 	return err
@@ -372,26 +394,70 @@ func (r *FleetRepository) CreateTemplate(ctx context.Context, template *models.F
 
 func (r *FleetRepository) GetTemplate(ctx context.Context, id int) (*models.FleetConfigTemplate, error) {
 	query := `
-		SELECT id, name, description, config, variables, created_by,
-		       created_at, updated_at, usage_count
-		FROM fleet_templates
-		WHERE id = $1
-	`
+        SELECT id, name, description, config, variables, created_by,
+               created_at, updated_at, usage_count,
+               wifi, mqtt, scan_settings, default_tags, default_groups, default_location
+        FROM fleet_templates
+        WHERE id = $1
+    `
 
 	var t models.FleetConfigTemplate
 	var configJSON, variablesJSON []byte
+	var wifiJSON, mqttJSON, scanJSON, tagsJSON, groupsJSON []byte
+	var defaultLocation sql.NullString
 
 	err := r.db.QueryRowContext(ctx, query, id).Scan(
 		&t.ID, &t.Name, &t.Description, &configJSON, &variablesJSON,
 		&t.CreatedBy, &t.CreatedAt, &t.UpdatedAt, &t.UsageCount,
+		&wifiJSON, &mqttJSON, &scanJSON, &tagsJSON, &groupsJSON, &defaultLocation,
 	)
 
 	if err != nil {
 		return nil, err
 	}
 
-	json.Unmarshal(configJSON, &t.Config)
-	json.Unmarshal(variablesJSON, &t.Variables)
+	err = json.Unmarshal(configJSON, &t.Config)
+	if err != nil {
+		return nil, err
+	}
+	err = json.Unmarshal(variablesJSON, &t.Variables)
+	if err != nil {
+		return nil, err
+	}
+
+	if len(wifiJSON) > 0 {
+		err := json.Unmarshal(wifiJSON, &t.WiFi)
+		if err != nil {
+			return nil, err
+		}
+	}
+	if len(mqttJSON) > 0 {
+		err := json.Unmarshal(mqttJSON, &t.MQTT)
+		if err != nil {
+			return nil, err
+		}
+	}
+	if len(scanJSON) > 0 {
+		err := json.Unmarshal(scanJSON, &t.ScanSettings)
+		if err != nil {
+			return nil, err
+		}
+	}
+	if len(tagsJSON) > 0 {
+		err := json.Unmarshal(tagsJSON, &t.DefaultTags)
+		if err != nil {
+			return nil, err
+		}
+	}
+	if len(groupsJSON) > 0 {
+		err := json.Unmarshal(groupsJSON, &t.DefaultGroups)
+		if err != nil {
+			return nil, err
+		}
+	}
+	if defaultLocation.Valid {
+		t.DefaultLocation = defaultLocation.String
+	}
 
 	return &t, nil
 }

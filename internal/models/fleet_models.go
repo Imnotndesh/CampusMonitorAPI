@@ -30,30 +30,34 @@ type FleetProbe struct {
 	OTAAttempts         int                    `json:"ota_attempts" db:"ota_attempts"`
 	CreatedAt           time.Time              `json:"created_at" db:"created_at"`
 	UpdatedAt           time.Time              `json:"updated_at" db:"updated_at"`
-
-	// Fields from probes table (joined)
-	Status        string    `json:"status" db:"status"`
-	LastSeen      time.Time `json:"last_seen" db:"last_seen"`
-	MQTTConnected bool      `json:"mqtt_connected"`
+	Status              string                 `json:"status" db:"status"`
+	LastSeen            time.Time              `json:"last_seen" db:"last_seen"`
+	MQTTConnected       bool                   `json:"mqtt_connected"`
 }
 
 type MaintenanceWindow struct {
-	Start    string `json:"start" db:"start"` // "02:00"
-	End      string `json:"end" db:"end"`     // "04:00"
+	Start    string `json:"start" db:"start"`
+	End      string `json:"end" db:"end"`
 	Timezone string `json:"timezone" db:"timezone"`
 }
 
 // FleetConfigTemplate represents a reusable configuration template
 type FleetConfigTemplate struct {
-	ID          int                    `json:"id" db:"id"`
-	Name        string                 `json:"name" db:"name"`
-	Description string                 `json:"description" db:"description"`
-	Config      map[string]interface{} `json:"config" db:"config"`
-	Variables   []string               `json:"variables,omitempty" db:"variables"`
-	CreatedBy   string                 `json:"created_by" db:"created_by"`
-	CreatedAt   time.Time              `json:"created_at" db:"created_at"`
-	UpdatedAt   time.Time              `json:"updated_at" db:"updated_at"`
-	UsageCount  int                    `json:"usage_count" db:"usage_count"`
+	ID              int                    `json:"id" db:"id"`
+	Name            string                 `json:"name" db:"name"`
+	Description     string                 `json:"description" db:"description"`
+	WiFi            map[string]interface{} `json:"wifi,omitempty" db:"wifi"`
+	MQTT            map[string]interface{} `json:"mqtt,omitempty" db:"mqtt"`
+	ScanSettings    map[string]interface{} `json:"scan_settings,omitempty" db:"scan_settings"`
+	DefaultTags     map[string]interface{} `json:"default_tags,omitempty" db:"default_tags"`
+	DefaultGroups   []string               `json:"default_groups,omitempty" db:"default_groups"`
+	DefaultLocation string                 `json:"default_location,omitempty" db:"default_location"`
+	Config          map[string]interface{} `json:"config" db:"config"`
+	Variables       []string               `json:"variables,omitempty" db:"variables"`
+	CreatedBy       string                 `json:"created_by" db:"created_by"`
+	CreatedAt       time.Time              `json:"created_at" db:"created_at"`
+	UpdatedAt       time.Time              `json:"updated_at" db:"updated_at"`
+	UsageCount      int                    `json:"usage_count" db:"usage_count"`
 }
 
 // FleetGroup represents a group of probes for targeting
@@ -68,32 +72,22 @@ type FleetGroup struct {
 
 // FleetCommandRequest extends CommandRequest for fleet operations
 type FleetCommandRequest struct {
-	CommandType string                 `json:"command_type" binding:"required"`
-	Payload     map[string]interface{} `json:"payload,omitempty"`
-
-	// Targeting
-	TargetAll     bool     `json:"target_all"`
-	Groups        []string `json:"groups,omitempty"`
-	ProbeIDs      []string `json:"probe_ids,omitempty"`
-	ExcludeProbes []string `json:"exclude_probes,omitempty"`
-
-	// Execution strategy
-	Strategy     string `json:"strategy"`
-	StaggerDelay int    `json:"stagger_delay"`
-	BatchSize    int    `json:"batch_size"`
-	CanaryCount  int    `json:"canary_count"`
-
-	// Scheduling
-	Schedule *ScheduleConfig `json:"schedule,omitempty"`
-
-	// Rollout controls
-	RolloutPercentage int  `json:"rollout_percentage"` // 0-100
-	ContinueOnError   bool `json:"continue_on_error"`
-
-	// Response requirements
-	RequireAck        bool `json:"require_ack"`
-	AckTimeoutSeconds int  `json:"ack_timeout_seconds"`
-	CompletionPercent int  `json:"completion_threshold"`
+	CommandType       string                 `json:"command_type" binding:"required"`
+	Payload           map[string]interface{} `json:"payload,omitempty"`
+	TargetAll         bool                   `json:"target_all"`
+	Groups            []string               `json:"groups,omitempty"`
+	ProbeIDs          []string               `json:"probe_ids,omitempty"`
+	ExcludeProbes     []string               `json:"exclude_probes,omitempty"`
+	Strategy          string                 `json:"strategy"`
+	StaggerDelay      int                    `json:"stagger_delay"`
+	BatchSize         int                    `json:"batch_size"`
+	CanaryCount       int                    `json:"canary_count"`
+	Schedule          *ScheduleConfig        `json:"schedule,omitempty"`
+	RolloutPercentage int                    `json:"rollout_percentage"` // 0-100
+	ContinueOnError   bool                   `json:"continue_on_error"`
+	RequireAck        bool                   `json:"require_ack"`
+	AckTimeoutSeconds int                    `json:"ack_timeout_seconds"`
+	CompletionPercent int                    `json:"completion_threshold"`
 }
 
 type ScheduleConfig struct {

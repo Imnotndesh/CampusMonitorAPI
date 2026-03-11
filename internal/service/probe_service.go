@@ -124,3 +124,7 @@ func (s *ProbeService) UpdateFirmwareVersion(ctx context.Context, probeID, versi
 
 	return nil
 }
+
+func (s *ProbeService) GetDistinctLocations(ctx context.Context) (*models.LocationOptions, error) {
+	return s.probeRepo.GetDistinctLocations(ctx)
+}
