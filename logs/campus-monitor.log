@@ -1723,3 +1723,198 @@
 2026-03-11 13:57:10 [INFO] GET /api/v1/fleet/unenrolled-probes 200 1ms 288 bytes
 2026-03-11 13:57:10 [INFO] GET /api/v1/fleet/probes 200 1ms 620 bytes
 2026-03-11 13:57:12 [INFO] GET /api/v1/fleet/commands 200 7ms 9964 bytes
+2026-03-11 13:57:17 [INFO] GET /api/v1/fleet/commands 200 33ms 9964 bytes
+2026-03-11 13:57:20 [INFO] GET /api/v1/fleet/status 200 8ms 306 bytes
+2026-03-11 13:57:20 [INFO] GET /api/v1/fleet/unenrolled-probes 200 1ms 288 bytes
+2026-03-11 13:57:20 [INFO] GET /api/v1/fleet/probes 200 2ms 620 bytes
+2026-03-11 13:57:33 [INFO] GET /api/v1/fleet/unenrolled-probes 200 6ms 288 bytes
+2026-03-11 13:57:33 [INFO] GET /api/v1/fleet/status 200 11ms 307 bytes
+2026-03-11 13:57:33 [INFO] GET /api/v1/fleet/probes 200 13ms 620 bytes
+2026-03-11 13:57:33 [INFO] GET /api/v1/fleet/commands 200 2ms 9964 bytes
+2026-03-11 13:57:33 [INFO] GET /api/v1/fleet/templates 200 5ms 5 bytes
+2026-03-11 13:57:33 [ERROR] Failed to get probe: probe not found
+2026-03-11 13:57:33 [INFO] GET /api/v1/probes/locations 404 2ms 28 bytes
+2026-03-11 13:57:33 [INFO] GET /api/v1/fleet/groups 200 120ms 181 bytes
+2026-03-11 13:57:36 [ERROR] Failed to get probe: probe not found
+2026-03-11 13:57:36 [INFO] GET /api/v1/probes/locations 404 4ms 28 bytes
+2026-03-11 13:57:53 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0002f0350
+2026-03-11 13:58:52 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000015780
+2026-03-11 13:59:53 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000576150
+2026-03-11 14:00:08 [INFO] GET /api/v1/fleet/unenrolled-probes 200 74ms 288 bytes
+2026-03-11 14:00:08 [INFO] GET /api/v1/fleet/status 200 83ms 306 bytes
+2026-03-11 14:00:08 [ERROR] Failed to get probe: probe not found
+2026-03-11 14:00:08 [INFO] GET /api/v1/probes/locations 404 2ms 28 bytes
+2026-03-11 14:00:08 [INFO] GET /api/v1/fleet/templates 200 84ms 5 bytes
+2026-03-11 14:00:08 [INFO] GET /api/v1/fleet/commands 200 94ms 9964 bytes
+2026-03-11 14:00:08 [INFO] GET /api/v1/fleet/groups 200 103ms 181 bytes
+2026-03-11 14:00:08 [INFO] GET /api/v1/fleet/probes 200 110ms 620 bytes
+2026-03-11 14:00:19 [INFO] GET /api/v1/fleet/status 200 20ms 307 bytes
+2026-03-11 14:00:19 [INFO] GET /api/v1/fleet/probes 200 27ms 620 bytes
+2026-03-11 14:00:19 [ERROR] Failed to get probe: probe not found
+2026-03-11 14:00:19 [INFO] GET /api/v1/probes/locations 404 19ms 28 bytes
+2026-03-11 14:00:19 [INFO] GET /api/v1/fleet/templates 200 37ms 5 bytes
+2026-03-11 14:00:19 [INFO] GET /api/v1/fleet/unenrolled-probes 200 35ms 288 bytes
+2026-03-11 14:00:19 [INFO] GET /api/v1/fleet/commands 200 49ms 9964 bytes
+2026-03-11 14:00:19 [INFO] GET /api/v1/fleet/groups 200 59ms 181 bytes
+2026-03-11 14:00:20 [ERROR] Failed to get probe: probe not found
+2026-03-11 14:00:20 [INFO] GET /api/v1/probes/locations 404 13ms 28 bytes
+2026-03-11 14:00:22 [ERROR] Failed to get probe: probe not found
+2026-03-11 14:00:22 [INFO] GET /api/v1/probes/locations 404 1ms 28 bytes
+2026-03-11 14:00:27 [INFO] GET /api/v1/fleet/commands 200 8ms 9964 bytes
+2026-03-11 14:00:27 [INFO] GET /api/v1/fleet/unenrolled-probes 200 18ms 288 bytes
+2026-03-11 14:00:27 [INFO] GET /api/v1/fleet/probes 200 22ms 620 bytes
+2026-03-11 14:00:27 [INFO] GET /api/v1/fleet/groups 200 31ms 181 bytes
+2026-03-11 14:00:27 [INFO] GET /api/v1/fleet/status 200 44ms 307 bytes
+2026-03-11 14:00:27 [ERROR] Failed to get probe: probe not found
+2026-03-11 14:00:27 [INFO] GET /api/v1/probes/locations 404 14ms 28 bytes
+2026-03-11 14:00:27 [INFO] GET /api/v1/fleet/templates 200 63ms 5 bytes
+2026-03-11 14:00:32 [INFO] GET /api/v1/fleet/commands 200 3ms 9964 bytes
+2026-03-11 14:00:33 [INFO] POST /api/v1/fleet/templates 201 50ms 405 bytes
+2026-03-11 14:00:33 [INFO] GET /api/v1/fleet/templates 200 1ms 225 bytes
+2026-03-11 14:00:37 [INFO] GET /api/v1/fleet/probes 200 8ms 620 bytes
+2026-03-11 14:00:37 [INFO] GET /api/v1/fleet/commands 200 14ms 9964 bytes
+2026-03-11 14:00:40 [INFO] GET /api/v1/fleet/unenrolled-probes 200 1ms 288 bytes
+2026-03-11 14:00:40 [INFO] GET /api/v1/fleet/templates 200 3ms 225 bytes
+2026-03-11 14:00:40 [INFO] GET /api/v1/fleet/groups 200 4ms 181 bytes
+2026-03-11 14:00:40 [INFO] GET /api/v1/fleet/probes 200 5ms 620 bytes
+2026-03-11 14:00:40 [INFO] GET /api/v1/fleet/commands 200 4ms 9964 bytes
+2026-03-11 14:00:40 [INFO] GET /api/v1/fleet/status 200 14ms 307 bytes
+2026-03-11 14:00:40 [INFO] New WS Client connected. Total: 1
+2026-03-11 14:00:40 [ERROR] Failed to get probe: probe not found
+2026-03-11 14:00:40 [INFO] GET /api/v1/probes/locations 404 30ms 28 bytes
+2026-03-11 14:00:41 [ERROR] Failed to get probe: probe not found
+2026-03-11 14:00:41 [INFO] GET /api/v1/probes/locations 404 2ms 28 bytes
+2026-03-11 14:00:43 [INFO] New WS Client connected. Total: 2
+2026-03-11 14:00:43 [ERROR] Failed to get probe: probe not found
+2026-03-11 14:00:43 [INFO] GET /api/v1/probes/locations 404 4ms 28 bytes
+2026-03-11 14:00:46 [INFO] GET /api/v1/fleet/commands 200 11ms 9964 bytes
+2026-03-11 14:00:53 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000224470
+2026-03-11 14:00:55 [INFO] GET /api/v1/fleet/status 200 12ms 306 bytes
+2026-03-11 14:00:55 [INFO] GET /api/v1/fleet/probes 200 7ms 620 bytes
+2026-03-11 14:00:55 [INFO] GET /api/v1/fleet/unenrolled-probes 200 13ms 288 bytes
+2026-03-11 14:00:55 [INFO] GET /api/v1/fleet/templates 200 13ms 225 bytes
+2026-03-11 14:00:55 [INFO] GET /api/v1/fleet/groups 200 14ms 181 bytes
+2026-03-11 14:00:55 [ERROR] Failed to get probe: probe not found
+2026-03-11 14:00:55 [INFO] GET /api/v1/probes/locations 404 9ms 28 bytes
+2026-03-11 14:00:55 [INFO] GET /api/v1/fleet/commands 200 15ms 9964 bytes
+2026-03-11 14:01:09 [INFO] GET /api/v1/fleet/status 200 9ms 307 bytes
+2026-03-11 14:01:09 [INFO] GET /api/v1/fleet/commands 200 3ms 9964 bytes
+2026-03-11 14:01:09 [INFO] GET /api/v1/fleet/templates 200 6ms 225 bytes
+2026-03-11 14:01:09 [INFO] GET /api/v1/fleet/unenrolled-probes 200 23ms 288 bytes
+2026-03-11 14:01:09 [INFO] GET /api/v1/fleet/groups 200 13ms 181 bytes
+2026-03-11 14:01:09 [INFO] GET /api/v1/fleet/probes 200 12ms 620 bytes
+2026-03-11 14:01:09 [ERROR] Failed to get probe: probe not found
+2026-03-11 14:01:09 [INFO] GET /api/v1/probes/locations 404 2ms 28 bytes
+2026-03-11 14:01:10 [ERROR] Failed to get probe: probe not found
+2026-03-11 14:01:10 [INFO] GET /api/v1/probes/locations 404 3ms 28 bytes
+2026-03-11 14:01:12 [ERROR] Failed to get probe: probe not found
+2026-03-11 14:01:12 [INFO] GET /api/v1/probes/locations 404 4ms 28 bytes
+2026-03-11 14:01:14 [INFO] GET /api/v1/fleet/commands 200 4ms 9964 bytes
+2026-03-11 14:01:16 [ERROR] Failed to get probe: probe not found
+2026-03-11 14:01:16 [INFO] GET /api/v1/probes/locations 404 9ms 28 bytes
+2026-03-11 14:01:53 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000385590
+2026-03-11 14:02:49 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc00028d6d0
+2026-03-11 14:03:53 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc00028c270
+2026-03-11 14:04:53 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc00028c050
+2026-03-11 14:05:10 [INFO] GET /api/v1/fleet/status 200 15ms 307 bytes
+2026-03-11 14:05:10 [ERROR] Failed to get probe: probe not found
+2026-03-11 14:05:10 [INFO] GET /api/v1/probes/locations 404 14ms 28 bytes
+2026-03-11 14:05:10 [INFO] GET /api/v1/fleet/unenrolled-probes 200 76ms 288 bytes
+2026-03-11 14:05:10 [INFO] GET /api/v1/fleet/commands 200 82ms 9964 bytes
+2026-03-11 14:05:10 [INFO] GET /api/v1/fleet/templates 200 88ms 225 bytes
+2026-03-11 14:05:10 [INFO] GET /api/v1/fleet/groups 200 103ms 181 bytes
+2026-03-11 14:05:10 [INFO] GET /api/v1/fleet/probes 200 118ms 620 bytes
+2026-03-11 14:05:11 [ERROR] Failed to get probe: probe not found
+2026-03-11 14:05:11 [INFO] GET /api/v1/probes/locations 404 2ms 28 bytes
+2026-03-11 14:05:13 [ERROR] Failed to get probe: probe not found
+2026-03-11 14:05:13 [INFO] GET /api/v1/probes/locations 404 6ms 28 bytes
+2026-03-11 14:05:13 [INFO] Shutting down server...
+2026-03-11 14:05:13 [INFO] API server ready on http://0.0.0.0:9080
+2026-03-11 14:05:13 [INFO] WebSocket Hub shutting down...
+2026-03-11 14:05:18 [INFO] Starting Campus Monitor API Server
+2026-03-11 14:05:18 [INFO] Database connected successfully
+2026-03-11 14:05:18 [INFO] Connecting to MQTT broker: localhost:1883
+2026-03-11 14:05:18 [INFO] Successfully connected to MQTT broker
+2026-03-11 14:05:18 [INFO] MQTT connection established
+2026-03-11 14:05:18 [INFO] Successfully subscribed to topic: campus/probes/telemetry
+2026-03-11 14:05:18 [INFO] Successfully subscribed to topic: campus/probes/telemetry/offline
+2026-03-11 14:05:18 [INFO] Successfully subscribed to topic: campus/probes/+/result
+2026-03-11 14:05:18 [INFO] MQTT subscriptions active
+2026-03-11 14:05:18 [INFO] Started background monitors
+2026-03-11 14:05:18 [INFO] Starting Probe Monitor
+2026-03-11 14:05:18 [INFO] Probe Monitor started successfully
+2026-03-11 14:05:18 [INFO] Subscribing to config broadcasts: campus/probes/+/config
+2026-03-11 14:05:18 [INFO] Subscribing to status broadcasts: campus/probes/+/status
+2026-03-11 14:05:18 [INFO] All handlers and WebSocket endpoint registered
+2026-03-11 14:05:18 [INFO] All handlers registered
+2026-03-11 14:05:18 [INFO] Starting HTTP server on 0.0.0.0:9080
+2026-03-11 14:05:18 [INFO] WebSocket Hub started
+2026-03-11 14:05:18 [INFO] Successfully subscribed to topic with channel: campus/probes/+/status
+2026-03-11 14:05:18 [INFO] Successfully subscribed to topic with channel: campus/probes/+/config
+2026-03-11 14:05:20 [INFO] GET /api/v1/fleet/probes 200 29ms 620 bytes
+2026-03-11 14:05:20 [INFO] DELETE /api/v1/fleet/templates/2 204 33ms 0 bytes
+2026-03-11 14:05:20 [INFO] GET /api/v1/fleet/templates 200 2ms 5 bytes
+2026-03-11 14:05:20 [INFO] New WS Client connected. Total: 1
+2026-03-11 14:05:21 [INFO] New WS Client connected. Total: 2
+2026-03-11 14:05:22 [INFO] GET /api/v1/fleet/commands 200 13ms 9964 bytes
+2026-03-11 14:05:25 [INFO] GET /api/v1/fleet/status 200 22ms 190 bytes
+2026-03-11 14:05:25 [INFO] GET /api/v1/fleet/unenrolled-probes 200 2ms 288 bytes
+2026-03-11 14:05:27 [INFO] GET /api/v1/fleet/commands 200 4ms 9964 bytes
+2026-03-11 14:05:30 [INFO] GET /api/v1/fleet/probes 200 6ms 620 bytes
+2026-03-11 14:05:32 [INFO] GET /api/v1/fleet/commands 200 3ms 9964 bytes
+2026-03-11 14:05:35 [INFO] GET /api/v1/fleet/unenrolled-probes 200 1ms 288 bytes
+2026-03-11 14:05:37 [INFO] GET /api/v1/fleet/commands 200 1ms 9964 bytes
+2026-03-11 14:05:40 [INFO] GET /api/v1/analytics/health 200 50ms 177 bytes
+2026-03-11 14:05:40 [INFO] GET /api/v1/analytics/health 200 12ms 177 bytes
+2026-03-11 14:05:40 [INFO] GET /api/v1/alerts/active 200 58ms 5 bytes
+2026-03-11 14:05:40 [INFO] GET /api/v1/analytics/timeseries/latency 200 91ms 3 bytes
+2026-03-11 14:05:40 [INFO] GET /api/v1/analytics/timeseries/rssi 200 102ms 3 bytes
+2026-03-11 14:05:40 [INFO] GET /api/v1/analytics/health 200 116ms 177 bytes
+2026-03-11 14:05:40 [INFO] GET /api/v1/analytics/health 200 80ms 177 bytes
+2026-03-11 14:05:50 [INFO] GET /api/v1/alerts/active 200 11ms 5 bytes
+2026-03-11 14:05:53 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000369880
+2026-03-11 14:06:00 [INFO] GET /api/v1/alerts/active 200 4ms 5 bytes
+2026-03-11 14:06:06 [INFO] GET /api/v1/analytics/timeseries/latency 200 4ms 2882 bytes
+2026-03-11 14:06:10 [INFO] GET /api/v1/alerts/active 200 1ms 5 bytes
+2026-03-11 14:06:14 [INFO] GET /api/v1/analytics/timeseries/rssi 200 2ms 2942 bytes
+2026-03-11 14:06:20 [INFO] GET /api/v1/alerts/active 200 1ms 5 bytes
+2026-03-11 14:06:30 [INFO] GET /api/v1/alerts/active 200 2ms 5 bytes
+2026-03-11 14:06:40 [INFO] GET /api/v1/alerts/active 200 1ms 5 bytes
+2026-03-11 14:06:50 [INFO] GET /api/v1/alerts/active 200 8ms 5 bytes
+2026-03-11 14:06:53 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc0003ee068
+2026-03-11 14:06:56 [INFO] GET /api/v1/probes 200 1ms 557 bytes
+2026-03-11 14:06:56 [INFO] GET /api/v1/analytics/health 200 3ms 179 bytes
+2026-03-11 14:06:56 [INFO] GET /api/v1/analytics/health 200 3ms 179 bytes
+2026-03-11 14:06:56 [INFO] GET /api/v1/analytics/health 200 2ms 179 bytes
+2026-03-11 14:06:56 [INFO] GET /api/v1/analytics/timeseries/rssi 200 3ms 2942 bytes
+2026-03-11 14:06:56 [INFO] GET /api/v1/analytics/timeseries/latency 200 6ms 2882 bytes
+2026-03-11 14:06:56 [INFO] GET /api/v1/alerts/active 200 7ms 5 bytes
+2026-03-11 14:06:59 [INFO] GET /api/v1/probes 200 2ms 557 bytes
+2026-03-11 14:07:01 [INFO] GET /api/v1/fleet/unenrolled-probes 200 6ms 288 bytes
+2026-03-11 14:07:01 [INFO] GET /api/v1/fleet/probes 200 5ms 620 bytes
+2026-03-11 14:07:01 [INFO] GET /api/v1/fleet/groups 200 9ms 181 bytes
+2026-03-11 14:07:01 [INFO] GET /api/v1/fleet/templates 200 9ms 5 bytes
+2026-03-11 14:07:01 [INFO] GET /api/v1/fleet/commands 200 8ms 9964 bytes
+2026-03-11 14:07:01 [ERROR] Failed to get probe: probe not found
+2026-03-11 14:07:01 [INFO] GET /api/v1/probes/locations 404 11ms 28 bytes
+2026-03-11 14:07:01 [INFO] GET /api/v1/fleet/status 200 31ms 190 bytes
+2026-03-11 14:07:02 [ERROR] Failed to get probe: probe not found
+2026-03-11 14:07:02 [INFO] GET /api/v1/probes/locations 404 6ms 28 bytes
+2026-03-11 14:07:04 [ERROR] Failed to get probe: probe not found
+2026-03-11 14:07:04 [INFO] GET /api/v1/probes/locations 404 5ms 28 bytes
+2026-03-11 14:07:06 [INFO] GET /api/v1/fleet/commands 200 8ms 9964 bytes
+2026-03-11 14:07:08 [ERROR] Failed to get probe: probe not found
+2026-03-11 14:07:08 [INFO] GET /api/v1/probes/locations 404 0ms 28 bytes
+2026-03-11 14:07:11 [INFO] GET /api/v1/fleet/unenrolled-probes 200 6ms 288 bytes
+2026-03-11 14:07:11 [INFO] GET /api/v1/fleet/probes 200 25ms 620 bytes
+2026-03-11 14:07:11 [INFO] GET /api/v1/fleet/commands 200 9ms 9964 bytes
+2026-03-11 14:07:14 [INFO] GET /api/v1/probes 200 0ms 557 bytes
+2026-03-11 14:07:22 [INFO] GET /api/v1/analytics/health 200 22ms 179 bytes
+2026-03-11 14:07:22 [INFO] GET /api/v1/analytics/timeseries/rssi 200 11ms 2942 bytes
+2026-03-11 14:07:22 [INFO] GET /api/v1/analytics/timeseries/latency 200 8ms 2882 bytes
+2026-03-11 14:07:22 [INFO] GET /api/v1/alerts/active 200 6ms 5 bytes
+2026-03-11 14:07:22 [INFO] GET /api/v1/analytics/health 200 5ms 178 bytes
+2026-03-11 14:07:22 [INFO] GET /api/v1/analytics/health 200 7ms 179 bytes
+2026-03-11 14:07:32 [INFO] GET /api/v1/alerts/active 200 1ms 5 bytes
+2026-03-11 14:07:39 [INFO] GET /api/v1/probes 200 1ms 565 bytes
+2026-03-11 14:07:53 [INFO] Telemetry stored: probe=Main, type=light, rssi=0xc000453660

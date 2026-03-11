@@ -163,23 +163,6 @@ type FleetUpdateRequest struct {
 	AutoUpdateEnabled *bool                  `json:"auto_update_enabled,omitempty"`
 }
 
-// FleetStatusResponse aggregates fleet health
-type FleetStatusResponse struct {
-	TotalProbes   int `json:"total_probes"`
-	ManagedProbes int `json:"managed_probes"`
-	ActiveProbes  int `json:"active_probes"`
-	StaleProbes   int `json:"stale_probes"`
-
-	CommandsToday      int `json:"commands_today"`
-	CommandsPending    int `json:"commands_pending"`
-	CommandsInProgress int `json:"commands_in_progress"`
-
-	Groups []GroupSummary `json:"groups"`
-
-	HealthScore float64   `json:"health_score"`
-	LastUpdated time.Time `json:"last_updated"`
-}
-
 type GroupSummary struct {
 	ID         string `json:"id"`
 	Name       string `json:"name"`
@@ -237,4 +220,15 @@ type FleetBroadcastMessage struct {
 	ProbeID   string      `json:"probe_id,omitempty"`
 	Timestamp time.Time   `json:"timestamp"`
 	Data      interface{} `json:"data"`
+}
+type FleetStatusResponse struct {
+	ManagedProbes  int       `json:"total_managed"`
+	Online         int       `json:"online"`
+	Offline        int       `json:"offline"`
+	InMaintenance  int       `json:"in_maintenance"`
+	Groups         int       `json:"groups"`
+	Templates      int       `json:"templates"`
+	ActiveRollouts int       `json:"active_rollouts"`
+	LastCommand    string    `json:"last_command,omitempty"`
+	LastUpdated    time.Time `json:"last_updated"`
 }

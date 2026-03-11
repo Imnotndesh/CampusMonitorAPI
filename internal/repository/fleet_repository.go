@@ -878,64 +878,48 @@ func (r *FleetRepository) GetFleetStatus(ctx context.Context) (*models.FleetStat
 		LastUpdated: time.Now(),
 	}
 
-	// Get counts
+	// Get managed, online, offline, in_maintenance counts
 	err := r.db.QueryRowContext(ctx, `
-		SELECT 
-			COUNT(*) as total,
-			COUNT(CASE WHEN managed THEN 1 END) as managed,
-			COUNT(CASE WHEN p.status = 'active' THEN 1 END) as active,
-			COUNT(CASE WHEN p.last_seen < NOW() - INTERVAL '5 minutes' AND p.status = 'active' THEN 1 END) as stale
-		FROM fleet_probes fp
-		RIGHT JOIN probes p ON fp.probe_id = p.probe_id
-	`).Scan(&status.TotalProbes, &status.ManagedProbes, &status.ActiveProbes, &status.StaleProbes)
+        SELECT 
+            COUNT(fp.probe_id) as managed,
+            COUNT(CASE WHEN p.status = 'active' AND p.last_seen > NOW() - INTERVAL '5 minutes' THEN 1 END) as online,
+            COUNT(CASE WHEN p.status = 'active' AND p.last_seen <= NOW() - INTERVAL '5 minutes' THEN 1 END) as offline,
+            COUNT(CASE WHEN p.status = 'maintenance' THEN 1 END) as in_maintenance
+        FROM probes p
+        LEFT JOIN fleet_probes fp ON p.probe_id = fp.probe_id
+    `).Scan(&status.ManagedProbes, &status.Online, &status.Offline, &status.InMaintenance)
 
 	if err != nil {
 		return nil, err
 	}
 
-	// Get command stats
-	err = r.db.QueryRowContext(ctx, `
-		SELECT 
-			COUNT(CASE WHEN issued_at > NOW() - INTERVAL '24 hours' THEN 1 END) as today,
-			COUNT(CASE WHEN status = 'pending' THEN 1 END) as pending,
-			COUNT(CASE WHEN status = 'in_progress' THEN 1 END) as in_progress
-		FROM fleet_commands
-	`).Scan(&status.CommandsToday, &status.CommandsPending, &status.CommandsInProgress)
-
+	// Get groups count
+	err = r.db.QueryRowContext(ctx, `SELECT COUNT(*) FROM fleet_groups`).Scan(&status.Groups)
 	if err != nil {
 		return nil, err
 	}
 
-	// Get group summaries
-	rows, err := r.db.QueryContext(ctx, `
-		SELECT 
-			g.id, g.name,
-			COUNT(fp.probe_id) as probe_count,
-			COUNT(CASE WHEN p.status = 'active' AND p.last_seen > NOW() - INTERVAL '5 minutes' THEN 1 END) as online,
-			COUNT(DISTINCT a.id) as alert_count
-		FROM fleet_groups g
-		LEFT JOIN fleet_probes fp ON fp.groups @> jsonb_build_array(g.id)
-		LEFT JOIN probes p ON fp.probe_id = p.probe_id
-		LEFT JOIN alerts a ON a.probe_id = p.probe_id AND a.resolved_at IS NULL
-		GROUP BY g.id, g.name
-		ORDER BY g.name
-	`)
+	// Get templates count
+	err = r.db.QueryRowContext(ctx, `SELECT COUNT(*) FROM fleet_templates`).Scan(&status.Templates)
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
 
-	for rows.Next() {
-		var gs models.GroupSummary
-		err := rows.Scan(&gs.ID, &gs.Name, &gs.ProbeCount, &gs.Online, &gs.AlertCount)
-		if err != nil {
-			return nil, err
-		}
-		status.Groups = append(status.Groups, gs)
+	// Get active rollouts (commands in progress)
+	err = r.db.QueryRowContext(ctx, `SELECT COUNT(*) FROM fleet_commands WHERE status = 'in_progress'`).Scan(&status.ActiveRollouts)
+	if err != nil {
+		return nil, err
 	}
 
-	// Calculate health score
-	status.HealthScore = calculateFleetHealthScore(status)
+	// Get last command (optional)
+	var lastCommand sql.NullString
+	err = r.db.QueryRowContext(ctx, `SELECT command_type FROM fleet_commands ORDER BY issued_at DESC LIMIT 1`).Scan(&lastCommand)
+	if err != nil && err != sql.ErrNoRows {
+		return nil, err
+	}
+	if lastCommand.Valid {
+		status.LastCommand = lastCommand.String
+	}
 
 	return status, nil
 }
@@ -948,40 +932,6 @@ func generateCommandID() string {
 
 func generateGroupID(name string) string {
 	return strings.ToLower(strings.ReplaceAll(name, " ", "_"))
-}
-
-func calculateFleetHealthScore(status *models.FleetStatusResponse) float64 {
-	if status.TotalProbes == 0 {
-		return 100.0
-	}
-
-	score := 100.0
-
-	// Managed probes are good
-	managedRatio := float64(status.ManagedProbes) / float64(status.TotalProbes)
-	score *= managedRatio
-
-	// Active ratio
-	activeRatio := float64(status.ActiveProbes) / float64(status.TotalProbes)
-	score *= activeRatio
-
-	// Stale probes penalty
-	stalePenalty := float64(status.StaleProbes) / float64(status.TotalProbes) * 50
-	score -= stalePenalty
-
-	// Command backlog penalty
-	if status.CommandsPending > 10 {
-		score -= 10
-	}
-	if status.CommandsInProgress > 5 {
-		score -= 5
-	}
-
-	if score < 0 {
-		score = 0
-	}
-
-	return score
 }
 
 // GetUnenrolledProbes returns probes that are not currently in the fleet_probes table.
