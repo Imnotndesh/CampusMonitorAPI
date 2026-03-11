@@ -155,8 +155,8 @@ func (h *ProbeHandler) SendCommand(w http.ResponseWriter, r *http.Request) {
 	probeID := vars["id"]
 
 	var req struct {
-		Command string                 `json:"command"`
-		Params  map[string]interface{} `json:"params,omitempty"`
+		CommandType string                 `json:"command_type"`
+		Payload     map[string]interface{} `json:"payload"`
 	}
 
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
@@ -165,12 +165,12 @@ func (h *ProbeHandler) SendCommand(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	h.log.Info("Sending command %s to probe %s", req.Command, probeID)
+	h.log.Info("Sending command %s to probe %s", req.CommandType, probeID)
 
 	commandReq := &models.CommandRequest{
 		ProbeID:     probeID,
-		CommandType: req.Command,
-		Payload:     req.Params,
+		CommandType: req.CommandType, // use req.CommandType
+		Payload:     req.Payload,     // use req.Payload
 	}
 
 	command, err := h.commandService.IssueCommand(r.Context(), commandReq)

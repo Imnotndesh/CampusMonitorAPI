@@ -190,6 +190,12 @@ func (s *CommandService) IssueCommand(ctx context.Context, req *models.CommandRe
 	return cmd, nil
 }
 
+// GetCommandByID fetches a single command record by its integer primary key.
+func (s *CommandService) GetCommandByID(ctx context.Context, id int) (*models.Command, error) {
+	s.log.Debug("Fetching command by ID: %d", id)
+	return s.commandRepo.GetByID(ctx, id)
+}
+
 func (s *CommandService) GetCommandHistory(ctx context.Context, probeID string) ([]models.Command, error) {
 	s.log.Debug("Fetching command history for probe: %s", probeID)
 	return s.commandRepo.GetByProbeID(ctx, probeID, 50)
@@ -266,10 +272,10 @@ func (s *CommandService) DeleteOldCommands(ctx context.Context, days int) (int, 
 func (s *CommandService) ProcessCommandResult(ctx context.Context, payload []byte) error {
 	var result struct {
 		ProbeID   string                 `json:"probe_id"`
-		Command   string                 `json:"cmd"`
+		Command   string                 `json:"command"` // firmware publishes "command", not "cmd"
 		Status    string                 `json:"status"`
 		Result    map[string]interface{} `json:"result"`
-		CommandID string                 `json:"id"`
+		CommandID string                 `json:"command_id"` // firmware publishes "command_id", not "id"
 	}
 
 	if err := json.Unmarshal(payload, &result); err != nil {
@@ -279,7 +285,19 @@ func (s *CommandService) ProcessCommandResult(ctx context.Context, payload []byt
 	cmdIDStr := fmt.Sprintf("%v", result.CommandID)
 
 	s.log.Info("Processing result: Probe=%s Cmd=%s Status=%s CommandID=%s", result.ProbeID, result.Command, result.Status, cmdIDStr)
-	if s.fleetService != nil && len(cmdIDStr) > 4 && cmdIDStr[:4] == "cmd_" {
+
+	// Determine routing: per-probe commands have integer IDs; fleet commands have UUID string IDs.
+	// Try to parse as integer first. If that fails and the ID is non-empty, it's a fleet command.
+	cmdID := 0
+	isIntID := false
+	if cmdIDStr != "" && cmdIDStr != "<nil>" {
+		if _, err := fmt.Sscanf(cmdIDStr, "%d", &cmdID); err == nil && cmdID > 0 {
+			isIntID = true
+		}
+	}
+
+	if !isIntID && s.fleetService != nil && cmdIDStr != "" && cmdIDStr != "<nil>" {
+		// Non-integer ID → this is a fleet command result
 		go func() {
 			err := s.fleetService.ProcessCommandResult(ctx, result.ProbeID, cmdIDStr, result.Status, result.Result)
 			if err != nil {
@@ -289,16 +307,14 @@ func (s *CommandService) ProcessCommandResult(ctx context.Context, payload []byt
 		return nil
 	}
 
-	// Handle standard Probe Commands (Integer IDs)
-	if cmdIDStr != "" && cmdIDStr != "<nil>" {
-		cmdID := 0
-		if _, err := fmt.Sscanf(cmdIDStr, "%d", &cmdID); err == nil && cmdID > 0 {
-			err := s.commandRepo.UpdateStatus(ctx, cmdID, result.Status, result.Result)
-			if err != nil {
-				s.log.Warn("Failed to update command %d: %v", cmdID, err)
-			}
+	// Standard per-probe command (integer ID)
+	if isIntID {
+		err := s.commandRepo.UpdateStatus(ctx, cmdID, result.Status, result.Result)
+		if err != nil {
+			s.log.Warn("Failed to update command %d: %v", cmdID, err)
 		}
 	} else {
+		// No usable ID — fall back to matching by probe + command type
 		err := s.commandRepo.UpdateLatestResult(ctx, result.ProbeID, result.Command, result.Status, result.Result)
 		if err != nil {
 			s.log.Warn("Could not link result to a specific command history entry: %v", err)

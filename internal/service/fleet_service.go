@@ -340,29 +340,43 @@ func (s *FleetService) GetFleetStatus(ctx context.Context) (*models.FleetStatusR
 	return s.fleetRepo.GetFleetStatus(ctx)
 }
 
-// ProcessCommandResult handles command results from probes (called by your existing CommandService)
+// ProcessCommandResult handles command results from probes (called by CommandService for fleet commands).
+// At this point routing has already confirmed commandID is a non-integer (UUID) fleet command ID.
+// NOTE: this may be called from a goroutine launched after the originating HTTP request has
+// completed, so we always use a fresh background context rather than the passed ctx to avoid
+// "context canceled" failures on DB operations.
 func (s *FleetService) ProcessCommandResult(ctx context.Context, probeID, commandID, status string, result map[string]interface{}) error {
+	// Use a background context with a generous timeout so DB ops succeed even when
+	// the caller's request context has already been cancelled.
+	dbCtx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
+	defer cancel()
+
 	s.log.Debug("Processing fleet command result: probe=%s, cmd=%s, status=%s", probeID, commandID, status)
 
-	// Update probe stats
-	s.fleetRepo.UpdateFleetCommandStats(ctx, probeID, commandID, status)
+	// Update probe-level fleet stats (last_seen, command count, etc.)
+	s.fleetRepo.UpdateFleetCommandStats(dbCtx, probeID, commandID, status)
 
-	// Update fleet command status
-	if strings.HasPrefix(commandID, "cmd_") {
-		// This is a fleet command
-		s.updateFleetCommandProbeStatus(ctx, commandID, probeID, status, result)
+	// Update per-probe status row inside the fleet command
+	s.updateFleetCommandProbeStatus(dbCtx, commandID, probeID, status, result)
+
+	// Handle side-effects for specific fleet command types.
+	// We look up the command type from the DB because the result payload only carries the command ID.
+	fleetCmd, err := s.fleetRepo.GetFleetCommand(dbCtx, commandID)
+	if err != nil {
+		s.log.Warn("Could not fetch fleet command %s for side-effect handling: %v", commandID, err)
+		return nil
 	}
 
-	// Handle specific command types
-	switch commandID {
+	switch fleetCmd.CommandType {
 	case "fleet_config":
 		if status == "completed" {
-			// Increment config version
-			s.fleetRepo.UpdateFleetProbe(ctx, probeID, &models.FleetUpdateRequest{})
+			s.fleetRepo.UpdateFleetProbe(dbCtx, probeID, &models.FleetUpdateRequest{})
 		}
 	case "fleet_ota":
-		if version, ok := result["version"].(string); ok && status == "completed" {
-			s.fleetRepo.UpdateFirmwareVersion(ctx, probeID, version)
+		if status == "completed" {
+			if version, ok := result["version"].(string); ok && version != "" {
+				s.fleetRepo.UpdateFirmwareVersion(dbCtx, probeID, version)
+			}
 		}
 	}
 
@@ -800,6 +814,5 @@ func (s *FleetService) scheduleForMaintenanceWindow(cmd *models.FleetCommand, re
 }
 
 func (s *FleetService) updateProbeGroups(probeID string, groups []string) {
-	// This would trigger an MQTT message to update group subscriptions
-	// Implementation depends on your MQTT client
+
 }
