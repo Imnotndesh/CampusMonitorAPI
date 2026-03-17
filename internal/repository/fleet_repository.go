@@ -914,7 +914,7 @@ func (r *FleetRepository) GetFleetStatus(ctx context.Context) (*models.FleetStat
 	// Get last command (optional)
 	var lastCommand sql.NullString
 	err = r.db.QueryRowContext(ctx, `SELECT command_type FROM fleet_commands ORDER BY issued_at DESC LIMIT 1`).Scan(&lastCommand)
-	if err != nil && err != sql.ErrNoRows {
+	if err != nil && !errors.Is(err, sql.ErrNoRows) {
 		return nil, err
 	}
 	if lastCommand.Valid {

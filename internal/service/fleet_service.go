@@ -264,9 +264,23 @@ func (s *FleetService) CancelFleetCommand(ctx context.Context, commandID string)
 
 	return nil
 }
+func (s *FleetService) UpdateProbeSchedules(ctx context.Context, probeID string, schedulesJSON []byte) error {
+	query := `
+        INSERT INTO probe_schedules (probe_id, schedules_json, last_updated)
+        VALUES ($1, $2, NOW())
+        ON CONFLICT (probe_id) DO UPDATE SET
+            schedules_json = EXCLUDED.schedules_json,
+            last_updated = NOW()
+    `
+	_, err := s.fleetRepo.DB().ExecContext(ctx, query, probeID, schedulesJSON)
+	return err
+}
+func (s *FleetService) GetProbeSchedules(ctx context.Context, probeID string, dest *[]byte) error {
+	query := `SELECT schedules_json FROM probe_schedules WHERE probe_id = $1`
+	return s.fleetRepo.DB().QueryRowContext(ctx, query, probeID).Scan(dest)
+}
 
 // Template Management
-
 func (s *FleetService) CreateTemplate(ctx context.Context, template *models.FleetConfigTemplate, user string) error {
 	template.CreatedBy = user
 	return s.fleetRepo.CreateTemplate(ctx, template)

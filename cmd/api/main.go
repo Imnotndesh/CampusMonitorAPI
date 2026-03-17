@@ -3,8 +3,10 @@ package main
 import (
 	"CampusMonitorAPI/internal/models"
 	"context"
+	"fmt"
 	"os"
 	"os/signal"
+	"strings"
 	"syscall"
 	"time"
 
@@ -118,6 +120,10 @@ func main() {
 	if err := mqttClient.Subscribe("campus/probes/+/result", handleCommandResult(commandService, log)); err != nil {
 		log.Fatal("Failed to subscribe to command results topic: %v", err)
 	}
+	// Fleet Schedules
+	if err := mqttClient.Subscribe("campus/fleet/schedules/status/+", handleScheduleStatus(fleetService, log)); err != nil {
+		log.Fatal("Failed to subscribe to schedule status topic: %v", err)
+	}
 
 	log.Info("MQTT subscriptions active")
 
@@ -200,6 +206,24 @@ func handleOfflineTelemetry(service *service.TelemetryService, log *logger.Logge
 		log.Info("Processing offline telemetry")
 		if err := service.ProcessMessage(ctx, payload); err != nil {
 			log.Error("Failed to process offline telemetry: %v", err)
+			return err
+		}
+		return nil
+	}
+}
+func handleScheduleStatus(service *service.FleetService, log *logger.Logger) mqtt.MessageHandler {
+	return func(topic string, payload []byte) error {
+		parts := strings.Split(topic, "/")
+		if len(parts) < 5 {
+			return fmt.Errorf("invalid topic format")
+		}
+		probeID := parts[len(parts)-1]
+
+		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+		defer cancel()
+
+		if err := service.UpdateProbeSchedules(ctx, probeID, payload); err != nil {
+			log.Error("Failed to update probe schedules: %v", err)
 			return err
 		}
 		return nil

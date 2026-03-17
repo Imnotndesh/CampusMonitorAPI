@@ -56,6 +56,11 @@ func (h *FleetHandler) RegisterRoutes(r *mux.Router) {
 	r.HandleFunc("/fleet/templates/{id}", h.DeleteTemplate).Methods("DELETE")
 	r.HandleFunc("/fleet/unenrolled-probes", h.ListUnenrolledProbes).Methods("GET")
 
+	// Probe schedules
+	r.HandleFunc("/fleet/probes/{id}/schedules", h.GetProbeSchedules).Methods("GET")
+	r.HandleFunc("/fleet/probes/{id}/schedules/{schedule_id}", h.DeleteProbeSchedule).Methods("DELETE")
+	r.HandleFunc("/fleet/groups/{id}/schedules", h.GetGroupSchedules).Methods("GET")
+
 	// Group management
 	r.HandleFunc("/fleet/groups", h.CreateGroup).Methods("POST")
 	r.HandleFunc("/fleet/groups", h.ListGroups).Methods("GET")
@@ -438,6 +443,74 @@ func (h *FleetHandler) GetFleetHealth(w http.ResponseWriter, r *http.Request) {
 	}
 
 	respondJSON(w, http.StatusOK, health)
+}
+
+// GetProbeSchedules returns the last known schedules for a probe
+func (h *FleetHandler) GetProbeSchedules(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	probeID := vars["id"]
+
+	var schedulesJSON []byte
+	err := h.fleetService.GetProbeSchedules(r.Context(), probeID, &schedulesJSON)
+	if err != nil {
+		h.log.Error("Failed to get probe schedules: %v", err)
+		respondError(w, http.StatusNotFound, "No schedules found")
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(schedulesJSON)
+}
+
+// DeleteProbeSchedule sends a command to delete a specific schedule
+func (h *FleetHandler) DeleteProbeSchedule(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	probeID := vars["id"]
+	scheduleID := vars["schedule_id"]
+
+	cmdReq := &models.FleetCommandRequest{
+		CommandType: "delete_schedule",
+		Payload: map[string]interface{}{
+			"id": scheduleID,
+		},
+		ProbeIDs: []string{probeID},
+		Strategy: "immediate",
+	}
+
+	user := getUserFromContext(r)
+	_, err := h.fleetService.SendFleetCommand(r.Context(), cmdReq, user)
+	if err != nil {
+		h.log.Error("Failed to send delete schedule command: %v", err)
+		respondError(w, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	respondJSON(w, http.StatusOK, map[string]string{"message": "Delete command sent"})
+}
+
+// GetGroupSchedules aggregates schedules for all probes in a group
+func (h *FleetHandler) GetGroupSchedules(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	groupID := vars["id"]
+
+	// Get all probes in this group from fleet_probes
+	probes, err := h.fleetService.ListFleetProbes(r.Context(), groupID)
+	if err != nil {
+		h.log.Error("Failed to list probes in group: %v", err)
+		respondError(w, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	result := make(map[string]interface{})
+	for _, p := range probes {
+		var schedulesJSON []byte
+		err := h.fleetService.GetProbeSchedules(r.Context(), p.ProbeID, &schedulesJSON)
+		if err == nil {
+			result[p.ProbeID] = json.RawMessage(schedulesJSON)
+		}
+	}
+
+	respondJSON(w, http.StatusOK, result)
 }
 
 // Helper function - replace with your actual auth middleware
