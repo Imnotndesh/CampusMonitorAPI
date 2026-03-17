@@ -271,6 +271,68 @@ func (r *ProbeRepository) GetActive(ctx context.Context) ([]models.Probe, error)
 	return probes, nil
 }
 
+// GetDistinctLocations returns distinct values for building, floor, location, department from probes table.
+func (r *ProbeRepository) GetDistinctLocations(ctx context.Context) (*models.LocationOptions, error) {
+	opts := &models.LocationOptions{}
+
+	// Buildings
+	rows, err := r.db.QueryContext(ctx, "SELECT DISTINCT building FROM probes WHERE building IS NOT NULL AND building != '' ORDER BY building")
+	if err != nil {
+		return nil, fmt.Errorf("failed to query buildings: %w", err)
+	}
+	defer rows.Close()
+	for rows.Next() {
+		var b string
+		if err := rows.Scan(&b); err != nil {
+			return nil, err
+		}
+		opts.Buildings = append(opts.Buildings, b)
+	}
+
+	// Floors
+	rows, err = r.db.QueryContext(ctx, "SELECT DISTINCT floor FROM probes WHERE floor IS NOT NULL AND floor != '' ORDER BY floor")
+	if err != nil {
+		return nil, fmt.Errorf("failed to query floors: %w", err)
+	}
+	defer rows.Close()
+	for rows.Next() {
+		var f string
+		if err := rows.Scan(&f); err != nil {
+			return nil, err
+		}
+		opts.Floors = append(opts.Floors, f)
+	}
+
+	// Rooms (location column)
+	rows, err = r.db.QueryContext(ctx, "SELECT DISTINCT location FROM probes WHERE location IS NOT NULL AND location != '' ORDER BY location")
+	if err != nil {
+		return nil, fmt.Errorf("failed to query locations: %w", err)
+	}
+	defer rows.Close()
+	for rows.Next() {
+		var l string
+		if err := rows.Scan(&l); err != nil {
+			return nil, err
+		}
+		opts.Rooms = append(opts.Rooms, l)
+	}
+
+	// Departments
+	rows, err = r.db.QueryContext(ctx, "SELECT DISTINCT department FROM probes WHERE department IS NOT NULL AND department != '' ORDER BY department")
+	if err != nil {
+		return nil, fmt.Errorf("failed to query departments: %w", err)
+	}
+	defer rows.Close()
+	for rows.Next() {
+		var d string
+		if err := rows.Scan(&d); err != nil {
+			return nil, err
+		}
+		opts.Departments = append(opts.Departments, d)
+	}
+
+	return opts, nil
+}
 func (r *ProbeRepository) GetByBuilding(ctx context.Context, building string) ([]models.Probe, error) {
 	query := `
 		SELECT probe_id, location, building, floor, department, 

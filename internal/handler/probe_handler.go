@@ -46,6 +46,7 @@ func (h *ProbeHandler) RegisterRoutes(r *mux.Router) {
 	r.HandleFunc("/probes/{probe_id}/status", h.GetProbeStatus).Methods("GET")
 	r.HandleFunc("/probes/{probe_id}/config", h.GetProbeConfig).Methods("GET")
 	r.HandleFunc("/probes/{probe_id}/ping-status", h.GetPingStatus).Methods("GET")
+	r.HandleFunc("/probes/locations", h.GetLocationOptions).Methods("GET")
 }
 
 func (h *ProbeHandler) CreateProbe(w http.ResponseWriter, r *http.Request) {
@@ -150,13 +151,24 @@ func (h *ProbeHandler) GetProbesByBuilding(w http.ResponseWriter, r *http.Reques
 	respondJSON(w, http.StatusOK, probes)
 }
 
+// GetLocationOptions handles GET /api/v1/probes/locations
+func (h *ProbeHandler) GetLocationOptions(w http.ResponseWriter, r *http.Request) {
+	ctx := r.Context()
+	opts, err := h.probeService.GetDistinctLocations(ctx)
+	if err != nil {
+		h.log.Error("Failed to get location options: %v", err)
+		respondError(w, http.StatusInternalServerError, "Failed to fetch location options")
+		return
+	}
+	respondJSON(w, http.StatusOK, opts)
+}
 func (h *ProbeHandler) SendCommand(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	probeID := vars["id"]
 
 	var req struct {
-		Command string                 `json:"command"`
-		Params  map[string]interface{} `json:"params,omitempty"`
+		CommandType string                 `json:"command_type"`
+		Payload     map[string]interface{} `json:"payload"`
 	}
 
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
@@ -165,12 +177,12 @@ func (h *ProbeHandler) SendCommand(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	h.log.Info("Sending command %s to probe %s", req.Command, probeID)
+	h.log.Info("Sending command %s to probe %s", req.CommandType, probeID)
 
 	commandReq := &models.CommandRequest{
 		ProbeID:     probeID,
-		CommandType: req.Command,
-		Payload:     req.Params,
+		CommandType: req.CommandType, // use req.CommandType
+		Payload:     req.Payload,     // use req.Payload
 	}
 
 	command, err := h.commandService.IssueCommand(r.Context(), commandReq)

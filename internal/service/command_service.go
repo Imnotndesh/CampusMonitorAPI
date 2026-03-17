@@ -1,4 +1,3 @@
-// internal/service/command_service.go
 package service
 
 import (
@@ -17,7 +16,9 @@ import (
 type CommandService struct {
 	commandRepo      *repository.CommandRepository
 	probeRepo        *repository.ProbeRepository
+	fleetService     *FleetService
 	telemetryService *TelemetryService
+	scheduleService  *ScheduleService
 	mqttClient       *mqtt.Client
 	log              *logger.Logger
 	pingStatus       map[string]bool
@@ -31,6 +32,8 @@ func NewCommandService(
 	mqttClient *mqtt.Client,
 	probeRepo *repository.ProbeRepository,
 	telemetryService *TelemetryService,
+	fleetService *FleetService,
+	scheduleService *ScheduleService,
 	log *logger.Logger,
 ) *CommandService {
 	return &CommandService{
@@ -38,6 +41,8 @@ func NewCommandService(
 		mqttClient:       mqttClient,
 		probeRepo:        probeRepo,
 		telemetryService: telemetryService,
+		fleetService:     fleetService,
+		scheduleService:  scheduleService,
 		log:              log,
 		pingStatus:       make(map[string]bool),
 	}
@@ -187,6 +192,12 @@ func (s *CommandService) IssueCommand(ctx context.Context, req *models.CommandRe
 	return cmd, nil
 }
 
+// GetCommandByID fetches a single command record by its integer primary key.
+func (s *CommandService) GetCommandByID(ctx context.Context, id int) (*models.Command, error) {
+	s.log.Debug("Fetching command by ID: %d", id)
+	return s.commandRepo.GetByID(ctx, id)
+}
+
 func (s *CommandService) GetCommandHistory(ctx context.Context, probeID string) ([]models.Command, error) {
 	s.log.Debug("Fetching command history for probe: %s", probeID)
 	return s.commandRepo.GetByProbeID(ctx, probeID, 50)
@@ -263,28 +274,49 @@ func (s *CommandService) DeleteOldCommands(ctx context.Context, days int) (int, 
 func (s *CommandService) ProcessCommandResult(ctx context.Context, payload []byte) error {
 	var result struct {
 		ProbeID   string                 `json:"probe_id"`
-		Command   string                 `json:"command"`
+		Command   string                 `json:"command"` // firmware publishes "command", not "cmd"
 		Status    string                 `json:"status"`
 		Result    map[string]interface{} `json:"result"`
-		CommandID string                 `json:"command_id"`
+		CommandID string                 `json:"command_id"` // firmware publishes "command_id", not "id"
 	}
 
 	if err := json.Unmarshal(payload, &result); err != nil {
 		s.log.Error("Failed to unmarshal command result: %v", err)
 		return err
 	}
+	cmdIDStr := fmt.Sprintf("%v", result.CommandID)
 
-	s.log.Info("Processing result: Probe=%s Cmd=%s Status=%s CommandID=%s", result.ProbeID, result.Command, result.Status, result.CommandID)
+	s.log.Info("Processing result: Probe=%s Cmd=%s Status=%s CommandID=%s", result.ProbeID, result.Command, result.Status, cmdIDStr)
 
-	if result.CommandID != "" {
-		cmdID := 0
-		if _, err := fmt.Sscanf(result.CommandID, "%d", &cmdID); err == nil && cmdID > 0 {
-			err := s.commandRepo.UpdateStatus(ctx, cmdID, result.Status, result.Result)
+	cmdID := 0
+	isIntID := false
+	if cmdIDStr != "" && cmdIDStr != "<nil>" {
+		if _, err := fmt.Sscanf(cmdIDStr, "%d", &cmdID); err == nil && cmdID > 0 {
+			isIntID = true
+		}
+	}
+	// Fleet commands
+	if !isIntID && s.fleetService != nil && cmdIDStr != "" && cmdIDStr != "<nil>" {
+		go func() {
+			err := s.fleetService.ProcessCommandResult(ctx, result.ProbeID, cmdIDStr, result.Status, result.Result)
 			if err != nil {
-				s.log.Warn("Failed to update command %d: %v", cmdID, err)
+				s.log.Error("Fleet processing failed: %v", err)
 			}
+		}()
+		return nil
+	}
+	// Schedule tasks
+	if s.scheduleService != nil {
+		s.scheduleService.HandleCommandResult(ctx, result.CommandID, result.Status, result.Result)
+	}
+	// Standard per-probe command
+	if isIntID {
+		err := s.commandRepo.UpdateStatus(ctx, cmdID, result.Status, result.Result)
+		if err != nil {
+			s.log.Warn("Failed to update command %d: %v", cmdID, err)
 		}
 	} else {
+		// No usable ID — fall back to matching by probe + command type
 		err := s.commandRepo.UpdateLatestResult(ctx, result.ProbeID, result.Command, result.Status, result.Result)
 		if err != nil {
 			s.log.Warn("Could not link result to a specific command history entry: %v", err)
