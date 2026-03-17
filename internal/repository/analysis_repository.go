@@ -5,6 +5,8 @@ import (
 	"database/sql"
 	"fmt"
 	"time"
+
+	"github.com/lib/pq"
 )
 
 type AnalyticsRepository struct {
@@ -409,25 +411,24 @@ func (r *AnalyticsRepository) GetPerformanceMetrics(ctx context.Context, probeID
 
 func (r *AnalyticsRepository) GetProbeComparison(ctx context.Context, probeIDs []string, start, end time.Time) ([]ProbeComparison, error) {
 	query := `
-		SELECT 
-			t.probe_id,
-			p.location,
-			AVG(t.rssi) as avg_rssi,
-			AVG(t.latency) as avg_latency,
-			AVG(t.packet_loss) as avg_packet_loss,
-			AVG(t.link_quality) as avg_link_quality,
-			(COUNT(*) * 100.0 / EXTRACT(EPOCH FROM ($3 - $2)) * 30) as uptime_percent,
-			COUNT(*) as sample_count
-		FROM telemetry t
-		JOIN probes p ON t.probe_id = p.probe_id
-		WHERE t.probe_id = ANY($1)
-		  AND t.timestamp >= $2
-		  AND t.timestamp <= $3
-		GROUP BY t.probe_id, p.location
-		ORDER BY avg_rssi DESC
-	`
-
-	rows, err := r.db.QueryContext(ctx, query, probeIDs, start, end)
+        SELECT 
+            t.probe_id,
+            p.location,
+            AVG(t.rssi) as avg_rssi,
+            AVG(t.latency) as avg_latency,
+            AVG(t.packet_loss) as avg_packet_loss,
+            AVG(t.link_quality) as avg_link_quality,
+            0 as uptime_percent,
+            COUNT(*) as sample_count
+        FROM telemetry t
+        JOIN probes p ON t.probe_id = p.probe_id
+        WHERE t.probe_id = ANY($1)
+          AND t.timestamp >= $2
+          AND t.timestamp <= $3
+        GROUP BY t.probe_id, p.location
+        ORDER BY avg_rssi DESC
+    `
+	rows, err := r.db.QueryContext(ctx, query, pq.Array(probeIDs), start, end)
 	if err != nil {
 		return nil, fmt.Errorf("failed to get probe comparison: %w", err)
 	}
