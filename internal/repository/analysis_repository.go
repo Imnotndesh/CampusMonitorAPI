@@ -74,14 +74,15 @@ type PerformanceMetrics struct {
 }
 
 type ProbeComparison struct {
-	ProbeID       string  `json:"probe_id"`
-	Location      string  `json:"location"`
-	AvgRSSI       float64 `json:"avg_rssi"`
-	AvgLatency    float64 `json:"avg_latency"`
-	AvgPacketLoss float64 `json:"avg_packet_loss"`
-	LinkQuality   float64 `json:"link_quality"`
-	UptimePercent float64 `json:"uptime_percent"`
-	SampleCount   int     `json:"sample_count"`
+	ProbeID        string  `json:"probe_id"`
+	Location       string  `json:"location"`
+	AvgRSSI        float64 `json:"avg_rssi"`
+	AvgLatency     float64 `json:"avg_latency"`
+	AvgPacketLoss  float64 `json:"avg_packet_loss"`
+	LinkQuality    float64 `json:"link_quality"`
+	UptimePercent  float64 `json:"uptime_percent"`
+	SampleCount    int     `json:"sample_count"`
+	StabilityScore float64 `json:"stability_score"`
 }
 
 type NetworkHealth struct {
@@ -414,12 +415,14 @@ func (r *AnalyticsRepository) GetProbeComparison(ctx context.Context, probeIDs [
         SELECT 
             t.probe_id,
             p.location,
-            AVG(t.rssi) as avg_rssi,
-            AVG(t.latency) as avg_latency,
-            AVG(t.packet_loss) as avg_packet_loss,
-            AVG(t.link_quality) as avg_link_quality,
+            COALESCE(AVG(t.rssi), 0) as avg_rssi,
+            COALESCE(AVG(t.latency), 0) as avg_latency,
+            COALESCE(AVG(t.packet_loss), 0) as avg_packet_loss,
+            COALESCE(AVG(t.link_quality), 0) as avg_link_quality,
             0 as uptime_percent,
-            COUNT(*) as sample_count
+            COUNT(*) as sample_count,
+            -- Stability score: 100 - (packet_loss * 5) - (latency / 10), with NULL protection
+            100 - (COALESCE(AVG(t.packet_loss), 0) * 5) - (COALESCE(AVG(t.latency), 0) / 10) as stability_score
         FROM telemetry t
         JOIN probes p ON t.probe_id = p.probe_id
         WHERE t.probe_id = ANY($1)
@@ -428,26 +431,32 @@ func (r *AnalyticsRepository) GetProbeComparison(ctx context.Context, probeIDs [
         GROUP BY t.probe_id, p.location
         ORDER BY avg_rssi DESC
     `
+
 	rows, err := r.db.QueryContext(ctx, query, pq.Array(probeIDs), start, end)
 	if err != nil {
 		return nil, fmt.Errorf("failed to get probe comparison: %w", err)
 	}
 	defer rows.Close()
 
-	comparison := []ProbeComparison{}
+	var results []ProbeComparison
 	for rows.Next() {
 		var pc ProbeComparison
-		var linkQuality sql.NullFloat64
-		if err := rows.Scan(&pc.ProbeID, &pc.Location, &pc.AvgRSSI, &pc.AvgLatency, &pc.AvgPacketLoss, &linkQuality, &pc.UptimePercent, &pc.SampleCount); err != nil {
+		if err := rows.Scan(
+			&pc.ProbeID,
+			&pc.Location,
+			&pc.AvgRSSI,
+			&pc.AvgLatency,
+			&pc.AvgPacketLoss,
+			&pc.LinkQuality,
+			&pc.UptimePercent,
+			&pc.SampleCount,
+			&pc.StabilityScore,
+		); err != nil {
 			return nil, fmt.Errorf("failed to scan probe comparison: %w", err)
 		}
-		if linkQuality.Valid {
-			pc.LinkQuality = linkQuality.Float64
-		}
-		comparison = append(comparison, pc)
+		results = append(results, pc)
 	}
-
-	return comparison, nil
+	return results, nil
 }
 
 func (r *AnalyticsRepository) GetNetworkHealth(ctx context.Context) (*NetworkHealth, error) {
