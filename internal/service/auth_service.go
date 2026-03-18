@@ -136,35 +136,52 @@ func (s *AuthService) VerifyOAuthState(ctx context.Context, state string) (strin
 
 // HandleOAuthCallback processes OAuth callback, finds or creates user, returns user and whether 2FA required.
 func (s *AuthService) HandleOAuthCallback(ctx context.Context, provider string, userInfo map[string]interface{}, oauthToken *oauth2.Token) (*models.User, bool, error) {
-	// Extract provider user ID and email from userInfo (provider-specific)
-	providerUserID, ok := userInfo["id"].(string)
+	providerUserID, ok := userInfo["sub"].(string)
 	if !ok {
-		return nil, false, errors.New("missing provider user ID")
-	}
-	email, _ := userInfo["email"].(string)
-	username, _ := userInfo["name"].(string)
-	if username == "" {
-		username = email // fallback
+		providerUserID, ok = userInfo["id"].(string)
+		if !ok {
+			s.log.Error("userInfo fields received: %v", userInfo)
+			return nil, false, errors.New("missing provider user ID")
+		}
 	}
 
-	// Look for existing OAuth account
+	email, _ := userInfo["email"].(string)
+
+	username, _ := userInfo["preferred_username"].(string)
+	if username == "" {
+		username, _ = userInfo["name"].(string)
+	}
+	if username == "" {
+		username = email
+	}
+	role := models.RoleUser // default
+	if groups, ok := userInfo["groups"].([]interface{}); ok {
+		for _, g := range groups {
+			group, _ := g.(string)
+			if group == "campus_net_admins" {
+				role = models.RoleAdmin
+				break
+			}
+		}
+	}
+
 	acc, err := s.oauthAccountRepo.GetByProvider(ctx, models.OAuthProvider(provider), providerUserID)
 	if err != nil {
 		return nil, false, err
 	}
+
 	var user *models.User
 	if acc == nil {
 		user = &models.User{
 			Username:     username,
 			Email:        email,
 			PasswordHash: "",
-			Role:         models.RoleUser,
+			Role:         role,
 		}
 		err = s.UserRepo.CreateUser(ctx, user)
 		if err != nil {
 			return nil, false, err
 		}
-		// Create OAuth account
 		expiresAt := time.Now().Add(time.Duration(oauthToken.Expiry.Unix()))
 		acc = &models.OAuthAccount{
 			UserID:         user.ID,
@@ -179,10 +196,13 @@ func (s *AuthService) HandleOAuthCallback(ctx context.Context, provider string, 
 			return nil, false, err
 		}
 	} else {
-		// Existing user – update tokens
 		user, err = s.UserRepo.GetUserByID(ctx, acc.UserID)
 		if err != nil {
 			return nil, false, err
+		}
+		user.Role = role
+		if err = s.UserRepo.UpdateUser(ctx, user); err != nil {
+			s.log.Warn("Failed to sync user role: %v", err)
 		}
 		expiresAt := time.Now().Add(time.Duration(oauthToken.Expiry.Unix()))
 		err = s.oauthAccountRepo.UpdateTokens(ctx, acc.ID, oauthToken.AccessToken, oauthToken.RefreshToken, &expiresAt)
@@ -341,11 +361,14 @@ func (s *AuthService) CreateTemp2FAToken(userID int) (string, error) {
 	return auth.GenerateToken(claims, s.Cfg.JWTSecret, 5*time.Minute)
 }
 func (s *AuthService) LogoutOIDC(ctx context.Context, provider string, idToken string) (string, error) {
-	// Get provider config
-	cfg, ok := s.oauthConfigs[provider]
+	_, ok := s.oauthConfigs[provider]
 	if !ok {
 		return "", errors.New("provider not found")
 	}
-	// For Pocket ID, you can redirect to http://localhost:1411/logout?post_logout_redirect_uri=...
-	return cfg.Endpoint.AuthURL + "/logout?post_logout_redirect_uri=" + url.QueryEscape("http://localhost:9080"), nil
+
+	// After PocketID logs out, redirect user back to your frontend login page
+	frontendURL := s.Cfg.FrontendURL
+	endSessionURL := "https://localhost:1411/api/oidc/end-session"
+
+	return endSessionURL + "?post_logout_redirect_uri=" + url.QueryEscape(frontendURL), nil
 }

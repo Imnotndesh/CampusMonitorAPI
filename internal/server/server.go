@@ -58,14 +58,21 @@ func (s *Server) RegisterHandlers(
 	authHandler *handler.AuthHandler, // new
 ) {
 	// Public auth routes (no auth required)
+	s.router.Use(middleware.CORS(s.cfg.Security.CORSAllowedOrigins, s.cfg.Security.CORSAllowedMethods))
+	s.router.Use(middleware.Recovery(s.log))
+
+	healthHandler.RegisterRoutes(s.router)
+
 	authRouter := s.router.PathPrefix("/api/v1/auth").Subrouter()
+	authRouter.Use(middleware.RequestLogger(s.log))
 	authHandler.RegisterRoutes(authRouter)
+
 	api := s.router.PathPrefix("/api/v1").Subrouter()
 	api.Use(middleware.Auth(s.cfg.Auth.JWTSecret))
 	api.Use(middleware.RequestLogger(s.log))
-	api.Use(middleware.CORS(s.cfg.Security.CORSAllowedOrigins, s.cfg.Security.CORSAllowedMethods))
-	s.router.Use(middleware.CORS(s.cfg.Security.CORSAllowedOrigins, s.cfg.Security.CORSAllowedMethods))
-	api.Use(middleware.Recovery(s.log))
+	if s.cfg.Security.EnableRateLimit {
+		api.Use(middleware.RateLimit(s.cfg.Security.RateLimitPerMinute))
+	}
 
 	if s.cfg.Security.EnableRateLimit {
 		api.Use(middleware.RateLimit(s.cfg.Security.RateLimitPerMinute))
@@ -74,11 +81,20 @@ func (s *Server) RegisterHandlers(
 	telemetryHandler.RegisterRoutes(api)
 	commandHandler.RegisterRoutes(api)
 	analyticsHandler.RegisterRoutes(api)
-	healthHandler.RegisterRoutes(s.router)
 	topologyHandler.RegisterRoutes(api)
 	alertHandler.RegisterRoutes(api)
 	fleetHandler.RegisterRoutes(api)
 	scheduleHandler.RegisterRoutes(api)
+	s.router.NotFoundHandler = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Header().Set("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS,PATCH")
+		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization, X-API-Key")
+		if r.Method == "OPTIONS" {
+			w.WriteHeader(http.StatusNoContent)
+			return
+		}
+		w.WriteHeader(http.StatusNotFound)
+	})
 	s.router.HandleFunc("/api/v1/ws", func(w http.ResponseWriter, r *http.Request) {
 		websocket.ServeWs(s.wsHub, w, r, s.log)
 	}).Methods("GET")

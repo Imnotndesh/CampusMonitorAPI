@@ -4,6 +4,7 @@ import (
 	"CampusMonitorAPI/internal/auth"
 	"context"
 	"encoding/json"
+	"fmt"
 	"net/http"
 	_ "time"
 
@@ -27,17 +28,17 @@ func NewAuthHandler(authService *service.AuthService, log *logger.Logger) *AuthH
 }
 
 func (h *AuthHandler) RegisterRoutes(r *mux.Router) {
-	// Public auth endpoints (no auth required)
-	r.HandleFunc("/auth/register", h.Register).Methods("POST")
-	r.HandleFunc("/auth/login", h.Login).Methods("POST")
-	r.HandleFunc("/auth/oauth/{provider}", h.OAuthInit).Methods("GET")
-	r.HandleFunc("/auth/oauth/{provider}/callback", h.OAuthCallback).Methods("GET")
-	r.HandleFunc("/auth/2fa/verify", h.Verify2FA).Methods("POST")
-	r.HandleFunc("/auth/refresh", h.RefreshToken).Methods("POST")
-	r.HandleFunc("/auth/logout", h.Logout).Methods("POST")
+	// Public endpoints
+	r.HandleFunc("/register", h.Register).Methods("POST")
+	r.HandleFunc("/login", h.Login).Methods("POST")
+	r.HandleFunc("/oauth/{provider}", h.OAuthInit).Methods("GET")
+	r.HandleFunc("/oauth/{provider}/callback", h.OAuthCallback).Methods("GET")
+	r.HandleFunc("/2fa/verify", h.Verify2FA).Methods("POST")
+	r.HandleFunc("/refresh", h.RefreshToken).Methods("POST")
+	r.HandleFunc("/logout", h.Logout).Methods("POST")
 
-	// Protected endpoints (require auth)
-	protected := r.PathPrefix("/auth").Subrouter()
+	// Protected endpoints
+	protected := r.NewRoute().Subrouter()
 	protected.Use(h.authMiddleware)
 	protected.HandleFunc("/me", h.GetMe).Methods("GET")
 	protected.HandleFunc("/2fa/enable", h.Enable2FA).Methods("POST")
@@ -163,19 +164,21 @@ func (h *AuthHandler) OAuthInit(w http.ResponseWriter, r *http.Request) {
 		respondError(w, http.StatusBadRequest, "Unsupported provider")
 		return
 	}
-	// Get redirect URI from query (frontend can provide where to redirect after login)
+
 	redirectURI := r.URL.Query().Get("redirect_uri")
 	if redirectURI == "" {
-		redirectURI = "/" // default
+		redirectURI = "/"
 	}
+
 	state, err := h.authService.GenerateOAuthState(r.Context(), redirectURI)
 	if err != nil {
 		h.log.Error("Failed to generate OAuth state: %v", err)
 		respondError(w, http.StatusInternalServerError, "Internal error")
 		return
 	}
-	url := cfg.AuthCodeURL(state, oauth2.AccessTypeOffline)
-	http.Redirect(w, r, url, http.StatusTemporaryRedirect)
+	authURL := cfg.AuthCodeURL(state)
+	h.log.Info("OAuth redirect URL: %s", authURL)
+	http.Redirect(w, r, authURL, http.StatusTemporaryRedirect)
 }
 
 func (h *AuthHandler) OAuthCallback(w http.ResponseWriter, r *http.Request) {
@@ -244,15 +247,21 @@ func (h *AuthHandler) OAuthCallback(w http.ResponseWriter, r *http.Request) {
 
 // Helper to fetch user info from provider (simplified; expand as needed)
 func (h *AuthHandler) getUserInfo(ctx context.Context, provider string, token *oauth2.Token) (map[string]interface{}, error) {
-	// In a real implementation, you'd have a client per provider.
-	// For now, we'll assume we have a way to get user info.
-	// Example for Google:
+	providerCfg, ok := h.authService.Cfg.OAuthProviders[provider]
+	if !ok {
+		return nil, fmt.Errorf("unsupported provider: %s", provider)
+	}
+	if providerCfg.UserInfoURL == "" {
+		return nil, fmt.Errorf("no UserInfoURL configured for provider: %s", provider)
+	}
+
 	client := oauth2.NewClient(ctx, oauth2.StaticTokenSource(token))
-	resp, err := client.Get("https://www.googleapis.com/oauth2/v2/userinfo")
+	resp, err := client.Get(providerCfg.UserInfoURL)
 	if err != nil {
 		return nil, err
 	}
 	defer resp.Body.Close()
+
 	var info map[string]interface{}
 	if err := json.NewDecoder(resp.Body).Decode(&info); err != nil {
 		return nil, err

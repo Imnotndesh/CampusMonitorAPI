@@ -28,6 +28,7 @@ type AuthConfig struct {
 	EnableRegistration bool
 	Require2FA         bool
 	OAuthProviders     map[string]OAuthProviderConfig
+	FrontendURL        string
 }
 
 type OAuthProviderConfig struct {
@@ -178,6 +179,7 @@ func loadAuthConfig() AuthConfig {
 		EnableRegistration: getEnvAsBool("ENABLE_REGISTRATION", true),
 		Require2FA:         getEnvAsBool("REQUIRE_2FA", false),
 		OAuthProviders:     providers,
+		FrontendURL:        getEnv("FRONTEND_URL", "http://localhost:5173"),
 	}
 }
 func validateRequired() error {
