@@ -1,0 +1,343 @@
+package service
+
+import (
+	"context"
+	"crypto/rand"
+	"crypto/sha256"
+	"encoding/base64"
+	"errors"
+	"fmt"
+	"time"
+
+	"CampusMonitorAPI/internal/auth"
+	"CampusMonitorAPI/internal/config"
+	"CampusMonitorAPI/internal/logger"
+	"CampusMonitorAPI/internal/models"
+	"CampusMonitorAPI/internal/repository"
+
+	"github.com/pquerna/otp/totp"
+	"golang.org/x/crypto/bcrypt"
+	"golang.org/x/oauth2"
+)
+
+type AuthService struct {
+	userRepo         *repository.UserRepository
+	oauthAccountRepo *repository.OAuthAccountRepository
+	totpRepo         *repository.TOTPRepository
+	refreshTokenRepo *repository.RefreshTokenRepository
+	oauthStateRepo   *repository.OAuthStateRepository
+	cfg              *config.AuthConfig
+	log              *logger.Logger
+	oauthConfigs     map[string]*oauth2.Config
+}
+
+func NewAuthService(
+	userRepo *repository.UserRepository,
+	oauthAccountRepo *repository.OAuthAccountRepository,
+	totpRepo *repository.TOTPRepository,
+	refreshTokenRepo *repository.RefreshTokenRepository,
+	oauthStateRepo *repository.OAuthStateRepository,
+	cfg *config.AuthConfig,
+	log *logger.Logger,
+	oauthConfigs map[string]*oauth2.Config,
+) *AuthService {
+	return &AuthService{
+		userRepo:         userRepo,
+		oauthAccountRepo: oauthAccountRepo,
+		totpRepo:         totpRepo,
+		refreshTokenRepo: refreshTokenRepo,
+		oauthStateRepo:   oauthStateRepo,
+		cfg:              cfg,
+		log:              log,
+		oauthConfigs:     oauthConfigs,
+	}
+}
+
+func (s *AuthService) Register(ctx context.Context, username, email, password string) (*models.User, error) {
+	// Check if user exists
+	existing, _ := s.userRepo.GetUserByUsername(ctx, username)
+	if existing != nil {
+		return nil, errors.New("username already taken")
+	}
+	existing, _ = s.userRepo.GetUserByEmail(ctx, email)
+	if existing != nil {
+		return nil, errors.New("email already registered")
+	}
+
+	hash, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+	if err != nil {
+		return nil, err
+	}
+
+	user := &models.User{
+		Username:     username,
+		Email:        email,
+		PasswordHash: string(hash),
+		Role:         models.RoleUser,
+	}
+	err = s.userRepo.CreateUser(ctx, user)
+	if err != nil {
+		return nil, err
+	}
+	return user, nil
+}
+
+func (s *AuthService) LoginLocal(ctx context.Context, username, password string) (*models.User, bool, error) {
+	user, err := s.userRepo.GetUserByUsername(ctx, username)
+	if err != nil {
+		return nil, false, errors.New("invalid credentials")
+	}
+	err = bcrypt.CompareHashAndPassword([]byte(user.PasswordHash), []byte(password))
+	if err != nil {
+		return nil, false, errors.New("invalid credentials")
+	}
+	// Check if 2FA is enabled
+	totpSecret, _ := s.totpRepo.GetByUserID(ctx, user.ID)
+	twoFARequired := totpSecret != nil && totpSecret.Enabled
+	return user, twoFARequired, nil
+}
+
+// GetOAuthConfig returns the OAuth2 config for a provider.
+func (s *AuthService) GetOAuthConfig(provider string) (*oauth2.Config, bool) {
+	cfg, ok := s.oauthConfigs[provider]
+	return cfg, ok
+}
+
+// GenerateOAuthState creates a random state and stores it.
+func (s *AuthService) GenerateOAuthState(ctx context.Context, redirectURI string) (string, error) {
+	b := make([]byte, 32)
+	if _, err := rand.Read(b); err != nil {
+		return "", err
+	}
+	state := base64.URLEncoding.EncodeToString(b)
+	expires := time.Now().Add(10 * time.Minute)
+	err := s.oauthStateRepo.Create(ctx, &models.OAuthState{
+		State:       state,
+		RedirectURI: redirectURI,
+		ExpiresAt:   expires,
+	})
+	return state, err
+}
+
+// VerifyOAuthState retrieves and deletes the state.
+func (s *AuthService) VerifyOAuthState(ctx context.Context, state string) (string, error) {
+	st, err := s.oauthStateRepo.GetAndDelete(ctx, state)
+	if err != nil {
+		return "", err
+	}
+	if st == nil {
+		return "", errors.New("invalid or expired state")
+	}
+	if st.ExpiresAt.Before(time.Now()) {
+		return "", errors.New("state expired")
+	}
+	return st.RedirectURI, nil
+}
+
+// HandleOAuthCallback processes OAuth callback, finds or creates user, returns user and whether 2FA required.
+func (s *AuthService) HandleOAuthCallback(ctx context.Context, provider string, userInfo map[string]interface{}, oauthToken *oauth2.Token) (*models.User, bool, error) {
+	// Extract provider user ID and email from userInfo (provider-specific)
+	providerUserID, ok := userInfo["id"].(string)
+	if !ok {
+		return nil, false, errors.New("missing provider user ID")
+	}
+	email, _ := userInfo["email"].(string)
+	username, _ := userInfo["name"].(string)
+	if username == "" {
+		username = email // fallback
+	}
+
+	// Look for existing OAuth account
+	acc, err := s.oauthAccountRepo.GetByProvider(ctx, models.OAuthProvider(provider), providerUserID)
+	if err != nil {
+		return nil, false, err
+	}
+	var user *models.User
+	if acc == nil {
+		user = &models.User{
+			Username:     username,
+			Email:        email,
+			PasswordHash: "",
+			Role:         models.RoleUser,
+		}
+		err = s.userRepo.CreateUser(ctx, user)
+		if err != nil {
+			return nil, false, err
+		}
+		// Create OAuth account
+		expiresAt := time.Now().Add(time.Duration(oauthToken.Expiry.Unix()))
+		acc = &models.OAuthAccount{
+			UserID:         user.ID,
+			Provider:       models.OAuthProvider(provider),
+			ProviderUserID: providerUserID,
+			AccessToken:    oauthToken.AccessToken,
+			RefreshToken:   oauthToken.RefreshToken,
+			ExpiresAt:      &expiresAt,
+		}
+		err = s.oauthAccountRepo.Create(ctx, acc)
+		if err != nil {
+			return nil, false, err
+		}
+	} else {
+		// Existing user – update tokens
+		user, err = s.userRepo.GetUserByID(ctx, acc.UserID)
+		if err != nil {
+			return nil, false, err
+		}
+		expiresAt := time.Now().Add(time.Duration(oauthToken.Expiry.Unix()))
+		err = s.oauthAccountRepo.UpdateTokens(ctx, acc.ID, oauthToken.AccessToken, oauthToken.RefreshToken, &expiresAt)
+		if err != nil {
+			return nil, false, err
+		}
+	}
+
+	totpSecret, _ := s.totpRepo.GetByUserID(ctx, user.ID)
+	twoFARequired := totpSecret != nil && totpSecret.Enabled
+	return user, twoFARequired, nil
+}
+
+// GenerateTOTPSecret creates a new TOTP secret and returns a provisioning URI for QR code.
+func (s *AuthService) GenerateTOTPSecret(ctx context.Context, userID int, email string) (string, string, error) {
+	key, err := totp.Generate(totp.GenerateOpts{
+		Issuer:      "CampusMonitor",
+		AccountName: email,
+	})
+	if err != nil {
+		return "", "", err
+	}
+	// Store secret (not enabled yet)
+	err = s.totpRepo.CreateOrUpdate(ctx, userID, key.Secret(), false)
+	if err != nil {
+		return "", "", err
+	}
+	return key.Secret(), key.URL(), nil
+}
+
+// VerifyAndEnableTOTP verifies a code and enables 2FA.
+func (s *AuthService) VerifyAndEnableTOTP(ctx context.Context, userID int, code string) error {
+	secret, err := s.totpRepo.GetByUserID(ctx, userID)
+	if err != nil || secret == nil {
+		return errors.New("no TOTP secret found")
+	}
+	valid := totp.Validate(code, secret.Secret)
+	if !valid {
+		return errors.New("invalid code")
+	}
+	secret.Enabled = true
+	return s.totpRepo.CreateOrUpdate(ctx, userID, secret.Secret, true)
+}
+
+// DisableTOTP disables 2FA for a user.
+func (s *AuthService) DisableTOTP(ctx context.Context, userID int) error {
+	return s.totpRepo.Delete(ctx, userID)
+}
+
+// ValidateTOTP validates a TOTP code for a user.
+func (s *AuthService) ValidateTOTP(ctx context.Context, userID int, code string) (bool, error) {
+	secret, err := s.totpRepo.GetByUserID(ctx, userID)
+	if err != nil || secret == nil || !secret.Enabled {
+		return false, errors.New("2FA not enabled")
+	}
+	valid := totp.Validate(code, secret.Secret)
+	if valid {
+		_ = s.totpRepo.UpdateLastUsed(ctx, userID)
+	}
+	return valid, nil
+}
+
+// IssueTokens creates access and refresh tokens for a user.
+func (s *AuthService) IssueTokens(ctx context.Context, user *models.User, twoFAPassed bool) (accessToken string, refreshToken string, err error) {
+	// Check if 2FA is enabled for user
+	totpSecret, _ := s.totpRepo.GetByUserID(ctx, user.ID)
+	twoFAEnabled := totpSecret != nil && totpSecret.Enabled
+
+	// Access token claims
+	claims := auth.Claims{
+		UserID:   user.ID,
+		Username: user.Username,
+		Role:     string(user.Role),
+		TwoFA:    twoFAEnabled,
+	}
+	accessToken, err = auth.GenerateToken(claims, s.cfg.JWTSecret, s.cfg.JWTExpiry)
+	if err != nil {
+		return "", "", err
+	}
+
+	// Refresh token: generate random string, store hash
+	refreshBytes := make([]byte, 32)
+	if _, err := rand.Read(refreshBytes); err != nil {
+		return "", "", err
+	}
+	refreshTokenStr := base64.URLEncoding.EncodeToString(refreshBytes)
+	hash := sha256.Sum256([]byte(refreshTokenStr))
+	tokenHash := base64.URLEncoding.EncodeToString(hash[:])
+
+	expiresAt := time.Now().Add(s.cfg.RefreshTokenExpiry)
+	rt := &models.RefreshToken{
+		UserID:    user.ID,
+		TokenHash: tokenHash,
+		ExpiresAt: expiresAt,
+	}
+	err = s.refreshTokenRepo.Create(ctx, rt)
+	if err != nil {
+		return "", "", err
+	}
+	return accessToken, refreshTokenStr, nil
+}
+
+// RefreshAccessToken validates a refresh token and issues a new access token.
+func (s *AuthService) RefreshAccessToken(ctx context.Context, refreshTokenStr string) (string, error) {
+	hash := sha256.Sum256([]byte(refreshTokenStr))
+	tokenHash := base64.URLEncoding.EncodeToString(hash[:])
+	rt, err := s.refreshTokenRepo.GetByTokenHash(ctx, tokenHash)
+	if err != nil || rt == nil {
+		return "", errors.New("invalid refresh token")
+	}
+	if rt.Revoked || rt.ExpiresAt.Before(time.Now()) {
+		return "", errors.New("refresh token expired or revoked")
+	}
+	user, err := s.userRepo.GetUserByID(ctx, rt.UserID)
+	if err != nil {
+		return "", err
+	}
+	// Check 2FA status
+	totpSecret, _ := s.totpRepo.GetByUserID(ctx, user.ID)
+	twoFAEnabled := totpSecret != nil && totpSecret.Enabled
+	claims := auth.Claims{
+		UserID:   user.ID,
+		Username: user.Username,
+		Role:     string(user.Role),
+		TwoFA:    twoFAEnabled,
+	}
+	accessToken, err := auth.GenerateToken(claims, s.cfg.JWTSecret, s.cfg.JWTExpiry)
+	if err != nil {
+		return "", err
+	}
+	return accessToken, nil
+}
+
+// RevokeRefreshToken revokes a specific refresh token (logout).
+func (s *AuthService) RevokeRefreshToken(ctx context.Context, refreshTokenStr string) error {
+	hash := sha256.Sum256([]byte(refreshTokenStr))
+	tokenHash := base64.URLEncoding.EncodeToString(hash[:])
+	rt, err := s.refreshTokenRepo.GetByTokenHash(ctx, tokenHash)
+	if err != nil || rt == nil {
+		return errors.New("invalid refresh token")
+	}
+	return s.refreshTokenRepo.Revoke(ctx, rt.ID)
+}
+
+// RevokeAllUserTokens logs out user from all devices.
+func (s *AuthService) RevokeAllUserTokens(ctx context.Context, userID int) error {
+	return s.refreshTokenRepo.RevokeAllForUser(ctx, userID)
+}
+
+// CreateTemp2FAToken creates a short-lived token for 2FA step.
+func (s *AuthService) CreateTemp2FAToken(userID int) (string, error) {
+	claims := auth.Claims{
+		UserID: userID,
+		Temp:   true,
+	}
+	// short expiry, e.g., 5 minutes
+	return auth.GenerateToken(claims, s.cfg.JWTSecret, 5*time.Minute)
+}

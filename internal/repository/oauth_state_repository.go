@@ -1,12 +1,11 @@
 package repository
 
 import (
+	"CampusMonitorAPI/internal/models"
 	"context"
 	"database/sql"
+	"errors"
 	"fmt"
-	"time"
-
-	"CampusMonitorAPI/internal/models"
 )
 
 type OAuthStateRepository struct {
@@ -43,7 +42,7 @@ func (r *OAuthStateRepository) GetAndDelete(ctx context.Context, state string) (
 		&oaState.State, &oaState.RedirectURI, &oaState.ExpiresAt,
 	)
 	if err != nil {
-		if err == sql.ErrNoRows {
+		if errors.Is(err, sql.ErrNoRows) {
 			return nil, nil
 		}
 		return nil, err

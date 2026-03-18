@@ -19,6 +19,8 @@ import (
 	"CampusMonitorAPI/internal/repository"
 	"CampusMonitorAPI/internal/server"
 	"CampusMonitorAPI/internal/service"
+
+	"golang.org/x/oauth2"
 )
 
 func main() {
@@ -76,6 +78,19 @@ func main() {
 	refreshTokenRepo := repository.NewRefreshTokenRepository(db.DB)
 	oauthStateRepo := repository.NewOAuthStateRepository(db.DB)
 
+	oauthConfigs := make(map[string]*oauth2.Config)
+	for provider, pcfg := range cfg.Auth.OAuthProviders {
+		oauthConfigs[provider] = &oauth2.Config{
+			ClientID:     pcfg.ClientID,
+			ClientSecret: pcfg.ClientSecret,
+			Endpoint: oauth2.Endpoint{
+				AuthURL:  pcfg.AuthURL,
+				TokenURL: pcfg.TokenURL,
+			},
+			RedirectURL: fmt.Sprintf("%s/api/v1/auth/oauth/%s/callback", cfg.Server.PublicURL, provider),
+			Scopes:      pcfg.Scopes,
+		}
+	}
 	// 5. Initialize MQTT Client
 	mqttClient, err := mqtt.NewClient(mqtt.ClientConfig{
 		MQTT:   &cfg.MQTT,
@@ -101,6 +116,10 @@ func main() {
 	telemetryService := service.NewTelemetryService(telemetryRepo, probeRepo, alertEvaluator, log)
 	probeService := service.NewProbeService(probeRepo, log)
 	analyticsService := service.NewAnalyticsService(analyticsRepo, log)
+	authService := service.NewAuthService(
+		userRepo, oauthAccountRepo, totpRepo, refreshTokenRepo, oauthStateRepo,
+		&cfg.Auth, log, oauthConfigs,
+	)
 	fleetService := service.NewFleetService(
 		fleetRepo,
 		probeRepo,
@@ -149,6 +168,7 @@ func main() {
 	healthHandler := handler.NewHealthHandler(db, mqttClient, log)
 	alertHandler := handler.NewAlertHandler(alertService, log)
 	topologyHandler := handler.NewTopologyHandler(topologyService, log)
+	authHandler := handler.NewAuthHandler(authService, log)
 	fleetHandler := handler.NewFleetHandler(
 		fleetService,
 		probeService,
@@ -156,7 +176,6 @@ func main() {
 		log,
 	)
 	scheduleHandler := handler.NewScheduleHandler(scheduleService, log)
-	// Background pinging service
 
 	// 9. Start HTTP Server
 	srv.RegisterHandlers(
@@ -169,6 +188,7 @@ func main() {
 		alertHandler,
 		fleetHandler,
 		scheduleHandler,
+		authHandler,
 	)
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
 	defer stop()
@@ -176,7 +196,7 @@ func main() {
 		log.Fatal("Server failed: %v", err)
 	}
 
-	log.Info("API server ready on http://%s:%d", cfg.Server.Host, cfg.Server.Port)
+	log.Info("API server ready")
 
 	// 10. Graceful Shutdown
 	quit := make(chan os.Signal, 1)
