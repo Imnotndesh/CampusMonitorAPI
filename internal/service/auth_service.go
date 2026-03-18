@@ -6,7 +6,6 @@ import (
 	"crypto/sha256"
 	"encoding/base64"
 	"errors"
-	"fmt"
 	"time"
 
 	"CampusMonitorAPI/internal/auth"
@@ -21,12 +20,12 @@ import (
 )
 
 type AuthService struct {
-	userRepo         *repository.UserRepository
+	UserRepo         *repository.UserRepository
 	oauthAccountRepo *repository.OAuthAccountRepository
-	totpRepo         *repository.TOTPRepository
+	TotpRepo         *repository.TOTPRepository
 	refreshTokenRepo *repository.RefreshTokenRepository
 	oauthStateRepo   *repository.OAuthStateRepository
-	cfg              *config.AuthConfig
+	Cfg              *config.AuthConfig
 	log              *logger.Logger
 	oauthConfigs     map[string]*oauth2.Config
 }
@@ -42,12 +41,12 @@ func NewAuthService(
 	oauthConfigs map[string]*oauth2.Config,
 ) *AuthService {
 	return &AuthService{
-		userRepo:         userRepo,
+		UserRepo:         userRepo,
 		oauthAccountRepo: oauthAccountRepo,
-		totpRepo:         totpRepo,
+		TotpRepo:         totpRepo,
 		refreshTokenRepo: refreshTokenRepo,
 		oauthStateRepo:   oauthStateRepo,
-		cfg:              cfg,
+		Cfg:              cfg,
 		log:              log,
 		oauthConfigs:     oauthConfigs,
 	}
@@ -55,11 +54,11 @@ func NewAuthService(
 
 func (s *AuthService) Register(ctx context.Context, username, email, password string) (*models.User, error) {
 	// Check if user exists
-	existing, _ := s.userRepo.GetUserByUsername(ctx, username)
+	existing, _ := s.UserRepo.GetUserByUsername(ctx, username)
 	if existing != nil {
 		return nil, errors.New("username already taken")
 	}
-	existing, _ = s.userRepo.GetUserByEmail(ctx, email)
+	existing, _ = s.UserRepo.GetUserByEmail(ctx, email)
 	if existing != nil {
 		return nil, errors.New("email already registered")
 	}
@@ -75,7 +74,7 @@ func (s *AuthService) Register(ctx context.Context, username, email, password st
 		PasswordHash: string(hash),
 		Role:         models.RoleUser,
 	}
-	err = s.userRepo.CreateUser(ctx, user)
+	err = s.UserRepo.CreateUser(ctx, user)
 	if err != nil {
 		return nil, err
 	}
@@ -83,7 +82,7 @@ func (s *AuthService) Register(ctx context.Context, username, email, password st
 }
 
 func (s *AuthService) LoginLocal(ctx context.Context, username, password string) (*models.User, bool, error) {
-	user, err := s.userRepo.GetUserByUsername(ctx, username)
+	user, err := s.UserRepo.GetUserByUsername(ctx, username)
 	if err != nil {
 		return nil, false, errors.New("invalid credentials")
 	}
@@ -92,7 +91,7 @@ func (s *AuthService) LoginLocal(ctx context.Context, username, password string)
 		return nil, false, errors.New("invalid credentials")
 	}
 	// Check if 2FA is enabled
-	totpSecret, _ := s.totpRepo.GetByUserID(ctx, user.ID)
+	totpSecret, _ := s.TotpRepo.GetByUserID(ctx, user.ID)
 	twoFARequired := totpSecret != nil && totpSecret.Enabled
 	return user, twoFARequired, nil
 }
@@ -160,7 +159,7 @@ func (s *AuthService) HandleOAuthCallback(ctx context.Context, provider string, 
 			PasswordHash: "",
 			Role:         models.RoleUser,
 		}
-		err = s.userRepo.CreateUser(ctx, user)
+		err = s.UserRepo.CreateUser(ctx, user)
 		if err != nil {
 			return nil, false, err
 		}
@@ -180,7 +179,7 @@ func (s *AuthService) HandleOAuthCallback(ctx context.Context, provider string, 
 		}
 	} else {
 		// Existing user – update tokens
-		user, err = s.userRepo.GetUserByID(ctx, acc.UserID)
+		user, err = s.UserRepo.GetUserByID(ctx, acc.UserID)
 		if err != nil {
 			return nil, false, err
 		}
@@ -191,7 +190,7 @@ func (s *AuthService) HandleOAuthCallback(ctx context.Context, provider string, 
 		}
 	}
 
-	totpSecret, _ := s.totpRepo.GetByUserID(ctx, user.ID)
+	totpSecret, _ := s.TotpRepo.GetByUserID(ctx, user.ID)
 	twoFARequired := totpSecret != nil && totpSecret.Enabled
 	return user, twoFARequired, nil
 }
@@ -206,7 +205,7 @@ func (s *AuthService) GenerateTOTPSecret(ctx context.Context, userID int, email 
 		return "", "", err
 	}
 	// Store secret (not enabled yet)
-	err = s.totpRepo.CreateOrUpdate(ctx, userID, key.Secret(), false)
+	err = s.TotpRepo.CreateOrUpdate(ctx, userID, key.Secret(), false)
 	if err != nil {
 		return "", "", err
 	}
@@ -215,7 +214,7 @@ func (s *AuthService) GenerateTOTPSecret(ctx context.Context, userID int, email 
 
 // VerifyAndEnableTOTP verifies a code and enables 2FA.
 func (s *AuthService) VerifyAndEnableTOTP(ctx context.Context, userID int, code string) error {
-	secret, err := s.totpRepo.GetByUserID(ctx, userID)
+	secret, err := s.TotpRepo.GetByUserID(ctx, userID)
 	if err != nil || secret == nil {
 		return errors.New("no TOTP secret found")
 	}
@@ -224,23 +223,23 @@ func (s *AuthService) VerifyAndEnableTOTP(ctx context.Context, userID int, code 
 		return errors.New("invalid code")
 	}
 	secret.Enabled = true
-	return s.totpRepo.CreateOrUpdate(ctx, userID, secret.Secret, true)
+	return s.TotpRepo.CreateOrUpdate(ctx, userID, secret.Secret, true)
 }
 
 // DisableTOTP disables 2FA for a user.
 func (s *AuthService) DisableTOTP(ctx context.Context, userID int) error {
-	return s.totpRepo.Delete(ctx, userID)
+	return s.TotpRepo.Delete(ctx, userID)
 }
 
 // ValidateTOTP validates a TOTP code for a user.
 func (s *AuthService) ValidateTOTP(ctx context.Context, userID int, code string) (bool, error) {
-	secret, err := s.totpRepo.GetByUserID(ctx, userID)
+	secret, err := s.TotpRepo.GetByUserID(ctx, userID)
 	if err != nil || secret == nil || !secret.Enabled {
 		return false, errors.New("2FA not enabled")
 	}
 	valid := totp.Validate(code, secret.Secret)
 	if valid {
-		_ = s.totpRepo.UpdateLastUsed(ctx, userID)
+		_ = s.TotpRepo.UpdateLastUsed(ctx, userID)
 	}
 	return valid, nil
 }
@@ -248,7 +247,7 @@ func (s *AuthService) ValidateTOTP(ctx context.Context, userID int, code string)
 // IssueTokens creates access and refresh tokens for a user.
 func (s *AuthService) IssueTokens(ctx context.Context, user *models.User, twoFAPassed bool) (accessToken string, refreshToken string, err error) {
 	// Check if 2FA is enabled for user
-	totpSecret, _ := s.totpRepo.GetByUserID(ctx, user.ID)
+	totpSecret, _ := s.TotpRepo.GetByUserID(ctx, user.ID)
 	twoFAEnabled := totpSecret != nil && totpSecret.Enabled
 
 	// Access token claims
@@ -258,7 +257,7 @@ func (s *AuthService) IssueTokens(ctx context.Context, user *models.User, twoFAP
 		Role:     string(user.Role),
 		TwoFA:    twoFAEnabled,
 	}
-	accessToken, err = auth.GenerateToken(claims, s.cfg.JWTSecret, s.cfg.JWTExpiry)
+	accessToken, err = auth.GenerateToken(claims, s.Cfg.JWTSecret, s.Cfg.JWTExpiry)
 	if err != nil {
 		return "", "", err
 	}
@@ -272,7 +271,7 @@ func (s *AuthService) IssueTokens(ctx context.Context, user *models.User, twoFAP
 	hash := sha256.Sum256([]byte(refreshTokenStr))
 	tokenHash := base64.URLEncoding.EncodeToString(hash[:])
 
-	expiresAt := time.Now().Add(s.cfg.RefreshTokenExpiry)
+	expiresAt := time.Now().Add(s.Cfg.RefreshTokenExpiry)
 	rt := &models.RefreshToken{
 		UserID:    user.ID,
 		TokenHash: tokenHash,
@@ -296,12 +295,12 @@ func (s *AuthService) RefreshAccessToken(ctx context.Context, refreshTokenStr st
 	if rt.Revoked || rt.ExpiresAt.Before(time.Now()) {
 		return "", errors.New("refresh token expired or revoked")
 	}
-	user, err := s.userRepo.GetUserByID(ctx, rt.UserID)
+	user, err := s.UserRepo.GetUserByID(ctx, rt.UserID)
 	if err != nil {
 		return "", err
 	}
 	// Check 2FA status
-	totpSecret, _ := s.totpRepo.GetByUserID(ctx, user.ID)
+	totpSecret, _ := s.TotpRepo.GetByUserID(ctx, user.ID)
 	twoFAEnabled := totpSecret != nil && totpSecret.Enabled
 	claims := auth.Claims{
 		UserID:   user.ID,
@@ -309,7 +308,7 @@ func (s *AuthService) RefreshAccessToken(ctx context.Context, refreshTokenStr st
 		Role:     string(user.Role),
 		TwoFA:    twoFAEnabled,
 	}
-	accessToken, err := auth.GenerateToken(claims, s.cfg.JWTSecret, s.cfg.JWTExpiry)
+	accessToken, err := auth.GenerateToken(claims, s.Cfg.JWTSecret, s.Cfg.JWTExpiry)
 	if err != nil {
 		return "", err
 	}
@@ -339,5 +338,5 @@ func (s *AuthService) CreateTemp2FAToken(userID int) (string, error) {
 		Temp:   true,
 	}
 	// short expiry, e.g., 5 minutes
-	return auth.GenerateToken(claims, s.cfg.JWTSecret, 5*time.Minute)
+	return auth.GenerateToken(claims, s.Cfg.JWTSecret, 5*time.Minute)
 }

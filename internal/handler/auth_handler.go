@@ -267,7 +267,7 @@ func (h *AuthHandler) Verify2FA(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	// Validate temp token
-	claims, err := auth.ValidateToken(req.TempToken, h.authService.cfg.JWTSecret)
+	claims, err := auth.ValidateToken(req.TempToken, h.authService.Cfg.JWTSecret)
 	if err != nil || !claims.Temp {
 		respondError(w, http.StatusUnauthorized, "Invalid or expired temp token")
 		return
@@ -277,7 +277,7 @@ func (h *AuthHandler) Verify2FA(w http.ResponseWriter, r *http.Request) {
 		respondError(w, http.StatusUnauthorized, "Invalid 2FA code")
 		return
 	}
-	user, err := h.authService.userRepo.GetUserByID(r.Context(), claims.UserID)
+	user, err := h.authService.UserRepo.GetUserByID(r.Context(), claims.UserID)
 	if err != nil {
 		h.log.Error("Failed to get user: %v", err)
 		respondError(w, http.StatusInternalServerError, "Internal error")
@@ -334,7 +334,7 @@ func (h *AuthHandler) authMiddleware(next http.Handler) http.Handler {
 			http.Error(w, "Unauthorized", http.StatusUnauthorized)
 			return
 		}
-		claims, err := auth.ValidateToken(tokenStr, h.authService.cfg.JWTSecret)
+		claims, err := auth.ValidateToken(tokenStr, h.authService.Cfg.JWTSecret)
 		if err != nil {
 			http.Error(w, "Invalid token", http.StatusUnauthorized)
 			return
@@ -362,13 +362,13 @@ func (h *AuthHandler) GetMe(w http.ResponseWriter, r *http.Request) {
 		respondError(w, http.StatusUnauthorized, "Unauthorized")
 		return
 	}
-	user, err := h.authService.userRepo.GetUserByID(r.Context(), claims.UserID)
+	user, err := h.authService.UserRepo.GetUserByID(r.Context(), claims.UserID)
 	if err != nil {
 		h.log.Error("Failed to get user: %v", err)
 		respondError(w, http.StatusInternalServerError, "Internal error")
 		return
 	}
-	totpSecret, _ := h.authService.totpRepo.GetByUserID(r.Context(), user.ID)
+	totpSecret, _ := h.authService.TotpRepo.GetByUserID(r.Context(), user.ID)
 	twoFA := totpSecret != nil && totpSecret.Enabled
 	respondJSON(w, http.StatusOK, userResponse{
 		ID:       user.ID,
@@ -385,7 +385,7 @@ func (h *AuthHandler) Enable2FA(w http.ResponseWriter, r *http.Request) {
 		respondError(w, http.StatusUnauthorized, "Unauthorized")
 		return
 	}
-	user, err := h.authService.userRepo.GetUserByID(r.Context(), claims.UserID)
+	user, err := h.authService.UserRepo.GetUserByID(r.Context(), claims.UserID)
 	if err != nil {
 		h.log.Error("Failed to get user: %v", err)
 		respondError(w, http.StatusInternalServerError, "Internal error")
