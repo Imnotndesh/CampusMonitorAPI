@@ -64,6 +64,7 @@ func (s *Server) RegisterHandlers(
 	api.Use(middleware.Auth(s.cfg.Auth.JWTSecret))
 	api.Use(middleware.RequestLogger(s.log))
 	api.Use(middleware.CORS(s.cfg.Security.CORSAllowedOrigins, s.cfg.Security.CORSAllowedMethods))
+	s.router.Use(middleware.CORS(s.cfg.Security.CORSAllowedOrigins, s.cfg.Security.CORSAllowedMethods))
 	api.Use(middleware.Recovery(s.log))
 
 	if s.cfg.Security.EnableRateLimit {

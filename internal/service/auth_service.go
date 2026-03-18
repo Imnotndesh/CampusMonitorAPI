@@ -6,6 +6,7 @@ import (
 	"crypto/sha256"
 	"encoding/base64"
 	"errors"
+	"net/url"
 	"time"
 
 	"CampusMonitorAPI/internal/auth"
@@ -337,6 +338,14 @@ func (s *AuthService) CreateTemp2FAToken(userID int) (string, error) {
 		UserID: userID,
 		Temp:   true,
 	}
-	// short expiry, e.g., 5 minutes
 	return auth.GenerateToken(claims, s.Cfg.JWTSecret, 5*time.Minute)
+}
+func (s *AuthService) LogoutOIDC(ctx context.Context, provider string, idToken string) (string, error) {
+	// Get provider config
+	cfg, ok := s.oauthConfigs[provider]
+	if !ok {
+		return "", errors.New("provider not found")
+	}
+	// For Pocket ID, you can redirect to http://localhost:1411/logout?post_logout_redirect_uri=...
+	return cfg.Endpoint.AuthURL + "/logout?post_logout_redirect_uri=" + url.QueryEscape("http://localhost:9080"), nil
 }
