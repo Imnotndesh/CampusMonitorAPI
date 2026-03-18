@@ -70,6 +70,12 @@ func main() {
 	analyticsRepo := repository.NewAnalyticsRepository(db.DB)
 	fleetRepo := repository.NewFleetRepository(db.DB)
 	scheduleRepo := repository.NewScheduleRepository(db.DB)
+	userRepo := repository.NewUserRepository(db.DB)
+	oauthAccountRepo := repository.NewOAuthAccountRepository(db.DB)
+	totpRepo := repository.NewTOTPRepository(db.DB)
+	refreshTokenRepo := repository.NewRefreshTokenRepository(db.DB)
+	oauthStateRepo := repository.NewOAuthStateRepository(db.DB)
+
 	// 5. Initialize MQTT Client
 	mqttClient, err := mqtt.NewClient(mqtt.ClientConfig{
 		MQTT:   &cfg.MQTT,
