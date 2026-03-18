@@ -32,7 +32,6 @@ func (r *FleetRepository) EnrollProbe(ctx context.Context, probeID string, req *
 			config_template_id, maintenance_window, auto_update_enabled,
 			current_firmware, created_at, updated_at
 		) VALUES ($1, true, NOW(), $2, $3, $4, $5, $6, $7, $8, 
-			-- FIX: Changed $1 to $9 to completely isolate the parameter inference
 			COALESCE((SELECT firmware_version FROM probes WHERE probe_id = $9), 'unknown'),
 			NOW(), NOW())
 		ON CONFLICT (probe_id) DO UPDATE SET
@@ -53,15 +52,15 @@ func (r *FleetRepository) EnrollProbe(ctx context.Context, probeID string, req *
 	maintWindowJSON, _ := json.Marshal(req.MaintenanceWindow)
 
 	_, err := r.db.ExecContext(ctx, query,
-		probeID,               // $1
-		user,                  // $2
-		groupsJSON,            // $3
-		req.Location,          // $4
-		tagsJSON,              // $5
-		req.ConfigTemplateID,  // $6
-		maintWindowJSON,       // $7
-		req.AutoUpdateEnabled, // $8
-		probeID,               // $9
+		probeID,
+		user,
+		groupsJSON,
+		req.Location,
+		tagsJSON,
+		req.ConfigTemplateID,
+		maintWindowJSON,
+		req.AutoUpdateEnabled,
+		probeID,
 	)
 
 	return err

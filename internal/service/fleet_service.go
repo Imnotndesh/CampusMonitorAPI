@@ -279,6 +279,10 @@ func (s *FleetService) GetProbeSchedules(ctx context.Context, probeID string, de
 	query := `SELECT schedules_json FROM probe_schedules WHERE probe_id = $1`
 	return s.fleetRepo.DB().QueryRowContext(ctx, query, probeID).Scan(dest)
 }
+func (s *FleetService) UpdateFirmwareVersion(ctx context.Context, probeID, version string) error {
+	s.log.Info("Updating fleet firmware version for probe %s: %s", probeID, version)
+	return s.fleetRepo.UpdateFirmwareVersion(ctx, probeID, version)
+}
 
 // Template Management
 func (s *FleetService) CreateTemplate(ctx context.Context, template *models.FleetConfigTemplate, user string) error {

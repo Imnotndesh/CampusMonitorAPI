@@ -3,6 +3,7 @@ package main
 import (
 	"CampusMonitorAPI/internal/models"
 	"context"
+	"encoding/json"
 	"fmt"
 	"os"
 	"os/signal"
@@ -119,6 +120,9 @@ func main() {
 	// Command results
 	if err := mqttClient.Subscribe("campus/probes/+/result", handleCommandResult(commandService, log)); err != nil {
 		log.Fatal("Failed to subscribe to command results topic: %v", err)
+	}
+	if err := mqttClient.Subscribe("campus/fleet/status/+", handleFleetStatus(probeService, fleetService, log)); err != nil {
+		log.Fatal("Failed to subscribe to fleet status topic: %v", err)
 	}
 	// Fleet Schedules
 	if err := mqttClient.Subscribe("campus/fleet/schedules/status/+", handleScheduleStatus(fleetService, log)); err != nil {
@@ -238,6 +242,76 @@ func handleCommandResult(service *service.CommandService, log *logger.Logger) mq
 			log.Error("Failed to process command result: %v", err)
 			return err
 		}
+		return nil
+	}
+}
+func handleFleetStatus(probeService *service.ProbeService, fleetService *service.FleetService, log *logger.Logger) mqtt.MessageHandler {
+	return func(topic string, payload []byte) error {
+		parts := strings.Split(topic, "/")
+		if len(parts) < 4 {
+			return fmt.Errorf("invalid topic format: %s", topic)
+		}
+		probeID := parts[len(parts)-1]
+
+		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+		defer cancel()
+
+		var status map[string]interface{}
+		if err := json.Unmarshal(payload, &status); err != nil {
+			log.Error("Failed to parse fleet status: %v", err)
+			return err
+		}
+
+		if err := probeService.UpdateLastSeen(ctx, probeID, time.Now()); err != nil {
+			log.Warn("Failed to update last_seen for %s: %v", probeID, err)
+		}
+
+		fleetUpdate := &models.FleetUpdateRequest{}
+
+		if groups, ok := status["groups"].(string); ok && groups != "" {
+			groupList := strings.Split(groups, ",")
+			fleetUpdate.Groups = &groupList
+		}
+
+		if location, ok := status["location"].(string); ok && location != "" {
+			fleetUpdate.Location = &location
+		}
+
+		if tags, ok := status["tags"].(map[string]interface{}); ok && len(tags) > 0 {
+			fleetUpdate.Tags = tags
+		}
+
+		if maintWindow, ok := status["maintenance_window"].(string); ok && maintWindow != "" {
+			// Parse "02:00-04:00" format
+			parts := strings.Split(maintWindow, "-")
+			if len(parts) == 2 {
+				fleetUpdate.MaintenanceWindow = &models.MaintenanceWindow{
+					Start: parts[0],
+					End:   parts[1],
+				}
+			}
+		}
+
+		if fleetUpdate.Groups != nil || fleetUpdate.Location != nil ||
+			fleetUpdate.Tags != nil || fleetUpdate.MaintenanceWindow != nil {
+			if err := fleetService.UpdateFleetProbe(ctx, probeID, fleetUpdate); err != nil {
+				log.Warn("Failed to update fleet probe %s: %v", probeID, err)
+			}
+		}
+
+		if fwVersion, ok := status["fw_version"].(string); ok && fwVersion != "" {
+			if err := probeService.UpdateFirmwareVersion(ctx, probeID, fwVersion); err != nil {
+				log.Warn("Failed to update firmware version for %s: %v", probeID, err)
+			}
+
+			if err := fleetService.UpdateFirmwareVersion(ctx, probeID, fwVersion); err != nil {
+				log.Warn("Failed to update fleet firmware version for %s: %v", probeID, err)
+			}
+		}
+
+		log.Debug("Fleet status processed for %s: fw=%s",
+			probeID, status)
+
 		return nil
 	}
 }
