@@ -1,7 +1,6 @@
 package auth
 
 import (
-	"fmt"
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
@@ -33,9 +32,6 @@ func ValidateToken(tokenStr, secret string) (*Claims, error) {
 		return nil, err
 	}
 	if claims, ok := token.Claims.(*Claims); ok && token.Valid {
-		if claims.ExpiresAt != nil {
-			fmt.Printf("Token expires at: %v\n", claims.ExpiresAt.Time)
-		}
 		return claims, nil
 	}
 	return nil, jwt.ErrSignatureInvalid
