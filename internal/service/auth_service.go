@@ -154,7 +154,7 @@ func (s *AuthService) HandleOAuthCallback(ctx context.Context, provider string, 
 	if username == "" {
 		username = email
 	}
-	role := models.RoleUser // default
+	role := models.RoleUser
 	if groups, ok := userInfo["groups"].([]interface{}); ok {
 		for _, g := range groups {
 			group, _ := g.(string)
@@ -254,11 +254,15 @@ func (s *AuthService) DisableTOTP(ctx context.Context, userID int) error {
 
 // ValidateTOTP validates a TOTP code for a user.
 func (s *AuthService) ValidateTOTP(ctx context.Context, userID int, code string) (bool, error) {
+	s.log.Info("ValidateTOTP: userID=%d, code=%s", userID, code)
 	secret, err := s.TotpRepo.GetByUserID(ctx, userID)
 	if err != nil || secret == nil || !secret.Enabled {
+		s.log.Warn("ValidateTOTP: no enabled secret for user %d", userID)
 		return false, errors.New("2FA not enabled")
 	}
+	s.log.Info("ValidateTOTP: found secret for user %d, secret length=%d", userID, len(secret.Secret))
 	valid := totp.Validate(code, secret.Secret)
+	s.log.Info("ValidateTOTP: validation result = %v", valid)
 	if valid {
 		_ = s.TotpRepo.UpdateLastUsed(ctx, userID)
 	}
@@ -358,7 +362,11 @@ func (s *AuthService) CreateTemp2FAToken(userID int) (string, error) {
 		UserID: userID,
 		Temp:   true,
 	}
-	return auth.GenerateToken(claims, s.Cfg.JWTSecret, 5*time.Minute)
+	expiry := 10 * time.Minute
+	s.log.Info("Creating temp token for user %d, expiry in %v", userID, expiry)
+	expiresAt := time.Now().Add(expiry)
+	s.log.Info("Token will expire at %v", expiresAt)
+	return auth.GenerateToken(claims, s.Cfg.JWTSecret, expiry)
 }
 func (s *AuthService) LogoutOIDC(ctx context.Context, provider string, idToken string) (string, error) {
 	_, ok := s.oauthConfigs[provider]

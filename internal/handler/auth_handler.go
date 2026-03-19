@@ -275,14 +275,24 @@ func (h *AuthHandler) Verify2FA(w http.ResponseWriter, r *http.Request) {
 		respondError(w, http.StatusBadRequest, "Invalid request")
 		return
 	}
-	// Validate temp token
+	h.log.Info("Verify2FA: tempToken received, length=%d", len(req.TempToken))
+
 	claims, err := auth.ValidateToken(req.TempToken, h.authService.Cfg.JWTSecret)
 	if err != nil || !claims.Temp {
+		h.log.Warn("Verify2FA: invalid temp token: %v", err)
 		respondError(w, http.StatusUnauthorized, "Invalid or expired temp token")
 		return
 	}
+	h.log.Info("Verify2FA: userID from token = %d", claims.UserID)
+
 	valid, err := h.authService.ValidateTOTP(r.Context(), claims.UserID, req.Code)
-	if err != nil || !valid {
+	if err != nil {
+		h.log.Error("ValidateTOTP error: %v", err)
+		respondError(w, http.StatusInternalServerError, "Internal error")
+		return
+	}
+	if !valid {
+		h.log.Warn("Verify2FA: invalid code for user %d", claims.UserID)
 		respondError(w, http.StatusUnauthorized, "Invalid 2FA code")
 		return
 	}
@@ -437,8 +447,6 @@ func (h *AuthHandler) Disable2FA(w http.ResponseWriter, r *http.Request) {
 		respondError(w, http.StatusUnauthorized, "Unauthorized")
 		return
 	}
-	// Optionally verify password or another factor before disabling?
-	// For simplicity, we just disable.
 	err := h.authService.DisableTOTP(r.Context(), claims.UserID)
 	if err != nil {
 		h.log.Error("Failed to disable 2FA: %v", err)
