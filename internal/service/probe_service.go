@@ -78,7 +78,10 @@ func (s *ProbeService) UpdateProbe(ctx context.Context, probeID string, req *mod
 	s.log.Info("Probe updated successfully: %s", probeID)
 	return probe, nil
 }
-
+func (s *ProbeService) UpdateLastSeen(ctx context.Context, probeID string, timestamp time.Time) error {
+	s.log.Debug("Updating last_seen for probe %s", probeID)
+	return s.probeRepo.UpdateLastSeen(ctx, probeID, timestamp)
+}
 func (s *ProbeService) DeleteProbe(ctx context.Context, probeID string) error {
 	s.log.Warn("Deleting probe: %s", probeID)
 

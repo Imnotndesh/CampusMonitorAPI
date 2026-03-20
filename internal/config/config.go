@@ -18,12 +18,34 @@ type Config struct {
 	MQTT     MQTTConfig
 	Security SecurityConfig
 	Logging  LoggingConfig
+	Auth     AuthConfig
+}
+type AuthConfig struct {
+	JWTSecret          string
+	JWTExpiry          time.Duration
+	RefreshTokenExpiry time.Duration
+	EnableLocalLogin   bool
+	EnableRegistration bool
+	Require2FA         bool
+	OAuthProviders     map[string]OAuthProviderConfig
+	FrontendURL        string
+}
+
+type OAuthProviderConfig struct {
+	ClientID     string
+	ClientSecret string
+	AuthURL      string
+	TokenURL     string
+	UserInfoURL  string
+	Scopes       []string
 }
 
 type ServerConfig struct {
 	Host            string
 	Port            int
 	Environment     string
+	PublicURL       string
+	CertDir         string
 	ShutdownTimeout time.Duration
 	ReadTimeout     time.Duration
 	WriteTimeout    time.Duration
@@ -100,11 +122,66 @@ func Load() (*Config, error) {
 		MQTT:     loadMQTTConfig(),
 		Security: loadSecurityConfig(),
 		Logging:  loadLoggingConfig(),
+		Auth:     loadAuthConfig(),
 	}
 
 	return cfg, nil
 }
+func loadAuthConfig() AuthConfig {
+	// JWT settings
+	jwtSecret := getEnv("JWT_SECRET", "change_me_in_production")
+	jwtExpiry := getEnvAsDuration("JWT_EXPIRY", "24h")
+	refreshExpiry := getEnvAsDuration("REFRESH_TOKEN_EXPIRY", "720h")
 
+	providers := make(map[string]OAuthProviderConfig)
+
+	// Google OAuth
+	if id := getEnv("GOOGLE_CLIENT_ID", ""); id != "" {
+		providers["google"] = OAuthProviderConfig{
+			ClientID:     id,
+			ClientSecret: getEnv("GOOGLE_CLIENT_SECRET", ""),
+			AuthURL:      "https://accounts.google.com/o/oauth2/auth",
+			TokenURL:     "https://oauth2.googleapis.com/token",
+			UserInfoURL:  "https://www.googleapis.com/oauth2/v2/userinfo",
+			Scopes:       []string{"openid", "email", "profile"},
+		}
+	}
+
+	// GitHub OAuth
+	if id := getEnv("GITHUB_CLIENT_ID", ""); id != "" {
+		providers["github"] = OAuthProviderConfig{
+			ClientID:     id,
+			ClientSecret: getEnv("GITHUB_CLIENT_SECRET", ""),
+			AuthURL:      "https://github.com/login/oauth/authorize",
+			TokenURL:     "https://github.com/login/oauth/access_token",
+			UserInfoURL:  "https://api.github.com/user",
+			Scopes:       []string{"user:email"},
+		}
+	}
+
+	// PocketID (example custom OAuth)
+	if id := getEnv("POCKETID_CLIENT_ID", ""); id != "" {
+		providers["pocketid"] = OAuthProviderConfig{
+			ClientID:     id,
+			ClientSecret: getEnv("POCKETID_CLIENT_SECRET", ""),
+			AuthURL:      getEnv("POCKETID_AUTH_URL", ""),
+			TokenURL:     getEnv("POCKETID_TOKEN_URL", ""),
+			UserInfoURL:  getEnv("POCKETID_USERINFO_URL", ""),
+			Scopes:       strings.Split(getEnv("POCKETID_SCOPES", "openid profile email"), ","),
+		}
+	}
+
+	return AuthConfig{
+		JWTSecret:          jwtSecret,
+		JWTExpiry:          jwtExpiry,
+		RefreshTokenExpiry: refreshExpiry,
+		EnableLocalLogin:   getEnvAsBool("ENABLE_LOCAL_LOGIN", true),
+		EnableRegistration: getEnvAsBool("ENABLE_REGISTRATION", true),
+		Require2FA:         getEnvAsBool("REQUIRE_2FA", false),
+		OAuthProviders:     providers,
+		FrontendURL:        getEnv("FRONTEND_URL", "http://localhost:5173"),
+	}
+}
 func validateRequired() error {
 	var missing []string
 
@@ -130,6 +207,8 @@ func loadServerConfig() ServerConfig {
 		ReadTimeout:     getEnvAsDuration("READ_TIMEOUT", "10s"),
 		WriteTimeout:    getEnvAsDuration("WRITE_TIMEOUT", "10s"),
 		MaxHeaderBytes:  getEnvAsInt("MAX_HEADER_BYTES", 1048576),
+		PublicURL:       getEnv("PUBLIC_URL", "http://localhost:9080"),
+		CertDir:         getEnv("CERT_DIR", "certs"),
 	}
 }
 
