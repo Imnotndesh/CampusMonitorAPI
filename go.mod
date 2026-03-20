@@ -9,6 +9,7 @@ require (
 	github.com/gorilla/mux v1.8.1
 	github.com/gorilla/websocket v1.5.3
 	github.com/joho/godotenv v1.5.1
+	github.com/jung-kurt/gofpdf v1.16.2
 	github.com/lib/pq v1.11.2
 	github.com/pquerna/otp v1.5.0
 	golang.org/x/crypto v0.49.0

@@ -77,6 +77,7 @@ func main() {
 	totpRepo := repository.NewTOTPRepository(db.DB)
 	refreshTokenRepo := repository.NewRefreshTokenRepository(db.DB)
 	oauthStateRepo := repository.NewOAuthStateRepository(db.DB)
+	reportRepo := repository.NewReportRepository(alertRepo, telemetryRepo, probeRepo, commandRepo, fleetRepo, analyticsRepo, db.DB)
 
 	oauthConfigs := make(map[string]*oauth2.Config)
 	for provider, pcfg := range cfg.Auth.OAuthProviders {
@@ -131,6 +132,7 @@ func main() {
 	)
 	commandService := service.NewCommandService(commandRepo, mqttClient, probeRepo, telemetryService, fleetService, scheduleService, log)
 	topologyService := service.NewTopologyService(probeRepo, telemetryRepo, alertRepo)
+	reportService := service.NewReportService(reportRepo)
 
 	// MQTT Subscriptions
 	// Telemetry
@@ -175,9 +177,9 @@ func main() {
 		commandService,
 		log,
 	)
+	reportHandler := handler.NewReportHandler(reportService, log)
 	scheduleHandler := handler.NewScheduleHandler(scheduleService, log)
 
-	// 9. Start HTTP Server
 	srv.RegisterHandlers(
 		probeHandler,
 		telemetryHandler,
@@ -189,6 +191,7 @@ func main() {
 		fleetHandler,
 		scheduleHandler,
 		authHandler,
+		reportHandler,
 	)
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
 	defer stop()

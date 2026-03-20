@@ -124,6 +124,7 @@ func (h *ProbeHandler) DeleteProbe(w http.ResponseWriter, r *http.Request) {
 	}
 
 	respondJSON(w, http.StatusOK, map[string]string{"message": "Probe deleted successfully"})
+
 }
 
 func (h *ProbeHandler) GetActiveProbes(w http.ResponseWriter, r *http.Request) {

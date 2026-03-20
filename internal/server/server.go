@@ -55,7 +55,8 @@ func (s *Server) RegisterHandlers(
 	alertHandler *handler.AlertHandler,
 	fleetHandler *handler.FleetHandler,
 	scheduleHandler *handler.ScheduleHandler,
-	authHandler *handler.AuthHandler, // new
+	authHandler *handler.AuthHandler,
+	reportHandler *handler.ReportHandler,
 ) {
 	// Public auth routes (no auth required)
 	s.router.Use(middleware.CORS(s.cfg.Security.CORSAllowedOrigins, s.cfg.Security.CORSAllowedMethods))
@@ -84,6 +85,7 @@ func (s *Server) RegisterHandlers(
 	topologyHandler.RegisterRoutes(api)
 	alertHandler.RegisterRoutes(api)
 	fleetHandler.RegisterRoutes(api)
+	reportHandler.RegisterRoutes(api)
 	scheduleHandler.RegisterRoutes(api)
 	s.router.NotFoundHandler = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Access-Control-Allow-Origin", "*")
