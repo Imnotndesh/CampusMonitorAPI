@@ -792,3 +792,155 @@ func toModelCongestionAnalysis(c CongestionAnalysis) models.CongestionAnalysis {
 		CongestedProbes: c.CongestedProbes,
 	}
 }
+
+// GetSiteSurveyReportData fetches data for site survey report for a specific building/floor.
+func (r *ReportRepository) GetSiteSurveyReportData(ctx context.Context, building, floor string, from, to time.Time) (*models.SiteSurveyReport, error) {
+	// Default to last 24h if no range provided
+	if from.IsZero() {
+		from = time.Now().Add(-24 * time.Hour)
+	}
+	if to.IsZero() {
+		to = time.Now()
+	}
+
+	// 1. Get all probes in this building/floor
+	probes, err := r.probeRepo.GetByBuildingAndFloor(ctx, building, floor)
+	if err != nil {
+		return nil, err
+	}
+	probeIDs := make([]string, len(probes))
+	for i, p := range probes {
+		probeIDs[i] = p.ProbeID
+	}
+
+	// 2. Heatmap data: RSSI per location (already grouped by building/floor/location)
+	heatmapData, err := r.analyticsRepo.GetHeatmapData(ctx, from, to)
+	if err != nil {
+		return nil, err
+	}
+	var heatmapPoints []models.HeatmapPoint
+	for _, h := range heatmapData {
+		if h.Building == building && h.Floor == floor {
+			heatmapPoints = append(heatmapPoints, models.HeatmapPoint{
+				Location: h.Location,
+				RSSI:     h.AvgRSSI,
+			})
+		}
+	}
+
+	// 3. Channel usage – we can use GetChannelDistribution (global) or filter by probeIDs.
+	// For simplicity, we'll use the global distribution; it's still useful.
+	channelDist, err := r.analyticsRepo.GetChannelDistribution(ctx, from, to)
+	if err != nil {
+		return nil, err
+	}
+	var channelUsage []models.ChannelUsage
+	for _, c := range channelDist {
+		channelUsage = append(channelUsage, models.ChannelUsage{
+			Channel:     c.Channel,
+			Utilization: c.Utilization,
+			ProbeCount:  c.ProbeCount,
+		})
+	}
+
+	// 4. AP list filtered by probes in this building/floor
+	// We need to query telemetry for these probes only.
+	apList, err := r.getAPsForProbes(ctx, probeIDs, from, to)
+	if err != nil {
+		return nil, err
+	}
+
+	// 5. Generate recommendations based on data
+	recommendations := generateSiteSurveyRecommendations(channelUsage, heatmapPoints)
+
+	return &models.SiteSurveyReport{
+		Building:        building,
+		Floor:           floor,
+		GeneratedAt:     time.Now(),
+		Heatmap:         heatmapPoints,
+		ChannelUsage:    channelUsage,
+		APList:          apList,
+		Recommendations: recommendations,
+	}, nil
+}
+
+// Helper: get APs for a specific list of probe IDs
+func (r *ReportRepository) getAPsForProbes(ctx context.Context, probeIDs []string, from, to time.Time) ([]models.APCoverage, error) {
+	if len(probeIDs) == 0 {
+		return []models.APCoverage{}, nil
+	}
+
+	// We can reuse the APAnalysis query but filter by probe_id IN (...)
+	query := `
+        SELECT 
+            bssid,
+            MIN(timestamp) as first_seen,
+            MAX(timestamp) as last_seen,
+            COUNT(DISTINCT probe_id) as probes_connected,
+            AVG(rssi) as avg_rssi,
+            MODE() WITHIN GROUP (ORDER BY channel) as channel,
+            COUNT(*) as total_samples
+        FROM telemetry
+        WHERE timestamp BETWEEN $1 AND $2
+          AND bssid IS NOT NULL
+          AND probe_id = ANY($3)
+        GROUP BY bssid
+        ORDER BY probes_connected DESC, total_samples DESC
+    `
+	rows, err := r.db.QueryContext(ctx, query, from, to, pq.Array(probeIDs))
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var aps []models.APCoverage
+	for rows.Next() {
+		var ap models.APCoverage
+		var channel sql.NullInt64
+		err := rows.Scan(
+			&ap.BSSID,
+			&ap.FirstSeen,
+			&ap.LastSeen,
+			&ap.ProbesSeen,
+			&ap.AvgRSSI,
+			&channel,
+			&ap.TotalSamples,
+		)
+		if err != nil {
+			return nil, err
+		}
+		if channel.Valid {
+			ap.Channel = int(channel.Int64)
+		}
+		aps = append(aps, ap)
+	}
+	return aps, nil
+}
+
+// Helper recommendation function
+func generateSiteSurveyRecommendations(channelUsage []models.ChannelUsage, heatmap []models.HeatmapPoint) []string {
+	var recs []string
+
+	// Check channel utilization
+	for _, cu := range channelUsage {
+		if cu.Utilization > 80 {
+			recs = append(recs, fmt.Sprintf("Channel %d is heavily utilized (%.1f%%). Consider moving some APs to a different channel.", cu.Channel, cu.Utilization))
+		}
+	}
+
+	// Check for low signal areas (RSSI < -75)
+	lowSignalCount := 0
+	for _, h := range heatmap {
+		if h.RSSI < -75 {
+			lowSignalCount++
+		}
+	}
+	if lowSignalCount > len(heatmap)/3 {
+		recs = append(recs, "Several areas have weak signal. Consider adding additional APs or relocating existing ones.")
+	}
+
+	if len(recs) == 0 {
+		recs = append(recs, "No critical issues detected. Network health appears good.")
+	}
+	return recs
+}

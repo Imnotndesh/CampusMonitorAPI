@@ -5,6 +5,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"time"
 	_ "time"
 
 	"CampusMonitorAPI/internal/models"
@@ -45,6 +46,14 @@ func (s *ReportService) GenerateReport(ctx context.Context, req *models.ReportRe
 		data, err = s.repo.CommandSuccessReportData(ctx, req.From, req.To, req.ProbeIDs)
 	case models.ReportTypeNetworkBaseline:
 		data, err = s.repo.GetNetworkBaselineReportData(ctx, req.From, req.To)
+	case models.ReportTypeSiteSurvey:
+		if req.From.IsZero() {
+			req.From = time.Now().Add(-24 * time.Hour)
+		}
+		if req.To.IsZero() {
+			req.To = time.Now()
+		}
+		data, err = s.repo.GetSiteSurveyReportData(ctx, req.Building, req.Floor, req.From, req.To)
 	default:
 		return nil, "", fmt.Errorf("unsupported report type: %s", req.Type)
 	}
@@ -88,6 +97,8 @@ func (s *ReportService) renderPDF(reportType models.ReportType, data interface{}
 		s.renderCommandSuccessReport(pdf, v)
 	case *models.NetworkBaselineReport:
 		s.renderNetworkBaselineReport(pdf, v)
+	case *models.SiteSurveyReport:
+		s.renderSiteSurveyReport(pdf, v)
 	default:
 		pdf.Cell(40, 10, "Unsupported report data")
 	}
@@ -465,5 +476,64 @@ func (s *ReportService) renderCommandSuccessReport(pdf *gofpdf.Fpdf, report *mod
 		pdf.Cell(30, 5, fmt.Sprintf("%d", t.Failed))
 		pdf.Cell(30, 5, fmt.Sprintf("%.2f%%", t.SuccessRate))
 		pdf.Ln(5)
+	}
+}
+func (s *ReportService) renderSiteSurveyReport(pdf *gofpdf.Fpdf, report *models.SiteSurveyReport) {
+	pdf.SetFont("Arial", "B", 16)
+	pdf.Cell(40, 10, "Site Survey Report")
+	pdf.Ln(12)
+	pdf.SetFont("Arial", "B", 12)
+	pdf.Cell(40, 6, fmt.Sprintf("Building: %s | Floor: %s", report.Building, report.Floor))
+	pdf.Ln(8)
+	pdf.SetFont("Arial", "", 10)
+	pdf.Cell(40, 6, fmt.Sprintf("Generated: %s", report.GeneratedAt.Format("2006-01-02 15:04:05")))
+	pdf.Ln(12)
+
+	// Heatmap section (list of locations with RSSI)
+	pdf.SetFont("Arial", "B", 10)
+	pdf.Cell(40, 6, "Signal Strength by Location")
+	pdf.Ln(6)
+	pdf.SetFont("Arial", "", 8)
+	for _, hp := range report.Heatmap {
+		pdf.Cell(40, 5, hp.Location)
+		pdf.Cell(30, 5, fmt.Sprintf("%.1f dBm", hp.RSSI))
+		pdf.Ln(5)
+	}
+	pdf.Ln(6)
+
+	// Channel usage
+	pdf.SetFont("Arial", "B", 10)
+	pdf.Cell(40, 6, "Channel Utilization")
+	pdf.Ln(6)
+	pdf.SetFont("Arial", "", 8)
+	for _, cu := range report.ChannelUsage {
+		pdf.Cell(30, 5, fmt.Sprintf("CH %d", cu.Channel))
+		pdf.Cell(40, 5, fmt.Sprintf("%.1f%%", cu.Utilization))
+		pdf.Ln(5)
+	}
+	pdf.Ln(6)
+
+	// AP list
+	pdf.SetFont("Arial", "B", 10)
+	pdf.Cell(40, 6, "Access Points Detected")
+	pdf.Ln(6)
+	pdf.SetFont("Arial", "", 8)
+	for _, ap := range report.APList {
+		pdf.Cell(40, 5, ap.BSSID)
+		pdf.Cell(20, 5, fmt.Sprintf("CH %d", ap.Channel))
+		pdf.Cell(30, 5, fmt.Sprintf("%.1f dBm", ap.AvgRSSI))
+		pdf.Cell(30, 5, fmt.Sprintf("%d probes", ap.ProbesSeen))
+		pdf.Ln(5)
+	}
+	pdf.Ln(6)
+
+	// Recommendations
+	pdf.SetFont("Arial", "B", 10)
+	pdf.Cell(40, 6, "Recommendations")
+	pdf.Ln(6)
+	pdf.SetFont("Arial", "", 8)
+	for _, rec := range report.Recommendations {
+		pdf.MultiCell(0, 5, rec, "", "", false)
+		pdf.Ln(2)
 	}
 }

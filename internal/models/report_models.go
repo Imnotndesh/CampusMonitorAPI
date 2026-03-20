@@ -14,6 +14,7 @@ const (
 	ReportTypeOutage          ReportType = "outage"
 	ReportTypeCommandSuccess  ReportType = "command_success"
 	ReportTypeNetworkBaseline ReportType = "network_baseline"
+	ReportTypeSiteSurvey      ReportType = "site_survey"
 )
 
 type ReportRequest struct {
@@ -21,6 +22,8 @@ type ReportRequest struct {
 	From     time.Time  `json:"from"`
 	To       time.Time  `json:"to"`
 	ProbeIDs []string   `json:"probe_ids"`
+	Building string     `json:"building,omitempty"`
+	Floor    string     `json:"floor,omitempty"`
 	Groups   []string   `json:"groups"`
 	Format   string     `json:"format"`
 }
@@ -280,4 +283,41 @@ type CommandTypeRate struct {
 	Succeeded   int     `json:"succeeded"`
 	Failed      int     `json:"failed"`
 	SuccessRate float64 `json:"success_rate"`
+}
+
+// SiteSurveyReport defines the structure of a site survey report.
+type SiteSurveyReport struct {
+	Building        string         `json:"building"`
+	Floor           string         `json:"floor"`
+	GeneratedAt     time.Time      `json:"generated_at"`
+	Heatmap         []HeatmapPoint `json:"heatmap"`
+	ChannelUsage    []ChannelUsage `json:"channel_usage"`
+	APList          []APCoverage   `json:"ap_list"`
+	Recommendations []string       `json:"recommendations"`
+}
+
+// HeatmapPoint represents a single location's signal strength.
+type HeatmapPoint struct {
+	Location string  `json:"location"`
+	X        float64 `json:"x,omitempty"`
+	Y        float64 `json:"y,omitempty"`
+	RSSI     float64 `json:"rssi"`
+}
+
+// ChannelUsage represents per-channel utilization data.
+type ChannelUsage struct {
+	Channel     int     `json:"channel"`
+	Utilization float64 `json:"utilization"`
+	ProbeCount  int     `json:"probe_count"`
+}
+
+// APCoverage represents an access point's coverage details.
+type APCoverage struct {
+	BSSID        string    `json:"bssid"`
+	FirstSeen    time.Time `json:"first_seen,omitempty"`
+	LastSeen     time.Time `json:"last_seen,omitempty"`
+	Channel      int       `json:"channel"`
+	AvgRSSI      float64   `json:"avg_rssi"`
+	ProbesSeen   int       `json:"probes_seen"`
+	TotalSamples int       `json:"total_samples,omitempty"`
 }
