@@ -35,7 +35,6 @@ func (s *ReportService) GenerateReport(ctx context.Context, req *models.ReportRe
 	case models.ReportTypeProbes:
 		data, err = s.repo.ProbeStatusReportData(ctx)
 	case models.ReportTypeCompliance:
-		// Default thresholds (could be made configurable)
 		thresholds := models.ComplianceThresholds{MinRSSI: -70, MaxLatency: 100, MaxPacketLoss: 2.0}
 		data, err = s.repo.ComplianceReportData(ctx, thresholds)
 	case models.ReportTypeFirmwareVersion:
@@ -44,6 +43,8 @@ func (s *ReportService) GenerateReport(ctx context.Context, req *models.ReportRe
 		data, err = s.repo.OutageReportData(ctx, req.From, req.To, req.ProbeIDs)
 	case models.ReportTypeCommandSuccess:
 		data, err = s.repo.CommandSuccessReportData(ctx, req.From, req.To, req.ProbeIDs)
+	case models.ReportTypeNetworkBaseline:
+		data, err = s.repo.GetNetworkBaselineReportData(ctx, req.From, req.To)
 	default:
 		return nil, "", fmt.Errorf("unsupported report type: %s", req.Type)
 	}
@@ -85,6 +86,8 @@ func (s *ReportService) renderPDF(reportType models.ReportType, data interface{}
 		s.renderOutageReport(pdf, v)
 	case *models.CommandSuccessReport:
 		s.renderCommandSuccessReport(pdf, v)
+	case *models.NetworkBaselineReport:
+		s.renderNetworkBaselineReport(pdf, v)
 	default:
 		pdf.Cell(40, 10, "Unsupported report data")
 	}
@@ -92,6 +95,64 @@ func (s *ReportService) renderPDF(reportType models.ReportType, data interface{}
 	var buf bytes.Buffer
 	err := pdf.Output(&buf)
 	return buf.Bytes(), err
+}
+func (s *ReportService) renderNetworkBaselineReport(pdf *gofpdf.Fpdf, report *models.NetworkBaselineReport) {
+	pdf.SetFont("Arial", "B", 12)
+	pdf.Cell(40, 10, "Network Baseline Report")
+	pdf.Ln(8)
+	pdf.SetFont("Arial", "", 10)
+	pdf.Cell(40, 6, fmt.Sprintf("Period: %s - %s", report.Period.From.Format("2006-01-02"), report.Period.To.Format("2006-01-02")))
+	pdf.Ln(10)
+
+	pdf.SetFont("Arial", "B", 10)
+	pdf.Cell(40, 6, "Metric")
+	pdf.Cell(30, 6, "Min")
+	pdf.Cell(30, 6, "Max")
+	pdf.Cell(30, 6, "Avg")
+	pdf.Cell(30, 6, "P50")
+	pdf.Cell(30, 6, "P95")
+	pdf.Cell(30, 6, "P99")
+	pdf.Ln(6)
+
+	pdf.SetFont("Arial", "", 8)
+	// RSSI
+	pdf.Cell(40, 5, "RSSI (dBm)")
+	pdf.Cell(30, 5, fmt.Sprintf("%.1f", report.RSSI.Min))
+	pdf.Cell(30, 5, fmt.Sprintf("%.1f", report.RSSI.Max))
+	pdf.Cell(30, 5, fmt.Sprintf("%.1f", report.RSSI.Avg))
+	pdf.Cell(30, 5, fmt.Sprintf("%.1f", report.RSSI.P50))
+	pdf.Cell(30, 5, fmt.Sprintf("%.1f", report.RSSI.P95))
+	pdf.Cell(30, 5, fmt.Sprintf("%.1f", report.RSSI.P99))
+	pdf.Ln(5)
+	// Latency
+	pdf.Cell(40, 5, "Latency (ms)")
+	pdf.Cell(30, 5, fmt.Sprintf("%.1f", report.Latency.Min))
+	pdf.Cell(30, 5, fmt.Sprintf("%.1f", report.Latency.Max))
+	pdf.Cell(30, 5, fmt.Sprintf("%.1f", report.Latency.Avg))
+	pdf.Cell(30, 5, fmt.Sprintf("%.1f", report.Latency.P50))
+	pdf.Cell(30, 5, fmt.Sprintf("%.1f", report.Latency.P95))
+	pdf.Cell(30, 5, fmt.Sprintf("%.1f", report.Latency.P99))
+	pdf.Ln(5)
+	// Packet Loss
+	pdf.Cell(40, 5, "Packet Loss (%)")
+	pdf.Cell(30, 5, fmt.Sprintf("%.2f", report.PacketLoss.Min))
+	pdf.Cell(30, 5, fmt.Sprintf("%.2f", report.PacketLoss.Max))
+	pdf.Cell(30, 5, fmt.Sprintf("%.2f", report.PacketLoss.Avg))
+	pdf.Cell(30, 5, fmt.Sprintf("%.2f", report.PacketLoss.P50))
+	pdf.Cell(30, 5, fmt.Sprintf("%.2f", report.PacketLoss.P95))
+	pdf.Cell(30, 5, fmt.Sprintf("%.2f", report.PacketLoss.P99))
+	pdf.Ln(5)
+	// Throughput (if available)
+	if report.Throughput.SampleCount > 0 {
+		pdf.Cell(40, 5, "Throughput (kbps)")
+		pdf.Cell(30, 5, fmt.Sprintf("%.0f", report.Throughput.Min))
+		pdf.Cell(30, 5, fmt.Sprintf("%.0f", report.Throughput.Max))
+		pdf.Cell(30, 5, fmt.Sprintf("%.0f", report.Throughput.Avg))
+		pdf.Cell(30, 5, fmt.Sprintf("%.0f", report.Throughput.P50))
+		pdf.Cell(30, 5, fmt.Sprintf("%.0f", report.Throughput.P95))
+		pdf.Cell(30, 5, fmt.Sprintf("%.0f", report.Throughput.P99))
+		pdf.Ln(5)
+	}
 }
 
 func (s *ReportService) renderAlertReport(pdf *gofpdf.Fpdf, report *models.AlertReport) {

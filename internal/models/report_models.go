@@ -13,6 +13,7 @@ const (
 	ReportTypeFirmwareVersion ReportType = "firmware_version"
 	ReportTypeOutage          ReportType = "outage"
 	ReportTypeCommandSuccess  ReportType = "command_success"
+	ReportTypeNetworkBaseline ReportType = "network_baseline"
 )
 
 type ReportRequest struct {
@@ -23,7 +24,23 @@ type ReportRequest struct {
 	Groups   []string   `json:"groups"`
 	Format   string     `json:"format"`
 }
-
+type NetworkBaselineReport struct {
+	Period     TimeRange          `json:"period"`
+	RSSI       MetricDistribution `json:"rssi"`
+	Latency    MetricDistribution `json:"latency"`
+	PacketLoss MetricDistribution `json:"packet_loss"`
+	Throughput MetricDistribution `json:"throughput"`
+}
+type MetricDistribution struct {
+	Min         float64 `json:"min"`
+	Max         float64 `json:"max"`
+	Avg         float64 `json:"avg"`
+	P50         float64 `json:"p50"`
+	P95         float64 `json:"p95"`
+	P99         float64 `json:"p99"`
+	StdDev      float64 `json:"std_dev"`
+	SampleCount int     `json:"sample_count"`
+}
 type ReportResponse struct {
 	Type        ReportType  `json:"type"`
 	GeneratedAt time.Time   `json:"generated_at"`

@@ -554,6 +554,135 @@ func (r *ReportRepository) OutageReportData(ctx context.Context, from, to time.T
 	}, nil
 }
 
+// GetNetworkBaselineReportData fetches data for the network baseline report
+func (r *ReportRepository) GetNetworkBaselineReportData(ctx context.Context, from, to time.Time) (*models.NetworkBaselineReport, error) {
+	// Get overall metrics (which already includes latency percentiles)
+	perf, err := r.analyticsRepo.GetPerformanceMetrics(ctx, "", from, to)
+	if err != nil {
+		return nil, err
+	}
+
+	// Build RSSI distribution – we need percentiles for RSSI (not available in PerformanceMetrics)
+	// We'll query directly
+	query := `
+        SELECT 
+            percentile_cont(0.5) WITHIN GROUP (ORDER BY rssi) as p50_rssi,
+            percentile_cont(0.95) WITHIN GROUP (ORDER BY rssi) as p95_rssi,
+            percentile_cont(0.99) WITHIN GROUP (ORDER BY rssi) as p99_rssi,
+            STDDEV(rssi) as rssi_stddev
+        FROM telemetry
+        WHERE timestamp BETWEEN $1 AND $2
+          AND rssi IS NOT NULL
+    `
+	var p50RSSI, p95RSSI, p99RSSI, rssiStdDev sql.NullFloat64
+	err = r.db.QueryRowContext(ctx, query, from, to).Scan(&p50RSSI, &p95RSSI, &p99RSSI, &rssiStdDev)
+	if err != nil {
+		// not fatal, proceed with zeros
+	}
+
+	// Build Packet Loss distribution (percentiles)
+	query = `
+        SELECT 
+            percentile_cont(0.5) WITHIN GROUP (ORDER BY packet_loss) as p50_loss,
+            percentile_cont(0.95) WITHIN GROUP (ORDER BY packet_loss) as p95_loss,
+            percentile_cont(0.99) WITHIN GROUP (ORDER BY packet_loss) as p99_loss,
+            STDDEV(packet_loss) as loss_stddev
+        FROM telemetry
+        WHERE timestamp BETWEEN $1 AND $2
+          AND packet_loss IS NOT NULL
+    `
+	var p50Loss, p95Loss, p99Loss, lossStdDev sql.NullFloat64
+	_ = r.db.QueryRowContext(ctx, query, from, to).Scan(&p50Loss, &p95Loss, &p99Loss, &lossStdDev)
+
+	// Build Throughput distribution (if available)
+	query = `
+        SELECT 
+            AVG(throughput) as avg_throughput,
+            percentile_cont(0.5) WITHIN GROUP (ORDER BY throughput) as p50_throughput,
+            percentile_cont(0.95) WITHIN GROUP (ORDER BY throughput) as p95_throughput,
+            STDDEV(throughput) as throughput_stddev
+        FROM telemetry
+        WHERE timestamp BETWEEN $1 AND $2
+          AND throughput IS NOT NULL
+    `
+	var avgThroughput, p50Throughput, p95Throughput, throughputStdDev sql.NullFloat64
+	_ = r.db.QueryRowContext(ctx, query, from, to).Scan(&avgThroughput, &p50Throughput, &p95Throughput, &throughputStdDev)
+
+	// Build RSSI distribution struct
+	rssiDist := models.MetricDistribution{
+		Min:         float64(perf.MinRSSI),
+		Max:         float64(perf.MaxRSSI),
+		Avg:         perf.AvgRSSI,
+		SampleCount: perf.SampleCount,
+	}
+	if p50RSSI.Valid {
+		rssiDist.P50 = p50RSSI.Float64
+	}
+	if p95RSSI.Valid {
+		rssiDist.P95 = p95RSSI.Float64
+	}
+	if p99RSSI.Valid {
+		rssiDist.P99 = p99RSSI.Float64
+	}
+	if rssiStdDev.Valid {
+		rssiDist.StdDev = rssiStdDev.Float64
+	}
+
+	// Latency distribution
+	latencyDist := models.MetricDistribution{
+		Min:         perf.MinLatency,
+		Max:         perf.MaxLatency,
+		Avg:         perf.AvgLatency,
+		P50:         perf.P50Latency,
+		P95:         perf.P95Latency,
+		P99:         perf.P99Latency,
+		SampleCount: perf.SampleCount,
+	}
+
+	// Packet Loss distribution
+	lossDist := models.MetricDistribution{
+		Avg:         perf.AvgPacketLoss,
+		SampleCount: perf.SampleCount,
+	}
+	if p50Loss.Valid {
+		lossDist.P50 = p50Loss.Float64
+	}
+	if p95Loss.Valid {
+		lossDist.P95 = p95Loss.Float64
+	}
+	if p99Loss.Valid {
+		lossDist.P99 = p99Loss.Float64
+	}
+	if lossStdDev.Valid {
+		lossDist.StdDev = lossStdDev.Float64
+	}
+
+	// Throughput distribution
+	throughputDist := models.MetricDistribution{
+		SampleCount: perf.SampleCount, // rough approximation
+	}
+	if avgThroughput.Valid {
+		throughputDist.Avg = avgThroughput.Float64
+	}
+	if p50Throughput.Valid {
+		throughputDist.P50 = p50Throughput.Float64
+	}
+	if p95Throughput.Valid {
+		throughputDist.P95 = p95Throughput.Float64
+	}
+	if throughputStdDev.Valid {
+		throughputDist.StdDev = throughputStdDev.Float64
+	}
+
+	return &models.NetworkBaselineReport{
+		Period:     models.TimeRange{From: from, To: to},
+		RSSI:       rssiDist,
+		Latency:    latencyDist,
+		PacketLoss: lossDist,
+		Throughput: throughputDist,
+	}, nil
+}
+
 func (r *ReportRepository) CommandSuccessReportData(ctx context.Context, from, to time.Time, probeIDs []string) (*models.CommandSuccessReport, error) {
 	query := `
         SELECT command_type, status, COUNT(*) as cnt
