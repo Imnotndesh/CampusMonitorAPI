@@ -21,79 +21,80 @@ type Config struct {
 	Auth     AuthConfig
 }
 type AuthConfig struct {
-	JWTSecret          string
-	JWTExpiry          time.Duration
-	RefreshTokenExpiry time.Duration
-	EnableLocalLogin   bool
-	EnableRegistration bool
-	Require2FA         bool
-	OAuthProviders     map[string]OAuthProviderConfig
-	FrontendURL        string
+	OAuthProviders          map[string]OAuthProviderConfig
+	JWTSecret               string
+	FrontendURL             string
+	JWTExpiry               time.Duration
+	RefreshTokenExpiry      time.Duration
+	EnableLocalLogin        bool
+	EnableRegistration      bool
+	Require2FA              bool
+	EnableAdminRegistration bool
 }
 
 type OAuthProviderConfig struct {
+	Scopes       []string
 	ClientID     string
 	ClientSecret string
 	AuthURL      string
 	TokenURL     string
 	UserInfoURL  string
-	Scopes       []string
 }
 
 type ServerConfig struct {
-	Host            string
-	Port            int
-	Environment     string
-	PublicURL       string
-	CertDir         string
 	ShutdownTimeout time.Duration
 	ReadTimeout     time.Duration
 	WriteTimeout    time.Duration
+	Host            string
+	PublicURL       string
+	CertDir         string
+	Environment     string
+	Port            int
 	MaxHeaderBytes  int
 }
 
 type DatabaseConfig struct {
 	Host            string
-	Port            int
 	User            string
 	Password        string
 	Database        string
 	SSLMode         string
-	MaxOpenConns    int
-	MaxIdleConns    int
 	ConnMaxLifetime time.Duration
 	ConnMaxIdleTime time.Duration
+	Port            int
+	MaxOpenConns    int
+	MaxIdleConns    int
 }
 
 type MQTTConfig struct {
 	Broker         string
-	Port           int
 	ClientID       string
 	Username       string
 	Password       string
 	TelemetryTopic string
 	CommandTopic   string
-	QoS            byte
-	RetainMessages bool
 	KeepAlive      time.Duration
 	ConnectTimeout time.Duration
+	Port           int
+	QoS            byte
+	RetainMessages bool
 	AutoReconnect  bool
 }
 
 type SecurityConfig struct {
-	JWTSecret          string
-	JWTExpirationHours int
-	APIKeyHeader       string
 	CORSAllowedOrigins []string
 	CORSAllowedMethods []string
+	JWTSecret          string
+	APIKeyHeader       string
+	JWTExpirationHours int
 	RateLimitPerMinute int
 	EnableRateLimit    bool
 }
 
 type LoggingConfig struct {
+	FilePath  string
 	Level     logger.Level
 	Mode      logger.Mode
-	FilePath  string
 	UseColors bool
 }
 
@@ -109,13 +110,11 @@ var requiredEnvVars = []string{
 
 func Load() (*Config, error) {
 	if err := godotenv.Load(); err != nil {
-		fmt.Println("No .env file found, using environment variables")
+		return nil, fmt.Errorf("loading .env: %w", err)
 	}
-
 	if err := validateRequired(); err != nil {
 		return nil, err
 	}
-
 	cfg := &Config{
 		Server:   loadServerConfig(),
 		Database: loadDatabaseConfig(),
@@ -128,13 +127,15 @@ func Load() (*Config, error) {
 	return cfg, nil
 }
 func loadAuthConfig() AuthConfig {
-	// JWT settings
 	jwtSecret := getEnv("JWT_SECRET", "change_me_in_production")
+	if jwtSecret == "change_me_in_production" {
+		logger.Warn("Please remember to change the jwt secret from default value")
+	}
 	jwtExpiry := getEnvAsDuration("JWT_EXPIRY", "24h")
 	refreshExpiry := getEnvAsDuration("REFRESH_TOKEN_EXPIRY", "720h")
 
 	providers := make(map[string]OAuthProviderConfig)
-
+	// TODO: CONSIDER THIS TO BE A PART OF ENVS
 	// Google OAuth
 	if id := getEnv("GOOGLE_CLIENT_ID", ""); id != "" {
 		providers["google"] = OAuthProviderConfig{
@@ -172,14 +173,15 @@ func loadAuthConfig() AuthConfig {
 	}
 
 	return AuthConfig{
-		JWTSecret:          jwtSecret,
-		JWTExpiry:          jwtExpiry,
-		RefreshTokenExpiry: refreshExpiry,
-		EnableLocalLogin:   getEnvAsBool("ENABLE_LOCAL_LOGIN", true),
-		EnableRegistration: getEnvAsBool("ENABLE_REGISTRATION", true),
-		Require2FA:         getEnvAsBool("REQUIRE_2FA", false),
-		OAuthProviders:     providers,
-		FrontendURL:        getEnv("FRONTEND_URL", "http://localhost:5173"),
+		JWTSecret:               jwtSecret,
+		JWTExpiry:               jwtExpiry,
+		RefreshTokenExpiry:      refreshExpiry,
+		EnableLocalLogin:        getEnvAsBool("ENABLE_LOCAL_LOGIN", true),
+		EnableRegistration:      getEnvAsBool("ENABLE_REGISTRATION", true),
+		Require2FA:              getEnvAsBool("REQUIRE_2FA", false),
+		OAuthProviders:          providers,
+		FrontendURL:             getEnv("FRONTEND_URL", "http://localhost:5173"),
+		EnableAdminRegistration: getEnvAsBool("ENABLE_ADMIN_REGISTRATION", false),
 	}
 }
 func validateRequired() error {
@@ -346,12 +348,10 @@ func (c *Config) Validate() error {
 }
 
 func (c *Config) Print() {
-	fmt.Println("╔══════════════════════════════════════════════════════════╗")
-	fmt.Println("║           Campus Monitor - Configuration                ║")
-	fmt.Println("╚══════════════════════════════════════════════════════════╝")
-	fmt.Printf("Environment:     %s\n", c.Server.Environment)
+	fmt.Println("Campus Monitor config summary \n {")
+	fmt.Printf("\n Environment:     %s\n", c.Server.Environment)
 	fmt.Printf("Server:          %s:%d\n", c.Server.Host, c.Server.Port)
 	fmt.Printf("Database:        %s:%d/%s\n", c.Database.Host, c.Database.Port, c.Database.Database)
 	fmt.Printf("MQTT Broker:     %s:%d\n", c.MQTT.Broker, c.MQTT.Port)
-	fmt.Println("──────────────────────────────────────────────────────────")
+	fmt.Printf("\n } \n ")
 }

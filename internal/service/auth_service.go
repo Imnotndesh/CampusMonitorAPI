@@ -53,7 +53,7 @@ func NewAuthService(
 	}
 }
 
-func (s *AuthService) Register(ctx context.Context, username, email, password string) (*models.User, error) {
+func (s *AuthService) Register(ctx context.Context, username, email, password string, role models.UserRole) (*models.User, error) {
 	// Check if user exists
 	existing, _ := s.UserRepo.GetUserByUsername(ctx, username)
 	if existing != nil {
@@ -69,11 +69,14 @@ func (s *AuthService) Register(ctx context.Context, username, email, password st
 		return nil, err
 	}
 
+	if role == models.RoleAdmin && !s.Cfg.EnableAdminRegistration {
+		return nil, errors.New("not enabled")
+	}
 	user := &models.User{
 		Username:     username,
 		Email:        email,
 		PasswordHash: string(hash),
-		Role:         models.RoleUser,
+		Role:         role,
 	}
 	err = s.UserRepo.CreateUser(ctx, user)
 	if err != nil {

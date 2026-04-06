@@ -10,7 +10,8 @@ import (
 	"time"
 )
 
-type Level int
+type Level uint8
+type Mode uint8
 
 const (
 	DEBUG Level = iota
@@ -19,8 +20,6 @@ const (
 	ERROR
 	FATAL
 )
-
-type Mode int
 
 const (
 	MINIMAL Mode = iota
@@ -134,11 +133,17 @@ func (l *Logger) log(level Level, format string, args ...interface{}) {
 	}
 
 	if l.consoleOut != nil {
-		fmt.Fprintln(l.consoleOut, consoleMsg)
+		_, err := fmt.Fprintln(l.consoleOut, consoleMsg)
+		if err != nil {
+			return
+		}
 	}
 
 	if l.fileOut != nil {
-		fmt.Fprintln(l.fileOut, fileMsg)
+		_, err := fmt.Fprintln(l.fileOut, fileMsg)
+		if err != nil {
+			return
+		}
 	}
 
 	if level == FATAL {

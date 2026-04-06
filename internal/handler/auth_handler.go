@@ -2,6 +2,7 @@ package handler
 
 import (
 	"CampusMonitorAPI/internal/auth"
+	"CampusMonitorAPI/internal/models"
 	"context"
 	"encoding/json"
 	"fmt"
@@ -46,12 +47,11 @@ func (h *AuthHandler) RegisterRoutes(r *mux.Router) {
 	protected.HandleFunc("/2fa/disable", h.Disable2FA).Methods("POST")
 }
 
-// ---------- Request/Response Types ----------
-
 type registerRequest struct {
 	Username string `json:"username"`
 	Email    string `json:"email"`
 	Password string `json:"password"`
+	Role     string `json:"role,omitempty"`
 }
 
 type loginRequest struct {
@@ -92,8 +92,6 @@ type userResponse struct {
 	TwoFA    bool   `json:"2fa_enabled"`
 }
 
-// ---------- Handlers ----------
-
 func (h *AuthHandler) Register(w http.ResponseWriter, r *http.Request) {
 	var req registerRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
@@ -104,8 +102,17 @@ func (h *AuthHandler) Register(w http.ResponseWriter, r *http.Request) {
 		respondError(w, http.StatusBadRequest, "Missing fields")
 		return
 	}
-	user, err := h.authService.Register(r.Context(), req.Username, req.Email, req.Password)
+	desiredRole := models.RoleUser
+	if req.Role == "admin" {
+		desiredRole = models.RoleAdmin
+	}
+
+	user, err := h.authService.Register(r.Context(), req.Username, req.Email, req.Password, desiredRole)
 	if err != nil {
+		if err.Error() == "not enabled" {
+			respondError(w, http.StatusForbidden, "Admin registration is disabled")
+			return
+		}
 		h.log.Warn("Registration failed: %v", err)
 		respondError(w, http.StatusConflict, err.Error())
 		return
