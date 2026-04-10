@@ -121,10 +121,12 @@ func (s *AuthService) syncLDAPUser(ctx context.Context, userInfo map[string]inte
 	email := userInfo["email"].(string)
 	groupsRaw := userInfo["groups"].([]string)
 	role := models.RoleUser
+	s.log.Info("syncLDAPUser: groupsRaw = %v", groupsRaw)
 	for _, g := range groupsRaw {
-		g = strings.TrimSpace(g)
-		if strings.EqualFold(g, "campus_net_admins") {
+		s.log.Info("syncLDAPUser: checking group: %s", g)
+		if strings.Contains(strings.ToLower(g), "campus_net_admins") {
 			role = models.RoleAdmin
+			s.log.Info("syncLDAPUser: admin group matched! Setting role to admin")
 			break
 		}
 	}
