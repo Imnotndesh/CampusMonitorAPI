@@ -74,16 +74,22 @@ func (s *LDAPService) Authenticate(username, password string) (userInfo map[stri
 		email = username + "@ldap.local"
 	}
 	groups := userEntry.GetAttributeValues("memberOf")
-	// Simplify group names (strip DN)
+	s.log.Info("LDAP: Raw memberOf values: %v", groups)
 	for i, g := range groups {
-		// Extract CN=... from DN
-		if strings.HasPrefix(g, "CN=") {
-			parts := strings.Split(g, ",")
-			if len(parts) > 0 {
-				groups[i] = strings.TrimPrefix(parts[0], "CN=")
-			}
+		// Try to extract CN value
+		lower := strings.ToLower(g)
+		if strings.HasPrefix(lower, "cn=") {
+			parts := strings.SplitN(g, ",", 2)
+			cnPart := parts[0]
+			cnValue := strings.TrimPrefix(cnPart, "cn=")
+			cnValue = strings.TrimPrefix(cnValue, "CN=")
+			groups[i] = cnValue
+		} else {
+			groups[i] = g
 		}
+		s.log.Info("LDAP: Processed group[%d] = %s", i, groups[i])
 	}
+	s.log.Info("LDAP: User DN: %s", userDN)
 	userInfo = map[string]interface{}{
 		"username": username,
 		"email":    email,

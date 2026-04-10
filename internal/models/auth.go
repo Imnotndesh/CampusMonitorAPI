@@ -2,10 +2,11 @@ package models
 
 // AuthConfigResponse defines the structure for dynamic auth config
 type AuthConfigResponse struct {
-	EnableLocalLogin   bool               `json:"enable_local_login"`
-	EnableRegistration bool               `json:"enable_registration"`
-	Require2FA         bool               `json:"require_2fa"`
-	OIDCProviders      []OIDCProviderInfo `json:"oidc_providers"`
+	EnableLocalLogin        bool               `json:"enable_local_login"`
+	EnableRegistration      bool               `json:"enable_registration"`
+	EnableAdminRegistration bool               `json:"enable_admin_registration"` // add this
+	Require2FA              bool               `json:"require_2fa"`
+	OIDCProviders           []OIDCProviderInfo `json:"oidc_providers"`
 }
 type OIDCProviderInfo struct {
 	Name string `json:"name"`
@@ -41,7 +42,7 @@ type LoginResponse struct {
 	AccessToken   string `json:"access_token,omitempty"`
 	RefreshToken  string `json:"refresh_token,omitempty"`
 	TwoFARequired bool   `json:"2fa_required,omitempty"`
-	TempToken     string `json:"temp_token,omitempty"` // for 2FA step
+	TempToken     string `json:"temp_token,omitempty"`
 }
 
 type Verify2FARequest struct {
