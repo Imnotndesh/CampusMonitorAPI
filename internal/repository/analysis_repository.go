@@ -1,6 +1,7 @@
 package repository
 
 import (
+	"CampusMonitorAPI/internal/models"
 	"context"
 	"database/sql"
 	"fmt"
@@ -94,16 +95,6 @@ type NetworkHealth struct {
 	AvgLatency    float64   `json:"avg_latency"`
 	AvgPacketLoss float64   `json:"avg_packet_loss"`
 	HealthScore   float64   `json:"health_score"`
-}
-
-type AnomalyDetection struct {
-	ProbeID       string    `json:"probe_id"`
-	Timestamp     time.Time `json:"timestamp"`
-	MetricType    string    `json:"metric_type"`
-	Value         float64   `json:"value"`
-	ExpectedValue float64   `json:"expected_value"`
-	Deviation     float64   `json:"deviation"`
-	Severity      string    `json:"severity"`
 }
 
 func (r *AnalyticsRepository) GetRSSITimeSeries(ctx context.Context, probeID string, start, end time.Time, interval string) ([]TimeSeriesPoint, error) {
@@ -212,6 +203,42 @@ func (r *AnalyticsRepository) GetHeatmapData(ctx context.Context, start, end tim
 	return heatmap, nil
 }
 
+type DailyCoverage struct {
+	Day     time.Time `json:"day"`
+	HasData bool      `json:"has_data"`
+}
+
+func (r *AnalyticsRepository) GetDailyCoverage(ctx context.Context, probeID string, start, end time.Time) ([]models.DailyCoverage, error) {
+	whereClause := "timestamp >= $1 AND timestamp <= $2"
+	args := []interface{}{start, end}
+	if probeID != "" && probeID != "all" {
+		whereClause += " AND probe_id = $3"
+		args = append(args, probeID)
+	}
+	query := fmt.Sprintf(`
+        SELECT 
+            date_trunc('day', timestamp) as day,
+            COUNT(*) > 0 as has_data
+        FROM telemetry
+        WHERE %s
+        GROUP BY day
+        ORDER BY day
+    `, whereClause)
+	rows, err := r.db.QueryContext(ctx, query, args...)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var coverage []models.DailyCoverage
+	for rows.Next() {
+		var d models.DailyCoverage
+		if err := rows.Scan(&d.Day, &d.HasData); err != nil {
+			return nil, err
+		}
+		coverage = append(coverage, d)
+	}
+	return coverage, nil
+}
 func (r *AnalyticsRepository) GetChannelDistribution(ctx context.Context, start, end time.Time) ([]ChannelDistribution, error) {
 	query := `
 		SELECT 
@@ -232,7 +259,7 @@ func (r *AnalyticsRepository) GetChannelDistribution(ctx context.Context, start,
 	}
 	defer rows.Close()
 
-	dist := []ChannelDistribution{}
+	var dist []ChannelDistribution
 	for rows.Next() {
 		var c ChannelDistribution
 		var u sql.NullFloat64
@@ -530,7 +557,7 @@ func (r *AnalyticsRepository) GetNetworkHealth(ctx context.Context) (*NetworkHea
 	return health, nil
 }
 
-func (r *AnalyticsRepository) DetectAnomalies(ctx context.Context, probeID string, hours int) ([]AnomalyDetection, error) {
+func (r *AnalyticsRepository) DetectAnomalies(ctx context.Context, probeID string, hours int) ([]models.AnomalyDetection, error) {
 	query := `
 		WITH stats AS (
 			SELECT 
@@ -590,9 +617,9 @@ func (r *AnalyticsRepository) DetectAnomalies(ctx context.Context, probeID strin
 	}
 	defer rows.Close()
 
-	anomalies := []AnomalyDetection{}
+	anomalies := []models.AnomalyDetection{}
 	for rows.Next() {
-		var a AnomalyDetection
+		var a models.AnomalyDetection
 		a.ProbeID = probeID
 
 		if err := rows.Scan(&a.Timestamp, &a.MetricType, &a.Value, &a.ExpectedValue, &a.Deviation); err != nil {

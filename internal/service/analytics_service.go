@@ -1,6 +1,7 @@
 package service
 
 import (
+	"CampusMonitorAPI/internal/models"
 	"context"
 	"time"
 
@@ -32,7 +33,9 @@ func (s *AnalyticsService) GetLatencyTimeSeries(ctx context.Context, probeID str
 	s.log.Debug("Getting latency time series: probe=%s, interval=%s", probeID, interval)
 	return s.analyticsRepo.GetLatencyTimeSeries(ctx, probeID, start, end, interval)
 }
-
+func (s *AnalyticsService) GetDailyCoverage(ctx context.Context, probeID string, start, end time.Time) ([]models.DailyCoverage, error) {
+	return s.analyticsRepo.GetDailyCoverage(ctx, probeID, start, end)
+}
 func (s *AnalyticsService) GetHeatmapData(ctx context.Context, start, end time.Time) ([]repository.HeatmapData, error) {
 	s.log.Debug("Getting heatmap data")
 	return s.analyticsRepo.GetHeatmapData(ctx, start, end)
@@ -68,7 +71,7 @@ func (s *AnalyticsService) GetNetworkHealth(ctx context.Context) (*repository.Ne
 	return s.analyticsRepo.GetNetworkHealth(ctx)
 }
 
-func (s *AnalyticsService) DetectAnomalies(ctx context.Context, probeID string, hours int) ([]repository.AnomalyDetection, error) {
+func (s *AnalyticsService) DetectAnomalies(ctx context.Context, probeID string, hours int) ([]models.AnomalyDetection, error) {
 	s.log.Info("Detecting anomalies: probe=%s, hours=%d", probeID, hours)
 	return s.analyticsRepo.DetectAnomalies(ctx, probeID, hours)
 }

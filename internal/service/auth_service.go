@@ -8,6 +8,7 @@ import (
 	"errors"
 	rand2 "math/rand"
 	"net/url"
+	"strings"
 	"time"
 
 	"CampusMonitorAPI/internal/auth"
@@ -121,7 +122,8 @@ func (s *AuthService) syncLDAPUser(ctx context.Context, userInfo map[string]inte
 	groupsRaw := userInfo["groups"].([]string)
 	role := models.RoleUser
 	for _, g := range groupsRaw {
-		if g == "campus_admin_users" {
+		g = strings.TrimSpace(g)
+		if strings.EqualFold(g, "campus_net_admins") {
 			role = models.RoleAdmin
 			break
 		}

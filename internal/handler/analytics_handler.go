@@ -35,6 +35,7 @@ func (h *AnalyticsHandler) RegisterRoutes(r *mux.Router) {
 	r.HandleFunc("/analytics/health", h.GetNetworkHealth).Methods("GET")
 	r.HandleFunc("/analytics/anomalies/{probe_id}", h.DetectAnomalies).Methods("GET")
 	r.HandleFunc("/analytics/roaming/{probe_id}", h.GetRoamingAnalysis).Methods("GET")
+	r.HandleFunc("/analytics/coverage", h.GetDailyCoverage).Methods("GET")
 }
 
 func (h *AnalyticsHandler) GetRSSITimeSeries(w http.ResponseWriter, r *http.Request) {
@@ -214,6 +215,23 @@ func (h *AnalyticsHandler) GetRoamingAnalysis(w http.ResponseWriter, r *http.Req
 	}
 
 	respondJSON(w, http.StatusOK, data)
+}
+
+// GetDailyCoverage returns coverage per day for a probe.
+func (h *AnalyticsHandler) GetDailyCoverage(w http.ResponseWriter, r *http.Request) {
+	probeID := r.URL.Query().Get("probe_id")
+	if probeID == "" {
+		respondError(w, http.StatusBadRequest, "probe_id required")
+		return
+	}
+	start, end := parseTimeRange(r)
+	coverage, err := h.analyticsService.GetDailyCoverage(r.Context(), probeID, start, end)
+	if err != nil {
+		h.log.Error("Failed to get daily coverage: %v", err)
+		respondError(w, http.StatusInternalServerError, err.Error())
+		return
+	}
+	respondJSON(w, http.StatusOK, coverage)
 }
 
 func parseTimeRange(r *http.Request) (time.Time, time.Time) {

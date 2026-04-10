@@ -74,11 +74,9 @@ func (s *LDAPService) Authenticate(username, password string) (userInfo map[stri
 		email = username + "@ldap.local"
 	}
 	groups := userEntry.GetAttributeValues("memberOf")
-	// Simplify group names (strip DN)
 	for i, g := range groups {
-		// Extract CN=... from DN
 		if strings.HasPrefix(g, "CN=") {
-			parts := strings.Split(g, ",")
+			parts := strings.SplitN(g, ",", 2)
 			if len(parts) > 0 {
 				groups[i] = strings.TrimPrefix(parts[0], "CN=")
 			}

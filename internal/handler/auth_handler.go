@@ -37,7 +37,7 @@ func (h *AuthHandler) RegisterRoutes(r *mux.Router) {
 	r.HandleFunc("/2fa/verify", h.Verify2FA).Methods("POST")
 	r.HandleFunc("/refresh", h.RefreshToken).Methods("POST")
 	r.HandleFunc("/logout", h.Logout).Methods("POST")
-	r.HandleFunc("/auth/config", h.GetAuthConfig).Methods("GET")
+	r.HandleFunc("/config", h.GetAuthConfig).Methods("GET")
 
 	// Protected endpoints
 	protected := r.NewRoute().Subrouter()
@@ -427,10 +427,11 @@ func (h *AuthHandler) GetAuthConfig(w http.ResponseWriter, r *http.Request) {
 		})
 	}
 	resp := models.AuthConfigResponse{
-		EnableLocalLogin:   h.authService.Cfg.EnableLocalLogin,
-		EnableRegistration: h.authService.Cfg.EnableRegistration,
-		Require2FA:         h.authService.Cfg.Require2FA,
-		OIDCProviders:      providers,
+		EnableLocalLogin:        h.authService.Cfg.EnableLocalLogin,
+		EnableRegistration:      h.authService.Cfg.EnableRegistration,
+		EnableAdminRegistration: h.authService.Cfg.EnableAdminRegistration,
+		Require2FA:              h.authService.Cfg.Require2FA,
+		OIDCProviders:           providers,
 	}
 	respondJSON(w, http.StatusOK, resp)
 }
