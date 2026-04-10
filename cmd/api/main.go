@@ -117,9 +117,10 @@ func main() {
 	telemetryService := service.NewTelemetryService(telemetryRepo, probeRepo, alertEvaluator, log)
 	probeService := service.NewProbeService(probeRepo, log)
 	analyticsService := service.NewAnalyticsService(analyticsRepo, log)
+	ldapService := service.NewLDAPService(&cfg.Auth.LdapConfig, log)
 	authService := service.NewAuthService(
 		userRepo, oauthAccountRepo, totpRepo, refreshTokenRepo, oauthStateRepo,
-		&cfg.Auth, log, oauthConfigs,
+		&cfg.Auth, log, ldapService, oauthConfigs,
 	)
 	fleetService := service.NewFleetService(
 		fleetRepo,

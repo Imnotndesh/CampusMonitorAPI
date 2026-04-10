@@ -6,6 +6,7 @@ import (
 	"crypto/sha256"
 	"encoding/base64"
 	"errors"
+	rand2 "math/rand"
 	"net/url"
 	"time"
 
@@ -29,6 +30,7 @@ type AuthService struct {
 	Cfg              *config.AuthConfig
 	log              *logger.Logger
 	oauthConfigs     map[string]*oauth2.Config
+	LDAPService      *LDAPService
 }
 
 func NewAuthService(
@@ -39,6 +41,7 @@ func NewAuthService(
 	oauthStateRepo *repository.OAuthStateRepository,
 	cfg *config.AuthConfig,
 	log *logger.Logger,
+	ldapService *LDAPService,
 	oauthConfigs map[string]*oauth2.Config,
 ) *AuthService {
 	return &AuthService{
@@ -49,6 +52,7 @@ func NewAuthService(
 		oauthStateRepo:   oauthStateRepo,
 		Cfg:              cfg,
 		log:              log,
+		LDAPService:      ldapService,
 		oauthConfigs:     oauthConfigs,
 	}
 }
@@ -84,7 +88,83 @@ func (s *AuthService) Register(ctx context.Context, username, email, password st
 	}
 	return user, nil
 }
+func (s *AuthService) Login(ctx context.Context, username, password string) (*models.User, bool, error) {
+	// Try LDAP first if enabled
+	if s.LDAPService.IsEnabled() {
+		userInfo, err := s.LDAPService.Authenticate(username, password)
+		if err == nil && userInfo != nil {
+			// Sync LDAP user to local DB
+			user, syncErr := s.syncLDAPUser(ctx, userInfo)
+			if syncErr == nil {
+				// Check 2FA status after sync
+				totpSecret, _ := s.TotpRepo.GetByUserID(ctx, user.ID)
+				twoFARequired := totpSecret != nil && totpSecret.Enabled
+				return user, twoFARequired, nil
+			}
+			s.log.Warn("LDAP sync failed: %v", syncErr)
+		}
+		if err != nil {
+			s.log.Warn("LDAP authentication error: %v", err)
+			if !s.LDAPService.cfg.FallbackToLocal {
+				return nil, false, errors.New("invalid credentials")
+			}
+		}
+	}
+	// Fallback to local
+	return s.LoginLocal(ctx, username, password)
+}
 
+// syncLDAPUser creates or updates a local user from LDAP info.
+func (s *AuthService) syncLDAPUser(ctx context.Context, userInfo map[string]interface{}) (*models.User, error) {
+	username := userInfo["username"].(string)
+	email := userInfo["email"].(string)
+	groupsRaw := userInfo["groups"].([]string)
+	role := models.RoleUser
+	for _, g := range groupsRaw {
+		if g == "campus_admin_users" {
+			role = models.RoleAdmin
+			break
+		}
+	}
+
+	existing, _ := s.UserRepo.GetUserByUsername(ctx, username)
+	if existing == nil {
+		randomPwd := generateRandomPassword(16)
+		hash, _ := bcrypt.GenerateFromPassword([]byte(randomPwd), bcrypt.DefaultCost)
+		user := &models.User{
+			Username:     username,
+			Email:        email,
+			PasswordHash: string(hash),
+			Role:         role,
+		}
+		if err := s.UserRepo.CreateUser(ctx, user); err != nil {
+			return nil, err
+		}
+		if dn, ok := userInfo["dn"].(string); ok && dn != "" {
+			_ = dn
+		}
+		return user, nil
+	}
+	if existing.Email != email && email != "" {
+		existing.Email = email
+	}
+	if existing.Role != role {
+		existing.Role = role
+	}
+	if err := s.UserRepo.UpdateUser(ctx, existing); err != nil {
+		return nil, err
+	}
+	return existing, nil
+}
+
+func generateRandomPassword(n int) string {
+	const letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+	b := make([]byte, n)
+	for i := range b {
+		b[i] = letters[rand2.Intn(len(letters))]
+	}
+	return string(b)
+}
 func (s *AuthService) LoginLocal(ctx context.Context, username, password string) (*models.User, bool, error) {
 	user, err := s.UserRepo.GetUserByUsername(ctx, username)
 	if err != nil {
