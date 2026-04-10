@@ -2,6 +2,7 @@ package config
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"strconv"
 	"strings"
@@ -21,6 +22,7 @@ type Config struct {
 	Auth     AuthConfig
 }
 type AuthConfig struct {
+	LdapConfig              LDAPConfig
 	OAuthProviders          map[string]OAuthProviderConfig
 	JWTSecret               string
 	FrontendURL             string
@@ -80,6 +82,19 @@ type MQTTConfig struct {
 	RetainMessages bool
 	AutoReconnect  bool
 }
+type LDAPConfig struct {
+	Enabled            bool
+	Host               string
+	Port               int
+	BaseDN             string
+	BindDN             string
+	BindPassword       string
+	UserSearchBase     string
+	UserSearchFilter   string
+	TLSCertFile        string
+	InsecureSkipVerify bool
+	FallbackToLocal    bool
+}
 
 type SecurityConfig struct {
 	CORSAllowedOrigins []string
@@ -136,31 +151,7 @@ func loadAuthConfig() AuthConfig {
 
 	providers := make(map[string]OAuthProviderConfig)
 	// TODO: CONSIDER THIS TO BE A PART OF ENVS
-	// Google OAuth
-	if id := getEnv("GOOGLE_CLIENT_ID", ""); id != "" {
-		providers["google"] = OAuthProviderConfig{
-			ClientID:     id,
-			ClientSecret: getEnv("GOOGLE_CLIENT_SECRET", ""),
-			AuthURL:      "https://accounts.google.com/o/oauth2/auth",
-			TokenURL:     "https://oauth2.googleapis.com/token",
-			UserInfoURL:  "https://www.googleapis.com/oauth2/v2/userinfo",
-			Scopes:       []string{"openid", "email", "profile"},
-		}
-	}
-
-	// GitHub OAuth
-	if id := getEnv("GITHUB_CLIENT_ID", ""); id != "" {
-		providers["github"] = OAuthProviderConfig{
-			ClientID:     id,
-			ClientSecret: getEnv("GITHUB_CLIENT_SECRET", ""),
-			AuthURL:      "https://github.com/login/oauth/authorize",
-			TokenURL:     "https://github.com/login/oauth/access_token",
-			UserInfoURL:  "https://api.github.com/user",
-			Scopes:       []string{"user:email"},
-		}
-	}
-
-	// PocketID (example custom OAuth)
+	// PocketID
 	if id := getEnv("POCKETID_CLIENT_ID", ""); id != "" {
 		providers["pocketid"] = OAuthProviderConfig{
 			ClientID:     id,
@@ -169,6 +160,25 @@ func loadAuthConfig() AuthConfig {
 			TokenURL:     getEnv("POCKETID_TOKEN_URL", ""),
 			UserInfoURL:  getEnv("POCKETID_USERINFO_URL", ""),
 			Scopes:       strings.Split(getEnv("POCKETID_SCOPES", "openid profile email"), ","),
+		}
+	}
+	ldapCfg := LDAPConfig{
+		Enabled:            getEnvAsBool("LDAP_ENABLED", false),
+		Host:               getEnv("LDAP_HOST", ""),
+		Port:               getEnvAsInt("LDAP_PORT", 389),
+		BaseDN:             getEnv("LDAP_BASE_DN", ""),
+		BindDN:             getEnv("LDAP_BIND_DN", ""),
+		BindPassword:       getEnv("LDAP_BIND_PASSWORD", ""),
+		UserSearchBase:     getEnv("LDAP_USER_SEARCH_BASE", ""),
+		UserSearchFilter:   getEnv("LDAP_USER_SEARCH_FILTER", "(uid=%s)"),
+		TLSCertFile:        getEnv("LDAP_TLS_CERT_FILE", ""),
+		InsecureSkipVerify: getEnvAsBool("LDAP_INSECURE_SKIP_VERIFY", false),
+		FallbackToLocal:    getEnvAsBool("LDAP_FALLBACK_TO_LOCAL", false),
+	}
+	if ldapCfg.Enabled {
+		if ldapCfg.Host == "" || ldapCfg.BaseDN == "" || ldapCfg.UserSearchBase == "" {
+			log.Printf("[WARN] LDAP is enabled but missing required fields (host, base_dn, user_search_base). LDAP will be disabled.")
+			ldapCfg.Enabled = false
 		}
 	}
 
@@ -182,6 +192,7 @@ func loadAuthConfig() AuthConfig {
 		OAuthProviders:          providers,
 		FrontendURL:             getEnv("FRONTEND_URL", "http://localhost:5173"),
 		EnableAdminRegistration: getEnvAsBool("ENABLE_ADMIN_REGISTRATION", false),
+		LdapConfig:              ldapCfg,
 	}
 }
 func validateRequired() error {
@@ -213,7 +224,6 @@ func loadServerConfig() ServerConfig {
 		CertDir:         getEnv("CERT_DIR", "certs"),
 	}
 }
-
 func loadDatabaseConfig() DatabaseConfig {
 	return DatabaseConfig{
 		Host:            getEnv("DB_HOST", "localhost"),
@@ -339,7 +349,17 @@ func (c *Config) Validate() error {
 	if c.MQTT.Port < 1 || c.MQTT.Port > 65535 {
 		errors = append(errors, "MQTT_PORT must be between 1 and 65535")
 	}
-
+	if c.Auth.LdapConfig.Enabled {
+		if c.Auth.LdapConfig.Host == "" {
+			errors = append(errors, "LDAP_HOST is required when LDAP_ENABLED=true")
+		}
+		if c.Auth.LdapConfig.BaseDN == "" {
+			errors = append(errors, "LDAP_BASE_DN is required when LDAP_ENABLED=true")
+		}
+		if c.Auth.LdapConfig.UserSearchBase == "" {
+			errors = append(errors, "LDAP_USER_SEARCH_BASE is required when LDAP_ENABLED=true")
+		}
+	}
 	if len(errors) > 0 {
 		return fmt.Errorf("configuration validation failed:\n  - %s", strings.Join(errors, "\n  - "))
 	}

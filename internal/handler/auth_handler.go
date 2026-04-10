@@ -132,7 +132,7 @@ func (h *AuthHandler) Login(w http.ResponseWriter, r *http.Request) {
 		respondError(w, http.StatusBadRequest, "Invalid request")
 		return
 	}
-	user, twoFARequired, err := h.authService.LoginLocal(r.Context(), req.Username, req.Password)
+	user, twoFARequired, err := h.authService.Login(r.Context(), req.Username, req.Password)
 	if err != nil {
 		respondError(w, http.StatusUnauthorized, "Invalid credentials")
 		return
