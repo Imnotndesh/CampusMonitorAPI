@@ -37,6 +37,7 @@ func (h *AuthHandler) RegisterRoutes(r *mux.Router) {
 	r.HandleFunc("/2fa/verify", h.Verify2FA).Methods("POST")
 	r.HandleFunc("/refresh", h.RefreshToken).Methods("POST")
 	r.HandleFunc("/logout", h.Logout).Methods("POST")
+	r.HandleFunc("/auth/config", h.GetAuthConfig).Methods("GET")
 
 	// Protected endpoints
 	protected := r.NewRoute().Subrouter()
@@ -47,53 +48,8 @@ func (h *AuthHandler) RegisterRoutes(r *mux.Router) {
 	protected.HandleFunc("/2fa/disable", h.Disable2FA).Methods("POST")
 }
 
-type registerRequest struct {
-	Username string `json:"username"`
-	Email    string `json:"email"`
-	Password string `json:"password"`
-	Role     string `json:"role,omitempty"`
-}
-
-type loginRequest struct {
-	Username string `json:"username"`
-	Password string `json:"password"`
-}
-
-type loginResponse struct {
-	AccessToken   string `json:"access_token,omitempty"`
-	RefreshToken  string `json:"refresh_token,omitempty"`
-	TwoFARequired bool   `json:"2fa_required,omitempty"`
-	TempToken     string `json:"temp_token,omitempty"` // for 2FA step
-}
-
-type verify2FARequest struct {
-	TempToken string `json:"temp_token"`
-	Code      string `json:"code"`
-}
-
-type totpEnableResponse struct {
-	Secret string `json:"secret"`
-	URI    string `json:"uri"`
-}
-
-type totpActivateRequest struct {
-	Code string `json:"code"`
-}
-
-type refreshRequest struct {
-	RefreshToken string `json:"refresh_token"`
-}
-
-type userResponse struct {
-	ID       int    `json:"id"`
-	Username string `json:"username"`
-	Email    string `json:"email"`
-	Role     string `json:"role"`
-	TwoFA    bool   `json:"2fa_enabled"`
-}
-
 func (h *AuthHandler) Register(w http.ResponseWriter, r *http.Request) {
-	var req registerRequest
+	var req models.RegisterRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		respondError(w, http.StatusBadRequest, "Invalid request")
 		return
@@ -117,7 +73,7 @@ func (h *AuthHandler) Register(w http.ResponseWriter, r *http.Request) {
 		respondError(w, http.StatusConflict, err.Error())
 		return
 	}
-	respondJSON(w, http.StatusCreated, userResponse{
+	respondJSON(w, http.StatusCreated, models.UserResponse{
 		ID:       user.ID,
 		Username: user.Username,
 		Email:    user.Email,
@@ -127,7 +83,7 @@ func (h *AuthHandler) Register(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *AuthHandler) Login(w http.ResponseWriter, r *http.Request) {
-	var req loginRequest
+	var req models.LoginRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		respondError(w, http.StatusBadRequest, "Invalid request")
 		return
@@ -145,7 +101,7 @@ func (h *AuthHandler) Login(w http.ResponseWriter, r *http.Request) {
 			respondError(w, http.StatusInternalServerError, "Internal error")
 			return
 		}
-		respondJSON(w, http.StatusOK, loginResponse{
+		respondJSON(w, http.StatusOK, models.LoginResponse{
 			TwoFARequired: true,
 			TempToken:     tempToken,
 		})
@@ -157,7 +113,7 @@ func (h *AuthHandler) Login(w http.ResponseWriter, r *http.Request) {
 		respondError(w, http.StatusInternalServerError, "Internal error")
 		return
 	}
-	respondJSON(w, http.StatusOK, loginResponse{
+	respondJSON(w, http.StatusOK, models.LoginResponse{
 		AccessToken:  accessToken,
 		RefreshToken: refreshToken,
 	})
@@ -277,7 +233,7 @@ func (h *AuthHandler) getUserInfo(ctx context.Context, provider string, token *o
 }
 
 func (h *AuthHandler) Verify2FA(w http.ResponseWriter, r *http.Request) {
-	var req verify2FARequest
+	var req models.Verify2FARequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		respondError(w, http.StatusBadRequest, "Invalid request")
 		return
@@ -315,14 +271,14 @@ func (h *AuthHandler) Verify2FA(w http.ResponseWriter, r *http.Request) {
 		respondError(w, http.StatusInternalServerError, "Internal error")
 		return
 	}
-	respondJSON(w, http.StatusOK, loginResponse{
+	respondJSON(w, http.StatusOK, models.LoginResponse{
 		AccessToken:  accessToken,
 		RefreshToken: refreshToken,
 	})
 }
 
 func (h *AuthHandler) RefreshToken(w http.ResponseWriter, r *http.Request) {
-	var req refreshRequest
+	var req models.RefreshRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		respondError(w, http.StatusBadRequest, "Invalid request")
 		return
@@ -338,7 +294,7 @@ func (h *AuthHandler) RefreshToken(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *AuthHandler) Logout(w http.ResponseWriter, r *http.Request) {
-	var req refreshRequest
+	var req models.RefreshRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		respondError(w, http.StatusBadRequest, "Invalid request")
 		return
@@ -396,7 +352,7 @@ func (h *AuthHandler) GetMe(w http.ResponseWriter, r *http.Request) {
 	}
 	totpSecret, _ := h.authService.TotpRepo.GetByUserID(r.Context(), user.ID)
 	twoFA := totpSecret != nil && totpSecret.Enabled
-	respondJSON(w, http.StatusOK, userResponse{
+	respondJSON(w, http.StatusOK, models.UserResponse{
 		ID:       user.ID,
 		Username: user.Username,
 		Email:    user.Email,
@@ -423,7 +379,7 @@ func (h *AuthHandler) Enable2FA(w http.ResponseWriter, r *http.Request) {
 		respondError(w, http.StatusInternalServerError, "Internal error")
 		return
 	}
-	respondJSON(w, http.StatusOK, totpEnableResponse{
+	respondJSON(w, http.StatusOK, models.TotpEnableResponse{
 		Secret: secret,
 		URI:    uri,
 	})
@@ -435,7 +391,7 @@ func (h *AuthHandler) Activate2FA(w http.ResponseWriter, r *http.Request) {
 		respondError(w, http.StatusUnauthorized, "Unauthorized")
 		return
 	}
-	var req totpActivateRequest
+	var req models.TotpActivateRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		respondError(w, http.StatusBadRequest, "Invalid request")
 		return
@@ -461,4 +417,20 @@ func (h *AuthHandler) Disable2FA(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.WriteHeader(http.StatusNoContent)
+}
+func (h *AuthHandler) GetAuthConfig(w http.ResponseWriter, r *http.Request) {
+	var providers []models.OIDCProviderInfo
+	for name := range h.authService.Cfg.OAuthProviders {
+		providers = append(providers, models.OIDCProviderInfo{
+			Name: name,
+			Icon: models.MapProviderToIcon(name),
+		})
+	}
+	resp := models.AuthConfigResponse{
+		EnableLocalLogin:   h.authService.Cfg.EnableLocalLogin,
+		EnableRegistration: h.authService.Cfg.EnableRegistration,
+		Require2FA:         h.authService.Cfg.Require2FA,
+		OIDCProviders:      providers,
+	}
+	respondJSON(w, http.StatusOK, resp)
 }
