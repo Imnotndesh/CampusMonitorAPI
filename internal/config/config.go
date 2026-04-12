@@ -124,8 +124,9 @@ var requiredEnvVars = []string{
 }
 
 func Load() (*Config, error) {
-	if err := godotenv.Load(); err != nil {
-		return nil, fmt.Errorf("loading .env: %w", err)
+	envFile := getEnv("CONFIG_PATH", ".env")
+	if err := godotenv.Load(envFile); err != nil {
+		return nil, fmt.Errorf("loading .env from %s: %w", envFile, err)
 	}
 	if err := validateRequired(); err != nil {
 		return nil, err
