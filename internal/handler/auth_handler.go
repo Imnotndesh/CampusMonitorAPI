@@ -94,7 +94,6 @@ func (h *AuthHandler) Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if twoFARequired {
-		// Create a temporary token for 2FA step
 		tempToken, err := h.authService.CreateTemp2FAToken(user.ID)
 		if err != nil {
 			h.log.Error("Failed to create temp token: %v", err)
@@ -164,14 +163,12 @@ func (h *AuthHandler) OAuthCallback(w http.ResponseWriter, r *http.Request) {
 		respondError(w, http.StatusBadRequest, "Unsupported provider")
 		return
 	}
-	// Exchange code for token
 	token, err := cfg.Exchange(r.Context(), code)
 	if err != nil {
 		h.log.Error("OAuth token exchange failed: %v", err)
 		respondError(w, http.StatusInternalServerError, "OAuth exchange failed")
 		return
 	}
-	// Fetch user info (provider-specific). We'll need a helper map.
 	userInfo, err := h.getUserInfo(r.Context(), provider, token)
 	if err != nil {
 		h.log.Error("Failed to get user info: %v", err)
@@ -185,14 +182,12 @@ func (h *AuthHandler) OAuthCallback(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if twoFARequired {
-		// Need 2FA step
 		tempToken, err := h.authService.CreateTemp2FAToken(user.ID)
 		if err != nil {
 			h.log.Error("Failed to create temp token: %v", err)
 			respondError(w, http.StatusInternalServerError, "Internal error")
 			return
 		}
-		// Redirect back to frontend with temp token
 		redirectURL := redirectURI + "?temp_token=" + tempToken + "&2fa_required=true"
 		http.Redirect(w, r, redirectURL, http.StatusTemporaryRedirect)
 		return
@@ -307,8 +302,6 @@ func (h *AuthHandler) Logout(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNoContent)
 }
 
-// ---------- Protected Handlers ----------
-
 func (h *AuthHandler) authMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		tokenStr := extractToken(r)
@@ -321,8 +314,6 @@ func (h *AuthHandler) authMiddleware(next http.Handler) http.Handler {
 			http.Error(w, "Invalid token", http.StatusUnauthorized)
 			return
 		}
-		// If 2FA is enabled for user but token does not have TwoFA=true (should not happen because we only issue after 2FA)
-		// But we can still check; you might want to enforce that.
 		ctx := context.WithValue(r.Context(), "user", claims)
 		next.ServeHTTP(w, r.WithContext(ctx))
 	})
