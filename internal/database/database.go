@@ -44,7 +44,6 @@ func New(cfg *config.DatabaseConfig) (*Database, error) {
 		return nil, fmt.Errorf("failed to ping database: %w", err)
 	}
 
-	// Automatically initialize schema if not already present
 	if err := initSchema(db); err != nil {
 		return nil, fmt.Errorf("failed to initialize database schema: %w", err)
 	}
@@ -57,7 +56,6 @@ func New(cfg *config.DatabaseConfig) (*Database, error) {
 
 // initSchema creates all necessary tables, indexes, and the TimescaleDB hypertable if they don't exist.
 func initSchema(db *sql.DB) error {
-	// 1. Enable TimescaleDB extension (if not already enabled)
 	if _, err := db.Exec("CREATE EXTENSION IF NOT EXISTS timescaledb"); err != nil {
 		return fmt.Errorf("failed to enable timescaledb extension: %w", err)
 	}
@@ -282,7 +280,6 @@ func initSchema(db *sql.DB) error {
 		}
 	}
 
-	// 3. Create indexes (optional but improve performance)
 	indexQueries := []string{
 		"CREATE INDEX IF NOT EXISTS idx_telemetry_probe_time ON telemetry (probe_id, timestamp DESC)",
 		"CREATE INDEX IF NOT EXISTS idx_telemetry_timestamp ON telemetry (timestamp DESC)",

@@ -71,8 +71,6 @@ func (h *FleetHandler) RegisterRoutes(r *mux.Router) {
 	r.HandleFunc("/fleet/health", h.GetFleetHealth).Methods("GET")
 }
 
-// Fleet Probe Handlers
-
 func (h *FleetHandler) EnrollProbe(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	probeID := vars["id"]
@@ -92,7 +90,6 @@ func (h *FleetHandler) EnrollProbe(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Get user from context (assuming you have auth middleware)
 	user := getUserFromContext(r)
 
 	if err := h.fleetService.EnrollProbe(r.Context(), probeID, &req, user); err != nil {
@@ -180,8 +177,6 @@ func (h *FleetHandler) UpdateFleetProbe(w http.ResponseWriter, r *http.Request) 
 	})
 }
 
-// Fleet Command Handlers
-
 func (h *FleetHandler) SendFleetCommand(w http.ResponseWriter, r *http.Request) {
 	var req models.FleetCommandRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
@@ -257,8 +252,6 @@ func (h *FleetHandler) CancelFleetCommand(w http.ResponseWriter, r *http.Request
 		"message": "Command cancelled",
 	})
 }
-
-// Template Handlers
 
 func (h *FleetHandler) CreateTemplate(w http.ResponseWriter, r *http.Request) {
 	var template models.FleetConfigTemplate
@@ -438,7 +431,7 @@ func (h *FleetHandler) GetFleetHealth(w http.ResponseWriter, r *http.Request) {
 		"timestamp": time.Now(),
 		"services": map[string]bool{
 			"fleet_db": true,
-			"mqtt":     true, // You'd check actual MQTT connection
+			"mqtt":     true,
 		},
 	}
 
@@ -513,7 +506,7 @@ func (h *FleetHandler) GetGroupSchedules(w http.ResponseWriter, r *http.Request)
 	respondJSON(w, http.StatusOK, result)
 }
 
-// Helper function - replace with your actual auth middleware
+// Helper function
 func getUserFromContext(r *http.Request) string {
 	// This would come from your auth middleware
 	// For now, return a default
