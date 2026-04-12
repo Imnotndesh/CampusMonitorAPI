@@ -1,0 +1,17 @@
+[Unit]
+Description=Campus Monitor API Service
+After=network.target postgresql.service mosquitto.service
+
+[Service]
+Type=simple
+User=campus-monitor
+Group=campus-monitor
+ExecStart=/usr/bin/campus-monitor-api
+Restart=on-failure
+RestartSec=10
+Environment="CONFIG_PATH=/etc/campus-monitor-api/.env"
+WorkingDirectory=/var/lib/campus-monitor
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target

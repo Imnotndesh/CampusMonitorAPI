@@ -1,0 +1,98 @@
+version: 2
+
+project_name: campus-monitor-api
+
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - id: api
+    main: ./cmd/api
+    binary: campus-monitor-api
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - amd64
+      - arm64
+    ignore:
+      - goos: windows
+        goarch: arm64
+    flags:
+      - -trimpath
+    ldflags:
+      - -s -w
+      - -X main.version={{.Version}}
+      - -X main.commit={{.Commit}}
+      - -X main.date={{.Date}}
+
+archives:
+  - id: default
+    name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+    files:
+      - LICENSE
+      - README.md
+      - docs/API.md
+      - .env.example
+    format_overrides:
+      - goos: windows
+        formats: ['zip']
+
+nfpms:
+  - id: packages
+    package_name: campus-monitor-api
+    file_name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Arch }}"
+    vendor: "Imnotndesh"
+    homepage: "https://github.com/Imnotndesh/campus-monitor-api"
+    maintainer: "Your Name brian@ndegwa.uk"
+    description: "Campus Network Monitoring System Backend"
+    license: "GPLv3"
+    formats:
+      - deb
+      - rpm
+    bindir: /usr/bin
+    contents:
+      - src: ./LICENSE
+        dst: /usr/share/doc/campus-monitor-api/copyright
+        file_info:
+          mode: 0644
+      - src: ./.env.example
+        dst: /etc/campus-monitor-api/.env.example
+        type: config|noreplace
+        file_info:
+          mode: 0644
+      - src: ./scripts/campus-monitor-api.service
+        dst: /lib/systemd/system/campus-monitor-api.service
+        type: config|noreplace
+        file_info:
+          mode: 0644
+    scripts:
+      postinstall: ./scripts/postinstall.sh
+
+dockers:
+  - image_templates:
+      - "ghcr.io/{{ tolower .Env.GITHUB_REPOSITORY }}:{{ .Version }}"
+      - "ghcr.io/{{ tolower .Env.GITHUB_REPOSITORY }}:latest"
+    dockerfile: Dockerfile
+    build_flag_templates:
+      - "--label=org.opencontainers.image.created={{.Date}}"
+      - "--label=org.opencontainers.image.title={{.ProjectName}}"
+      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+      - "--label=org.opencontainers.image.version={{.Version}}"
+    goos: linux
+    goarch: amd64
+
+checksum:
+  name_template: "{{ .ProjectName }}_{{ .Version }}_checksums.txt"
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+      - '^ci:'
