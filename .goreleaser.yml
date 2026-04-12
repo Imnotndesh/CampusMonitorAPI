@@ -73,19 +73,6 @@ nfpms:
     scripts:
       postinstall: ./scripts/postinstall.sh
 
-dockers:
-  - image_templates:
-      - "ghcr.io/{{ tolower .Env.GITHUB_REPOSITORY }}:{{ .Version }}"
-      - "ghcr.io/{{ tolower .Env.GITHUB_REPOSITORY }}:latest"
-    dockerfile: Dockerfile
-    build_flag_templates:
-      - "--label=org.opencontainers.image.created={{.Date}}"
-      - "--label=org.opencontainers.image.title={{.ProjectName}}"
-      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
-      - "--label=org.opencontainers.image.version={{.Version}}"
-    goos: linux
-    goarch: amd64
-
 checksum:
   name_template: "{{ .ProjectName }}_{{ .Version }}_checksums.txt"
 
